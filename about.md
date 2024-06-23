@@ -2,7 +2,6 @@
 layout: page
 title: About
 permalink: /about/
-nav_exclude: true
 ---
 
 # About Me

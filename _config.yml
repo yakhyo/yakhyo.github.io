@@ -33,6 +33,11 @@ theme: minima
 plugins:
   - jekyll-feed
 
+header_pages:
+  - blog.md
+  - portfolio.md
+  - resume.md
+
 google_analytics: G-ZST0SDQ0FW
 show_excerpts: true
 
