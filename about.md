@@ -1,10 +1,11 @@
 ---
 layout: page
-# title: About
+title: About
 permalink: /about/
+nav_exclude: true
 ---
 
-## About Me
+# About Me
 
 Welcome to my blog! My name is [Your Name], and I am passionate about [Your Interests or Profession].
 
