@@ -3,6 +3,21 @@ layout: page
 permalink: /
 ---
 
+<script>
+    function checkWindowHeight() {
+        var footer = document.querySelector('footer');
+        if (window.innerHeight > 900) { // Adjust the height threshold as needed
+            footer.style.display = 'block';
+        } else {
+            footer.style.display = 'none';
+        }
+    }
+
+    // Run the function on window load and resize
+    window.onload = checkWindowHeight;
+    window.onresize = checkWindowHeight;
+</script>
+
 <style>
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
