@@ -10,7 +10,7 @@ Welcome to my blog! My name is **Yakhyo**, and I am passionate about machine lea
 
 ## Background 🎓
 
-I have a background as an ML Software Engineer with 3+ years of industrial and 2+ years of academic experience delivering impactful solutions across various industries. I enjoy sharing my knowledge and experiences through my writing. I also have a YouTube channel where I share tutorials on programming languages. This blog is a space where I document my thoughts, ideas, and insights on various topics that interest me.
+I have a background as an ML Software Engineer with 3+ years of industrial and 2+ years of academic experience delivering impactful solutions across various industries. I hold a Master's degree in Computer Science from Gachon University. I enjoy sharing my knowledge and experiences through my writing. I also have a YouTube channel where I share tutorials on programming languages. This blog is a space where I document my thoughts, ideas, and insights on various topics that interest me.
 
 ## Interests 🌟
 
