@@ -23,6 +23,12 @@ permalink: /portfolio/
     width: 100%;
     border-radius: 5px;
 }
+
+@media (max-width: 768px) {
+    .project {
+        flex: 1 1 100%; /* One column on smaller devices */
+    }
+}
 </style>
 
 <div class="projects-container">
