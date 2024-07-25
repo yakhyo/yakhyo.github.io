@@ -6,13 +6,13 @@ permalink: /resume/
 
 [GitHub 🐱‍💻](https://github.com/yakhyo) &#124; [Google Scholar 📚](https://scholar.google.com/citations?user=I66QbJIAAAAJ&hl=en) &#124; [StackOverflow 🖥️](https://stackoverflow.com/users/14815986/yakhyo) &#124; [LeetCode 🧩](https://leetcode.com/y_valikhujaev) &#124; [LinkedIn 🔗](https://www.linkedin.com/in/y-valikhujaev/)
 
-## ML Software Engineer
+## ML Software Engineer 🤖
 
 Passionate ML/DL/CV/NLP Engineer with 3+ years of industrial and 2+ years of academic experience delivering impactful solutions across various industries. Proficient in supervised, self-supervised, and transfer learning, with in-depth experience in OCR, object detection, segmentation, tracking, video recognition, and action classification.
 
 Skilled in developing and deploying machine learning models on AWS and GCP, building and optimizing pipelines, containerization, and collaborating with cross-functional teams to drive business growth.
 
-## Skills Summary
+## Skills Summary 🛠️
 
 - **Programming Languages:** Python, C/C++, Java.
 - **Database Management:** MySQL, PostgreSQL, PySpark.
@@ -22,9 +22,9 @@ Skilled in developing and deploying machine learning models on AWS and GCP, buil
 - **Cloud:** AWS EC2, GCP.
 - **Main Competencies:** Object Detection, Object Tracking, OCR, Clustering, Re-Identification, Medical Imaging, Image Restoration & Enhancement, DeepFakes, Generative Models, Vision-Language Models, Large-Language Models, Natural Language Processing, Building End-to-End Pipelines, Deployment Pipelines, GCP Deployment.
 
-## Work Experience
+## Work Experience 💼
 
-### AI Research Engineer
+### AI Research Engineer 🧠
 
 **[Aria Studios Co. Ltd](https://showaria.com/)** &#124; **March 2024 - Present**
 
@@ -32,10 +32,10 @@ Skilled in developing and deploying machine learning models on AWS and GCP, buil
 - **GPT Fine-tuning**: Fine-tuned the GPT-3.5-turbo model on conversation data of a virtual character to build a custom API for the virtual assistant. Performed several data augmentations using the OpenAI API for paraphrasing conversations.
 - **LLMs Deployment**: Deployed a lightweight Phi-3 model for emotion detection from text on GCP using FastAPI and prepared a deployment container. The main objective was to detect users' emotions while interacting with a virtual character and responding accordingly.
 - **VLMs Deployment**: Developed an "eye" for a virtual character to see and understand its surroundings, enabling it to interact with users. Deployed the Phi-3-Vision model on GCP for this purpose.
-- **Face Parsing**: To improve face swapping performance, employed a Face Parsing model to segment the face. Enhanced model performance by modifying the feature extractor (backbone). Implementation can be found [here](https://github.com/yakhyo/face-parsing).
+- **Face Parsing**: To improve face swapping performance, employed a Face Parsing model to segment the face. Enhanced model performance by modifying the feature extractor (backbone) and training strategy. Implementation can be found [here](https://github.com/yakhyo/face-parsing).
 - **Image enhancement & Face restoration & DeepFake**: Worked on image enhancement and face restoration to improve DeepFakes. Created a DeepFake video for KBS election process coverage. Can be seen [here](https://www.youtube.com/live/CGbvG8S7HHo?si=8j4R4-f5ICfz01GF).
 
-### ML Engineer
+### ML Engineer 🖥️
 
 **[Pyler Co. Ltd](https://www.pyler.tech/)** &#124; **July 2022 - September 2023**
 
@@ -43,7 +43,7 @@ Skilled in developing and deploying machine learning models on AWS and GCP, buil
 - **Detection-based Visual Content Moderation**: Utilized segmentation and detection techniques to precisely detect unsuitable content for brand safety. Implemented state-of-the-art models in terms of real-time speed and efficiency, improving model precision and recall by around 15% through active learning techniques. Built an end-to-end pipeline on Kubeflow for training and deployment.
 - **Classification-based Visual Content Moderation**: Leveraged multi-label and multi-head classification techniques to improve precision by approximately 20% using self-supervised and supervised training approaches. This novel approach showcases the adaptability and efficacy of the model for hard samples. Prepared Docker images for each development and deployment environment (containerization).
 
-### AI Research Engineer
+### AI Research Engineer 🧠
 
 **[D-Meta Co. Ltd](https://www.d-meta.ai/)** &#124; **November 2020 - July 2022**
 
@@ -51,37 +51,38 @@ Skilled in developing and deploying machine learning models on AWS and GCP, buil
 - **Automatic Number Plate Recognition**: Designed and developed an ANPR model to accurately detect and recognize number plates. Leveraged active learning and synthetic image generation techniques to improve precision and recall by around 15%.
 - **Car Damage Detection**: Built a lightweight damage detection model and deployed it on an Android device using TorchScript. Improved the precision of the model by around 10% by tuning the model parameters.
 
-## Research Experience
+## Research Experience 📚
 
-### Research Assistant
+### Research Assistant 🧑‍🔬
 
 **AI and SC Lab** &#124; **Sep 2018 - Nov 2020**
 
 - **Computer Vision based Fire and Smoke Detection**: Designed and implemented a dilated CNN architecture for improved feature extraction and recognition in images/videos. By carefully tuning and optimizing the model, achieved a high level of accuracy in fire and smoke detection, reducing false positives and achieving 1.5x faster inference speed compared to the fastest counterpart.
 - **Model Optimization for Edge Devices**: Improved the FPS on Edge device (Raspberry PI 2) by using hyper-parameter tuning and quantization for the detection model.
 
-## Education
+## Education 🎓
 
 | **Institution**                                 | **Degree**                                                                | **Duration**        |
 | ----------------------------------------------- | ------------------------------------------------------------------------- | ------------------- |
 | Gachon University                               | MSc in Computer Engineering; advised by Prof. Young Im Cho; GPA: 4.01/4.5 | Sep 2018 - Feb 2021 |
 | Tashkent University of Information Technologies | BSc in Computer Engineering; GPA(%): 85/100                               | Sep 2014 - Jun 2018 |
 
-## Publications
+## Publications 📝
 
 - **Valikhujaev Y**, Abdusalomov A, Cho YI. Automatic Fire and Smoke Detection Method for Surveillance Systems Based on Dilated CNNs. Atmosphere, **IF 2.9**. 2020; 11(11):1241. [https://doi.org/10.3390/atmos11111241](https://doi.org/10.3390/atmos11111241).
 - Muksimova SH, **Valikhujaev Y**, Cho YI. Automatic Fire and Smoke Detection System for Open Street CCTV Systems in Smart City Platforms. Korean Society of Information Scientists and Engineers, 412-414 pages, Domestic Conference.
 
-## Honors
+## Honors 🏆
 
 - **Best paper award** from Fire Investigation Society of Korea (FISK); (Domestic Conference, 2020)
 - **Best presentation award** from ISIS2019 & ICBAKE2019; (Domestic Conference, 2019)
 
-## Languages
+## Languages 🌐
 
-- **English:** Full Professional Proficiency (C1 Advanced, IELTS band 7)
+- **English:** Full Professional Proficiency (C1 Advanced)
 - **Korean:** Limited Working Proficiency (B1 Pre-Intermediate)
 - **Uzbek:** Native Proficiency
 - **Russian:** Limited Working Proficiency
 
-Last Updated: 2024-06-20
+<br>
+_Last Updated: 2024-06-20_
