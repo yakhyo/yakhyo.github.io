@@ -44,3 +44,5 @@ For more detailed instructions, refer to the [Jekyll documentation](https://jeky
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Please give credit ❤️ when using this template by linking to this repository.
