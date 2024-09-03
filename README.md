@@ -1,5 +1,7 @@
 # Custom Github Pages Theme for Blogging
 
+![pages build deployment](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
+
 <div align="center">
   <img src="assets/images/homepage.webp" alt="Custom Jekyll theme for Blog">
 </div>
