@@ -51,6 +51,27 @@ button.active {
 </div>
 
 <div class="projects-container">
+    <div class="project" data-tags="segmentation face">
+        <h3>Face Parsing</h3>
+        <a href="https://yakhyo.github.io/face-parsing/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/face-parsing" alt="Face Parsing GitHub Preview">
+        </a>
+        <p>Implements BiSeNet for real-time semantic segmentation of facial features, useful for applications like digital makeup and augmented reality. <a href="https://github.com/yakhyo/face-parsing" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="detection">
+        <h3>YOLO2VOC</h3>
+        <a href="https://yakhyo.github.io/yolo2voc/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/yolo2voc" alt="YOLO2VOC GitHub Preview">
+        </a>
+        <p>This project provides tools to convert YOLO annotation format to Pascal VOC format and vice versa using Python. It includes scripts for both relative and absolute coordinate conversions, supporting flexible dataset management. <a href="https://github.com/yakhyo/yolo2voc" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="tutorial">
+        <h3>PyTorch Tutorials</h3>
+        <a href="https://yakhyo.github.io/pytorch-tutorials/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/pytorch-tutorials" alt="PyTorch Tutorials GitHub Preview">
+        </a>
+        <p>A collection of tutorials and examples for learning PyTorch. It covers basic to advanced topics, helping users to understand and implement various deep learning models. <a href="https://github.com/yakhyo/pytorch-tutorials" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
     <div class="project" data-tags="segmentation">
         <h3>Crack Segmentation</h3>
         <a href="https://yakhyo.github.io/crack-segmentation/" target="_blank">
@@ -58,12 +79,19 @@ button.active {
         </a>
         <p>Focuses on identifying and segmenting road cracks using a UNet model. It provides various loss function implementations to evaluate performance​. <a href="https://github.com/yakhyo/crack-segmentation" target="_blank">Learn more on GitHub</a>.</p>
     </div>
-    <div class="project" data-tags="segmentation face">
-        <h3>Face Parsing</h3>
-        <a href="https://yakhyo.github.io/face-parsing/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/face-parsing" alt="Face Parsing GitHub Preview">
+    <div class="project" data-tags="classification">
+        <h3>DarkNet PyTorch</h3>
+        <a href="https://yakhyo.github.io/darknet-pytorch/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/darknet-pytorch" alt="DarkNet PyTorch GitHub Preview">
         </a>
-        <p>Implements BiSeNet for real-time semantic segmentation of facial features, useful for applications like digital makeup and augmented reality. <a href="https://github.com/yakhyo/face-parsing" target="_blank">Learn more on GitHub</a>.</p>
+        <p>Reimplementation of DarkNet in PyTorch for flexibility and performance. Supports DarkNet[19/53] [CSP/Elastic] Bacbones. <a href="https://github.com/yakhyo/darknet-pytorch" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="detection">
+        <h3>YOLOv1 PyTorch</h3>
+        <a href="https://yakhyo.github.io/yolov1-pytorch/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/yolov1-pytorch" alt="YOLOv1 PyTorch GitHub Preview">
+        </a>
+        <p>Implementation of YOLOv1 (Real-Time Object Detection) using PyTorch. This project includes training scripts, evaluation metrics, and pre-trained models, making it a comprehensive solution for object detection tasks. <a href="https://github.com/yakhyo/yolov1-pytorch" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="face">
         <h3>Face Identification</h3>
@@ -72,12 +100,47 @@ button.active {
         </a>
         <p>This repository uses SCRFD for face detection and ArcFace for face recognition, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/face-reidentification" target="_blank">Learn more on GitHub</a>.</p>
     </div>
+    <div class="project" data-tags="face">
+        <h3>Gaze Estimation</h3>
+        <a href="https://yakhyo.github.io/gaze-estimation/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/gaze-estimation" alt="Gaze Estimation GitHub Preview">
+        </a>
+        <p>This project aims to perform gaze estimation using several deep learning models like ResNet, MobileNet v2, and MobileOne, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/gaze-estimation" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="face">
+        <h3>Head Pose Estimation</h3>
+        <a href="https://yakhyo.github.io/head-pose-estimation/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/head-pose-estimation" alt="Head Pose GitHub Preview">
+        </a>
+        <p>This project focuses on head pose estimation using various deep learning models, including ResNet (18, 34, 50) and MobileNet v2, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/head-pose-estimation" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="style transfer">
+        <h3>Fast Neural Style Transfer</h3>
+        <a href="https://yakhyo.github.io/fast-neural-style-transfer/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/fast-neural-style-transfer" alt="Fast Neural Style Transfer GitHub Preview">
+        </a>
+        <p>This project implements fast neural style transfer using PyTorch. It applies artistic styles to images in real-time, leveraging the MSCOCO dataset for training and offering deployment options with Flask. <a href="https://github.com/yakhyo/fast-neural-style-transfer" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="face">
+        <h3>Face Analysis</h3>
+        <a href="https://yakhyo.github.io/facial-analysis/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/facial-analysis" alt="Face Analysis GitHub Preview">
+        </a>
+        <p>This repository contains functionalities for face detection, age and gender classification, face recognition, and facial landmark detection. It supports inference from an image or webcam/video sources. <a href="https://github.com/yakhyo/facial-analysis" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
     <div class="project" data-tags="detection">
-        <h3>ONNX Runtime Inference</h3>
+        <h3>YOLOv5 ONNX Runtime Inference</h3>
         <a href="https://yakhyo.github.io/yolov5-onnx-inference/" target="_blank">
             <img src="https://opengraph.githubassets.com/1/yakhyo/yolov5-onnx-inference" alt="YOLOv5 ONNX Inference GitHub Preview">
         </a>
         <p>This repository contains code and instructions for performing object detection using YOLOv5 inference with ONNX Runtime. <a href="https://github.com/yakhyo/yolov5-onnx-inference" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="detection">
+        <h3>Human Detection ONNX Runtime Inference</h3>
+        <a href="https://yakhyo.github.io/yolov5-crowdhuman-onnx/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/yolov5-crowdhuman-onnx" alt="YOLOv5 ONNX Inference GitHub Preview">
+        </a>
+        <p>This repository contains code and instructions for performing object detection using the YOLOv5 model with the CrowdHuman dataset, utilizing ONNX Runtime for inference.. <a href="https://github.com/yakhyo/yolov5-crowdhuman-onnx" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="detection">
         <h3>License Plate Detection</h3>
@@ -85,13 +148,6 @@ button.active {
             <img src="https://opengraph.githubassets.com/1/yakhyo/yolov5-license-plate-detection" alt="YOLOv5 License Plate Detection GitHub Preview">
         </a>
         <p>This repository contains code and instructions for performing license plate detection using YOLOv5 inference with ONNX Runtime. <a href="https://github.com/yakhyo/yolov5-license-plate-detection" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="classification">
-        <h3>DarkNet PyTorch</h3>
-        <a href="https://yakhyo.github.io/darknet-pytorch/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/darknet-pytorch" alt="DarkNet PyTorch GitHub Preview">
-        </a>
-        <p>Reimplementation of DarkNet in PyTorch for flexibility and performance in deep learning. <a href="https://github.com/yakhyo/darknet-pytorch" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="detection face">
         <h3>FaceBoxes PyTorch</h3>
@@ -107,26 +163,12 @@ button.active {
         </a>
         <p>This project implements the UNet architecture using PyTorch for image segmentation tasks. Trained on the Carvana dataset, it uses Dice loss and Cross-Entropy loss for training and offers high performance and flexibility. <a href="https://github.com/yakhyo/unet-pytorch" target="_blank">Learn more on GitHub</a>.</p>
     </div>
-    <div class="project" data-tags="style transfer">
-        <h3>Fast Neural Style Transfer</h3>
-        <a href="https://yakhyo.github.io/fast-neural-style-transfer/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/fast-neural-style-transfer" alt="Fast Neural Style Transfer GitHub Preview">
-        </a>
-        <p>This project implements fast neural style transfer using PyTorch. It applies artistic styles to images in real-time, leveraging the MSCOCO dataset for training and offering deployment options with Flask. <a href="https://github.com/yakhyo/fast-neural-style-transfer" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
     <div class="project" data-tags="detection ocr">
         <h3>EAST PyTorch</h3>
         <a href="https://yakhyo.github.io/east-pytorch/" target="_blank">
             <img src="https://opengraph.githubassets.com/1/yakhyo/east-pytorch" alt="EAST PyTorch GitHub Preview">
         </a>
         <p>Reimplementation of "EAST: An Efficient and Accurate Scene Text Detector" using PyTorch. This project provides an efficient and accurate model for text detection in natural scenes, trained on the ICDAR2015 dataset. <a href="https://github.com/yakhyo/east-pytorch" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="tutorial">
-        <h3>PyTorch Tutorials</h3>
-        <a href="https://yakhyo.github.io/pytorch-tutorials/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/pytorch-tutorials" alt="PyTorch Tutorials GitHub Preview">
-        </a>
-        <p>A collection of tutorials and examples for learning PyTorch. It covers basic to advanced topics, helping users to understand and implement various deep learning models. <a href="https://github.com/yakhyo/pytorch-tutorials" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="ocr">
         <h3>Captcha Reader PyTorch</h3>
@@ -141,20 +183,6 @@ button.active {
             <img src="https://opengraph.githubassets.com/1/yakhyo/korean-license-plate-generator" alt="Korean License Plate Generator GitHub Preview">
         </a>
         <p>This project generates images of Korean license plates with YOLO format labels using Python. It provides scripts for generating passenger car and truck license plate images, as well as tools for label distribution analysis. <a href="https://github.com/yakhyo/korean-license-plate-generator" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="detection">
-        <h3>YOLO2VOC</h3>
-        <a href="https://yakhyo.github.io/yolo2voc/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/yolo2voc" alt="YOLO2VOC GitHub Preview">
-        </a>
-        <p>This project provides tools to convert YOLO annotation format to Pascal VOC format and vice versa using Python. It includes scripts for both relative and absolute coordinate conversions, supporting flexible dataset management. <a href="https://github.com/yakhyo/yolo2voc" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="detection">
-        <h3>YOLOv1 PyTorch</h3>
-        <a href="https://yakhyo.github.io/yolov1-pytorch/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/yolov1-pytorch" alt="YOLOv1 PyTorch GitHub Preview">
-        </a>
-        <p>Implementation of YOLOv1 (Real-Time Object Detection) using PyTorch. This project includes training scripts, evaluation metrics, and pre-trained models, making it a comprehensive solution for object detection tasks. <a href="https://github.com/yakhyo/yolov1-pytorch" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="segmentation">
         <h3>DeepLabV3 PyTorch</h3>
