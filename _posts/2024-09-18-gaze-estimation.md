@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exploring Gaze Estimation Using Lightweight Models"
+title: "Real-Time Gaze Estimation Using Lightweight Models"
 date: 2024-09-18 00:00:00 +0900
 categories: deep-learning computer-vision machine-learning neural-networks gaze-estimation
 ---
@@ -35,3 +35,5 @@ There are numerous possibilities for extending this work. Some potential directi
 - Optimizing for even lower-latency applications in AR/VR.
 - Enhancing robustness in low-light and challenging environmental conditions.
 - Exploring more advanced architectures for further reducing model size without sacrificing accuracy.
+
+Feel free to check out the project, share your thoughts, or contribute to its growth. I’m always open to feedback and collaboration! 💬
