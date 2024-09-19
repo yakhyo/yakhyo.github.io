@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Geometric Perspective of Vectors 📐✨"
+title: "Geometric Perspective of Vectors"
 date: 2024-09-19 14:10:00 +0900
 categories: mathematics machine-learning linear-algebra calculus
 ---
