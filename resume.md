@@ -90,10 +90,10 @@ and collaborating with cross-functional teams to drive business growth.
 - **Uzbek:** Native Proficiency
 - **Russian:** Limited Working Proficiency
 
+---
 <br>
 _Last Updated: 2024-09-19_
 
-<br>
 <code> Click below to download in .pdf format </code>
 
 <a href="https://github.com/yakhyo/yakhyo.github.io/releases/download/v0.0.1/yakhyo_cv.pdf"> <img src="{{ site.baseurl }}/assets/images/download-pdf.webp" width="64px"> </a>
