@@ -36,6 +36,7 @@ plugins:
 header_pages:
   - blog.md
   - portfolio.md
+  - courses.md
   - resume.md
 
 google_analytics: G-ZST0SDQ0FW
