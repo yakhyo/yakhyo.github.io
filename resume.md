@@ -27,7 +27,7 @@ and collaborating with cross-functional teams to drive business growth.
 
 ## Work Experience 💼
 
-### AI Research Engineer 🧠
+### ML Engineer 🧠
 
 **[Aria Studios Co. Ltd](https://showaria.com/)** &#124; **March 2024 - Present**
 
