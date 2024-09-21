@@ -19,19 +19,29 @@ I prepared these courses during my Master's studies in 2020, amidst the pandemic
     opacity: 0.7;
   }
   .course {
-    width: 45%;
-    display: inline-block;
-    vertical-align: top;
-    margin: 10px;
+    width: 100%;
+    margin: 15px auto;
     text-align: center;
+  }
+  .course-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
   }
   .course-description {
     margin-top: 5px;
     font-weight: bold;
   }
+  
+  @media (min-width: 768px) {
+    .course {
+      width: 45%;
+    }
+  }
 </style>
 
-<p align="center">
+<div class="course-container">
   <div class="course">
     <a href="https://youtube.com/playlist?list=PLPCDJXWqKXKEYN2Ke6v79YmDs9K3YK27v&feature=shared">
       <img src="https://img.youtube.com/vi/73WtJpt_4gA/maxresdefault.jpg" alt="Python Lessons" class="thumbnail" />
@@ -51,9 +61,9 @@ I prepared these courses during my Master's studies in 2020, amidst the pandemic
     This playlist includes the core concepts of C++ programming. You will become familiar with C++ syntax, data types, and object-oriented programming styles. The lessons are presented clearly and understandably.
     </p>
   </div>
-</p>
+</div>
 
-<p align="center">
+<div class="course-container">
   <div class="course">
     <a href="https://youtube.com/playlist?list=PLPCDJXWqKXKEM3kJgJeo8dD8KK5bT4Cdx&feature=shared">
       <img src="https://img.youtube.com/vi/L8MHt0be6pI/maxresdefault.jpg" alt="Java Lessons" class="thumbnail" />
@@ -73,7 +83,7 @@ I prepared these courses during my Master's studies in 2020, amidst the pandemic
     This playlist on algorithms and problem-solving, which is a crucial part of programming, will teach you how to solve problems through practical examples and exercises. The lessons will enhance your programming skills.
     </p>
   </div>
-</p>
+</div>
 
 Enhance your programming knowledge through these video lessons and start building your own projects! 🚀💻
 
