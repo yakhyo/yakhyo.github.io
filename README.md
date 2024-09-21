@@ -40,6 +40,7 @@
 
 - **Configuration:** Edit `_config.yml` to customize your site.
 - **Adding Posts:** Add new posts in the `_posts` directory.
+- **Comments:**: To add comments create a disqus account -> create a shortname -> add to `_config.yaml`.
 
 For more detailed instructions, refer to the [Jekyll documentation](https://jekyllrb.com/docs/).
 
