@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Exploring Life Through the Lens of a Computer Scientist: AI, Tech, and Beyond.
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://www.yakhyo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://yakhyo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: y_valikhujaev
 github_username: yakhyo
 
@@ -38,6 +38,9 @@ header_pages:
   - portfolio.md
   - courses.md
   - resume.md
+
+disqus:
+  shortname: yakhyo
 
 google_analytics: G-ZST0SDQ0FW
 show_excerpts: true

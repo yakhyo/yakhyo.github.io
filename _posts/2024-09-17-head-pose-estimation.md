@@ -2,6 +2,7 @@
 layout: post
 title: "Real-Time Head Pose Estimation with Powerful Backbones"
 date: 2024-09-17 00:00:00 +0900
+comments: true
 categories: deep-learning computer-vision machine-learning neural-networks head-pose-estimation
 ---
 

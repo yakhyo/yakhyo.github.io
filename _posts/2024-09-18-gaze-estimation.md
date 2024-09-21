@@ -2,6 +2,7 @@
 layout: post
 title: "Real-Time Gaze Estimation Using Lightweight Models"
 date: 2024-09-18 00:00:00 +0900
+comments: true
 categories: deep-learning computer-vision machine-learning neural-networks gaze-estimation
 ---
 
