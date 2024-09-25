@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: post
 title: Courses
+comments: true
 permalink: /courses/
 ---
 
