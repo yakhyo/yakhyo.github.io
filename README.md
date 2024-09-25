@@ -1,6 +1,8 @@
 # Custom Github Pages Theme for Blogging
 
-![pages build deployment](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
+![GitHub License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io) ![Build Deployment](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
+
+<a href='https://yakhyo.github.io'>Theme preview</a>
 
 <div align="center">
   <img src="assets/images/homepage.webp" alt="Custom Jekyll theme for Blog">
@@ -31,6 +33,12 @@
 
    ```sh
    bundle exec jekyll serve
+   ```
+
+   To see production related features, run following command:
+
+   ```sh
+   JEKYLL_ENV=production bundle exec jekyll serve
    ```
 
 5. **Open Your Browser**
