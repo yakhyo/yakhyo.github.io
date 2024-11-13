@@ -72,6 +72,20 @@ button.active {
         </a>
         <p>A collection of tutorials and examples for learning PyTorch. It covers basic to advanced topics, helping users to understand and implement various deep learning models. <a href="https://github.com/yakhyo/pytorch-tutorials" target="_blank">Learn more on GitHub</a>.</p>
     </div>
+    <div class="project" data-tags="face">
+        <h3>Face Identification</h3>
+        <a href="https://yakhyo.github.io/face-reidentification/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/face-reidentification" alt="Face Re-Identification GitHub Preview">
+        </a>
+        <p>This repository uses SCRFD for face detection and ArcFace for face recognition, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/face-reidentification" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="face">
+        <h3>Gaze Estimation</h3>
+        <a href="https://yakhyo.github.io/gaze-estimation/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/gaze-estimation" alt="Gaze Estimation GitHub Preview">
+        </a>
+        <p>This project aims to perform gaze estimation using several deep learning models like ResNet, MobileNet v2, and MobileOne, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/gaze-estimation" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
     <div class="project" data-tags="segmentation">
         <h3>Crack Segmentation</h3>
         <a href="https://yakhyo.github.io/crack-segmentation/" target="_blank">
@@ -92,20 +106,6 @@ button.active {
             <img src="https://opengraph.githubassets.com/1/yakhyo/yolov1-pytorch" alt="YOLOv1 PyTorch GitHub Preview">
         </a>
         <p>Implementation of YOLOv1 (Real-Time Object Detection) using PyTorch. This project includes training scripts, evaluation metrics, and pre-trained models, making it a comprehensive solution for object detection tasks. <a href="https://github.com/yakhyo/yolov1-pytorch" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="face">
-        <h3>Face Identification</h3>
-        <a href="https://yakhyo.github.io/face-reidentification/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/face-reidentification" alt="Face Re-Identification GitHub Preview">
-        </a>
-        <p>This repository uses SCRFD for face detection and ArcFace for face recognition, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/face-reidentification" target="_blank">Learn more on GitHub</a>.</p>
-    </div>
-    <div class="project" data-tags="face">
-        <h3>Gaze Estimation</h3>
-        <a href="https://yakhyo.github.io/gaze-estimation/" target="_blank">
-            <img src="https://opengraph.githubassets.com/1/yakhyo/gaze-estimation" alt="Gaze Estimation GitHub Preview">
-        </a>
-        <p>This project aims to perform gaze estimation using several deep learning models like ResNet, MobileNet v2, and MobileOne, supporting real-time inference from webcams and videos. <a href="https://github.com/yakhyo/gaze-estimation" target="_blank">Learn more on GitHub</a>.</p>
     </div>
     <div class="project" data-tags="face">
         <h3>Head Pose Estimation</h3>
@@ -148,6 +148,26 @@ button.active {
             <img src="https://opengraph.githubassets.com/1/yakhyo/yolov5-license-plate-detection" alt="YOLOv5 License Plate Detection GitHub Preview">
         </a>
         <p>This repository contains code and instructions for performing license plate detection using YOLOv5 inference with ONNX Runtime. <a href="https://github.com/yakhyo/yolov5-license-plate-detection" target="_blank">Learn more on GitHub</a>.</p>
+    </div>
+    <div class="project" data-tags="face detection">
+        <h3>Tiny-Face</h3>
+        <a href="https://yakhyo.github.io/tiny-face-pytorch/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/tiny-face-pytorch" alt="Tiny-Face GitHub Preview">
+        </a>
+        <p>
+            Tiny-Face is an ultra-lightweight face detection model optimized for mobile and edge devices, offering high precision with minimal resource usage. With Slim and RFB architectures, it provides flexibility for low-power and mobile applications.
+            <a href="https://github.com/yakhyo/tiny-face-pytorch" target="_blank">Learn more on GitHub</a>.
+        </p>
+    </div>
+    <div class="project" data-tags="face detection">
+        <h3>RetinaFace</h3>
+        <a href="https://yakhyo.github.io/retinaface-pytorch/" target="_blank">
+            <img src="https://opengraph.githubassets.com/1/yakhyo/retinaface-pytorch" alt="RetinaFace GitHub Preview">
+        </a>
+        <p>
+            RetinaFace is a high-precision face detection model designed for dense face localization, supporting various backbones like MobileNet and ResNet. Ideal for applications needing flexible, high-quality face detection.
+            <a href="https://github.com/yakhyo/retinaface-pytorch" target="_blank">Learn more on GitHub</a>.
+        </p>
     </div>
     <div class="project" data-tags="detection face">
         <h3>FaceBoxes PyTorch</h3>
@@ -233,6 +253,7 @@ button.active {
         </a>
         <p>PyTorch implementation of MobileNetV2. This project includes training scripts, evaluation metrics, and pretrained models, providing efficient solutions for image classification tasks. <a href="https://github.com/yakhyo/mobilenetv2-pytorch" target="_blank">Learn more on GitHub</a>.</p>
     </div>
+
 </div>
 
 <script>
