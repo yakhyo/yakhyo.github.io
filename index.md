@@ -114,9 +114,10 @@ permalink: /
         <div class="name">Yakhyo Valikhujaev</div>
         <div class="title">ML Software Engineer</div>
         <div class="social-links">
-            <a href="https://youtube.com/codeuz" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://scholar.google.com/citations?user=I66QbJIAAAAJ" target="_blank"><i class="fab fa-google-scholar"></i></a>
             <a href="https://github.com/yakhyo" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com//in/y-valikhujaev" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://youtube.com/codeuz" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="https://t.me/valikhujaev" target="_blank"><i class="fab fa-telegram"></i></a>
         </div>
     </div>
@@ -127,4 +128,5 @@ permalink: /
         <a href="{{ site.baseurl }}/blog" class="read-blog">Read Blog</a>
         <a href="{{ site.baseurl }}/about" class="about-me">About Me</a>
     </div>
+
 </div>
