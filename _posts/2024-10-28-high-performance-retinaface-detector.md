@@ -8,6 +8,10 @@ categories: deep-learning computer-vision facial-recognition
 
 Face detection in the wild presents unique challenges, but RetinaFace 🌐, a single-stage dense face localization model, tackles them effectively. My latest repository on GitHub explores this model, which enables high-precision facial detection and localization of key landmarks. This implementation integrates several backbone models (MobileNet and ResNet variants), allowing for flexibility between model size and accuracy. 🚀
 
+> 💡 Easily get started with **[UniFace](https://github.com/yakhyo/uniface)**, a lightweight library built on models from this repository.  
+> **UniFace** supports face detection, alignment, and more!  
+> [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 👉 [https://github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch)
 
 [![Downloads](https://img.shields.io/github/downloads/yakhyo/retinaface-pytorch/total)](https://github.com/yakhyo/retinaface-pytorch/releases)
@@ -22,15 +26,21 @@ Face detection in the wild presents unique challenges, but RetinaFace 🌐, a si
 
 RetinaFace is well-suited for real-time applications 🎥 and cross-platform deployment 📲, with support for ONNX exports. The codebase has been refactored for ease of use, and lightweight MobileNet backbones ensure that the model performs efficiently even on low-power devices.
 
-## Key Features 🌟
+---
 
-- **Lightweight Models**: Options like MobileNetV1 (width mult=0.25) for fast inference ⚡
-- **Improved Accuracy**: ResNet backbones deliver higher detection accuracy 🎯
-- **Webcam & ONNX Support**: Real-time inference and flexible deployment 🔄
+### ✨ **Features**
 
-## 📈 Performance on WiderFace Dataset
+- **🔄 New trained model weights**: Filtering out smaller faces (<16 pixels) to decrease false positives.
+- **📱 Lightweight Models**: MobileNetV1 (width mult=0.25) for fast inference.
+- **📈 Improved Accuracy**: ResNet backbones deliver higher detection accuracy.
+- **🎥 Webcam Support & ONNX Export**: Real-time inference and flexible deployment.
+- **✅ Refactored Codebase**: Cleaner and more reproducible.
 
-### Multi-scale Image Size
+---
+
+### 📈 **Performance on WiderFace Dataset**
+
+#### Multi-scale Image Size
 
 | RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
 | ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
@@ -41,7 +51,7 @@ RetinaFace is well-suited for real-time applications 🎥 and cross-platform dep
 | ResNet18                      | True                   | 92.50%     | 91.02%     | 86.63%     |
 | ResNet34                      | True                   | **94.16%** | **93.12%** | **88.90%** |
 
-### Original Image Size
+#### Original Image Size
 
 | RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
 | ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
@@ -51,5 +61,27 @@ RetinaFace is well-suited for real-time applications 🎥 and cross-platform dep
 | MobileNetV2                   | True                   | 94.04%     | 92.26%     | 83.59%     |
 | ResNet18                      | True                   | 94.28%     | 92.69%     | 82.95%     |
 | ResNet34                      | True                   | **95.07%** | **93.48%** | **84.40%** |
+
+---
+
+### 📂 **Get Started**
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/yakhyo/retinaface-pytorch.git
+   cd retinaface-pytorch
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run Webcam Inference**:
+   ```bash
+   python detect.py --network mobilenetv1 --weights retinaface_mv1.pth
+   ```
 
 For a detailed setup and to explore various training configurations, check out the [https://github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch) and contribute to this project! 👩‍💻👨‍💻
