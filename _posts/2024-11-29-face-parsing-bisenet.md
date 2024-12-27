@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Face-Parsing using BiSeNet (Bilateral Segmentation Network for Real-time Semantic Segmentation)"
+title: Face-Parsing using BiSeNet (Bilateral Segmentation Network for Real-time Semantic Segmentation)
 date: 2024-11-29 12:00:00 +0900
 comments: true
 categories: deep-learning computer-vision semantic-segmentation bisenet
