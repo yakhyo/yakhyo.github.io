@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: default
 ---
 
 <div class="home">
@@ -9,34 +9,59 @@ layout: base
 
   {{ content }}
 
-
   {% if site.paginate %}
   {% assign posts = paginator.posts %}
   {% else %}
   {% assign posts = site.posts %}
   {% endif %}
 
-
   {%- if posts.size > 0 -%}
-  {%- if page.list_title -%}
-  <h2 class="post-list-heading">{{ page.list_title }}</h2>
-  {%- endif -%}
+
+  <!-- Topic Filter Buttons -->
+  <div class="topic-filter">
+    <button class="filter-btn active" data-topic="all">All Posts</button>
+    <button class="filter-btn" data-topic="computer-vision">Computer Vision</button>
+    <button class="filter-btn" data-topic="deep-learning">Deep Learning</button>
+    <button class="filter-btn" data-topic="facial-recognition">Face Recognition</button>
+    <button class="filter-btn" data-topic="mathematics">Mathematics</button>
+  </div>
+
   <ul class="post-list">
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     {%- for post in posts -%}
-    <li>
-      <span class="post-meta">{{ post.date | date: date_format }}</span>
+    <li class="post-item" data-categories="{{ post.categories | join: ' ' }}">
       <h3>
         <a class="post-link" href="{{ post.url | relative_url }}">
           {{ post.title | escape }}
         </a>
       </h3>
+      <div class="post-meta">
+        <span class="post-date">{{ post.date | date: date_format }}</span>
+        {%- if post.content -%}
+          <span class="post-meta-separator">•</span>
+          <span class="post-reading-time">{% include reading-time.html content=post.content %}</span>
+        {%- endif -%}
+        {%- if post.categories.size > 0 -%}
+          <span class="post-meta-separator">•</span>
+          <span class="post-tags">
+            {%- for category in post.categories limit:3 -%}
+              <span class="tag">{{ category }}</span>
+            {%- endfor -%}
+          </span>
+        {%- endif -%}
+      </div>
       {%- if site.show_excerpts -%}
-      {{ post.excerpt }}
+      <div class="post-excerpt">
+        {{ post.excerpt }}
+      </div>
       {%- endif -%}
     </li>
     {%- endfor -%}
   </ul>
+
+  <div id="no-posts" class="no-posts" style="display: none;">
+    <p>No posts found for this topic.</p>
+  </div>
 
   {% if site.paginate %}
   <div class="pager">
@@ -68,3 +93,41 @@ layout: base
   {%- endif -%}
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const postItems = document.querySelectorAll('.post-item');
+  const noPostsMessage = document.getElementById('no-posts');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+
+      const topic = this.getAttribute('data-topic');
+      let visibleCount = 0;
+
+      // Filter posts
+      postItems.forEach(post => {
+        const categories = post.getAttribute('data-categories');
+
+        if (topic === 'all' || categories.includes(topic)) {
+          post.style.display = 'block';
+          visibleCount++;
+        } else {
+          post.style.display = 'none';
+        }
+      });
+
+      // Show/hide no posts message
+      if (visibleCount === 0) {
+        noPostsMessage.style.display = 'block';
+      } else {
+        noPostsMessage.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
