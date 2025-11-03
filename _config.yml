@@ -1,68 +1,80 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# Site Configuration
+# Restart server after editing this file
 
-title: Yakhyo's Blog
+# Site Information
+title: Yakhyo Valikhujaev
 email: yakhyo9696@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Exploring Life Through the Lens of a Computer Scientist: AI, Tech, and Beyond.
+description: >-
+  ML Software Engineer. Building intelligent systems with Computer Vision and NLP.
 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://yakhyo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""
+url: "https://yakhyo.github.io"
 
+# Author Information
+author:
+  name: Yakhyokhuja Valikhujaev
+  preferred_name: Yakhyo Valikhujaev
+
+# Social Media
 twitter_username: y_valikhujaev
 github_username: yakhyo
+linkedin_username: y-valikhujaev
 
-# Build settings
+# SEO Configuration
+social:
+  name: Yakhyokhuja Valikhujaev
+  links:
+    - https://twitter.com/y_valikhujaev
+    - https://github.com/yakhyo
+    - https://linkedin.com/in/y-valikhujaev
+    - https://scholar.google.com/citations?user=I66QbJIAAAAJ
+
+lang: en
+timezone: Asia/Seoul
+
+# Theme and Plugins
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
+# Navigation
 header_pages:
-  - blog.md
-  - portfolio.md
-  - courses.md
-  - resume.md
+  - _pages/blog.md
+  - _pages/resume.md
+  - _pages/about.md
 
+include:
+  - _pages
+
+# Comments
 disqus:
-  # Leave shortname blank to disable comments site-wide.
-  # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
   shortname: yakhyo
 
+# Analytics
 google_analytics: G-G2VCRRX3LR
-show_excerpts: true
 
-# Markdown processor
+# Display Settings
+show_excerpts: false
+
+# Markdown Configuration
 markdown: kramdown
 kramdown:
   input: GFM
   auto_ids: true
   syntax_highlighter: rouge
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
+# Sass Configuration
+sass:
+  quiet_deps: true
+  verbose: false
+  silence_deprecations:
+    - import
+    - global-builtin
+    - color-functions
+
+# Exclude from Build
 exclude:
   - .sass-cache/
   - .jekyll-cache/
@@ -70,7 +82,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules/
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+  - vendor/

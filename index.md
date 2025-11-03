@@ -1,124 +1,21 @@
 ---
 layout: page
 permalink: /
+custom_css: landing
+custom_js: landing
 ---
 
-<script>
-    function checkWindowHeight() {
-        var footer = document.querySelector('footer');
-        if (window.innerHeight > 900) { // Adjust the height threshold as needed
-            footer.style.display = 'block';
-        } else {
-            footer.style.display = 'none';
-        }
-    }
-
-    // Run the function on window load and resize
-    window.onload = checkWindowHeight;
-    window.onresize = checkWindowHeight;
-</script>
-
-<style>
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
-
-    @keyframes bottomToTop {
-        from {
-            transform: translateY(5%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    .landing-page {
-        text-align: left;
-        padding: 50px 0;
-        margin-left: 0;
-        animation: bottomToTop 1s ease-out;
-    }
-    .profile-photo {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        vertical-align: middle;
-        animation: bottomToTop 1s ease-out;
-    }
-    .profile-info {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 20px;
-        animation: bottomToTop 1s ease-out;
-    }
-    .name {
-        font-size: 2.5em;
-        font-weight: bold;
-        animation: bottomToTop 1s ease-out;
-    }
-    .title {
-        font-size: 1.5em;
-        color: gray;
-        animation: bottomToTop 1s ease-out;
-    }
-    .social-links {
-        margin-top: 10px;
-        animation: bottomToTop 1s ease-out;
-    }
-    .social-links a {
-        margin: 0 10px 0 0;
-        font-size: 1.5em;
-        color: black;
-    }
-    .description {
-        margin: 20px 0;
-        font-size: 1.2em;
-        color: gray;
-        animation: bottomToTop 1s ease-out;
-    }
-    .buttons {
-        animation: bottomToTop 1s ease-out;
-    }
-    .buttons a {
-        display: inline-block;
-        margin: 10px 10px 10px 0;
-        padding: 10px 20px;
-        border-radius: 5px;
-        text-decoration: none;
-        /* color: initial; */
-        font-size: 1.2em;
-        font-weight: 600;
-        
-    }
-    .read-blog {
-        background-color: #1e90ff;
-        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
-        color: white !important;
-    }
-    .about-me {
-        background: 0 0;
-        color: #1e90ff !important;
-        border: 1px solid #1e90ff;
-    }
-    .page-title {
-        display: none;
-    }
-    footer {
-        display: none;
-    }
-</style>
-
 <div class="landing-page">
-    <img src="{{ site.baseurl }}/assets/images/logo.webp" alt="Your Photo" class="profile-photo">
+    <img src="{{ site.baseurl }}/assets/images/logo.webp" alt="Yakhyo Valikhujaev - ML Software Engineer" class="profile-photo">
     <div class="profile-info">
         <div class="name">Yakhyo Valikhujaev</div>
         <div class="title">ML Software Engineer</div>
         <div class="social-links">
-            <a href="https://scholar.google.com/citations?user=I66QbJIAAAAJ" target="_blank"><i class="fab fa-google-scholar"></i></a>
-            <a href="https://github.com/yakhyo" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com//in/y-valikhujaev" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://youtube.com/codeuz" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/valikhujaev" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://scholar.google.com/citations?user=I66QbJIAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar Profile"><i class="fab fa-google-scholar"></i></a>
+            <a href="https://github.com/yakhyo" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/y-valikhujaev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+            <a href="https://youtube.com/codeuz" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/valikhujaev" target="_blank" rel="noopener noreferrer" aria-label="Telegram Contact"><i class="fab fa-telegram"></i></a>
         </div>
     </div>
     <div class="description">

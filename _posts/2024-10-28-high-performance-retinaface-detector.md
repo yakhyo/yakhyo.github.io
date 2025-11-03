@@ -6,13 +6,14 @@ comments: true
 categories: deep-learning computer-vision facial-recognition
 ---
 
-Face detection in the wild presents unique challenges, but RetinaFace 🌐, a single-stage dense face localization model, tackles them effectively. My latest repository on GitHub explores this model, which enables high-precision facial detection and localization of key landmarks. This implementation integrates several backbone models (MobileNet and ResNet variants), allowing for flexibility between model size and accuracy. 🚀
+RetinaFace is a robust single-stage face detection framework designed for dense face localisation in unconstrained environments. This implementation provides a production-ready solution with multiple backbone options, enabling flexible deployment across different hardware constraints and accuracy requirements.
 
-> 💡 Easily get started with **[UniFace](https://github.com/yakhyo/uniface)**, a lightweight library built on models from this repository.  
-> **UniFace** supports face detection, alignment, and more!  
-> [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+The model excels at detecting faces across extreme variations in scale, pose, and occlusion, making it particularly effective for real-world applications where faces may appear at any size or orientation within the image.
 
-👉 [https://github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch)
+> **UniFace Library**: For easier integration, check out [UniFace](https://github.com/yakhyo/uniface), a lightweight Python library built on models from this repository. UniFace provides a simple API for face detection, alignment, and landmark extraction.  
+> [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers)
+
+[GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)
 
 [![Downloads](https://img.shields.io/github/downloads/yakhyo/retinaface-pytorch/total)](https://github.com/yakhyo/retinaface-pytorch/releases)
 [![GitHub Repo stars](https://img.shields.io/github/stars/yakhyo/retinaface-pytorch)](https://github.com/yakhyo/retinaface-pytorch/stargazers)
@@ -24,23 +25,17 @@ Face detection in the wild presents unique challenges, but RetinaFace 🌐, a si
   <img src="https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg">
 </div>
 
-RetinaFace is well-suited for real-time applications 🎥 and cross-platform deployment 📲, with support for ONNX exports. The codebase has been refactored for ease of use, and lightweight MobileNet backbones ensure that the model performs efficiently even on low-power devices.
+## Key Features
 
----
+- **Multiple Backbone Options**: Choose from MobileNetV1 (various width multipliers), MobileNetV2, ResNet18, and ResNet34
+- **Improved Training Strategy**: Enhanced filtering of small faces (< 16 pixels) to reduce false positives
+- **ONNX Export Support**: Seamless conversion for deployment on various platforms and inference engines
+- **Real-time Inference**: Optimized for webcam and video stream processing
+- **Production-Ready**: Clean, well-documented codebase with reproducible training pipelines
 
-### ✨ **Features**
+## Performance on WiderFace Dataset
 
-- **🔄 New trained model weights**: Filtering out smaller faces (<16 pixels) to decrease false positives.
-- **📱 Lightweight Models**: MobileNetV1 (width mult=0.25) for fast inference.
-- **📈 Improved Accuracy**: ResNet backbones deliver higher detection accuracy.
-- **🎥 Webcam Support & ONNX Export**: Real-time inference and flexible deployment.
-- **✅ Refactored Codebase**: Cleaner and more reproducible.
-
----
-
-### 📈 **Performance on WiderFace Dataset**
-
-#### Multi-scale Image Size
+### Multi-scale Image Size
 
 | RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
 | ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
@@ -51,7 +46,7 @@ RetinaFace is well-suited for real-time applications 🎥 and cross-platform dep
 | ResNet18                      | True                   | 92.50%     | 91.02%     | 86.63%     |
 | ResNet34                      | True                   | **94.16%** | **93.12%** | **88.90%** |
 
-#### Original Image Size
+### Original Image Size
 
 | RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
 | ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
@@ -62,26 +57,43 @@ RetinaFace is well-suited for real-time applications 🎥 and cross-platform dep
 | ResNet18                      | True                   | 94.28%     | 92.69%     | 82.95%     |
 | ResNet34                      | True                   | **95.07%** | **93.48%** | **84.40%** |
 
----
+## Architecture Highlights
 
-### 📂 **Get Started**
+RetinaFace incorporates several advanced techniques:
 
-1. **Clone the repository**:
+- **Multi-task Learning**: Simultaneously performs face detection, landmark localization, and 3D face reconstruction
+- **Feature Pyramid Network**: Enables detection of faces at multiple scales efficiently
+- **Context Module**: Increases receptive field for better handling of small faces
+- **Dense Regression**: Pixel-wise prediction for precise face localization
 
-   ```bash
-   git clone https://github.com/yakhyo/retinaface-pytorch.git
-   cd retinaface-pytorch
-   ```
+## Quick Start
 
-2. **Install dependencies**:
+Clone the repository:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/yakhyo/retinaface-pytorch.git
+cd retinaface-pytorch
+```
 
-3. **Run Webcam Inference**:
-   ```bash
-   python detect.py --network mobilenetv1 --weights retinaface_mv1.pth
-   ```
+Install dependencies:
 
-For a detailed setup and to explore various training configurations, check out the [https://github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch) and contribute to this project! 👩‍💻👨‍💻
+```bash
+pip install -r requirements.txt
+```
+
+Run webcam inference:
+
+```bash
+python detect.py --network mobilenetv1 --weights retinaface_mv1.pth
+```
+
+## Deployment Options
+
+The implementation supports various deployment scenarios:
+
+- **Python Inference**: Direct PyTorch inference for development and testing
+- **ONNX Runtime**: Cross-platform deployment with optimized inference
+- **Mobile Deployment**: Lightweight MobileNet backbones for on-device inference
+- **Server Deployment**: High-accuracy ResNet backbones for cloud-based services
+
+For detailed documentation on training custom models, fine-tuning on specific datasets, and deployment guides, visit the [GitHub repository](https://github.com/yakhyo/retinaface-pytorch).
