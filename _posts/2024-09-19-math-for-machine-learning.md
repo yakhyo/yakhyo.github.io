@@ -31,20 +31,20 @@ For anyone working in machine learning who hasn't yet explored the geometric fou
 
 ### Linear Algebra
 
-- **Essence of Linear Algebra** by 3Blue1Brown - [Course Link](https://www.3blue1brown.com/topics/linear-algebra)  
+- **Essence of Linear Algebra** by 3Blue1Brown - [Course Link](https://www.3blue1brown.com/topics/linear-algebra)
   An exceptional visual introduction to linear algebra concepts with stunning animations that build geometric intuition
 
-- **Mathematics for Machine Learning: Linear Algebra** - [Coursera](https://www.coursera.org/learn/linear-algebra-machine-learning)  
+- **Mathematics for Machine Learning: Linear Algebra** - [Coursera](https://www.coursera.org/learn/linear-algebra-machine-learning)
   Specifically designed for ML practitioners, covering the essential linear algebra needed for understanding modern ML algorithms
 
 ### Calculus and Optimization
 
-- **Mathematics for Machine Learning: Multivariate Calculus** - [Coursera](https://www.coursera.org/learn/multivariate-calculus-machine-learning)  
+- **Mathematics for Machine Learning: Multivariate Calculus** - [Coursera](https://www.coursera.org/learn/multivariate-calculus-machine-learning)
   Focuses on the calculus concepts most relevant to machine learning, particularly gradient-based optimization
 
 ### Dimensionality Reduction
 
-- **Mathematics for Machine Learning: PCA** - [Coursera](https://www.coursera.org/learn/pca-machine-learning)  
+- **Mathematics for Machine Learning: PCA** - [Coursera](https://www.coursera.org/learn/pca-machine-learning)
   Explores Principal Component Analysis from both mathematical and geometric perspectives
 
 ## Practical Impact

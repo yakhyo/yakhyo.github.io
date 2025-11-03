@@ -10,7 +10,7 @@ RetinaFace is a robust single-stage face detection framework designed for dense 
 
 The model excels at detecting faces across extreme variations in scale, pose, and occlusion, making it particularly effective for real-world applications where faces may appear at any size or orientation within the image.
 
-> **UniFace Library**: For easier integration, check out [UniFace](https://github.com/yakhyo/uniface), a lightweight Python library built on models from this repository. UniFace provides a simple API for face detection, alignment, and landmark extraction.  
+> **UniFace Library**: For easier integration, check out [UniFace](https://github.com/yakhyo/uniface), a lightweight Python library built on models from this repository. UniFace provides a simple API for face detection, alignment, and landmark extraction.
 > [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers)
 
 [GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)
