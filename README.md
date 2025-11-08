@@ -1,6 +1,8 @@
 # Personal Website
 
-![Website Preview](assets/images/website.gif)
+<p align="center">
+  <img src="assets/images/website.gif" alt="Website Preview" width="800">
+</p>
 
 [![GitHub License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
 [![Build Status](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/yakhyo/yakhyo.github.io/actions)
