@@ -1,4 +1,5 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @keyframes bottomToTop {
     from {
@@ -36,13 +37,32 @@
 .name {
     font-size: 2.5em;
     font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
     animation: bottomToTop 1s ease-out;
 }
 
 .title {
     font-size: 1.5em;
     color: gray;
+    font-family: 'JetBrains Mono', monospace;
     animation: bottomToTop 1s ease-out;
+    min-height: 1.5em;
+    display: inline-block;
+    min-width: 350px;
+}
+
+.title::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
 }
 
 .social-links {
@@ -60,6 +80,7 @@
     margin: 20px 0;
     font-size: 1.2em;
     color: gray;
+    font-family: 'JetBrains Mono', monospace;
     animation: bottomToTop 1s ease-out;
 }
 
@@ -75,6 +96,7 @@
     text-decoration: none;
     font-size: 1.2em;
     font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .read-blog {

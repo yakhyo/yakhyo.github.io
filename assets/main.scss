@@ -2,12 +2,89 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @import "minima";
+
+// Apply JetBrains Mono globally
+body {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.site-title {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.page-link {
+  font-family: 'JetBrains Mono', monospace;
+}
 
 // Custom overrides and additions go here
 // Remove the gray border at the top of the header
 .site-header {
   border-top: none;
+}
+
+// Fix footer layout and spacing
+.footer-col-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.footer-col {
+  min-width: 0;
+}
+
+.footer-col-1 {
+  flex: 1;
+}
+
+.footer-col-2 {
+  flex: 1;
+}
+
+.footer-col-3 {
+  flex: 2;
+}
+
+// Fix footer social links alignment
+.footer-col-2 .social-media-list {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+
+  li {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+
+    a {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem;
+      padding: 0.1rem 0;
+    }
+
+    .svg-icon {
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+    }
+
+    .username {
+      white-space: nowrap;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
 }
 
 // Blog improvements
