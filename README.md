@@ -26,10 +26,26 @@ bundle install
 ## Development
 
 ```bash
+# Development mode (default)
 bundle exec jekyll serve
+
+# Production mode (for testing production build locally)
+JEKYLL_ENV=production bundle exec jekyll serve
 ```
 
 Visit `http://localhost:4000`
+
+## Build
+
+```bash
+# Development build
+bundle exec jekyll build
+
+# Production build (minified, optimized)
+JEKYLL_ENV=production bundle exec jekyll build
+```
+
+**Note:** GitHub Pages automatically builds with `JEKYLL_ENV=production`
 
 ## License
 
