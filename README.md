@@ -34,3 +34,16 @@ Visit `http://localhost:4000`
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+
+## Copyright
+
+© 2024 Yakhyo Valikhujaev. All rights reserved.
+
+**Content License:**
+- Blog posts, articles, and written content: All rights reserved
+- Code snippets and implementations: MIT License
+
+**Usage:**
+- Feel free to use the code structure and design as inspiration
+- Please do not copy blog content or personal information
+- Attribution is appreciated but not required for code

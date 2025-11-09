@@ -230,3 +230,67 @@ h1, h2, h3, h4, h5, h6 {
     color: #828282;
   }
 }
+
+// Announcement Banner
+.announcement-banner {
+  background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.announcement-text {
+  font-size: 0.9rem;
+
+  a {
+    color: white;
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.announcement-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .announcement-banner {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .announcement-text {
+    font-size: 0.8rem;
+  }
+
+  .announcement-close {
+    font-size: 1rem;
+  }
+}

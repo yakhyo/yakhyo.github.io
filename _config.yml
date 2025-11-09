@@ -84,3 +84,10 @@ exclude:
   - Gemfile.lock
   - node_modules/
   - vendor/
+
+# Announcement Banner
+announcement:
+  enabled: true
+  text: "⭐ Check out my"
+  link: "https://github.com/yakhyo"
+  link_text: "GitHub for ML projects"

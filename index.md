@@ -5,8 +5,6 @@ custom_css: landing
 custom_js: landing
 ---
 
-<script src="{{ site.baseurl }}/assets/js/i18n.js" defer></script>
-
 <div class="landing-page">
     <img src="{{ site.baseurl }}/assets/images/avatar.webp" alt="Yakhyo Valikhujaev - ML Software Engineer" class="profile-photo">
     <div class="profile-info">

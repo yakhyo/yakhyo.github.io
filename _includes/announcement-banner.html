@@ -1,0 +1,51 @@
+{% if site.announcement.enabled %}
+<div id="announcement-banner" class="announcement-banner">
+  <div class="announcement-content">
+    <span class="announcement-text">
+      {{ site.announcement.text }}
+      {% if site.announcement.link %}
+        <a href="{{ site.announcement.link }}">{{ site.announcement.link_text }}</a>
+      {% endif %}
+    </span>
+    <button class="announcement-close" onclick="closeAnnouncement()" aria-label="Close announcement">
+      ✕
+    </button>
+  </div>
+</div>
+{% endif %}
+
+<script>
+let bannerClosed = false;
+let lastScrollY = 0;
+let scrollUpDistance = 0;
+
+function closeAnnouncement() {
+  const banner = document.getElementById('announcement-banner');
+  banner.style.display = 'none';
+  bannerClosed = true;
+}
+
+// Show banner only when pulling down hard from the top
+window.addEventListener('scroll', function() {
+  const banner = document.getElementById('announcement-banner');
+  if (!banner) return;
+
+  const currentScrollY = window.scrollY;
+
+  // Track upward scrolling distance
+  if (currentScrollY < lastScrollY) {
+    scrollUpDistance += lastScrollY - currentScrollY;
+  } else {
+    scrollUpDistance = 0;
+  }
+
+  // Show banner only if: at top AND scrolled up more than 100px AND banner was closed
+  if (currentScrollY === 0 && scrollUpDistance > 100 && bannerClosed) {
+    banner.style.display = 'block';
+    bannerClosed = false;
+    scrollUpDistance = 0;
+  }
+
+  lastScrollY = currentScrollY;
+});
+</script>
