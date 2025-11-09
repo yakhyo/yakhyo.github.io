@@ -12,48 +12,50 @@
     </button>
   </div>
 </div>
-{% endif %}
 
 <script>
-let lastScrollY = 0;
-let scrollUpDistance = 0;
-
-function closeAnnouncement() {
-  const banner = document.getElementById('announcement-banner');
-  banner.style.display = 'none';
-  localStorage.setItem('announcementClosed', 'true');
-}
-
-// Check if banner was previously closed
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
+  // Immediately check and hide if needed - before page renders
   const banner = document.getElementById('announcement-banner');
   if (banner && localStorage.getItem('announcementClosed') === 'true') {
     banner.style.display = 'none';
   }
-});
 
-// Show banner only when pulling down hard from the top
-window.addEventListener('scroll', function() {
-  const banner = document.getElementById('announcement-banner');
-  if (!banner) return;
+  let lastScrollY = 0;
+  let scrollUpDistance = 0;
 
-  const currentScrollY = window.scrollY;
-  const wasClosed = localStorage.getItem('announcementClosed') === 'true';
+  window.closeAnnouncement = function() {
+    const banner = document.getElementById('announcement-banner');
+    if (banner) {
+      banner.style.display = 'none';
+      localStorage.setItem('announcementClosed', 'true');
+    }
+  };
 
-  // Track upward scrolling distance
-  if (currentScrollY < lastScrollY) {
-    scrollUpDistance += lastScrollY - currentScrollY;
-  } else {
-    scrollUpDistance = 0;
-  }
+  // Show banner only when pulling down hard from the top
+  window.addEventListener('scroll', function() {
+    const banner = document.getElementById('announcement-banner');
+    if (!banner) return;
 
-  // Show banner only if: at top AND scrolled up more than 100px AND banner was closed
-  if (currentScrollY === 0 && scrollUpDistance > 100 && wasClosed) {
-    banner.style.display = 'block';
-    localStorage.removeItem('announcementClosed');
-    scrollUpDistance = 0;
-  }
+    const currentScrollY = window.scrollY;
+    const wasClosed = localStorage.getItem('announcementClosed') === 'true';
 
-  lastScrollY = currentScrollY;
-});
+    // Track upward scrolling distance
+    if (currentScrollY < lastScrollY) {
+      scrollUpDistance += lastScrollY - currentScrollY;
+    } else {
+      scrollUpDistance = 0;
+    }
+
+    // Show banner only if: at top AND scrolled up more than 100px AND banner was closed
+    if (currentScrollY === 0 && scrollUpDistance > 100 && wasClosed) {
+      banner.style.display = 'block';
+      localStorage.removeItem('announcementClosed');
+      scrollUpDistance = 0;
+    }
+
+    lastScrollY = currentScrollY;
+  });
+})();
 </script>
+{% endif %}
