@@ -1,12 +1,3 @@
-function checkWindowHeight() {
-    var footer = document.querySelector('footer');
-    if (window.innerHeight > 900) {
-        footer.style.display = 'block';
-    } else {
-        footer.style.display = 'none';
-    }
-}
-
 // Typing animation
 const titles = ["ML Software Engineer", "MLOps Engineer"];
 let titleIndex = 0;
@@ -45,10 +36,43 @@ function typeTitle() {
     setTimeout(typeTitle, typingSpeed);
 }
 
-// Run the function on window load and resize
+// Run the function on window load
 window.onload = function() {
-    checkWindowHeight();
     typeTitle();
+    // Hide footer initially
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.style.display = 'none';
+    }
 };
-window.onresize = checkWindowHeight;
 
+
+// Timeline scroll reveal and footer visibility
+function revealTimelineOnScroll() {
+    const timelineSection = document.querySelector('.timeline-section');
+    const footer = document.querySelector('footer');
+    if (!timelineSection) return;
+
+    const sectionTop = timelineSection.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    // Show timeline when it's 200px from viewport, hide when scrolling back up
+    if (sectionTop < windowHeight - 200) {
+        timelineSection.classList.add('visible');
+        // Show footer when timeline is visible
+        if (footer) {
+            footer.style.display = 'block';
+        }
+    } else {
+        timelineSection.classList.remove('visible');
+        // Hide footer when timeline is not visible
+        if (footer) {
+            footer.style.display = 'none';
+        }
+    }
+}
+
+// Add scroll listener
+window.addEventListener('scroll', revealTimelineOnScroll);
+// Check on load in case timeline is already in view
+window.addEventListener('load', revealTimelineOnScroll);

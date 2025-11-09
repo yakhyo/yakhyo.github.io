@@ -42,6 +42,7 @@ plugins:
 # Navigation
 header_pages:
   - _pages/blog.md
+  # - _pages/timeline.md
   - _pages/resume.md
   - _pages/about.md
 

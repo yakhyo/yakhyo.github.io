@@ -5,8 +5,10 @@ custom_css: landing
 custom_js: landing
 ---
 
+<script src="{{ site.baseurl }}/assets/js/i18n.js" defer></script>
+
 <div class="landing-page">
-    <img src="{{ site.baseurl }}/assets/images/logo.webp" alt="Yakhyo Valikhujaev - ML Software Engineer" class="profile-photo">
+    <img src="{{ site.baseurl }}/assets/images/avatar.webp" alt="Yakhyo Valikhujaev - ML Software Engineer" class="profile-photo">
     <div class="profile-info">
         <div class="name">Yakhyo Valikhujaev</div>
         <div class="title">ML Software Engineer</div>
@@ -26,4 +28,18 @@ custom_js: landing
         <a href="{{ site.baseurl }}/about" class="about-me">About Me</a>
     </div>
 
+    <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-arrow">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="timeline-section">
+    <h2 class="timeline-section-title">Experience</h2>
+    {% include timeline.html %}
 </div>
