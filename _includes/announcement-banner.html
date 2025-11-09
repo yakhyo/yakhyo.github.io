@@ -15,15 +15,22 @@
 {% endif %}
 
 <script>
-let bannerClosed = false;
 let lastScrollY = 0;
 let scrollUpDistance = 0;
 
 function closeAnnouncement() {
   const banner = document.getElementById('announcement-banner');
   banner.style.display = 'none';
-  bannerClosed = true;
+  localStorage.setItem('announcementClosed', 'true');
 }
+
+// Check if banner was previously closed
+document.addEventListener('DOMContentLoaded', function() {
+  const banner = document.getElementById('announcement-banner');
+  if (banner && localStorage.getItem('announcementClosed') === 'true') {
+    banner.style.display = 'none';
+  }
+});
 
 // Show banner only when pulling down hard from the top
 window.addEventListener('scroll', function() {
@@ -31,6 +38,7 @@ window.addEventListener('scroll', function() {
   if (!banner) return;
 
   const currentScrollY = window.scrollY;
+  const wasClosed = localStorage.getItem('announcementClosed') === 'true';
 
   // Track upward scrolling distance
   if (currentScrollY < lastScrollY) {
@@ -40,9 +48,9 @@ window.addEventListener('scroll', function() {
   }
 
   // Show banner only if: at top AND scrolled up more than 100px AND banner was closed
-  if (currentScrollY === 0 && scrollUpDistance > 100 && bannerClosed) {
+  if (currentScrollY === 0 && scrollUpDistance > 100 && wasClosed) {
     banner.style.display = 'block';
-    bannerClosed = false;
+    localStorage.removeItem('announcementClosed');
     scrollUpDistance = 0;
   }
 
