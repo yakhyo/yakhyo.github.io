@@ -6,77 +6,98 @@ permalink: /resume/
 
 [GitHub](https://github.com/yakhyo) &#124; [Google Scholar](https://scholar.google.com/citations?user=I66QbJIAAAAJ&hl=en) &#124; [StackOverflow](https://stackoverflow.com/users/14815986/yakhyo) &#124; [LeetCode](https://leetcode.com/y_valikhujaev) &#124; [LinkedIn](https://www.linkedin.com/in/y-valikhujaev/)
 
-## ML Software Engineer
+## AI/ML & MLOps Engineer
 
-Passionate ML/DL/CV/NLP Engineer with ~4 years of industrial and 2+ years of academic experience delivering
-impactful solutions across various industries. Proficient in supervised, self-supervised, and transfer learning, with in-depth
-experience in OCR, object detection, segmentation, tracking, video recognition, and action classification.
+**AI/ML & MLOps Engineer** with 6+ years of industry and research experience focused on **Large Language Models (LLMs)**, **Retrieval-Augmented Generation (RAG)**, **Vision-Language Models (VLMs)**, and scalable **MLOps infrastructure**. Skilled in fine-tuning and deploying transformer architectures, building **Kubernetes-based ML platforms**, and automating model training and deployment across cloud and on-prem environments.
 
-Skilled in developing and deploying machine learning models on AWS and GCP, building and optimizing pipelines, containerization,
-and collaborating with cross-functional teams to drive business growth.
+Currently working on designing and maintaining **private cloud and Kubernetes clusters** for distributed training and inference workloads. Building systems for resource discovery, policy enforcement, and workload scheduling using **Kubeflow**, **Kueue**, **Kai Scheduling**, and **Kyverno**, while focusing on scalable, reliable, and automated MLOps pipelines.
+
+Experienced in developing and optimizing **LLM-based**, **multimodal**, and **retrieval-augmented systems** with strong background in model optimization (**TensorRT**, **Triton Inference Server**, **vLLM**), CI/CD integration, and production-grade deployment across **AWS** and **GCP**.
 
 ## Skills Summary
 
-- **Programming Languages:** Python, C/C++, Java.
-- **Database Management:** MySQL, PostgreSQL, PySpark.
-- **ML:** Numpy, Scikit-learn, PyTorch, PyTorch Lightning, Tensorflow, Keras, HuggingFace, Transformers, RAG, LangChain.
-- **MLOps:** Docker-compose, Dockerization, Kubeflow, MLFlow, Flask, Fast API, gRPC, TorchServe, Triton, TensorRT.
-- **Development Tools:** Git/Github, Docker, CI & CD.
-- **Cloud:** AWS EC2, GCP.
-- **Main Competencies:** Object Detection, Object Tracking, OCR, Clustering, Re-Identification, Medical Imaging, Image Restoration & Enhancement, DeepFakes, Generative Models, Vision-Language Models, Large-Language Models, Natural Language Processing, Building End-to-End Pipelines, Deployment Pipelines, GCP Deployment.
+- **Programming Languages:** Python, C/C++, Java
+- **Data & Query Systems:** MySQL, PostgreSQL, PySpark; data wrangling with Pandas, Polars; visualization using Power BI
+- **ML & DL Frameworks:** NumPy, Scikit-learn, PyTorch, PyTorch Lightning, TensorFlow, Keras, Hugging Face, LangChain, Unsloth
+- **Retrieval & Indexing Systems:** FAISS, Pinecone, Elastic, Tantivy (lexical, semantic, hybrid search)
+- **MLOps & Deployment:** Docker, FastAPI, Flask, gRPC, TorchServe, Triton Inference Server, TensorRT, vLLM, Kubernetes, Kubeflow, Helm, ArgoCD, Kueue, Kai Scheduling, Kyverno
+- **Cloud Platforms:** AWS (EC2, S3, Lambda, SageMaker, EKS), Google Cloud Platform (Vertex AI, GKE, Compute Engine, Cloud Run)
+- **Core Competencies:**
+  - **LLMs & RAG:** LoRA/PEFT fine-tuning, retrieval pipeline design (Sentence Transformers, Tantivy), vLLM-based inference orchestration, knowledge base integration
+  - **MLOps & Infrastructure:** Cluster orchestration, workload scheduling, resource management, model lifecycle automation, CI/CD, observability (Prometheus, Grafana, ELK)
+  - **Conversational AI:** Voice-to-voice AI agents with ASR, LLMs, and TTS pipelines using LiveKit and related tools
+  - **Multimodal AI:** Vision-Language Models, OCR, object detection, tracking, re-identification, video action recognition
+  - **Generative AI:** sLLMs, Diffusion Models, GANs, DeepFakes, image-to-video, face restoration and enhancement
+  - **Edge Deployment:** Model pruning, quantization, on-device inference, latency optimization
+  - **ML Engineering:** End-to-end pipeline design, scalable deployment, model monitoring, MLOps best practices
 
 ## Work Experience
 
+### MLOps Engineer
+
+**[Thaki Cloud Co. Ltd](https://www.thakicloud.com/)** &#124; **August 2025 - Present** &#124; **Seoul, South Korea**
+
+- **Kubernetes & Private Cloud Platform:** Designing, deploying, and maintaining **Kubernetes clusters** for a full-featured **private cloud platform** supporting distributed model training, inference, and MLOps workloads. Building multi-tenant infrastructure with automated resource provisioning, monitoring, and scaling for GPU-intensive pipelines.
+- **Resource Discovery & Policy Optimization:** Implementing dynamic resource discovery and scheduling strategies to maximize GPU and CPU utilization. Developing custom resource management operators for efficient allocation and preemption, and integrating **policy optimization** for fair and performance-aware workload balancing.
+- **Policy Enforcement & Admission Control:** Establishing cluster-wide governance using **Kyverno** and custom **admission webhooks**. Automating security and compliance enforcement, applying mutation/validation logic, and standardizing deployment configurations across namespaces and teams.
+- **Advanced Scheduling & Job Queueing:** Integrating and enhancing **Kueue** and **Kai Scheduling** frameworks to improve distributed job scheduling and workload queueing efficiency, achieving better throughput and fairness for model training and data processing jobs.
+- **Kubeflow & MLOps Pipelines:** Managing the full lifecycle of ML pipelines using **Kubeflow**, including **Katib** for automated hyperparameter tuning, pipeline orchestration, and deployment. Leveraging **Helm** and **ArgoCD** for continuous delivery of ML workloads across staging and production environments.
+- **Cluster Automation & Observability:** Automating cluster provisioning, logging, and monitoring pipelines using **Prometheus**, **Grafana**, and the **ELK stack**. Establishing CI/CD integration for infrastructure and ML workflow updates using GitOps principles.
+
+### AI/ML Research Engineer
+
+**[Aria Studios Co. Ltd](https://showaria.com/)** &#124; **March 2024 - August 2025** &#124; **Seoul, South Korea**
+
+- **LLM Fine-tuning & Adaptation:** Fine-tuned **Qwen-2.5-7B/3B-Instruct** models for the Korean language using **LoRA** and **DPO (Direct Preference Optimization)** for efficient on-device deployment. Also fine-tuned **GPT-3.5-turbo** on conversational data using custom augmentation workflows.
+- **AI Agent & Conversational Systems:** Built an end-to-end **voice-to-voice AI assistant** using **LiveKit** for real-time media streaming, **Whisper** for ASR, OpenAI-based LLMs for dialogue, and TTS for responses. Integrated multimodal understanding (face ID, age/gender, emotion). Enabled dynamic **function/tool calling** via LLMs to invoke external APIs using **MCP servers**, allowing real-time task execution and tool orchestration within conversation flow.
+- **Retrieval & Data Tooling for LLMs:** Built a simulated interaction tool to collect structured dialogue data for fine-tuning LLMs. Managed persistence with PostgreSQL and hosted the system on **GCP**.
+- **LLM Inference & API Optimization:** Designed scalable APIs using **vLLM** and FastAPI for real-time LLM inference. Applied **LangChain** and concurrency patterns to optimize API orchestration for latency-sensitive workflows.
+- **Generative Model Training & Deployment:** Fine-tuned **FLUX (Stable Diffusion)** using **LoRA** for stylized character generation. Deployed as a REST API on **GCP**.
+- **VLM Deployment for Context Awareness:** Developed a visual perception module for virtual characters using **Phi-3-Vision**, enabling multimodal awareness and interaction.
+- **Face Parsing & Enhancement:** Enhanced face-swapping pipeline by integrating a custom **[face parsing](https://github.com/yakhyo/face-parsing)** model and improving backbone efficiency for segmentation accuracy.
+- **DeepFake & Face Restoration:** Worked on face restoration and enhancement techniques to improve DeepFake video quality used in high-visibility media projects. Can be seen [here](https://www.youtube.com/live/CGbvG8S7HHo?si=8j4R4-f5ICfz01GF).
+
 ### ML Engineer
 
-**[Aria Studios Co. Ltd](https://showaria.com/)** &#124; **March 2024 - Present**
+**[Pyler Co. Ltd](https://www.pyler.tech/)** &#124; **July 2022 - September 2023** &#124; **Seoul, South Korea**
 
-- **In-cabin Companion**: Developed an in-cabin assistant utilizing large language models (LLMs) to enhance the driving experience. The system integrates multiple models for user interaction, including [face identification](https://github.com/yakhyo/face-reidentification), [gender and age estimation](https://github.com/yakhyo/facial-analysis), and emotion recognition. These features facilitate personalized conversations with the driver. For speech-to-text functionality, the **whisper** model was employed. Deployed all services using Fast API on GCP and local machine.
-- **LG Ground 220**: Designed and implemented the AI backend for MusicStudio and DJingStudio, enabling features such as lyrics generation from user input, cover image creation, and music generation using OpenAI, StabilityAI, and MixAudio APIs. Leveraged **LangChain** and concurrent programming to optimize API calls and reduce latency. Can be seen [here](https://www.youtube.com/shorts/rkDN3T3bmQE).
-- **Data collection tool for Virtual Character**: Developed a user interface that simulates a virtual character with predefined characteristics. The data collection team interacts with virtual character to gather additional data for fine-tuning a large language model (LLM). The tool is deployed on Google Cloud Platform (GCP) using FastAPI, with PostgreSQL used to store the collected data.
-- **GPT Fine-tuning**: Fine-tuned the GPT-3.5-turbo model on conversation data of a virtual character to build a custom API for the virtual assistant. Performed several data augmentations using the OpenAI API for paraphrasing conversations.
-- **LLMs Deployment**: Deployed a lightweight Phi-3 model for emotion detection from text on GCP using FastAPI and prepared a deployment container. The main objective was to detect users' emotions while interacting with a virtual character and responding accordingly.
-- **VLMs Deployment**: Developed an "eye" for a virtual character to see and understand its surroundings, enabling it to interact with users. Deployed the Phi-3-Vision model on GCP for this purpose.
-- **Face Parsing**: To improve face swapping performance, employed a Face Parsing model to segment the face. Enhanced model performance by modifying the feature extractor (backbone) and training strategy. Implementation can be found [here](https://github.com/yakhyo/face-parsing).
-- **Image enhancement & Face restoration & DeepFake**: Worked on image enhancement and face restoration to improve DeepFakes. Created a DeepFake video for KBS election process coverage. Can be seen [here](https://www.youtube.com/live/CGbvG8S7HHo?si=8j4R4-f5ICfz01GF).
-
-### ML Engineer
-
-**[Pyler Co. Ltd](https://www.pyler.tech/)** &#124; **July 2022 - September 2023**
-
-- **Video-based Visual Content Moderation**: Built a Video Moderation Pipeline to flag inappropriate video content using video recognition models, achieving over a 10% improvement in model accuracy.
-- **Detection-based Visual Content Moderation**: Utilized segmentation and detection techniques to precisely detect unsuitable content for brand safety. Implemented state-of-the-art models in terms of real-time speed and efficiency, improving model precision and recall by around 15% through active learning techniques. Built an end-to-end pipeline on Kubeflow for training and deployment.
-- **Classification-based Visual Content Moderation**: Leveraged multi-label and multi-head classification techniques to improve precision by approximately 20% using self-supervised and supervised training approaches. This novel approach showcases the adaptability and efficacy of the model for hard samples. Prepared Docker images for each development and deployment environment (containerization).
-- **Model Assisted Labeling**: Created a pipeline for doing inference on existing labeled data and doing inference on unlabeled data. Improved labeling quality and speed using **Active Learning**.
+- **Video-Based Visual Content Moderation:** Developed a robust pipeline for detecting inappropriate content in video streams using temporal action recognition models. Achieved a **10%+ improvement in accuracy** by optimizing model architecture and training strategy.
+- **Detection-Based Moderation Pipeline:** Implemented **real-time object detection and segmentation** models to flag unsafe visual elements for brand safety. Integrated **active learning** loops, improving precision and recall by **~15%**. Built a scalable end-to-end training and deployment pipeline on **Kubeflow**.
+- **Classification-Based Moderation Framework:** Designed a **multi-label, multi-head classification system** combining self-supervised and supervised learning. Boosted precision by **~20%** on hard samples and established this architecture as the standard for visual moderation across projects.
+- **Dataset Clustering with CLIP Embeddings:** Leveraged **CLIP vision-language embeddings** to perform unsupervised dataset analysis. Applied **PCA** for dimensionality reduction and used **KMeans** and **DBSCAN** for clustering to identify content groups and outliers. Enabled efficient dataset curation and weak supervision strategies.
+- **Model-Assisted Labeling System:** Built a feedback-driven pipeline that combined inference on labeled and unlabeled data to accelerate data annotation. Used **active learning** to improve labeling quality and reduce manual annotation time.
 
 ### AI Research Engineer
 
-**[D-Meta Co. Ltd](https://www.d-meta.ai/)** &#124; **November 2020 - July 2022**
+**[D-Meta Co. Ltd](https://www.d-meta.ai/)** &#124; **November 2020 - July 2022** &#124; **Seoul, South Korea**
 
-- **Slab Text Recognition**: Developed and designed a text detection and recognition model to efficiently recognize handwritten texts on slab metals using Spatial Transformer Networks and Sequential modeling. Built a complete pipeline from data pre-processing to training and evaluation of the model. Achieved over 90% accuracy by integrating state-of-the-art detection and recognition models for scene text images.
-- **Automatic Number Plate Recognition**: Designed and developed an ANPR model to accurately detect and recognize number plates. Leveraged active learning and synthetic image generation techniques to improve precision and recall by around 15%.
-- **Car Damage Detection**: Built a lightweight damage detection model and deployed it on an Android device using TorchScript. Improved the precision of the model by around 10% by tuning the model parameters.
+- **Slab Text Recognition:** Developed an OCR pipeline to recognize handwritten text on slab metals using **Spatial Transformer Networks (STN)** and sequential models. Built the full workflow from data preprocessing to training and evaluation. Achieved over **90% accuracy** by integrating state-of-the-art text detection and recognition techniques optimized for industrial scene images.
+- **Automatic Number Plate Recognition (ANPR):** Designed an end-to-end pipeline for number plate detection and recognition. Improved performance by **~15%** in precision and recall through **active learning**, synthetic data generation, and targeted augmentation strategies.
+- **Real-Time ANPR Inference:** Deployed ANPR models for **real-time video inference** from **RTSP streams**, enabling continuous monitoring and detection in live camera feeds. Handled frame capture, batching, and stream resilience for production environments.
+- **Car Damage Detection:** Built and deployed a lightweight **car damage detection model** optimized for **Android devices** using TorchScript. Achieved a **10% improvement in precision** through hyperparameter tuning and efficient model design.
+- **Shadow Removal using Pix2Pix GAN:** Applied **Pix2Pix GAN** to remove shadows cast on vehicles in captured images, enabling clearer downstream detection and damage assessment. Improved image quality and model robustness in low-light or occluded conditions.
 
 ## Research Experience
 
 ### Research Assistant
 
-**AI and SC Lab** &#124; **Sep 2018 - Nov 2020**
+**AI and SC Lab** &#124; **Sep 2018 - Nov 2020** &#124; **Seongnam, South Korea**
 
-- **Computer Vision based Fire and Smoke Detection**: Designed and implemented a dilated CNN architecture for improved feature extraction and recognition in images/videos. By carefully tuning and optimizing the model, achieved a high level of accuracy in fire and smoke detection, reducing false positives and achieving 1.5x faster inference speed compared to the fastest counterpart.
-- **Model Optimization for Edge Devices**: Improved the FPS on Edge device (Raspberry PI 2) by using hyper-parameter tuning and quantization for the detection model.
+- **Computer Vision based Fire and Smoke Detection:** Designed and implemented a dilated CNN architecture for improved feature extraction and recognition in images/videos. Applied optimization techniques to reduce false positives and increase inference speed by **1.5× over baseline**.
+- **Model Optimization for Edge Devices:** Improved the FPS on Edge device (Raspberry PI 2) by using hyper-parameter tuning and quantization for detection model.
 
 ## Education
 
 | **Institution**                                 | **Degree**                                                                | **Duration**        |
 | ----------------------------------------------- | ------------------------------------------------------------------------- | ------------------- |
 | Gachon University                               | MSc in Computer Engineering; advised by Prof. Young Im Cho; CGPA: 4.0/4.5 | Sep 2018 - Feb 2021 |
-| Tashkent University of Information Technologies | BSc in Computer Engineering; CGPA(%): 85/100                              | Sep 2014 - Jun 2018 |
+| Tashkent University of Information Technologies | BSc in Computer Engineering; CGPA(%): 85/100 or 3.72/4.0                 | Sep 2014 - Jun 2018 |
 
 ## Publications
 
+- Muksimova S†, **Valikhujaev Y**†, Umirzakova S, Baltayev J, Cho YI. GazeCapsNet: A Lightweight Gaze Estimation Framework. Sensors, 2025; 25(4):1224. [https://doi.org/10.3390/s25041224](https://doi.org/10.3390/s25041224). _† These authors contributed equally to this work._
 - **Valikhujaev Y**, Abdusalomov A, Cho YI. Automatic Fire and Smoke Detection Method for Surveillance Systems Based on Dilated CNNs. Atmosphere, **IF 2.9**. 2020; 11(11):1241. [https://doi.org/10.3390/atmos11111241](https://doi.org/10.3390/atmos11111241).
-- Muksimova SH, **Valikhujaev Y**, Cho YI. Automatic Fire and Smoke Detection System for Open Street CCTV Systems in Smart City Platforms. Korean Society of Information Scientists and Engineers, 412-414 pages, Domestic Conference.
+- Muksimova Sh†, **Valikhujaev Y**†, Cho YI. Automatic Fire and Smoke Detection System for Open Street CCTV Systems in Smart City Platforms. Korean Society of Information Scientists and Engineers, 412-414 pages, Domestic Conference.
 
 ## Honors
 
@@ -85,15 +106,15 @@ and collaborating with cross-functional teams to drive business growth.
 
 ## Languages
 
-- **English:** Full Professional Proficiency (C1 Advanced, IELTS band 7)
+- **English:** Full Professional Proficiency (C1 Advanced)
 - **Korean:** Limited Working Proficiency (B1 Pre-Intermediate)
-- **Uzbek:** Native Proficiency
 - **Russian:** Limited Working Proficiency
+- **Uzbek:** Native Proficiency
 
 ---
 <br>
-_Last Updated: 2024-09-19_
+_Last Updated: 2025-11-10_
 
-<code> Click below to download in .pdf format </code>
-
-<a href="https://github.com/yakhyo/yakhyo.github.io/releases/download/v0.0.1/yakhyo_cv.pdf"> <img src="{{ site.baseurl }}/assets/images/download-pdf.webp" width="64px"> </a>
+<a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download style="text-decoration: none; font-size: 1.2em;">
+  📥 Download Resume (PDF)
+</a>

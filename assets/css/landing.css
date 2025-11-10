@@ -176,7 +176,8 @@
     display: none;
 }
 
-footer {
+/* Hide footer only on landing page */
+body.landing-page-body footer {
     display: none;
 }
 

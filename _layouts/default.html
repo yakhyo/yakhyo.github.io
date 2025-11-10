@@ -3,7 +3,7 @@
 
 {%- include head.html -%}
 
-<body>
+<body{% if page.url == '/' %} class="landing-page-body"{% endif %}>
 
   {%- include announcement-banner.html -%}
   {%- include header.html -%}

@@ -19,6 +19,9 @@ author:
 twitter_username: y_valikhujaev
 github_username: yakhyo
 linkedin_username: y-valikhujaev
+youtube_username: # Add if you have one
+stackoverflow_id: 14815986
+leetcode_username: y_valikhujaev
 
 # SEO Configuration
 social:
@@ -43,7 +46,7 @@ plugins:
 header_pages:
   - _pages/blog.md
   # - _pages/timeline.md
-  - _pages/resume.md
+  # - _pages/resume.md
   - _pages/about.md
 
 include:
@@ -88,6 +91,6 @@ exclude:
 # Announcement Banner
 announcement:
   enabled: true
-  text: "⭐ Check out my"
-  link: "https://github.com/yakhyo"
-  link_text: "GitHub for ML projects"
+  text: "⭐ Check out"
+  link: "https://github.com/yakhyo/uniface/releases/tag/v1.0.0"
+  link_text: "Uniface: Unified Face Analysis Library"

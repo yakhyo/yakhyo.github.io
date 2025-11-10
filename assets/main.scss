@@ -3,6 +3,7 @@
 ---
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 @import "minima";
 
@@ -29,61 +30,51 @@ h1, h2, h3, h4, h5, h6 {
   border-top: none;
 }
 
-// Fix footer layout and spacing
-.footer-col-wrapper {
+// Modern Centered Footer Layout
+.site-footer {
+  border-top: 1px solid #e8e8e8;
+  padding: 2.5rem 0 1.5rem;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+// Social Links - Icons Only
+.footer-social {
   display: flex;
-  justify-content: space-between;
-  gap: 3rem;
-}
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
 
-.footer-col {
-  min-width: 0;
-}
+  a {
+    color: #111;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
 
-.footer-col-1 {
-  flex: 1;
-}
-
-.footer-col-2 {
-  flex: 1;
-}
-
-.footer-col-3 {
-  flex: 2;
-}
-
-// Fix footer social links alignment
-.footer-col-2 .social-media-list {
-  list-style: none;
-  margin-left: 0;
-  margin-bottom: 0;
-
-  li {
-    display: flex !important;
-    align-items: center !important;
-    margin-bottom: 0.3rem;
-    line-height: 1.2;
-
-    a {
-      display: flex !important;
-      align-items: center !important;
-      gap: 0.5rem;
-      padding: 0.1rem 0;
+    i {
+      font-size: 1.75rem;
     }
 
-    .svg-icon {
-      flex-shrink: 0;
-      display: inline-block;
-      vertical-align: middle;
-      width: 16px;
-      height: 16px;
+    &:hover {
+      color: #1e90ff;
+      transform: translateY(-3px);
     }
+  }
+}
 
-    .username {
-      white-space: nowrap;
-      display: inline-block;
-      vertical-align: middle;
-    }
+// Motto
+.footer-motto {
+  max-width: 600px;
+  margin: 0 auto 1rem;
+
+  p {
+    color: #888;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
   }
 }
 
@@ -92,6 +83,92 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
   font-weight: 600;
+}
+
+// Search Bar and Year Filter Wrapper
+.search-filter-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 2px solid #e8e8e8;
+    border-radius: 25px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #1e90ff;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30, 144, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+}
+
+// Year Filter Dropdown
+.year-filter-container {
+  position: relative;
+  min-width: 150px;
+
+  .year-filter {
+    width: 100%;
+    padding: 0.75rem 2.75rem 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 2px solid #e8e8e8;
+    border-radius: 25px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    cursor: pointer;
+    appearance: none;
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: #ccc;
+    }
+
+    &:focus {
+      border-color: #1e90ff;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30, 144, 255, 0.1);
+    }
+  }
+
+  .year-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1rem;
+    pointer-events: none;
+  }
 }
 
 // Topic Filter Buttons
@@ -202,6 +279,38 @@ h1, h2, h3, h4, h5, h6 {
 
 // Responsive
 @media (max-width: 768px) {
+  .search-filter-wrapper {
+    flex-direction: column;
+    margin: 1.5rem 0 1rem;
+    gap: 0.75rem;
+  }
+
+  .search-container {
+    #search-input {
+      font-size: 0.95rem;
+      padding: 0.65rem 1rem 0.65rem 2.5rem;
+    }
+
+    .search-icon {
+      font-size: 0.9rem;
+      left: 0.9rem;
+    }
+  }
+
+  .year-filter-container {
+    min-width: 100%;
+
+    .year-filter {
+      font-size: 0.95rem;
+      padding: 0.65rem 2.5rem 0.65rem 1rem;
+    }
+
+    .year-icon {
+      font-size: 0.9rem;
+      right: 0.9rem;
+    }
+  }
+
   .topic-filter {
     gap: 0.5rem;
   }
@@ -216,6 +325,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+// Mobile footer adjustments (Mobile L and smaller)
+@media (max-width: 480px) {
+  .footer-social {
+    gap: 1.5rem;
+    // Keep same icon size as desktop for better touch targets
+  }
+
+  // Hide the motto/description on mobile
+  .footer-motto {
+    display: none;
+  }
+}
+
 
 // Footer Copyright
 .footer-copyright {
@@ -226,8 +348,10 @@ h1, h2, h3, h4, h5, h6 {
 
   p {
     margin: 0;
-    font-size: 0.875rem;
-    color: #828282;
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #999;
+    font-weight: 400;
   }
 }
 

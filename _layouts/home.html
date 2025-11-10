@@ -17,6 +17,24 @@ layout: default
 
   {%- if posts.size > 0 -%}
 
+  <!-- Search Bar and Year Filter -->
+  <div class="search-filter-wrapper">
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search posts..." />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    <div class="year-filter-container">
+      <select id="year-filter" class="year-filter">
+        <option value="all">All Years</option>
+        {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+        {% for year in years %}
+        <option value="{{ year.name }}">{{ year.name }}</option>
+        {% endfor %}
+      </select>
+      <i class="fas fa-calendar-alt year-icon"></i>
+    </div>
+  </div>
+
   <!-- Topic Filter Buttons -->
   <div class="topic-filter">
     <button class="filter-btn active" data-topic="all">All Posts</button>
@@ -26,10 +44,10 @@ layout: default
     <button class="filter-btn" data-topic="mathematics">Mathematics</button>
   </div>
 
-  <ul class="post-list">
+  <ul class="post-list" id="results-container">
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     {%- for post in posts -%}
-    <li class="post-item" data-categories="{{ post.categories | join: ' ' }}">
+    <li class="post-item" data-categories="{{ post.categories | join: ' ' }}" data-year="{{ post.date | date: '%Y' }}">
       <h3>
         <a class="post-link" href="{{ post.url | relative_url }}">
           {{ post.title | escape }}
@@ -99,35 +117,93 @@ document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-btn');
   const postItems = document.querySelectorAll('.post-item');
   const noPostsMessage = document.getElementById('no-posts');
+  const searchInput = document.getElementById('search-input');
+  const yearFilter = document.getElementById('year-filter');
+  let currentTopic = 'all';
+  let currentYear = 'all';
 
+  // Search functionality
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      // Show all posts when search is empty
+      applyFilters();
+      return;
+    }
+
+    let visibleCount = 0;
+    postItems.forEach(post => {
+      const title = post.querySelector('.post-link').textContent.toLowerCase();
+      const categories = post.getAttribute('data-categories').toLowerCase();
+      const excerpt = post.querySelector('.post-excerpt') ?
+                     post.querySelector('.post-excerpt').textContent.toLowerCase() : '';
+
+      // Check if search term matches title, categories, or excerpt
+      if (title.includes(searchTerm) || categories.includes(searchTerm) || excerpt.includes(searchTerm)) {
+        post.style.display = 'block';
+        visibleCount++;
+      } else {
+        post.style.display = 'none';
+      }
+    });
+
+    // Show/hide no posts message
+    if (visibleCount === 0) {
+      noPostsMessage.style.display = 'block';
+      noPostsMessage.querySelector('p').textContent = 'No posts found matching your search.';
+    } else {
+      noPostsMessage.style.display = 'none';
+    }
+  });
+
+  // Year filter functionality
+  yearFilter.addEventListener('change', function() {
+    currentYear = this.value;
+    searchInput.value = ''; // Clear search
+    applyFilters();
+  });
+
+  // Topic filter functionality
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
+      // Clear search when using topic filter
+      searchInput.value = '';
+
       // Update active button
       filterButtons.forEach(btn => btn.classList.remove('active'));
       this.classList.add('active');
 
-      const topic = this.getAttribute('data-topic');
-      let visibleCount = 0;
-
-      // Filter posts
-      postItems.forEach(post => {
-        const categories = post.getAttribute('data-categories');
-
-        if (topic === 'all' || categories.includes(topic)) {
-          post.style.display = 'block';
-          visibleCount++;
-        } else {
-          post.style.display = 'none';
-        }
-      });
-
-      // Show/hide no posts message
-      if (visibleCount === 0) {
-        noPostsMessage.style.display = 'block';
-      } else {
-        noPostsMessage.style.display = 'none';
-      }
+      currentTopic = this.getAttribute('data-topic');
+      applyFilters();
     });
   });
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    postItems.forEach(post => {
+      const categories = post.getAttribute('data-categories');
+      const year = post.getAttribute('data-year');
+
+      const topicMatch = currentTopic === 'all' || categories.includes(currentTopic);
+      const yearMatch = currentYear === 'all' || year === currentYear;
+
+      if (topicMatch && yearMatch) {
+        post.style.display = 'block';
+        visibleCount++;
+      } else {
+        post.style.display = 'none';
+      }
+    });
+
+    // Show/hide no posts message
+    if (visibleCount === 0) {
+      noPostsMessage.style.display = 'block';
+      noPostsMessage.querySelector('p').textContent = 'No posts found for this selection.';
+    } else {
+      noPostsMessage.style.display = 'none';
+    }
+  }
 });
 </script>

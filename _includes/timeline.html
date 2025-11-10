@@ -24,7 +24,7 @@
               {% endif %}
             </div>
           </div>
-          <p class="timeline-description">{{ entry.description }}</p>
+          <div class="timeline-description">{{ entry.description | markdownify }}</div>
           {% if entry.category %}
             <span class="timeline-category">{{ entry.category }}</span>
           {% endif %}
