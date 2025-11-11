@@ -39,49 +39,10 @@ sitemap: false
 </style>
 
 <div class="admin-container">
-  <h1>📊 Admin Dashboard</h1>
-  <p style="color: #666;">Private analytics and statistics</p>
-
-  <div class="stat-card">
-    <h3>📥 Resume Downloads</h3>
-    <div class="stat-value" id="download-count">
-      <span class="loading">Loading...</span>
-    </div>
-    <div class="stat-label">Total PDF downloads tracked</div>
-  </div>
-
-  <div class="stat-card">
-    <h3>📋 Resume Page Views</h3>
-    <div class="stat-value" id="resume-views">
-      <span class="loading">Loading...</span>
-    </div>
-    <div class="stat-label">Total resume page views</div>
-  </div>
 
   <div class="stat-card">
     <h3>📈 Google Analytics</h3>
-    <p>For detailed analytics, visit your <a href="https://analytics.google.com/analytics/web/#/p{{ site.google_analytics }}" target="_blank" rel="noopener noreferrer">Google Analytics Dashboard</a></p>
+    <p>View all your site analytics including resume downloads in your Google Analytics dashboard:</p>
+    <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #1e90ff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500;">Open Google Analytics</a>
   </div>
 </div>
-
-<script>
-  // Fetch download count from CountAPI
-  fetch('https://api.countapi.xyz/get/yakhyo.github.io/resume-downloads')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('download-count').textContent = data.value || 0;
-    })
-    .catch(err => {
-      document.getElementById('download-count').textContent = 'Error loading';
-    });
-
-  // Fetch resume page view count
-  fetch('https://api.countapi.xyz/get/yakhyo.github.io/resume-views')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('resume-views').textContent = data.value || 0;
-    })
-    .catch(err => {
-      document.getElementById('resume-views').textContent = 'Error loading';
-    });
-</script>

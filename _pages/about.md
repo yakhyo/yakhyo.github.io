@@ -42,7 +42,7 @@ permalink: /about/
     📋 View Resume
   </a>
   <span class="resume-separator">|</span>
-  <a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download class="resume-link" onclick="fetch('https://api.countapi.xyz/hit/yakhyo.github.io/resume-downloads'); gtag('event', 'download', {'event_category': 'Resume', 'event_label': 'PDF Download'});">
+  <a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download class="resume-link" onclick="gtag('event', 'download', {'event_category': 'Resume', 'event_label': 'PDF Download'});">
     📥 Download PDF
   </a>
 </p>
