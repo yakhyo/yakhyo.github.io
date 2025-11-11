@@ -18,10 +18,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .site-title {
   font-family: 'JetBrains Mono', monospace;
+  transition: color 0.3s ease;
+
+  &:hover {
+    text-decoration: none;
+    color: #1e90ff;
+  }
 }
 
 .page-link {
   font-family: 'JetBrains Mono', monospace;
+}
+
+// Navigation hover effect - color change without underline
+.site-nav .page-link {
+  transition: color 0.3s ease;
+
+  &:hover {
+    text-decoration: none;
+    color: #1e90ff;
+  }
 }
 
 // Custom overrides and additions go here
