@@ -4,8 +4,47 @@ title: About
 permalink: /about/
 ---
 
-<p style="background-color: #f3f4f6; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #3b82f6;">
-  📋 <strong><a href="/resume/">View my full resume</a></strong> &nbsp;|&nbsp; 📥 <strong><a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download>Download PDF</a></strong>
+<style>
+  .resume-link {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 0.25rem;
+  }
+  .resume-link:hover {
+    color: #1e90ff;
+  }
+  .resume-links-container {
+    margin: 1rem 0;
+    font-size: 1rem;
+  }
+  .resume-separator {
+    margin: 0 0.5rem;
+    color: #ccc;
+  }
+  @media (max-width: 480px) {
+    .resume-links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .resume-separator {
+      display: none;
+    }
+  }
+</style>
+
+<p class="resume-links-container">
+  <a href="/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
+    📋 View Resume
+  </a>
+  <span class="resume-separator">|</span>
+  <a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download class="resume-link" onclick="fetch('https://api.countapi.xyz/hit/yakhyo.github.io/resume-downloads'); gtag('event', 'download', {'event_category': 'Resume', 'event_label': 'PDF Download'});">
+    📥 Download PDF
+  </a>
 </p>
 
 I'm **Yakhyokhuja (Yakhyo) Valikhujaev**, an AI/ML & MLOps Engineer with 6+ years of industry and research experience focused on Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Vision-Language Models (VLMs), and scalable MLOps infrastructure.
