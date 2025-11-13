@@ -30,13 +30,31 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'JetBrains Mono', monospace;
 }
 
-// Navigation hover effect - color change without underline
+// Navigation hover effect - underline animation from bottom
 .site-nav .page-link {
+  position: relative;
   transition: color 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #1e90ff;
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease;
+  }
 
   &:hover {
     text-decoration: none;
     color: #1e90ff;
+
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
@@ -46,23 +64,37 @@ h1, h2, h3, h4, h5, h6 {
   border-top: none;
 }
 
-// Modern Centered Footer Layout
+// Modern Footer Layout
 .site-footer {
   border-top: 1px solid #e8e8e8;
-  padding: 2.5rem 0 1.5rem;
+  padding: 1.25rem 0;
 }
 
 .footer-content {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Copyright
+.footer-copyright {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 400;
+  }
 }
 
 // Social Links - Icons Only
 .footer-social {
   display: flex;
-  justify-content: center;
+  gap: 1.25rem;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
 
   a {
     color: #111;
@@ -71,26 +103,13 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
 
     i {
-      font-size: 1.75rem;
+      font-size: 1.25rem;
     }
 
     &:hover {
       color: #1e90ff;
       transform: translateY(-3px);
     }
-  }
-}
-
-// Motto
-.footer-motto {
-  max-width: 600px;
-  margin: 0 auto 1rem;
-
-  p {
-    color: #888;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin: 0;
   }
 }
 
@@ -341,33 +360,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// Mobile footer adjustments (Mobile L and smaller)
-@media (max-width: 480px) {
-  .footer-social {
+// Mobile footer adjustments
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
     gap: 1.5rem;
-    // Keep same icon size as desktop for better touch targets
+    text-align: center;
   }
 
-  // Hide the motto/description on mobile
-  .footer-motto {
-    display: none;
+  .footer-copyright {
+    text-align: center;
   }
-}
 
-
-// Footer Copyright
-.footer-copyright {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e8e8e8;
-  text-align: center;
-
-  p {
-    margin: 0;
-    font-size: 0.8rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #999;
-    font-weight: 400;
+  .footer-social {
+    justify-content: center;
   }
 }
 

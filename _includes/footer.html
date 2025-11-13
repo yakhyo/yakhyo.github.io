@@ -4,6 +4,11 @@
   <div class="wrapper">
     <div class="footer-content">
 
+      <!-- Copyright -->
+      <div class="footer-copyright">
+        <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }}</p>
+      </div>
+
       <!-- Social Links - Icons Only -->
       <div class="footer-social">
         {%- if site.github_username -%}
@@ -43,16 +48,6 @@
         {%- endif -%}
       </div>
 
-      <!-- Motto (hidden on mobile) -->
-      <div class="footer-motto">
-        <p>{{ site.description | escape }}</p>
-      </div>
-
-    </div>
-
-    <!-- Copyright -->
-    <div class="footer-copyright">
-      <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }} · Built with Jekyll & Minima</p>
     </div>
 
   </div>
