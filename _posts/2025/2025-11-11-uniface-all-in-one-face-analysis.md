@@ -10,8 +10,11 @@ Face analysis has become essential in modern applications—from security system
 
 **UniFace** is a comprehensive, production-ready face analysis library that brings together face detection, recognition, landmark detection, and attribute analysis under one unified API. Built on ONNX Runtime with automatic hardware acceleration support, UniFace delivers high-performance face analysis across Apple Silicon, NVIDIA GPUs, and CPU-only environments.
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/yakhyo/uniface)
-[![PyPI](https://img.shields.io/pypi/v/uniface)](https://pypi.org/project/uniface)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+[![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/)
+[![CI](https://github.com/yakhyo/uniface/actions/workflows/ci.yml/badge.svg)](https://github.com/yakhyo/uniface/actions)
+[![Downloads](https://pepy.tech/badge/uniface)](https://pepy.tech/project/uniface)
 
 ---
 
@@ -101,15 +104,25 @@ print(f"{gender}, {age} years old")
 
 ---
 
-## Hardware Acceleration
+## Installation & Hardware Acceleration
 
-One of UniFace's standout features is seamless hardware acceleration support:
+UniFace provides optimized installation options for different platforms:
 
-**Apple Silicon (M1/M2/M3/M4)**: Install with `pip install uniface[silicon]` to leverage CoreML acceleration, delivering 3-5x faster inference compared to CPU-only execution.
+### Quick Install (All Platforms)
+```bash
+pip install uniface
+```
 
-**NVIDIA GPUs**: Install with `pip install uniface[gpu]` for CUDA acceleration, perfect for server deployments and batch processing.
+### Platform-Specific Optimization
 
-**CPU Fallback**: Works out of the box on any platform with automatic optimization.
+**Apple Silicon (M1/M2/M3/M4)**: The standard installation automatically includes ARM64 optimizations for Apple Silicon Macs. The base `onnxruntime` package has native Apple Silicon support built-in since version 1.13+.
+
+**NVIDIA GPUs**: For CUDA acceleration on NVIDIA GPUs:
+```bash
+pip install uniface[gpu]
+```
+
+**CPU-Only**: Works out of the box on any platform with automatic optimization.
 
 The library automatically detects and uses the best available execution provider—no configuration needed.
 
@@ -117,7 +130,9 @@ The library automatically detects and uses the best available execution provider
 
 ## Model Selection Guide
 
-UniFace provides a comprehensive model zoo with clear guidance:
+UniFace provides a comprehensive model zoo with clear guidance for different use cases:
+
+### By Use Case
 
 **Mobile/Edge Devices**: Use lightweight models like `RetinaFace(MNET_025)` (1.7MB) or `MobileFace(MNET_V2)` (4MB) for resource-constrained environments.
 
@@ -127,45 +142,133 @@ UniFace provides a comprehensive model zoo with clear guidance:
 
 **Server/Cloud Deployment**: Leverage larger models with GPU acceleration for maximum throughput and accuracy in batch processing scenarios.
 
+### Model Families
+
+**Detection Models**:
+```python
+from uniface.detection import RetinaFace, SCRFD
+from uniface.constants import RetinaFaceWeights, SCRFDWeights
+
+# Fast detection (mobile/edge devices)
+detector = RetinaFace(model_name=RetinaFaceWeights.MNET_025, conf_thresh=0.7)
+
+# Balanced (recommended)
+detector = RetinaFace(model_name=RetinaFaceWeights.MNET_V2)
+
+# High accuracy (server/GPU)
+detector = SCRFD(model_name=SCRFDWeights.SCRFD_10G_KPS, conf_thresh=0.5)
+```
+
+**Recognition Models**:
+```python
+from uniface import ArcFace, MobileFace, SphereFace
+
+# ArcFace (recommended for most use cases)
+recognizer = ArcFace()  # Best accuracy
+
+# MobileFace (lightweight for mobile/edge)
+recognizer = MobileFace()  # Fast, small size
+
+# SphereFace (angular margin approach)
+recognizer = SphereFace()  # Alternative method
+```
+
 ---
 
 ## Performance Benchmarks
 
 UniFace models deliver impressive accuracy on the WIDER FACE benchmark:
 
-| Model | Easy | Medium | Hard | Size |
-|-------|------|--------|------|------|
-| RetinaFace MNET_V2 | 91.70% | 91.03% | 86.60% | 3.5MB |
-| RetinaFace RESNET34 | 94.16% | 93.12% | 88.90% | 56MB |
-| SCRFD 10G | 95.16% | 93.87% | 83.05% | 17MB |
+### Face Detection Models (WIDER FACE Dataset)
+
+| Model Name          | Params | Size   | Easy   | Medium | Hard   | Use Case                    |
+|---------------------|--------|--------|--------|--------|--------|----------------------------|
+| `MNET_025`          | 0.4M   | 1.7MB  | 88.48% | 87.02% | 80.61% | Mobile/Edge devices         |
+| `MNET_V2` ⭐        | 3.2M   | 3.5MB  | 91.70% | 91.03% | 86.60% | **Recommended default**     |
+| `RESNET34`          | 24.8M  | 56MB   | 94.16% | 93.12% | 88.90% | Maximum accuracy            |
+| `SCRFD_500M`        | 0.6M   | 2.5MB  | 90.57% | 88.12% | 68.51% | Real-time applications      |
+| `SCRFD_10G` ⭐      | 4.2M   | 17MB   | 95.16% | 93.87% | 83.05% | **High accuracy + speed**   |
+
+### Face Recognition Models
+
+| Model Name  | Backbone    | Params | Size  | Use Case                    |
+|-------------|-------------|--------|-------|----------------------------|
+| `MNET` ⭐   | MobileNet   | 2.0M   | 8MB   | **Balanced (recommended)** |
+| `RESNET`    | ResNet50    | 43.6M  | 166MB | Maximum accuracy           |
+
+*Accuracy values from original papers: [RetinaFace](https://arxiv.org/abs/1905.00641), [SCRFD](https://arxiv.org/abs/2105.04714)*
 
 ---
 
-## Production-Ready Features
+## Quick Start Examples
 
-### Clean, Intuitive API
+### 30-Second Face Detection
 
 ```python
-from uniface import create_detector, create_recognizer
+import cv2
+from uniface import RetinaFace
 
-# Factory functions with sensible defaults
-detector = create_detector('retinaface')
-recognizer = create_recognizer('arcface')
+# Load image
+image = cv2.imread("photo.jpg")
 
-# Or customize everything
-detector = create_detector('scrfd',
-                          model_name='scrfd_10g_kps',
-                          conf_thresh=0.8,
-                          input_size=(640, 640))
+# Initialize detector (models auto-download on first use)
+detector = RetinaFace()
+
+# Detect faces
+faces = detector.detect(image)
+
+# Print results
+for i, face in enumerate(faces):
+    print(f"Face {i+1}:")
+    print(f"  Confidence: {face['confidence']:.2f}")
+    print(f"  BBox: {face['bbox']}")
+    print(f"  Landmarks: {len(face['landmarks'])} points")
 ```
 
-### Automatic Model Management
+### Face Recognition with Similarity
 
-Models are automatically downloaded on first use and cached in `~/.uniface/models/`. SHA-256 checksums ensure integrity, and you can customize the cache location if needed.
+```python
+import cv2
+import numpy as np
+from uniface import RetinaFace, ArcFace
 
-### Visualization Utilities
+# Initialize models
+detector = RetinaFace()
+recognizer = ArcFace()
 
-Built-in drawing functions make it easy to visualize results:
+# Load two images
+image1 = cv2.imread("person1.jpg")
+image2 = cv2.imread("person2.jpg")
+
+# Detect faces
+faces1 = detector.detect(image1)
+faces2 = detector.detect(image2)
+
+if faces1 and faces2:
+    # Extract embeddings
+    emb1 = recognizer.get_normalized_embedding(image1, faces1[0]['landmarks'])
+    emb2 = recognizer.get_normalized_embedding(image2, faces2[0]['landmarks'])
+
+    # Compute similarity (cosine similarity)
+    similarity = np.dot(emb1, emb2.T)[0][0]
+
+    # Interpret result
+    if similarity > 0.6:
+        print(f"Same person (similarity: {similarity:.3f})")
+    else:
+        print(f"Different people (similarity: {similarity:.3f})")
+```
+
+**Similarity thresholds:**
+- `> 0.6`: Same person (high confidence)
+- `0.4 - 0.6`: Uncertain (manual review)
+- `< 0.4`: Different people
+
+### Production-Ready Features
+
+**Automatic Model Management**: Models are automatically downloaded on first use and cached in `~/.uniface/models/`. SHA-256 checksums ensure integrity.
+
+**Visualization Utilities**: Built-in drawing functions make it easy to visualize results:
 
 ```python
 from uniface.visualization import draw_detections
@@ -239,13 +342,94 @@ cv2.destroyAllWindows()
 
 ---
 
+## Advanced Features
+
+### Age & Gender Detection
+
+```python
+import cv2
+from uniface import RetinaFace, AgeGender
+
+# Initialize models
+detector = RetinaFace()
+age_gender = AgeGender()
+
+# Load image
+image = cv2.imread("photo.jpg")
+faces = detector.detect(image)
+
+# Predict attributes
+for i, face in enumerate(faces):
+    gender, age = age_gender.predict(image, face['bbox'])
+    print(f"Face {i+1}: {gender}, {age} years old")
+```
+
+### Batch Processing
+
+```python
+import cv2
+from pathlib import Path
+from uniface import RetinaFace
+
+detector = RetinaFace()
+
+# Process all images in a folder
+image_dir = Path("images/")
+output_dir = Path("output/")
+output_dir.mkdir(exist_ok=True)
+
+for image_path in image_dir.glob("*.jpg"):
+    print(f"Processing {image_path.name}...")
+    image = cv2.imread(str(image_path))
+    faces = detector.detect(image)
+    print(f"  Found {len(faces)} face(s)")
+
+    # Save results
+    output_path = output_dir / image_path.name
+    # ... draw and save ...
+
+print("Done!")
+```
+
+### Common Issues & Solutions
+
+**Check Hardware Acceleration**:
+```python
+import onnxruntime as ort
+print("Available providers:", ort.get_available_providers())
+# macOS M-series should show: ['CoreMLExecutionProvider', ...]
+# NVIDIA GPU should show: ['CUDAExecutionProvider', ...]
+```
+
+**Manual Model Download**:
+```python
+from uniface.model_store import verify_model_weights
+from uniface.constants import RetinaFaceWeights
+
+model_path = verify_model_weights(RetinaFaceWeights.MNET_V2)
+print(f"Model downloaded to: {model_path}")
+```
+
+---
+
+## Open Source
+
+UniFace is open source under the MIT license and actively maintained on GitHub. The project includes comprehensive documentation, Jupyter notebook examples, and training code repositories for model reproduction.
+
+The library builds on proven research:
+- **RetinaFace**: Single-Shot Multi-Level Face Localisation in the Wild
+- **SCRFD**: Sample and Computation Redistribution for Efficient Face Detection
+- **ArcFace**: Additive Angular Margin Loss for Deep Face Recognition
+
+---
+
 ## Getting Started
 
 Installation is straightforward:
 
 ```bash
-# macOS (Apple Silicon)
-pip install uniface[silicon]
+# macOS (Apple Silicon) - automatically includes ARM64 optimizations
+pip install uniface
 
 # Linux/Windows with NVIDIA GPU
 pip install uniface[gpu]
@@ -270,19 +454,9 @@ for face in faces:
 
 ---
 
-## Open Source
-
-UniFace is open source under the MIT license and actively maintained on GitHub. The project includes comprehensive documentation, Jupyter notebook examples, and training code repositories for model reproduction.
-
-The library builds on proven research:
-- **RetinaFace**: Single-Shot Multi-Level Face Localisation in the Wild
-- **SCRFD**: Sample and Computation Redistribution for Efficient Face Detection
-- **ArcFace**: Additive Angular Margin Loss for Deep Face Recognition
-
----
-
 **Resources:**
-- GitHub: [github.com/yakhyo/uniface](https://github.com/yakhyo/uniface)
-- PyPI: [pypi.org/project/uniface](https://pypi.org/project/uniface)
-- Documentation: [README.md](https://github.com/yakhyo/uniface/blob/main/README.md)
-- Model Zoo: [MODELS.md](https://github.com/yakhyo/uniface/blob/main/MODELS.md)
+- **GitHub**: [github.com/yakhyo/uniface](https://github.com/yakhyo/uniface)
+- **PyPI**: [pypi.org/project/uniface](https://pypi.org/project/uniface)
+- **Quick Start Guide**: [QUICKSTART.md](https://github.com/yakhyo/uniface/blob/main/QUICKSTART.md)
+- **Model Zoo**: [MODELS.md](https://github.com/yakhyo/uniface/blob/main/MODELS.md)
+- **Training Code**: [RetinaFace PyTorch](https://github.com/yakhyo/retinaface-pytorch), [Face Recognition](https://github.com/yakhyo/face-recognition)
