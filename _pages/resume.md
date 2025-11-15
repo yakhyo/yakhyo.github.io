@@ -95,7 +95,7 @@ Experienced in developing and optimizing **LLM-based**, **multimodal**, and **re
 
 ## Publications
 
-- Muksimova S†, **Valikhujaev Y**†, Umirzakova S, Baltayev J, Cho YI. GazeCapsNet: A Lightweight Gaze Estimation Framework. Sensors, 2025; 25(4):1224. [https://doi.org/10.3390/s25041224](https://doi.org/10.3390/s25041224). _† These authors contributed equally to this work._
+- **Valikhujaev Y**†, Muksimova S†, Umirzakova S, Baltayev J, Cho YI. GazeCapsNet: A Lightweight Gaze Estimation Framework. Sensors, 2025; 25(4):1224. [https://doi.org/10.3390/s25041224](https://doi.org/10.3390/s25041224). _† These authors contributed equally to this work._
 - **Valikhujaev Y**, Abdusalomov A, Cho YI. Automatic Fire and Smoke Detection Method for Surveillance Systems Based on Dilated CNNs. Atmosphere, **IF 2.9**. 2020; 11(11):1241. [https://doi.org/10.3390/atmos11111241](https://doi.org/10.3390/atmos11111241).
 - Muksimova Sh†, **Valikhujaev Y**†, Cho YI. Automatic Fire and Smoke Detection System for Open Street CCTV Systems in Smart City Platforms. Korean Society of Information Scientists and Engineers, 412-414 pages, Domestic Conference.
 
