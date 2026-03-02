@@ -3,7 +3,7 @@
 
   {% if timeline_entries and timeline_entries.size > 0 %}
     {% for entry in timeline_entries %}
-      <div class="timeline-entry">
+      <div class="timeline-entry" data-category="{{ entry.category }}"{% if entry.date_end == "Present" %} data-current="true"{% endif %}>
         <div class="timeline-marker"></div>
         <div class="timeline-date">
           <span class="date-start">{{ entry.date }}</span>

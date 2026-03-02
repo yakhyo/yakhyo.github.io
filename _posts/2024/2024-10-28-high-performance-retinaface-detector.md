@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "RetinaFace: Single-stage Dense Face Localisation in the Wild"
-date: 2024-10-28 14:10:00 +0900
+date: 2024-10-28 12:00:00 +0900
 comments: true
 categories: deep-learning computer-vision facial-recognition
 ---

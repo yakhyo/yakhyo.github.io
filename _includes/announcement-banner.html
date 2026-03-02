@@ -6,6 +6,7 @@
       {% if site.announcement.link %}
         <a href="{{ site.announcement.link }}">{{ site.announcement.link_text }}</a>
       {% endif %}
+      {{ site.announcement.post_text }}
     </span>
     <button class="announcement-close" onclick="closeAnnouncement()" aria-label="Close announcement">
       ✕

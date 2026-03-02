@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Understanding the Geometric Perspective of Vectors in Machine Learning"
-date: 2024-09-19 14:10:00 +0900
+date: 2024-09-19 12:00:00 +0900
 comments: true
 categories: mathematics machine-learning linear-algebra calculus
 ---

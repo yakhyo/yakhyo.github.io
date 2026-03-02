@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tiny-Face: Ultra-lightweight Face Detection for Mobile and Edge Devices"
-date: 2024-11-09 14:10:00 +0900
+date: 2024-11-09 12:00:00 +0900
 comments: true
 categories: deep-learning computer-vision facial-recognition
 ---

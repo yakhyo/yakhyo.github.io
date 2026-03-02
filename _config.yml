@@ -94,6 +94,7 @@ exclude:
 # Announcement Banner
 announcement:
   enabled: true
-  text: "⭐ Check out"
-  link: "https://github.com/yakhyo/uniface/releases"
-  link_text: "Uniface: Unified Face Analysis Library"
+  text: "Support our work — give"
+  link: "https://github.com/yakhyo/uniface"
+  link_text: "UniFace"
+  post_text: "a ⭐ on GitHub and help us reach more developers!"

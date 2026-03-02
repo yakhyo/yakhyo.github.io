@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "UniFace: All-in-One Face Analysis Toolkit for Production"
-date: 2025-11-11 10:00:00 +0900
+date: 2025-11-11 12:00:00 +0900
 comments: true
 categories: deep-learning computer-vision facial-recognition
 ---
