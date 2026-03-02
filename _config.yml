@@ -1,0 +1,100 @@
+# Site Configuration
+# Restart server after editing this file
+
+# Site Information
+title: Home
+email: yakhyo9696@gmail.com
+description: >-
+  Exploring Life Through the Lens of a Computer Scientist: AI, Tech, and Beyond.
+
+baseurl: ""
+url: "https://yakhyo.github.io"
+
+# Author Information
+author:
+  name: Yakhyokhuja Valikhujaev
+  preferred_name: Yakhyo Valikhujaev
+
+# Social Media
+twitter_username: y_valikhujaev
+github_username: yakhyo
+linkedin_username: y-valikhujaev
+youtube_username: codeuz
+stackoverflow_id: 14815986
+leetcode_username: y_valikhujaev
+
+# SEO Configuration
+social:
+  name: Yakhyokhuja Valikhujaev
+  links:
+    - https://twitter.com/y_valikhujaev
+    - https://github.com/yakhyo
+    - https://linkedin.com/in/y-valikhujaev
+    - https://scholar.google.com/citations?user=I66QbJIAAAAJ
+
+lang: en
+timezone: Asia/Seoul
+
+# Theme and Plugins
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Navigation
+header_pages:
+  - _pages/blog.md
+  # - _pages/timeline.md
+  # - _pages/resume.md
+  - _pages/about.md
+
+include:
+  - _pages
+
+# Comments
+disqus:
+  shortname: yakhyo
+
+# Analytics
+google_analytics: G-G2VCRRX3LR
+
+# Display Settings
+show_excerpts: false
+
+# Permalink Structure
+permalink: /blog/:year/:month/:title/
+
+# Markdown Configuration
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+
+# Sass Configuration
+sass:
+  quiet_deps: true
+  verbose: false
+  silence_deprecations:
+    - import
+    - global-builtin
+    - color-functions
+
+# Exclude from Build
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# Announcement Banner
+announcement:
+  enabled: true
+  text: "Support our work — give"
+  link: "https://github.com/yakhyo/uniface"
+  link_text: "UniFace"
+  post_text: "a ⭐ on GitHub and help us reach more developers!"

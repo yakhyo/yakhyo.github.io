@@ -1,0 +1,335 @@
+@import url('timeline.css');
+
+@keyframes bottomToTop {
+    from {
+        transform: translateY(5%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.landing-page {
+    text-align: left;
+    padding: 50px 0;
+    margin-left: 0;
+    animation: bottomToTop 1s ease-out;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    vertical-align: middle;
+    animation: bottomToTop 1s ease-out;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 0 rgba(30, 144, 255, 0);
+}
+
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 12px rgba(30, 144, 255, 0);
+    }
+}
+
+.profile-photo:hover {
+    animation: pulse-border 2s ease-out infinite;
+    transform: scale(1.05);
+}
+
+.profile-info {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    animation: bottomToTop 1s ease-out;
+}
+
+.name {
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    animation: bottomToTop 1s ease-out;
+}
+
+.title {
+    font-size: 1.5em;
+    color: gray;
+    font-family: 'JetBrains Mono', monospace;
+    animation: bottomToTop 1s ease-out;
+    min-height: 1.5em;
+    display: inline-block;
+    min-width: 350px;
+}
+
+.title::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+.social-links {
+    margin-top: 10px;
+    animation: bottomToTop 1s ease-out;
+}
+
+.social-links a {
+    margin: 0 10px 0 0;
+    font-size: 1.5em;
+    color: black;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: #1e90ff;
+    transform: translateY(-3px) scale(1.1);
+}
+
+.social-links a:active {
+    transform: translateY(0) scale(1);
+}
+
+.description {
+    margin: 20px 0;
+    font-size: 1.2em;
+    color: gray;
+    font-family: 'JetBrains Mono', monospace;
+    animation: bottomToTop 1s ease-out;
+}
+
+.buttons {
+    animation: bottomToTop 1s ease-out;
+}
+
+.buttons a {
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.read-blog {
+    background-color: #1e90ff;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    color: white !important;
+}
+
+.read-blog:hover {
+    background-color: #0066cc;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, .25);
+    transform: translateY(-2px);
+}
+
+.read-blog:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .15);
+}
+
+.about-me {
+    background: transparent;
+    color: #1e90ff !important;
+    border: 1px solid #1e90ff;
+}
+
+.about-me:hover {
+    border-color: #0066cc;
+    color: #0066cc !important;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    transform: translateY(-2px);
+}
+
+.about-me:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .05);
+}
+
+.page-title {
+    display: none;
+}
+
+/* Hide footer only on landing page */
+body.landing-page-body footer {
+    display: none;
+}
+
+
+/* Scroll Indicator */
+.scroll-indicator {
+    text-align: center;
+    margin-top: 100px;
+    animation: bottomToTop 1.5s ease-out;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-size: 0.9em;
+    color: gray;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 20px;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 50px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.scroll-arrow span {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid #1e90ff;
+    border-right: 2px solid #1e90ff;
+    transform: rotate(45deg);
+    margin: -8px auto;
+    animation: scrollDown 2s infinite;
+}
+
+.scroll-arrow span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.scroll-arrow span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+@keyframes scrollDown {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(10px, 10px);
+    }
+}
+
+/* Timeline Section on Homepage */
+.timeline-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #e0e0e0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.timeline-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-section-title {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) and (min-width: 481px) {
+    .scroll-indicator {
+        margin-top: 60px;
+    }
+
+    .timeline-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .timeline-section-title {
+        font-size: 2em;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .landing-page {
+        padding: 0;
+        justify-content: flex-start;
+        padding-top: 10px;
+        padding-bottom: 40px;
+        min-height: auto;
+        margin-top: -20px;
+    }
+
+    .profile-photo {
+        display: block;
+        margin: 0 0 20px 0;
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-info {
+        display: block;
+        margin-left: 0;
+    }
+
+    .name {
+        font-size: 2em;
+    }
+
+    .title {
+        font-size: 1.2em;
+        min-width: auto;
+    }
+
+    .social-links {
+        margin-top: 15px;
+    }
+
+    .social-links a {
+        margin: 0 15px 0 0;
+    }
+
+    .buttons a {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    .description {
+        display: none;
+    }
+
+    .scroll-indicator {
+        margin-top: 40px;
+        position: static;
+    }
+
+    .timeline-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .timeline-section-title {
+        font-size: 1.8em;
+    }
+}
+

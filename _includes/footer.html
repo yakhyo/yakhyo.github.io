@@ -1,0 +1,55 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="wrapper">
+    <div class="footer-content">
+
+      <!-- Copyright -->
+      <div class="footer-copyright">
+        <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }}</p>
+      </div>
+
+      <!-- Social Links - Icons Only -->
+      <div class="footer-social">
+        {%- if site.github_username -%}
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        {%- endif -%}
+
+        {%- if site.linkedin_username -%}
+        <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        {%- endif -%}
+
+        {%- if site.twitter_username -%}
+        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        {%- endif -%}
+
+        {%- if site.stackoverflow_id -%}
+        <a href="https://stackoverflow.com/users/{{ site.stackoverflow_id }}" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
+          <i class="fab fa-stack-overflow"></i>
+        </a>
+        {%- endif -%}
+
+        {%- if site.leetcode_username -%}
+        <a href="https://leetcode.com/{{ site.leetcode_username }}" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+          <i class="fas fa-code"></i>
+        </a>
+        {%- endif -%}
+
+        {%- if site.youtube_username -%}
+        <a href="https://www.youtube.com/@{{ site.youtube_username }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>

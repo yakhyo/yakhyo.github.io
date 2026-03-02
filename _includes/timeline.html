@@ -1,0 +1,43 @@
+<div class="timeline-container">
+  {% assign timeline_entries = site.data.timeline | sort: 'date' | reverse %}
+
+  {% if timeline_entries and timeline_entries.size > 0 %}
+    {% for entry in timeline_entries %}
+      <div class="timeline-entry" data-category="{{ entry.category }}"{% if entry.date_end == "Present" %} data-current="true"{% endif %}>
+        <div class="timeline-marker"></div>
+        <div class="timeline-date">
+          <span class="date-start">{{ entry.date }}</span>
+          {% if entry.date_end %}<span class="date-end">{{ entry.date_end }}</span>{% endif %}
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            {% if entry.logo %}
+              <img src="{{ site.baseurl }}/{{ entry.logo }}"
+                   alt="{{ entry.company }}"
+                   class="timeline-logo"
+                   onerror="this.style.display='none'">
+            {% endif %}
+            <div class="timeline-header-text">
+              <h3 class="timeline-title">{{ entry.title }}</h3>
+              {% if entry.company %}
+                <p class="timeline-company">{{ entry.company }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="timeline-description">{{ entry.description | markdownify }}</div>
+          {% if entry.category %}
+            <span class="timeline-category">{{ entry.category }}</span>
+          {% endif %}
+          {% if entry.link %}
+            <a href="{{ entry.link }}" class="timeline-link"
+               {% if entry.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              View →
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="timeline-empty">No timeline entries yet.</p>
+  {% endif %}
+</div>

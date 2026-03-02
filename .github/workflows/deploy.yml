@@ -1,0 +1,71 @@
+name: Deploy Jekyll Site
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate version
+        id: version
+        run: |
+          DATE_VERSION=$(date -u +'%Y.%m.%d')
+          CURRENT=$(cat VERSION 2>/dev/null || echo "")
+
+          if [[ "$CURRENT" == "$DATE_VERSION" ]]; then
+            DATE_VERSION="${DATE_VERSION}.2"
+          elif [[ "$CURRENT" == "$DATE_VERSION".* ]]; then
+            BUILD_NUM="${CURRENT##*.}"
+            BUILD_NUM=$((BUILD_NUM + 1))
+            DATE_VERSION="${DATE_VERSION}.${BUILD_NUM}"
+          fi
+
+          echo "$DATE_VERSION" > VERSION
+          echo "version=$DATE_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Commit version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add VERSION
+          git diff --cached --quiet && exit 0
+          git commit -m "v${{ steps.version.outputs.version }} [skip ci]"
+          git push
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build site
+        run: JEKYLL_ENV=production bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
