@@ -6,7 +6,7 @@
 
       <!-- Copyright -->
       <div class="footer-copyright">
-        <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }}</p>
+        <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }}{% if site.data.version.number %} · v{{ site.data.version.number }}{% endif %}</p>
       </div>
 
       <!-- Social Links - Icons Only -->
