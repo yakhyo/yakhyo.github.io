@@ -3,7 +3,9 @@ layout: post
 title: "RetinaFace: Single-stage Dense Face Localisation in the Wild"
 date: 2024-10-28 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision facial-recognition
+categories: computer-vision
+tags: [face-detection, retinaface, single-stage, production]
+description: "A production-ready RetinaFace implementation for dense face localisation in the wild, with multiple backbone options for trading off accuracy vs latency across hardware."
 ---
 
 RetinaFace is a robust single-stage face detection framework designed for dense face localisation in unconstrained environments. This implementation provides a production-ready solution with multiple backbone options, enabling flexible deployment across different hardware constraints and accuracy requirements.

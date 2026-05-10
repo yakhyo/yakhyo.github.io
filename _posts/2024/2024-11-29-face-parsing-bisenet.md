@@ -3,7 +3,9 @@ layout: post
 title: "Face Parsing using BiSeNet for Real-time Semantic Segmentation"
 date: 2024-11-29 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision semantic-segmentation bisenet
+categories: computer-vision
+tags: [semantic-segmentation, bisenet, face-parsing, real-time]
+description: "Implementing BiSeNet for real-time face parsing — bilateral segmentation that delivers both spatial detail and semantic context fast enough for production use."
 ---
 
 BiSeNet (Bilateral Segmentation Network) is a state-of-the-art model for real-time semantic segmentation, initially proposed in the paper [Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/abs/1808.00897). The architecture addresses the fundamental challenge in semantic segmentation: achieving high accuracy while maintaining real-time performance.

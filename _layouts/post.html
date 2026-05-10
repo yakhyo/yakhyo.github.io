@@ -24,16 +24,84 @@ layout: default
       {%- if forloop.last == false %}, {% endif -%}
       {% endfor %}
       {%- endif -%}
+      <span class="post-meta-separator">•</span>
+      <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
     </p>
+
+    {%- if page.tags and page.tags.size > 0 -%}
+    <div class="post-tags-header">
+      {%- for tag in page.tags -%}
+        <span class="tag">{{ tag }}</span>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
 
-  {%- if site.disqus.shortname -%}
-  {%- include disqus_comments.html -%}
+  {%- assign prev = page.previous -%}
+  {%- assign next = page.next -%}
+  {%- if prev or next -%}
+  <nav class="post-nav" aria-label="Post navigation">
+    {%- if prev -%}
+      <a class="post-nav-prev" href="{{ prev.url | relative_url }}" rel="prev">
+        <span class="post-nav-label">← Previous</span>
+        <span class="post-nav-title">{{ prev.title | escape }}</span>
+      </a>
+    {%- else -%}
+      <span></span>
+    {%- endif -%}
+    {%- if next -%}
+      <a class="post-nav-next" href="{{ next.url | relative_url }}" rel="next">
+        <span class="post-nav-label">Next →</span>
+        <span class="post-nav-title">{{ next.title | escape }}</span>
+      </a>
+    {%- endif -%}
+  </nav>
+  {%- endif -%}
+
+  {%- if site.giscus.repo -%}
+    {%- include giscus.html -%}
+  {%- elsif site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+
+{%- comment -%} JSON-LD structured data for richer search-result snippets {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 200 | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {%- if page.modified_date -%}
+  "dateModified": "{{ page.modified_date | date_to_xmlschema }}",
+  {%- else -%}
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  {%- endif -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  "image": "{{ page.image | default: '/assets/images/avatar.webp' | absolute_url }}",
+  "url": "{{ page.url | absolute_url }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  {%- if page.tags and page.tags.size > 0 -%}
+  "keywords": {{ page.tags | join: ", " | jsonify }},
+  {%- endif -%}
+  "inLanguage": "{{ site.lang | default: 'en' }}"
+}
+</script>

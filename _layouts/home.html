@@ -20,10 +20,12 @@ layout: default
   <!-- Search Bar and Year Filter -->
   <div class="search-filter-wrapper">
     <div class="search-container">
-      <input type="text" id="search-input" placeholder="Search posts..." />
-      <i class="fas fa-search search-icon"></i>
+      <label for="search-input" class="sr-only">Search posts</label>
+      <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off" />
+      <i class="fas fa-search search-icon" aria-hidden="true"></i>
     </div>
     <div class="year-filter-container">
+      <label for="year-filter" class="sr-only">Filter posts by year</label>
       <select id="year-filter" class="year-filter">
         <option value="all">All Years</option>
         {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
@@ -31,7 +33,7 @@ layout: default
         <option value="{{ year.name }}">{{ year.name }}</option>
         {% endfor %}
       </select>
-      <i class="fas fa-calendar-alt year-icon"></i>
+      <i class="fas fa-calendar-alt year-icon" aria-hidden="true"></i>
     </div>
   </div>
 
@@ -41,7 +43,15 @@ layout: default
     {%- for cat in site.categories -%}
       {%- if cat[1].size >= 2 -%}
         {%- assign words = cat[0] | split: '-' -%}
-        {%- capture label -%}{%- for word in words -%}{{ word | capitalize }}{%- unless forloop.last %} {% endunless -%}{%- endfor -%}{%- endcapture -%}
+        {%- assign label = '' -%}
+        {%- for word in words -%}
+          {%- assign cap = word | capitalize -%}
+          {%- if forloop.first -%}
+            {%- assign label = cap -%}
+          {%- else -%}
+            {%- assign label = label | append: ' ' | append: cap -%}
+          {%- endif -%}
+        {%- endfor -%}
         <button class="filter-btn" data-topic="{{ cat[0] }}">{{ label }}</button>
       {%- endif -%}
     {%- endfor -%}
@@ -71,9 +81,13 @@ layout: default
           </span>
         {%- endif -%}
       </div>
-      {%- if site.show_excerpts -%}
+      {%- if site.show_excerpts and post.description -%}
       <div class="post-excerpt">
-        {{ post.excerpt }}
+        {{ post.description }}
+      </div>
+      {%- elsif site.show_excerpts -%}
+      <div class="post-excerpt">
+        {{ post.excerpt | strip_html | truncate: 220 }}
       </div>
       {%- endif -%}
     </li>
@@ -114,99 +128,3 @@ layout: default
   {%- endif -%}
 
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const postItems = document.querySelectorAll('.post-item');
-  const noPostsMessage = document.getElementById('no-posts');
-  const searchInput = document.getElementById('search-input');
-  const yearFilter = document.getElementById('year-filter');
-  let currentTopic = 'all';
-  let currentYear = 'all';
-
-  // Search functionality
-  searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-
-    if (searchTerm === '') {
-      // Show all posts when search is empty
-      applyFilters();
-      return;
-    }
-
-    let visibleCount = 0;
-    postItems.forEach(post => {
-      const title = post.querySelector('.post-link').textContent.toLowerCase();
-      const categories = post.getAttribute('data-categories').toLowerCase();
-      const excerpt = post.querySelector('.post-excerpt') ?
-                     post.querySelector('.post-excerpt').textContent.toLowerCase() : '';
-
-      // Check if search term matches title, categories, or excerpt
-      if (title.includes(searchTerm) || categories.includes(searchTerm) || excerpt.includes(searchTerm)) {
-        post.style.display = 'block';
-        visibleCount++;
-      } else {
-        post.style.display = 'none';
-      }
-    });
-
-    // Show/hide no posts message
-    if (visibleCount === 0) {
-      noPostsMessage.style.display = 'block';
-      noPostsMessage.querySelector('p').textContent = 'No posts found matching your search.';
-    } else {
-      noPostsMessage.style.display = 'none';
-    }
-  });
-
-  // Year filter functionality
-  yearFilter.addEventListener('change', function() {
-    currentYear = this.value;
-    searchInput.value = ''; // Clear search
-    applyFilters();
-  });
-
-  // Topic filter functionality
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Clear search when using topic filter
-      searchInput.value = '';
-
-      // Update active button
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-
-      currentTopic = this.getAttribute('data-topic');
-      applyFilters();
-    });
-  });
-
-  function applyFilters() {
-    let visibleCount = 0;
-
-    postItems.forEach(post => {
-      const categories = post.getAttribute('data-categories');
-      const year = post.getAttribute('data-year');
-
-      const topicMatch = currentTopic === 'all' || categories.includes(currentTopic);
-      const yearMatch = currentYear === 'all' || year === currentYear;
-
-      if (topicMatch && yearMatch) {
-        post.style.display = 'block';
-        visibleCount++;
-      } else {
-        post.style.display = 'none';
-      }
-    });
-
-    // Show/hide no posts message
-    if (visibleCount === 0) {
-      noPostsMessage.style.display = 'block';
-      noPostsMessage.querySelector('p').textContent = 'No posts found for this selection.';
-    } else {
-      noPostsMessage.style.display = 'none';
-    }
-  }
-});
-</script>

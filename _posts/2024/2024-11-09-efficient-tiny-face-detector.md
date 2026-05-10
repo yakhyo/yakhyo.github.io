@@ -3,7 +3,9 @@ layout: post
 title: "Tiny-Face: Ultra-lightweight Face Detection for Mobile and Edge Devices"
 date: 2024-11-09 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision facial-recognition
+categories: computer-vision
+tags: [face-detection, tiny-face, mobile, edge-deployment]
+description: "Tiny-Face is an ultra-lightweight face detection model engineered to balance accuracy and speed on mobile and edge devices where compute is scarce."
 ---
 
 Tiny-Face is an ultra-lightweight face detection model specifically designed for deployment on mobile and edge devices where computational resources are limited. Unlike conventional face detection models that prioritize accuracy at the cost of model size and inference speed, Tiny-Face achieves an optimal balance between detection performance and computational efficiency.

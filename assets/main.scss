@@ -7,6 +7,46 @@
 
 @import "minima";
 
+// Brand color tokens — single source of truth.
+$brand-primary: #1e90ff;
+$brand-primary-hover: #0066cc;
+$text-primary: #111;
+$text-secondary: #555;       // accessible body text on white
+$text-muted: #595959;        // accessible meta text on white (>= 4.5:1)
+$border-light: #e8e8e8;
+$bg-soft: #fafafa;
+$bg-tag: #f0f0f0;
+
+// Accessible utilities.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $brand-primary;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+    color: #fff;
+  }
+}
+
 // Apply JetBrains Mono globally
 body {
   font-family: 'JetBrains Mono', monospace;
@@ -275,7 +315,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  color: #828282;
+  color: $text-muted;
   font-size: 0.875rem;
   margin-bottom: 0;
 }
@@ -374,6 +414,120 @@ h1, h2, h3, h4, h5, h6 {
 
   .footer-social {
     justify-content: center;
+  }
+}
+
+// Post content — keep images responsive and embeds well-bounded.
+.post-content {
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  iframe {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  pre {
+    position: relative;
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid $border-light;
+      border-radius: 4px;
+      color: $text-secondary;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, background 0.2s ease;
+
+      &:hover {
+        background: #fff;
+        color: $brand-primary;
+      }
+
+      &.copied {
+        color: #10b981;
+      }
+    }
+
+    &:hover .copy-btn,
+    .copy-btn:focus {
+      opacity: 1;
+    }
+  }
+}
+
+// Tag chips reused across post header + blog list.
+.post-tags-header {
+  margin-top: 0.5rem;
+
+  .tag {
+    display: inline-block;
+    background: $bg-tag;
+    color: $text-secondary;
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-right: 0.4rem;
+  }
+}
+
+// Previous / next navigation at the bottom of a post.
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 3rem 0 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-light;
+
+  a {
+    flex: 1;
+    text-decoration: none;
+    color: $text-primary;
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-light;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      border-color: $brand-primary;
+      color: $brand-primary;
+    }
+  }
+
+  .post-nav-label {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+
+  .post-nav-title {
+    display: block;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .post-nav-next {
+    text-align: right;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-nav {
+    flex-direction: column;
   }
 }
 

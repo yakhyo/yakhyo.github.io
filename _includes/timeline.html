@@ -13,8 +13,10 @@
           <div class="timeline-header">
             {% if entry.logo %}
               <img src="{{ site.baseurl }}/{{ entry.logo }}"
-                   alt="{{ entry.company }}"
+                   alt="{{ entry.company }} logo"
                    class="timeline-logo"
+                   width="48" height="48"
+                   loading="lazy" decoding="async"
                    onerror="this.style.display='none'">
             {% endif %}
             <div class="timeline-header-text">

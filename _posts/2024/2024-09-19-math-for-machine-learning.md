@@ -3,7 +3,9 @@ layout: post
 title: "Understanding the Geometric Perspective of Vectors in Machine Learning"
 date: 2024-09-19 12:00:00 +0900
 comments: true
-categories: mathematics machine-learning linear-algebra calculus
+categories: mathematics
+tags: [linear-algebra, calculus, intuition, learning-resources]
+description: "Why geometric intuition for vectors and matrix transformations matters in ML — with curated 3Blue1Brown and Coursera resources for building it."
 ---
 
 While I have a strong mathematical background in calculus and linear algebra, including the ability to perform matrix operations and transformations by hand, I recently discovered a crucial gap in my understanding: the geometric interpretation of vectors and their operations.

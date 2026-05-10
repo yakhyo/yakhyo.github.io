@@ -3,7 +3,9 @@ layout: post
 title: "Real-Time Gaze Estimation Using Lightweight Deep Learning Models"
 date: 2024-09-18 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision machine-learning neural-networks gaze-estimation
+categories: computer-vision
+tags: [gaze-estimation, mobile, classification, regression, edge-deployment]
+description: "Lightweight gaze-direction estimation built for real-time inference on mobile hardware, combining classification and regression heads for accurate prediction under resource constraints."
 ---
 
 This project focuses on predicting gaze direction using lightweight deep learning models optimized for real-time performance on mobile devices. The implementation combines classification and regression techniques to create an efficient and accurate solution suitable for deployment on resource-constrained hardware.
