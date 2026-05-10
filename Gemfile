@@ -42,7 +42,7 @@ gem "bigdecimal"
 gem "ostruct"
 
 # Required for `jekyll serve` on Ruby 3.x (Webrick was removed from stdlib).
-gem "webrick", "~> 1.8"
+gem "webrick", "~> 1.9"
 
 # Local-only: link/asset/markup checks for `bundle exec rake test` or CI.
 group :test do
