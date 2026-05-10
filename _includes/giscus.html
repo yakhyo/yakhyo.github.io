@@ -1,0 +1,34 @@
+{%- comment -%}
+  giscus comments — privacy-friendly, GitHub-Discussions–backed.
+
+  Setup checklist (do these once):
+  1. Enable Discussions in your repo:
+     https://github.com/{owner}/{repo}/settings  → Features → Discussions
+  2. Install the giscus app on the repo:
+     https://github.com/apps/giscus
+  3. Visit https://giscus.app, fill in repo + category, copy the
+     `data-repo-id` and `data-category-id`, paste them into _config.yml
+     under `giscus:`.
+
+  Until that's done, leaving `giscus.repo` unset in _config.yml falls back to Disqus.
+{%- endcomment -%}
+{% if page.comments != false and jekyll.environment == "production" and site.giscus.repo %}
+<section class="comments" aria-label="Comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscus.repo }}"
+          data-repo-id="{{ site.giscus.repo_id }}"
+          data-category="{{ site.giscus.category | default: 'General' }}"
+          data-category-id="{{ site.giscus.category_id }}"
+          data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="{{ site.giscus.theme | default: 'light' }}"
+          data-lang="{{ site.giscus.lang | default: 'en' }}"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async></script>
+  <noscript>Please enable JavaScript to view the comments.</noscript>
+</section>
+{% endif %}

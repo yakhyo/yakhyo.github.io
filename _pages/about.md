@@ -2,47 +2,16 @@
 layout: page
 title: About
 permalink: /about/
+description: "Yakhyokhuja (Yakhyo) Valikhujaev — AI/ML & MLOps engineer with 6+ years of experience in LLMs, RAG, VLMs, and Kubernetes-based ML platforms."
+custom_css: about
 ---
-
-<style>
-  .resume-link {
-    color: #555;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    display: inline-block;
-    padding: 0.5rem 0.25rem;
-  }
-  .resume-link:hover {
-    color: #1e90ff;
-  }
-  .resume-links-container {
-    margin: 1rem 0;
-    font-size: 1rem;
-  }
-  .resume-separator {
-    margin: 0 0.5rem;
-    color: #ccc;
-  }
-  @media (max-width: 480px) {
-    .resume-links-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .resume-separator {
-      display: none;
-    }
-  }
-</style>
 
 <p class="resume-links-container">
   <a href="/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
     📋 View Resume
   </a>
   <span class="resume-separator">|</span>
-  <a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download class="resume-link" onclick="gtag('event', 'download', {'event_category': 'Resume', 'event_label': 'PDF Download'});">
+  <a href="{{ site.baseurl }}/assets/resumes/{{ site.resume.pdf }}" download class="resume-link" data-track-event="resume-download">
     📥 Download PDF
   </a>
 </p>

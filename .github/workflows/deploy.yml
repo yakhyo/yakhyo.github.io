@@ -1,12 +1,29 @@
 name: Deploy Jekyll Site
 
+# Trigger model:
+#   - `push` to main: deploy automatically with an auto-generated version
+#     (YYYY.MM.DD+<short-sha>). Same behavior as before.
+#   - `workflow_dispatch` (manual run from Actions tab): you can type a
+#     custom version label (e.g. "v2026.05.11" or "v1.0.0-rc1"). Leave the
+#     field blank to fall back to the auto-generated value.
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version label to display in the footer (leave blank to auto-generate from date+SHA)'
+        required: false
+        type: string
+        default: ''
+      skip_link_check:
+        description: 'Skip the htmlproofer link check (faster deploy)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,32 +41,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate version
+      - name: Resolve build version
         id: version
         run: |
-          DATE_VERSION=$(date -u +'%Y.%m.%d')
-          CURRENT=$(cat VERSION 2>/dev/null || echo "")
-
-          if [[ "$CURRENT" == "$DATE_VERSION" ]]; then
-            DATE_VERSION="${DATE_VERSION}.2"
-          elif [[ "$CURRENT" == "$DATE_VERSION".* ]]; then
-            BUILD_NUM="${CURRENT##*.}"
-            BUILD_NUM=$((BUILD_NUM + 1))
-            DATE_VERSION="${DATE_VERSION}.${BUILD_NUM}"
+          # Priority:
+          #   1. Manual input from workflow_dispatch (if non-empty)
+          #   2. Auto-generated <YYYY.MM.DD>+<short-sha>
+          # Result is written to _data/version.yml inside this run only.
+          MANUAL_VERSION="${{ github.event.inputs.version }}"
+          if [[ -n "$MANUAL_VERSION" ]]; then
+            BUILD_VERSION="$MANUAL_VERSION"
+            echo "Using manual version: $BUILD_VERSION"
+          else
+            DATE_VERSION=$(date -u +'%Y.%m.%d')
+            SHORT_SHA=$(git rev-parse --short HEAD)
+            BUILD_VERSION="${DATE_VERSION}+${SHORT_SHA}"
+            echo "Using auto version: $BUILD_VERSION"
           fi
-
-          echo "$DATE_VERSION" > VERSION
-          echo "number: \"$DATE_VERSION\"" > _data/version.yml
-          echo "version=$DATE_VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Commit version
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add VERSION _data/version.yml
-          git diff --cached --quiet && exit 0
-          git commit -m "v${{ steps.version.outputs.version }} [skip ci]"
-          git push
+          echo "number: \"$BUILD_VERSION\"" > _data/version.yml
+          echo "version=$BUILD_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -58,9 +68,19 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: JEKYLL_ENV=production bundle exec jekyll build
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
+
+      - name: HTML & link check
+        if: ${{ github.event.inputs.skip_link_check != 'true' }}
+        run: |
+          bundle exec htmlproofer ./_site \
+            --disable-external \
+            --allow-hash-href \
+            --ignore-empty-alt \
+            --ignore-urls "/^\/admin/"
+        continue-on-error: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -70,3 +90,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Summary
+        run: |
+          {
+            echo "## Deployed"
+            echo ""
+            echo "- **Version:** \`${{ steps.version.outputs.version }}\`"
+            echo "- **Trigger:** \`${{ github.event_name }}\`"
+            echo "- **URL:** ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,75 +1,103 @@
-const titles = ["ML Software Engineer", "MLOps Engineer"];
-let titleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
+// Landing page: typewriter title + scroll-revealed timeline.
+// Titles are read from a `data-titles` JSON attribute set in index.md so the
+// list lives in _config.yml rather than this file.
+(function () {
+  'use strict';
 
-function typeTitle() {
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initTypewriter() {
     const titleElement = document.querySelector('.title');
-    const currentTitle = titles[titleIndex];
+    if (!titleElement) return;
 
-    if (isDeleting) {
-        titleElement.textContent = currentTitle.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-    } else {
-        titleElement.textContent = currentTitle.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
+    let titles;
+    try {
+      titles = JSON.parse(titleElement.getAttribute('data-titles') || '[]');
+    } catch (_) {
+      titles = [];
+    }
+    if (!titles.length) {
+      // Nothing to animate — make sure something is visible.
+      titleElement.textContent = titleElement.textContent || '';
+      titleElement.classList.add('typewriter-static');
+      return;
     }
 
-    if (!isDeleting && charIndex === currentTitle.length) {
+    // The typewriter is a signature visual element of the landing page, so
+    // we always run it. Screen readers don't spam-announce the changing text
+    // because the markup uses aria-live="off". Reduced-motion users still get
+    // the animation but skip the cursor blink (handled in landing.css).
+    let titleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+
+    function tick() {
+      const current = titles[titleIndex];
+      if (isDeleting) {
+        titleElement.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        titleElement.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+      }
+      if (!isDeleting && charIndex === current.length) {
         typingSpeed = 2000;
         isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
+      } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         titleIndex = (titleIndex + 1) % titles.length;
         typingSpeed = 500;
+      }
+      setTimeout(tick, typingSpeed);
     }
+    tick();
+  }
 
-    setTimeout(typeTitle, typingSpeed);
-}
-
-window.onload = function() {
-    typeTitle();
-    const footer = document.querySelector('footer');
-    if (footer) {
-        footer.style.display = 'none';
-    }
-};
-
-let timelineRevealed = false;
-
-function revealTimelineOnScroll() {
+  function initTimelineReveal() {
     const timelineSection = document.querySelector('.timeline-section');
     const footer = document.querySelector('footer');
     if (!timelineSection) return;
 
-    const sectionTop = timelineSection.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-
-    if (sectionTop < windowHeight - 200) {
-        if (!timelineRevealed) {
-            timelineRevealed = true;
-            timelineSection.classList.add('visible');
-
-            const entries = timelineSection.querySelectorAll('.timeline-entry');
-            entries.forEach((entry, index) => {
-                setTimeout(() => entry.classList.add('visible'), 150 + index * 120);
-            });
-        }
-        if (footer) footer.style.display = 'block';
-    } else {
-        if (timelineRevealed) {
-            timelineRevealed = false;
-            timelineSection.classList.remove('visible');
-            timelineSection.querySelectorAll('.timeline-entry').forEach(entry => {
-                entry.classList.remove('visible');
-            });
-        }
-        if (footer) footer.style.display = 'none';
+    // Reduced motion: just show everything immediately.
+    if (prefersReducedMotion) {
+      timelineSection.classList.add('visible');
+      timelineSection.querySelectorAll('.timeline-entry').forEach(function (e) {
+        e.classList.add('visible');
+      });
+      if (footer) footer.style.display = 'block';
+      return;
     }
-}
 
-window.addEventListener('scroll', revealTimelineOnScroll);
-window.addEventListener('load', revealTimelineOnScroll);
+    let revealed = false;
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !revealed) {
+          revealed = true;
+          timelineSection.classList.add('visible');
+          const items = timelineSection.querySelectorAll('.timeline-entry');
+          items.forEach(function (el, i) {
+            setTimeout(function () { el.classList.add('visible'); }, 150 + i * 120);
+          });
+          if (footer) footer.style.display = 'block';
+        }
+      });
+    }, { rootMargin: '0px 0px -200px 0px', threshold: 0 });
+
+    observer.observe(timelineSection);
+  }
+
+  function init() {
+    initTypewriter();
+    initTimelineReveal();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

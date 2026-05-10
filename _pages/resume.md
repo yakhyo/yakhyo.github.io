@@ -2,6 +2,7 @@
 layout: page
 title: Resume
 permalink: /resume/
+description: "Resume of Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer; LLMs, RAG, VLMs, Kubernetes, vLLM, Triton, and production ML."
 ---
 
 [GitHub](https://github.com/yakhyo) &#124; [Google Scholar](https://scholar.google.com/citations?user=I66QbJIAAAAJ&hl=en) &#124; [StackOverflow](https://stackoverflow.com/users/14815986/yakhyo) &#124; [LeetCode](https://leetcode.com/y_valikhujaev) &#124; [LinkedIn](https://www.linkedin.com/in/y-valikhujaev/)
@@ -113,8 +114,8 @@ Experienced in developing and optimizing **LLM-based**, **multimodal**, and **re
 
 ---
 <br>
-_Last Updated: 2025-11-10_
+_Last Updated: {{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 0, 4 }}-{{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 4, 2 }}-{{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 6, 2 }}_
 
-<a href="{{ site.baseurl }}/assets/resumes/yakhyo_20251110.pdf" download style="text-decoration: none; font-size: 1.2em;">
+<a href="{{ site.baseurl }}/assets/resumes/{{ site.resume.pdf }}" download data-track-event="resume-download" style="text-decoration: none; font-size: 1.2em;">
   📥 Download Resume (PDF)
 </a>

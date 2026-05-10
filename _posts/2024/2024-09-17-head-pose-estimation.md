@@ -3,7 +3,9 @@ layout: post
 title: "Real-Time Head Pose Estimation with Efficient Deep Learning Backbones"
 date: 2024-09-17 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision machine-learning neural-networks head-pose-estimation
+categories: computer-vision
+tags: [head-pose-estimation, mobilenet, resnet, scrfd, edge-deployment]
+description: "Real-time head pose estimation pipeline combining SCRFD face detection with MobileNet and ResNet backbones. Achieves 30+ FPS on mobile with sub-100ms latency for AR/VR, driver-monitoring, and HCI applications."
 ---
 
 This project delivers accurate real-time head pose estimation through optimized deep learning architectures. The implementation focuses on achieving high performance across various deployment scenarios, from mobile devices to desktop applications, while maintaining robust accuracy in challenging conditions.

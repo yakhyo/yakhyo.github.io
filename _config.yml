@@ -53,14 +53,45 @@ include:
   - _pages
 
 # Comments
+# Active provider: giscus (GitHub Discussions).
+# Disqus kept as a fallback if `giscus.repo` is ever unset.
 disqus:
   shortname: yakhyo
+
+giscus:
+  repo: "yakhyo/yakhyo.github.io"
+  repo_id: "R_kgDOMNAolA"
+  category: "General"
+  category_id: "DIC_kwDOMNAolM4C8ulE"
+  mapping: "pathname"
+  theme: "light"
+  lang: "en"
 
 # Analytics
 google_analytics: G-G2VCRRX3LR
 
 # Display Settings
-show_excerpts: false
+show_excerpts: true
+
+# Resume — single source of truth for the current PDF filename.
+# Update here when uploading a new resume PDF to /assets/resumes/.
+resume:
+  pdf: yakhyo_20251110.pdf
+
+# Landing-page typewriter titles
+landing_titles:
+  - "ML Software Engineer"
+  - "MLOps Engineer"
+
+# Default OG/Twitter image used by jekyll-seo-tag when a post does not
+# define its own `image:` in front matter.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      image: /assets/images/avatar.webp
+      author: Yakhyokhuja Valikhujaev
 
 # Permalink Structure
 permalink: /blog/:year/:month/:title/
@@ -74,6 +105,7 @@ kramdown:
 
 # Sass Configuration
 sass:
+  style: compressed
   quiet_deps: true
   verbose: false
   silence_deprecations:

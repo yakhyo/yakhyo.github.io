@@ -3,7 +3,9 @@ layout: post
 title: "UniFace: All-in-One Face Analysis Toolkit for Production"
 date: 2025-11-11 12:00:00 +0900
 comments: true
-categories: deep-learning computer-vision facial-recognition
+categories: computer-vision
+tags: [face-analysis, uniface, onnx, production, open-source]
+description: "UniFace is a production-ready ONNX-based toolkit unifying face detection, recognition, landmarks, attributes, parsing, gaze, anti-spoofing, and privacy in one API."
 ---
 
 **UniFace** is a lightweight, production-ready face analysis library built on ONNX Runtime. It provides a unified API for face detection, recognition, landmark detection, attribute analysis, face parsing, gaze estimation, anti-spoofing, and privacy features.

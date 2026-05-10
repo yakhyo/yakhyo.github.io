@@ -1,0 +1,35 @@
+.resume-link {
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 0.5rem 0.25rem;
+}
+
+.resume-link:hover {
+  color: #1e90ff;
+}
+
+.resume-links-container {
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.resume-separator {
+  margin: 0 0.5rem;
+  color: #ccc;
+}
+
+@media (max-width: 480px) {
+  .resume-links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .resume-separator {
+    display: none;
+  }
+}

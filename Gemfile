@@ -40,3 +40,11 @@ gem "logger"
 gem "base64"
 gem "bigdecimal"
 gem "ostruct"
+
+# Required for `jekyll serve` on Ruby 3.x (Webrick was removed from stdlib).
+gem "webrick", "~> 1.8"
+
+# Local-only: link/asset/markup checks for `bundle exec rake test` or CI.
+group :test do
+  gem "html-proofer", "~> 5.0"
+end
