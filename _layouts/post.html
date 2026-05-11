@@ -9,7 +9,7 @@ layout: default
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <span class="meta-item">
         <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        Created: <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
           {{ page.date | date: date_format }}
         </time>
       </span>
@@ -17,7 +17,7 @@ layout: default
       {%- assign mdate = page.modified_date | date_to_xmlschema -%}
       <span class="meta-item">
         <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
-        <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+        Modified: <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
           {{ mdate | date: date_format }}
         </time>
       </span>
@@ -39,11 +39,6 @@ layout: default
       {%- endif -%}
     </p>
 
-    {%- comment -%}
-      Tags intentionally not rendered in the post header — they were decorative,
-      not interactive (no tag archive pages). The page.tags array is still used
-      below in the JSON-LD `keywords` field for SEO.
-    {%- endcomment -%}
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">

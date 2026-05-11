@@ -2,6 +2,7 @@
 layout: post
 title: "UniFace: All-in-One Face Analysis Toolkit for Production"
 date: 2025-11-11 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-analysis, uniface, onnx, production, open-source]

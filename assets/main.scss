@@ -507,8 +507,49 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// (post-tags-header removed — tags no longer rendered in the post header.
-// page.tags is still used for JSON-LD keywords; front matter unchanged.)
+// Table of Contents (kramdown {:toc})
+#markdown-toc {
+  border-left: 3px solid $brand-primary;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+  line-height: 1.8;
+
+  &::before {
+    content: "Contents";
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    color: $text-primary;
+  }
+
+  li {
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  a {
+    color: $text-muted;
+    text-decoration: none;
+
+    &:hover {
+      color: $brand-primary;
+    }
+  }
+
+  > li > ul {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  ul {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
 
 // Previous / next navigation at the bottom of a post.
 .post-nav {
