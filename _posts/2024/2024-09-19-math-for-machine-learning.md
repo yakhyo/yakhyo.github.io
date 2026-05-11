@@ -2,6 +2,7 @@
 layout: post
 title: "Understanding the Geometric Perspective of Vectors in Machine Learning"
 date: 2024-09-19 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: mathematics
 tags: [linear-algebra, calculus, intuition, learning-resources]
@@ -10,8 +11,11 @@ description: "Why geometric intuition for vectors and matrix transformations mat
 
 While I have a strong mathematical background in calculus and linear algebra, including the ability to perform matrix operations and transformations by hand, I recently discovered a crucial gap in my understanding: the geometric interpretation of vectors and their operations.
 
+* TOC
+{:toc}
+
 <div align="center">
-  <img src="https://www.3blue1brown.com/content/lessons/2016/vectors/figures/introduction/Perspectives.svg">
+  <img src="https://www.3blue1brown.com/content/lessons/2016/vectors/figures/introduction/Perspectives.svg" alt="Three perspectives on vectors: physics, computer science, and mathematics">
 </div>
 
 This realization came as I began exploring geometric explanations of linear algebra concepts. What were previously abstract lists of numbers or array indices suddenly transformed into intuitive geometric objects—arrows pointing to specific locations in space, representing directions and magnitudes in a visually comprehensible way.

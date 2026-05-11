@@ -2,6 +2,7 @@
 layout: post
 title: "UniFace: All-in-One Face Analysis Toolkit for Production"
 date: 2025-11-11 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-analysis, uniface, onnx, production, open-source]
@@ -9,11 +10,6 @@ description: "UniFace is a production-ready ONNX-based toolkit unifying face det
 ---
 
 **UniFace** is a lightweight, production-ready face analysis library built on ONNX Runtime. It provides a unified API for face detection, recognition, landmark detection, attribute analysis, face parsing, gaze estimation, anti-spoofing, and privacy features.
-
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-[![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/)
-[![Downloads](https://pepy.tech/badge/uniface)](https://pepy.tech/project/uniface)
 
 ---
 

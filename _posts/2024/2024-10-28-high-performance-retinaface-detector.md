@@ -2,30 +2,29 @@
 layout: post
 title: "RetinaFace: Single-stage Dense Face Localisation in the Wild"
 date: 2024-10-28 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, retinaface, single-stage, production]
 description: "A production-ready RetinaFace implementation for dense face localisation in the wild, with multiple backbone options for trading off accuracy vs latency across hardware."
+image: "https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg"
 ---
 
 RetinaFace is a robust single-stage face detection framework designed for dense face localisation in unconstrained environments. This implementation provides a production-ready solution with multiple backbone options, enabling flexible deployment across different hardware constraints and accuracy requirements.
 
+* TOC
+{:toc}
+
 The model excels at detecting faces across extreme variations in scale, pose, and occlusion, making it particularly effective for real-world applications where faces may appear at any size or orientation within the image.
+
+[GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)
 
 > **UniFace Library**: For easier integration, check out [UniFace](https://github.com/yakhyo/uniface), a lightweight Python library built on models from this repository. UniFace provides a simple API for face detection, alignment, and landmark extraction.
 > [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers)
 
-[GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)
+{% include video.html src="https://github.com/user-attachments/assets/ad279fea-33fb-43f1-884f-282e6d54c809" %}
 
-[![Downloads](https://img.shields.io/github/downloads/yakhyo/retinaface-pytorch/total)](https://github.com/yakhyo/retinaface-pytorch/releases)
-[![GitHub Repo stars](https://img.shields.io/github/stars/yakhyo/retinaface-pytorch)](https://github.com/yakhyo/retinaface-pytorch/stargazers)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/yakhyo/retinaface-pytorch)
-
-<video controls autoplay loop src="https://github.com/user-attachments/assets/ad279fea-33fb-43f1-884f-282e6d54c809" muted="false" width="100%"></video>
-
-<div align="center">
-  <img src="https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg">
-</div>
+![RetinaFace detection results on a group photo using MobileNetV2 backbone](https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg)
 
 ## Key Features
 

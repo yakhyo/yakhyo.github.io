@@ -2,6 +2,7 @@
 layout: post
 title: "Real-Time Head Pose Estimation with Efficient Deep Learning Backbones"
 date: 2024-09-17 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [head-pose-estimation, mobilenet, resnet, scrfd, edge-deployment]
@@ -10,9 +11,12 @@ description: "Real-time head pose estimation pipeline combining SCRFD face detec
 
 This project delivers accurate real-time head pose estimation through optimized deep learning architectures. The implementation focuses on achieving high performance across various deployment scenarios, from mobile devices to desktop applications, while maintaining robust accuracy in challenging conditions.
 
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/DF2mAlwRr04?si=a2I57L8x8KT6bdDS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+* TOC
+{:toc}
 
 [GitHub Repository](https://github.com/yakhyo/head-pose-estimation)
+
+{% include youtube.html id="DF2mAlwRr04" title="Real-time head pose estimation demo" %}
 
 ## Applications and Industry Impact
 

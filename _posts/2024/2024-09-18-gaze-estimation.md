@@ -2,6 +2,7 @@
 layout: post
 title: "Real-Time Gaze Estimation Using Lightweight Deep Learning Models"
 date: 2024-09-18 12:00:00 +0900
+modified_date: 2026-05-12 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [gaze-estimation, mobile, classification, regression, edge-deployment]
@@ -10,9 +11,12 @@ description: "Lightweight gaze-direction estimation built for real-time inferenc
 
 This project focuses on predicting gaze direction using lightweight deep learning models optimized for real-time performance on mobile devices. The implementation combines classification and regression techniques to create an efficient and accurate solution suitable for deployment on resource-constrained hardware.
 
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/q-uxquFdPB8?si=hrtMjo17zfI4-SPq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+* TOC
+{:toc}
 
 [GitHub Repository](https://github.com/yakhyo/gaze-estimation)
+
+{% include youtube.html id="q-uxquFdPB8" title="Real-time gaze estimation demo" %}
 
 ## Applications and Use Cases
 
