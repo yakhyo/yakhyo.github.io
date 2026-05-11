@@ -19,9 +19,7 @@ BiSeNet combines two complementary paths to balance spatial detail and semantic 
 
 The fusion of these paths through a Feature Fusion Module ensures high segmentation accuracy with low computational cost, making it ideal for applications requiring real-time performance on resource-constrained devices.
 
-[![Downloads](https://img.shields.io/github/downloads/yakhyo/face-parsing/total)](https://github.com/yakhyo/face-parsing/releases)
-[![GitHub Repo stars](https://img.shields.io/github/stars/yakhyo/face-parsing)](https://github.com/yakhyo/face-parsing/stargazers)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/yakhyo/face-parsing)
+[GitHub Repository](https://github.com/yakhyo/face-parsing)
 
 ---
 

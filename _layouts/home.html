@@ -67,13 +67,17 @@ layout: default
         </a>
       </h3>
       <div class="post-meta">
-        <span class="post-date">{{ post.date | date: date_format }}</span>
+        <span class="meta-item">
+          <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+          <span class="post-date">{{ post.date | date: date_format }}</span>
+        </span>
         {%- if post.content -%}
-          <span class="post-meta-separator">•</span>
-          <span class="post-reading-time">{% include reading-time.html content=post.content %}</span>
+          <span class="meta-item">
+            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+            <span class="post-reading-time">{% include reading-time.html content=post.content %}</span>
+          </span>
         {%- endif -%}
         {%- if post.categories.size > 0 -%}
-          <span class="post-meta-separator">•</span>
           <span class="post-tags">
             {%- for category in post.categories limit:3 -%}
               <span class="tag">{{ category }}</span>

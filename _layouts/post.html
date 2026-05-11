@@ -7,34 +7,43 @@ layout: default
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{ page.date | date: date_format }}
-      </time>
+      <span class="meta-item">
+        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: date_format }}
+        </time>
+      </span>
       {%- if page.modified_date -%}
-      ~
       {%- assign mdate = page.modified_date | date_to_xmlschema -%}
-      <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
-        {{ mdate | date: date_format }}
-      </time>
+      <span class="meta-item">
+        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+        <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+          {{ mdate | date: date_format }}
+        </time>
+      </span>
       {%- endif -%}
+      <span class="meta-item">
+        <i class="fa-regular fa-clock" aria-hidden="true"></i>
+        <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
+      </span>
+      {%- comment -%}
+        Author preserved in JSON-LD below for SEO/structured data, but hidden
+        from the visible meta line — this is a single-author site.
+      {%- endcomment -%}
       {%- if page.author -%}
-      • {% for author in page.author %}
-      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
-      {%- if forloop.last == false %}, {% endif -%}
+      {% for author in page.author %}
+      <span class="sr-only" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-author h-card" itemprop="name">{{ author }}</span>
+      </span>
       {% endfor %}
       {%- endif -%}
-      <span class="post-meta-separator">•</span>
-      <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
     </p>
 
-    {%- if page.tags and page.tags.size > 0 -%}
-    <div class="post-tags-header">
-      {%- for tag in page.tags -%}
-        <span class="tag">{{ tag }}</span>
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
+    {%- comment -%}
+      Tags intentionally not rendered in the post header — they were decorative,
+      not interactive (no tag archive pages). The page.tags array is still used
+      below in the JSON-LD `keywords` field for SEO.
+    {%- endcomment -%}
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">

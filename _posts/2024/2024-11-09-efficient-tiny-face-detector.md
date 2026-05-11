@@ -14,10 +14,6 @@ Building upon the core concepts of RetinaFace, Tiny-Face introduces several key 
 
 [GitHub Repository](https://github.com/yakhyo/tiny-face-pytorch)
 
-[![Downloads](https://img.shields.io/github/downloads/yakhyo/tiny-face-pytorch/total)](https://github.com/yakhyo/tiny-face-pytorch/releases)
-[![GitHub Repo stars](https://img.shields.io/github/stars/yakhyo/tiny-face-pytorch)](https://github.com/yakhyo/tiny-face-pytorch/stargazers)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/yakhyo/tiny-face-pytorch)
-
 <video controls autoplay loop src="https://github.com/user-attachments/assets/faf65b91-db76-4538-beca-87fc65566e51" muted="false" width="100%"></video>
 
 <div align="center">

@@ -10,11 +10,6 @@ description: "UniFace is a production-ready ONNX-based toolkit unifying face det
 
 **UniFace** is a lightweight, production-ready face analysis library built on ONNX Runtime. It provides a unified API for face detection, recognition, landmark detection, attribute analysis, face parsing, gaze estimation, anti-spoofing, and privacy features.
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-[![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/)
-[![Downloads](https://pepy.tech/badge/uniface)](https://pepy.tech/project/uniface)
-
 ---
 
 ## Documentation Moved
