@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: landing
 permalink: /
 custom_css: landing
 custom_js: landing

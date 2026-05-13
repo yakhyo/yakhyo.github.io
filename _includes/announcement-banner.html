@@ -1,5 +1,6 @@
 {% if site.announcement.enabled %}
-<div id="announcement-banner" class="announcement-banner">
+<div id="announcement-banner" class="announcement-banner"
+     data-version="{{ site.announcement.text | append: site.announcement.link | slugify }}">
   <div class="announcement-content">
     <span class="announcement-text">
       {{ site.announcement.text }}

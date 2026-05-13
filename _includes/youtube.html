@@ -1,8 +1,11 @@
-<iframe
-  src="https://www.youtube.com/embed/{{ include.id }}"
-  title="{{ include.title | default: 'YouTube video' }}"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen>
-</iframe>
+<figure class="media-figure">
+  <iframe
+    src="https://www.youtube.com/embed/{{ include.id }}"
+    title="{{ include.title | default: 'YouTube video' }}"
+    style="border:0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+  {%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption>{%- endif -%}
+</figure>

@@ -1,34 +1,46 @@
-// Announcement banner: dismiss + reveal-on-pull-down behavior.
-// Extracted from _includes/announcement-banner.html.
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'announcementClosed';
-  const PULL_DISTANCE_PX = 100;
+  var STORAGE_PREFIX = 'announcement_dismissed_';
+  var PULL_DISTANCE_PX = 100;
+
+  function storageAvailable() {
+    try {
+      var key = '__storage_test__';
+      localStorage.setItem(key, '1');
+      localStorage.removeItem(key);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 
   function init() {
-    const banner = document.getElementById('announcement-banner');
+    var banner = document.getElementById('announcement-banner');
     if (!banner) return;
 
-    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+    var version = banner.getAttribute('data-version') || 'default';
+    var storageKey = STORAGE_PREFIX + version;
+    var hasStorage = storageAvailable();
+
+    if (hasStorage && localStorage.getItem(storageKey) === 'true') {
       banner.style.display = 'none';
     }
 
-    const closeBtn = banner.querySelector('.announcement-close');
+    var closeBtn = banner.querySelector('.announcement-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', function () {
         banner.style.display = 'none';
-        try { localStorage.setItem(STORAGE_KEY, 'true'); } catch (_) { /* ignore */ }
+        if (hasStorage) localStorage.setItem(storageKey, 'true');
       });
     }
 
-    let lastScrollY = 0;
-    let scrollUpDistance = 0;
-    let scrollScheduled = false;
+    var lastScrollY = 0;
+    var scrollUpDistance = 0;
+    var scrollScheduled = false;
 
     function onScroll() {
-      const currentScrollY = window.scrollY;
-      const wasClosed = localStorage.getItem(STORAGE_KEY) === 'true';
+      var currentScrollY = window.scrollY;
 
       if (currentScrollY < lastScrollY) {
         scrollUpDistance += lastScrollY - currentScrollY;
@@ -36,9 +48,10 @@
         scrollUpDistance = 0;
       }
 
-      if (currentScrollY === 0 && scrollUpDistance > PULL_DISTANCE_PX && wasClosed) {
+      if (currentScrollY === 0 && scrollUpDistance > PULL_DISTANCE_PX && hasStorage &&
+          localStorage.getItem(storageKey) === 'true') {
         banner.style.display = 'block';
-        try { localStorage.removeItem(STORAGE_KEY); } catch (_) { /* ignore */ }
+        localStorage.removeItem(storageKey);
         scrollUpDistance = 0;
       }
 

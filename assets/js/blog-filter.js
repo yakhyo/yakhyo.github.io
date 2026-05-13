@@ -23,59 +23,48 @@
       }
     }
 
-    function applyFilters() {
+    function applyFiltersWithSearch() {
+      const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
       let visibleCount = 0;
       postItems.forEach(function (post) {
         const categories = post.getAttribute('data-categories') || '';
         const year = post.getAttribute('data-year') || '';
         const topicMatch = currentTopic === 'all' || categories.includes(currentTopic);
         const yearMatch = currentYear === 'all' || year === currentYear;
-        if (topicMatch && yearMatch) {
+        var textMatch = true;
+        if (term) {
+          var link = post.querySelector('.post-link');
+          var title = link ? link.textContent.toLowerCase() : '';
+          var cats = categories.toLowerCase();
+          var excerptEl = post.querySelector('.post-excerpt');
+          var excerpt = excerptEl ? excerptEl.textContent.toLowerCase() : '';
+          textMatch = title.includes(term) || cats.includes(term) || excerpt.includes(term);
+        }
+        if (topicMatch && yearMatch && textMatch) {
           post.style.display = 'block';
           visibleCount++;
         } else {
           post.style.display = 'none';
         }
       });
-      setNoPosts(visibleCount === 0, 'No posts found for this selection.');
+      setNoPosts(visibleCount === 0, term ? 'No posts found matching your search.' : 'No posts found for this selection.');
     }
 
     if (searchInput) {
       searchInput.addEventListener('input', function () {
-        const term = this.value.toLowerCase().trim();
-        if (term === '') {
-          applyFilters();
-          return;
-        }
-        let visibleCount = 0;
-        postItems.forEach(function (post) {
-          const link = post.querySelector('.post-link');
-          const title = link ? link.textContent.toLowerCase() : '';
-          const categories = (post.getAttribute('data-categories') || '').toLowerCase();
-          const excerptEl = post.querySelector('.post-excerpt');
-          const excerpt = excerptEl ? excerptEl.textContent.toLowerCase() : '';
-          if (title.includes(term) || categories.includes(term) || excerpt.includes(term)) {
-            post.style.display = 'block';
-            visibleCount++;
-          } else {
-            post.style.display = 'none';
-          }
-        });
-        setNoPosts(visibleCount === 0, 'No posts found matching your search.');
+        applyFiltersWithSearch();
       });
     }
 
     if (yearFilter) {
       yearFilter.addEventListener('change', function () {
         currentYear = this.value;
-        if (searchInput) searchInput.value = '';
-        applyFilters();
+        applyFiltersWithSearch();
       });
     }
 
     filterButtons.forEach(function (button) {
       button.addEventListener('click', function () {
-        if (searchInput) searchInput.value = '';
         filterButtons.forEach(function (btn) {
           btn.classList.remove('active');
           btn.setAttribute('aria-pressed', 'false');
@@ -83,7 +72,7 @@
         this.classList.add('active');
         this.setAttribute('aria-pressed', 'true');
         currentTopic = this.getAttribute('data-topic');
-        applyFilters();
+        applyFiltersWithSearch();
       });
     });
   });

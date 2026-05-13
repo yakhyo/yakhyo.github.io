@@ -1,3 +1,7 @@
+---
+---
+@import "tokens";
+
 .admin-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -5,7 +9,7 @@
 
 .stat-card {
   background: #f9f9f9;
-  border: 1px solid #e8e8e8;
+  border: 1px solid $border-light;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -17,28 +21,11 @@
   font-size: 1.2rem;
 }
 
-.stat-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e90ff;
-  margin: 1rem 0;
-}
-
-.stat-label {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.loading {
-  color: #999;
-  font-style: italic;
-}
-
 .admin-cta {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: #1e90ff;
+  background: $brand-primary;
   color: #fff;
   text-decoration: none;
   border-radius: 6px;
@@ -46,6 +33,6 @@
 }
 
 .admin-cta:hover {
-  background: #0066cc;
+  background: $brand-primary-hover;
   color: #fff;
 }

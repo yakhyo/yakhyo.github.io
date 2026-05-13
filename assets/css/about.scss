@@ -1,5 +1,9 @@
+---
+---
+@import "tokens";
+
 .resume-link {
-  color: #555;
+  color: $text-secondary;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -8,7 +12,7 @@
 }
 
 .resume-link:hover {
-  color: #1e90ff;
+  color: $brand-primary;
 }
 
 .resume-links-container {

@@ -13,7 +13,7 @@ Live at [https://yakhyo.github.io](https://yakhyo.github.io)
 
 - Jekyll 4.3.4 with Minima theme
 - GitHub Pages
-- Disqus comments and Google Analytics
+- giscus comments (GitHub Discussions) and Google Analytics
 
 ## Installation
 
