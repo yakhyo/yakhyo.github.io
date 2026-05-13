@@ -17,23 +17,6 @@
   font-size: 1.2rem;
 }
 
-.stat-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e90ff;
-  margin: 1rem 0;
-}
-
-.stat-label {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.loading {
-  color: #999;
-  font-style: italic;
-}
-
 .admin-cta {
   display: inline-block;
   margin-top: 1rem;

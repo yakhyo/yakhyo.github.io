@@ -7,7 +7,7 @@ custom_css: about
 ---
 
 <p class="resume-links-container">
-  <a href="/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
+  <a href="{{ site.baseurl }}/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
     📋 View Resume
   </a>
   <span class="resume-separator">|</span>

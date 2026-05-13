@@ -53,7 +53,7 @@ layout: default
     {%- endfor -%}
   </div>
 
-  <ul class="post-list" id="results-container">
+  <ul class="post-list">
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     {%- for post in posts -%}
     <li class="post-item" data-categories="{{ post.categories | join: ' ' }}" data-year="{{ post.date | date: '%Y' }}">
