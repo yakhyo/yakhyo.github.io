@@ -52,12 +52,7 @@ header_pages:
 include:
   - _pages
 
-# Comments
-# Active provider: giscus (GitHub Discussions).
-# Disqus kept as a fallback if `giscus.repo` is ever unset.
-disqus:
-  shortname: yakhyo
-
+# Comments — giscus (GitHub Discussions)
 giscus:
   repo: "yakhyo/yakhyo.github.io"
   repo_id: "R_kgDOMNAolA"

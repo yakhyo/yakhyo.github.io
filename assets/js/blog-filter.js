@@ -76,8 +76,12 @@
     filterButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         if (searchInput) searchInput.value = '';
-        filterButtons.forEach(function (btn) { btn.classList.remove('active'); });
+        filterButtons.forEach(function (btn) {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        });
         this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
         currentTopic = this.getAttribute('data-topic');
         applyFilters();
       });

@@ -46,7 +46,10 @@ jobs:
             --allow-hash-href \
             --ignore-empty-alt \
             --ignore-urls "/^\/admin/"
-        continue-on-error: true
+        env:
+          # Nokogiri needs a UTF-8 locale to parse pages containing em-dashes etc.
+          LANG: en_US.UTF-8
+          LC_ALL: en_US.UTF-8
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

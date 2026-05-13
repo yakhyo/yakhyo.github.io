@@ -3,9 +3,35 @@
 ---
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 @import "minima";
+
+// Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
+// All icons inherit color from currentColor and size from font-size.
+.icon {
+  display: inline-block;
+  vertical-align: -0.125em;     // baseline-align with surrounding text
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  transition: filter 0.2s ease;
+}
+
+// Brand colors on social icons only — meta icons (calendar/clock/etc.)
+// stay at currentColor so they tone-match surrounding text.
+.social-links, .footer-social {
+  .icon-github         { color: #181717; }
+  .icon-linkedin       { color: #0a66c2; }
+  .icon-twitter,
+  .icon-x              { color: #000;    }
+  .icon-youtube        { color: #ff0000; }
+  .icon-telegram       { color: #229ed9; }
+  .icon-stack-overflow { color: #f58025; }
+  .icon-google-scholar { color: #4285f4; }
+  .icon-code           { color: #ffa116; } // LeetCode-ish
+
+  a:hover .icon { filter: brightness(1.15); }
+}
 
 // Brand color tokens — single source of truth.
 $brand-primary: #1e90ff;
@@ -28,23 +54,6 @@ $bg-tag: #f0f0f0;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: $brand-primary;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  z-index: 1000;
-  text-decoration: none;
-  border-radius: 0 0 4px 0;
-
-  &:focus {
-    top: 0;
-    color: #fff;
-  }
 }
 
 // JetBrains Mono everywhere — body, headings, UI chrome. Brand identity stays
@@ -70,6 +79,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
   letter-spacing: -0.01em;      // tighten slightly at large sizes
   margin-bottom: 0.5rem;
+
+  // Mono titles wrap aggressively on phones — drop the size below 480px.
+  @media (max-width: 480px) {
+    font-size: 1.625rem;
+    line-height: 1.2;
+  }
 }
 
 .post-content {
@@ -190,8 +205,8 @@ h1, h2, h3, h4, h5, h6 {
 // Search Bar and Year Filter Wrapper
 .search-filter-wrapper {
   display: flex;
-  gap: 1rem;
-  margin: 2rem 0 1.5rem;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1rem;
 }
 
 .search-container {
@@ -200,11 +215,11 @@ h1, h2, h3, h4, h5, h6 {
 
   #search-input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.75rem;
-    font-size: 1rem;
+    padding: 0.5rem 0.875rem 0.5rem 2.25rem;
+    font-size: 0.9rem;
     font-family: 'JetBrains Mono', monospace;
-    border: 2px solid #e8e8e8;
-    border-radius: 25px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
     outline: none;
     transition: all 0.3s ease;
     background: #fafafa;
@@ -223,11 +238,11 @@ h1, h2, h3, h4, h5, h6 {
 
   .search-icon {
     position: absolute;
-    left: 1rem;
+    left: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
     color: #999;
-    font-size: 1rem;
+    font-size: 0.9rem;
     pointer-events: none;
   }
 }
@@ -235,15 +250,15 @@ h1, h2, h3, h4, h5, h6 {
 // Year Filter Dropdown
 .year-filter-container {
   position: relative;
-  min-width: 150px;
+  min-width: 130px;
 
   .year-filter {
     width: 100%;
-    padding: 0.75rem 2.75rem 0.75rem 1rem;
-    font-size: 1rem;
+    padding: 0.5rem 2.25rem 0.5rem 0.875rem;
+    font-size: 0.9rem;
     font-family: 'JetBrains Mono', monospace;
-    border: 2px solid #e8e8e8;
-    border-radius: 25px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
     outline: none;
     transition: all 0.3s ease;
     background: #fafafa;
@@ -264,11 +279,11 @@ h1, h2, h3, h4, h5, h6 {
 
   .year-icon {
     position: absolute;
-    right: 1rem;
+    right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
     color: #999;
-    font-size: 1rem;
+    font-size: 0.9rem;
     pointer-events: none;
   }
 }
@@ -602,14 +617,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // Announcement Banner
+// Kept low-saturation so it doesn't compete with the landing page name.
 .announcement-banner {
-  background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
-  color: white;
-  padding: 0.75rem 1rem;
+  background: #f5f7fa;
+  color: #333;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0.5rem 1rem;
   text-align: center;
   position: relative;
   font-family: 'JetBrains Mono', monospace;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .announcement-content {
@@ -622,15 +638,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .announcement-text {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 
   a {
-    color: white;
+    color: #1e90ff;
     text-decoration: underline;
     font-weight: 600;
 
     &:hover {
-      opacity: 0.8;
+      color: #0066cc;
     }
   }
 }
@@ -638,12 +654,12 @@ h1, h2, h3, h4, h5, h6 {
 .announcement-close {
   background: transparent;
   border: none;
-  color: white;
-  font-size: 1.2rem;
+  color: #666;
+  font-size: 1rem;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   line-height: 1;
-  opacity: 0.8;
+  opacity: 0.7;
   transition: opacity 0.2s ease;
 
   &:hover {
