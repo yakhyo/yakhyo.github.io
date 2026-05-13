@@ -1,4 +1,4 @@
 <figure class="media-figure">
-  <video controls autoplay loop muted playsinline src="{{ include.src }}"></video>
+  <video controls{% unless include.autoplay == false %} autoplay loop{% endunless %} muted playsinline src="{{ include.src }}"></video>
   {%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption>{%- endif -%}
 </figure>

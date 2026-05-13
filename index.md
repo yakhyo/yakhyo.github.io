@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: landing
 permalink: /
-custom_css: landing,timeline
+custom_css: landing
 custom_js: landing
 description: "Yakhyokhuja Valikhujaev — ML Software Engineer. Notes on LLMs, computer vision, and MLOps."
 ---

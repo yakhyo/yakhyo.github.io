@@ -2,8 +2,6 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 @import "minima";
 
 // Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
@@ -33,15 +31,7 @@
   a:hover .icon { filter: brightness(1.15); }
 }
 
-// Brand color tokens — single source of truth.
-$brand-primary: #1e90ff;
-$brand-primary-hover: #0066cc;
-$text-primary: #1a1a1a;
-$text-secondary: #555;
-$text-muted: #595959;
-$border-light: #e8e8e8;
-$bg-soft: #fafafa;
-$bg-tag: #f0f0f0;
+@import "tokens";
 
 // Accessible utilities.
 .sr-only {
@@ -681,5 +671,19 @@ h1, h2, h3, h4, h5, h6 {
 
   .announcement-close {
     font-size: 1rem;
+  }
+}
+
+// 404 error page
+.error-page {
+  margin: 10px auto;
+  max-width: 600px;
+  text-align: center;
+
+  h1 {
+    margin: 30px 0;
+    font-size: 4em;
+    line-height: 1;
+    letter-spacing: -1px;
   }
 }

@@ -1,4 +1,7 @@
-@import url('timeline.css');
+---
+---
+@import "tokens";
+@import "timeline";
 
 @keyframes bottomToTop {
     from {
@@ -40,7 +43,7 @@
 
 .title {
     font-size: 1.5em;
-    color: #555;
+    color: $text-secondary;
     animation: bottomToTop 1s ease-out;
     min-height: 1.5em;
     display: inline-block;
@@ -81,7 +84,6 @@
 }
 
 .social-links a:hover {
-    /* Icon brightness boost lives in main.scss .social-links .icon. */
     transform: translateY(-3px) scale(1.1);
 }
 
@@ -92,7 +94,7 @@
 .description {
     margin: 20px 0;
     font-size: 1.2em;
-    color: #555;
+    color: $text-secondary;
     animation: bottomToTop 1s ease-out;
 }
 
@@ -114,14 +116,14 @@
 }
 
 .read-blog {
-    background-color: #1e90ff;
-    border: 1px solid #1e90ff;  /* match .about-me box height so the pair aligns */
+    background-color: $brand-primary;
+    border: 1px solid $brand-primary;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
     color: white !important;
 }
 
 .read-blog:hover {
-    background-color: #0066cc;
+    background-color: $brand-primary-hover;
     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, .25);
     transform: translateY(-2px);
 }
@@ -133,13 +135,13 @@
 
 .about-me {
     background: transparent;
-    color: #1e90ff !important;
-    border: 1px solid #1e90ff;
+    color: $brand-primary !important;
+    border: 1px solid $brand-primary;
 }
 
 .about-me:hover {
-    border-color: #0066cc;
-    color: #0066cc !important;
+    border-color: $brand-primary-hover;
+    color: $brand-primary-hover !important;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
     transform: translateY(-2px);
 }
@@ -149,18 +151,10 @@
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .05);
 }
 
-.post-header {
-    display: none;
-}
-
-/* Hide footer on landing page until timeline is scrolled into view (JS reveals it).
-   The noscript block in default.html overrides this when JS is disabled. */
 body.landing-page-body footer {
     display: none;
 }
 
-
-/* Scroll Indicator */
 .scroll-indicator {
     text-align: center;
     margin-top: 100px;
@@ -170,7 +164,7 @@ body.landing-page-body footer {
 .scroll-indicator span {
     display: block;
     font-size: 0.9em;
-    color: #555;
+    color: $text-secondary;
     margin-bottom: 20px;
 }
 
@@ -185,8 +179,8 @@ body.landing-page-body footer {
     display: block;
     width: 12px;
     height: 12px;
-    border-bottom: 2px solid #1e90ff;
-    border-right: 2px solid #1e90ff;
+    border-bottom: 2px solid $brand-primary;
+    border-right: 2px solid $brand-primary;
     transform: rotate(45deg);
     margin: -8px auto;
     animation: scrollDown 2s infinite;
@@ -214,11 +208,10 @@ body.landing-page-body footer {
     }
 }
 
-/* Timeline Section on Homepage */
 .timeline-section {
     margin-top: 80px;
     padding-top: 60px;
-    border-top: 1px solid #e8e8e8;
+    border-top: 1px solid $border-light;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -237,7 +230,6 @@ body.landing-page-body footer {
     color: #000;
 }
 
-/* Tablet adjustments */
 @media (max-width: 768px) and (min-width: 481px) {
     .scroll-indicator {
         margin-top: 60px;
@@ -253,7 +245,6 @@ body.landing-page-body footer {
     }
 }
 
-/* Mobile adjustments */
 @media (max-width: 480px) {
     .landing-page {
         padding: 0;
@@ -318,9 +309,6 @@ body.landing-page-body footer {
     }
 }
 
-/* Reduced motion: disable decorative entrance animations and the caret blink,
-   but keep the typewriter title — it's a core visual identity element and the
-   text changes are not announced (aria-live="off"). */
 @media (prefers-reduced-motion: reduce) {
     .landing-page,
     .profile-info,
