@@ -1,16 +1,6 @@
 {%- comment -%}
-  giscus comments — privacy-friendly, GitHub-Discussions–backed.
-
-  Setup checklist (do these once):
-  1. Enable Discussions in your repo:
-     https://github.com/{owner}/{repo}/settings  → Features → Discussions
-  2. Install the giscus app on the repo:
-     https://github.com/apps/giscus
-  3. Visit https://giscus.app, fill in repo + category, copy the
-     `data-repo-id` and `data-category-id`, paste them into _config.yml
-     under `giscus:`.
-
-  Until that's done, leaving `giscus.repo` unset in _config.yml falls back to Disqus.
+  giscus comments (GitHub Discussions). Configured in _config.yml under `giscus:`.
+  Re-issue tokens at https://giscus.app if `repo_id` / `category_id` ever drift.
 {%- endcomment -%}
 {% if page.comments != false and jekyll.environment == "production" and site.giscus.repo %}
 <section class="comments" aria-label="Comments">

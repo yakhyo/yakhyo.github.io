@@ -83,7 +83,7 @@
 }
 
 .social-links a:hover {
-    color: #1e90ff;
+    /* Icon brightness boost lives in main.scss .social-links .icon. */
     transform: translateY(-3px) scale(1.1);
 }
 
@@ -119,6 +119,7 @@
 
 .read-blog {
     background-color: #1e90ff;
+    border: 1px solid #1e90ff;  /* match .about-me box height so the pair aligns */
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
     color: white !important;
 }
@@ -303,7 +304,8 @@ body.landing-page-body footer {
     }
 
     .description {
-        display: none;
+        font-size: 1em;
+        margin: 16px 0 8px;
     }
 
     .scroll-indicator {

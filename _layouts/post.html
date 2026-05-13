@@ -8,7 +8,7 @@ layout: default
     <p class="post-meta">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <span class="meta-item">
-        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+        {% include icon.html name="calendar" %}
         Created: <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
           {{ page.date | date: date_format }}
         </time>
@@ -16,14 +16,14 @@ layout: default
       {%- if page.modified_date -%}
       {%- assign mdate = page.modified_date | date_to_xmlschema -%}
       <span class="meta-item">
-        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+        {% include icon.html name="pen-to-square" %}
         Modified: <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
           {{ mdate | date: date_format }}
         </time>
       </span>
       {%- endif -%}
       <span class="meta-item">
-        <i class="fa-regular fa-clock" aria-hidden="true"></i>
+        {% include icon.html name="clock" %}
         <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
       </span>
       {%- comment -%}
@@ -68,8 +68,6 @@ layout: default
 
   {%- if site.giscus.repo -%}
     {%- include giscus.html -%}
-  {%- elsif site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>

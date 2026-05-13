@@ -8,8 +8,8 @@
 
 .timeline-entry {
   --marker-left: 82px;
-  --marker-top: 8px;
-  --marker-size: 18px;
+  --marker-top: 10px;
+  --marker-size: 14px;
   --entry-gap: 40px;
 
   display: flex;
@@ -26,39 +26,53 @@
   transform: translateY(0);
 }
 
-/* Connector lines between dots — fully derived from variables */
+/* Connector lines between dots — fully derived from variables.
+   Subtle blue → slate gradient gives the timeline a warm "current at top,
+   history below" feel without screaming. Lower alphas keep it quiet. */
 .timeline-entry:not(:last-child)::after {
   content: '';
   position: absolute;
   left: calc(var(--marker-left) + var(--marker-size) / 2 + 2px);
   top: calc(var(--marker-top) + var(--marker-size));
   bottom: calc(-1 * (var(--entry-gap) + var(--marker-top)));
-  width: 2px;
-  background: #e0e0e0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 144, 255, 0.55) 0%,
+    rgba(148, 163, 184, 0.35) 100%
+  );
 }
 
-/* Marker */
+/* Marker
+   Muted, brand-coordinated palette: each category is a different hue but at
+   the same saturation/lightness, so they read as siblings, not competitors.
+   The current entry keeps the full brand blue + pulse as the eye anchor. */
 .timeline-marker {
+  --marker-bg: #5b8db8;       /* default to work color */
+
   position: absolute;
   left: var(--marker-left);
   top: var(--marker-top);
   width: var(--marker-size);
   height: var(--marker-size);
-  background: #1e90ff;
-  border: 3px solid white;
+  background: var(--marker-bg);
+  border: 2px solid white;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px #e0e0e0;
+  box-shadow: 0 0 0 1px #d0d7de;
   z-index: 1;
   transition: transform 0.3s ease;
 }
 
-.timeline-entry[data-category="work"] .timeline-marker { background: #1e90ff; }
-.timeline-entry[data-category="research"] .timeline-marker { background: #8b5cf6; }
-.timeline-entry[data-category="education"] .timeline-marker { background: #10b981; }
+.timeline-entry[data-category="work"] .timeline-marker      { --marker-bg: #5b8db8; }
+.timeline-entry[data-category="research"] .timeline-marker  { --marker-bg: #7c6da5; }
+.timeline-entry[data-category="education"] .timeline-marker { --marker-bg: #6b9b76; }
+
+/* The "you are here" anchor — full brand blue, plus the existing pulse. */
+.timeline-entry[data-current="true"] .timeline-marker { --marker-bg: #1e90ff; }
 
 @keyframes pulse-marker {
-  0%, 100% { box-shadow: 0 0 0 2px #e0e0e0; }
-  50% { box-shadow: 0 0 0 4px #e0e0e0, 0 0 12px rgba(30, 144, 255, 0.35); }
+  0%, 100% { box-shadow: 0 0 0 1px #d0d7de; }
+  50% { box-shadow: 0 0 0 3px #d0d7de, 0 0 10px rgba(30, 144, 255, 0.35); }
 }
 
 .timeline-entry[data-current="true"] .timeline-marker {
@@ -69,7 +83,9 @@
   transform: scale(1.2);
 }
 
-/* Date */
+/* Date — display end date (more recent) on top, start date (earlier) below.
+   Mirrors the outer timeline order (newer entries at top of page) inside
+   each entry, so the eye reads "currently here / started here" top-down. */
 .timeline-date {
   min-width: 80px;
   font-size: 12px;
@@ -77,7 +93,7 @@
   font-weight: 500;
   padding-top: 2px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   line-height: 1.6;
 }
 
@@ -89,10 +105,8 @@
   display: block;
 }
 
-.date-end::before {
-  content: '↓ ';
-  color: #999;
-}
+/* No separator — proximity tells the reader the two dates form a range.
+   Keep .date-end as its own line via display:block on the parent. */
 
 /* Card content */
 .timeline-content {
@@ -247,7 +261,7 @@
 @media (max-width: 480px) {
   .timeline-entry {
     --marker-left: 7px;
-    --marker-size: 16px;
+    --marker-size: 12px;
     --entry-gap: 24px;
     flex-direction: column;
     padding-left: 35px;
@@ -261,10 +275,7 @@
     gap: 5px;
   }
 
-  .date-end::before {
-    content: '- ';
-    color: #666;
-  }
+  /* Mobile: same no-separator treatment as desktop. */
 
   .timeline-content {
     margin-left: 0;
