@@ -447,16 +447,46 @@ h1, h2, h3, h4, h5, h6 {
 
   p { margin-bottom: 1.25em; }
 
-  img,
+  img:not(.profile-photo):not(.timeline-logo),
   video,
   iframe {
     max-width: 100%;
     height: auto;
+    border-radius: 6px;
   }
 
+  img:not(.profile-photo):not(.timeline-logo) {
+    padding: 0.3%;
+  }
+
+  video,
   iframe {
+    display: block;
+    width: 100%;
     aspect-ratio: 16 / 9;
-    height: auto;
+  }
+
+  // Inline image grids — collapse whitespace so %-width images fit.
+  div[align] {
+    font-size: 0;
+  }
+
+  .media-figure {
+    margin: 1.5em 0;
+
+    img {
+      display: block;
+      padding: 0;
+    }
+
+    figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: $text-muted;
+      text-align: center;
+      line-height: 1.5;
+      font-style: italic;
+    }
   }
 
   pre {
@@ -495,19 +525,23 @@ h1, h2, h3, h4, h5, h6 {
 
 // Table of Contents (kramdown {:toc})
 #markdown-toc {
-  border-left: 3px solid $brand-primary;
-  padding: 0.5rem 0 0.5rem 1.25rem;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
+  padding: 1rem 1.25rem;
+  background: $bg-soft;
+  border: 1px solid $border-light;
+  border-radius: 8px;
   font-size: 0.85rem;
-  line-height: 1.8;
+  line-height: 1.9;
 
   &::before {
     content: "Contents";
     display: block;
     font-weight: 700;
     font-size: 0.9rem;
-    margin-bottom: 0.25rem;
     color: $text-primary;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid $border-light;
   }
 
   li {
@@ -515,19 +549,18 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
   }
 
+  > li {
+    padding-left: 0;
+  }
+
   a {
     color: $text-muted;
     text-decoration: none;
+    transition: color 0.15s ease;
 
     &:hover {
       color: $brand-primary;
     }
-  }
-
-  > li > ul {
-    margin-left: 1rem;
-    margin-bottom: 0;
-    padding-left: 0;
   }
 
   ul {
