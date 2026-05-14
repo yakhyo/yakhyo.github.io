@@ -6,8 +6,14 @@
       <div class="timeline-entry" data-category="{{ entry.category }}"{% if entry.date_end == "Present" %} data-current="true"{% endif %}>
         <div class="timeline-marker"></div>
         <div class="timeline-date">
-          <span class="date-start">{{ entry.date }}</span>
-          {% if entry.date_end %}<span class="date-end">{{ entry.date_end }}</span>{% endif %}
+          <time class="date-start" datetime="{{ entry.date | replace: '.', '-' }}">{{ entry.date }}</time>
+          {% if entry.date_end %}
+            {% if entry.date_end == "Present" %}
+              <span class="date-end">{{ entry.date_end }}</span>
+            {% else %}
+              <time class="date-end" datetime="{{ entry.date_end | replace: '.', '-' }}">{{ entry.date_end }}</time>
+            {% endif %}
+          {% endif %}
         </div>
         <div class="timeline-content">
           <div class="timeline-header">

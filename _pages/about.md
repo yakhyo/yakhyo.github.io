@@ -8,11 +8,11 @@ custom_css: about
 
 <p class="resume-links-container">
   <a href="{{ site.baseurl }}/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
-    📋 View Resume
+    {% include icon.html name="file-text" %} View Resume
   </a>
   <span class="resume-separator">|</span>
   <a href="{{ site.baseurl }}/assets/resumes/{{ site.resume.pdf }}" download class="resume-link" data-track-event="resume-download">
-    📥 Download PDF
+    {% include icon.html name="download" %} Download PDF
   </a>
 </p>
 

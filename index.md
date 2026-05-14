@@ -27,7 +27,7 @@ description: "Yakhyokhuja Valikhujaev — ML Software Engineer. Notes on LLMs, c
         </div>
     </div>
     <div class="description">
-        Exploring Life Through the Lens of a Computer Scientist: AI, Tech, and Beyond.
+        Exploring Life Through the Lens of a Computer Scientist.
     </div>
     <div class="buttons">
         <a href="{{ site.baseurl }}/blog" class="read-blog">Read Blog</a>

@@ -57,11 +57,11 @@ layout: default
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     {%- for post in posts -%}
     <li class="post-item" data-categories="{{ post.categories | join: ' ' }}" data-year="{{ post.date | date: '%Y' }}">
-      <h3>
+      <h2 class="post-list-title">
         <a class="post-link" href="{{ post.url | relative_url }}">
           {{ post.title | escape }}
         </a>
-      </h3>
+      </h2>
       <div class="post-meta">
         <span class="meta-item">
           {% include icon.html name="calendar" %}
