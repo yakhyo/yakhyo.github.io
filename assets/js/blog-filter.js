@@ -51,8 +51,10 @@
     }
 
     if (searchInput) {
+      let searchTimer;
       searchInput.addEventListener('input', function () {
-        applyFiltersWithSearch();
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(applyFiltersWithSearch, 200);
       });
     }
 

@@ -66,9 +66,42 @@
     });
   }
 
+  // 3. Copy-link buttons in the post share row.
+  function bindCopyLinkButtons() {
+    document.querySelectorAll('.copy-link-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const url = btn.getAttribute('data-copy-url') || window.location.href;
+        const flash = function (ok) {
+          btn.classList.add('copied');
+          const original = btn.getAttribute('aria-label');
+          btn.setAttribute('aria-label', ok ? 'Link copied' : 'Copy failed');
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.setAttribute('aria-label', original);
+          }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { flash(true); }).catch(function () { flash(false); });
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); flash(true); } catch (_) { flash(false); }
+          document.body.removeChild(ta);
+        }
+        trackEvent('share-copy-link', { event_label: url });
+      });
+    });
+  }
+
   function init() {
     injectCopyButtons();
     bindTrackedLinks();
+    bindCopyLinkButtons();
   }
 
   if (document.readyState === 'loading') {

@@ -47,7 +47,8 @@
     animation: bottomToTop 1s ease-out;
     min-height: 1.5em;
     display: inline-block;
-    min-width: 350px;
+    min-width: min(350px, 100%);
+    max-width: 100%;
 }
 
 .title::after {
