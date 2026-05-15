@@ -2,12 +2,38 @@
 layout: page
 title: Resume
 permalink: /resume/
+hide_page_title: true
+custom_css: resume
 description: "Resume of Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer; LLMs, RAG, VLMs, Kubernetes, vLLM, Triton, and production ML."
 ---
 
-[GitHub](https://github.com/yakhyo) &#124; [Google Scholar](https://scholar.google.com/citations?user=I66QbJIAAAAJ&hl=en) &#124; [StackOverflow](https://stackoverflow.com/users/14815986/yakhyo) &#124; [LeetCode](https://leetcode.com/y_valikhujaev) &#124; [LinkedIn](https://www.linkedin.com/in/y-valikhujaev/)
+{%- assign pdf_date = site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' -%}
+{%- assign updated = pdf_date | slice: 0, 4 | append: '-' | append: pdf_date | slice: 4, 2 | append: '-' | append: pdf_date | slice: 6, 2 -%}
 
-## AI/ML & MLOps Engineer
+<header class="resume-header">
+  <div class="resume-header-text">
+    <h1 class="resume-name">Yakhyokhuja Valikhujaev</h1>
+    <p class="resume-role">AI/ML &amp; MLOps Engineer</p>
+    <p class="resume-updated">Last updated {{ updated }}</p>
+  </div>
+  <div class="resume-header-actions">
+    <a href="{{ site.baseurl }}/assets/resumes/{{ site.resume.pdf }}"
+       download
+       class="btn btn-primary"
+       data-track-event="resume-download">
+      {% include icon.html name="download" %} Download PDF
+    </a>
+    <div class="resume-social" aria-label="Profiles">
+      <a href="https://github.com/yakhyo" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{% include icon.html name="github" %}</a>
+      <a href="https://www.linkedin.com/in/y-valikhujaev/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{% include icon.html name="linkedin" %}</a>
+      <a href="https://scholar.google.com/citations?user=I66QbJIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">{% include icon.html name="google-scholar" %}</a>
+      <a href="https://stackoverflow.com/users/14815986/yakhyo" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">{% include icon.html name="stack-overflow" %}</a>
+      <a href="https://leetcode.com/y_valikhujaev" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">{% include icon.html name="code" %}</a>
+    </div>
+  </div>
+</header>
+
+## Summary
 
 **AI/ML & MLOps Engineer** with 6+ years of industry and research experience focused on **Large Language Models (LLMs)**, **Retrieval-Augmented Generation (RAG)**, **Vision-Language Models (VLMs)**, and scalable **MLOps infrastructure**. Skilled in fine-tuning and deploying transformer architectures, building **Kubernetes-based ML platforms**, and automating model training and deployment across cloud and on-prem environments.
 
@@ -17,20 +43,43 @@ Experienced in developing and optimizing **LLM-based**, **multimodal**, and **re
 
 ## Skills Summary
 
-- **Programming Languages:** Python, C/C++, Java
-- **Data & Query Systems:** MySQL, PostgreSQL, PySpark; data wrangling with Pandas, Polars; visualization using Power BI
-- **ML & DL Frameworks:** NumPy, Scikit-learn, PyTorch, PyTorch Lightning, TensorFlow, Keras, Hugging Face, LangChain, Unsloth
-- **Retrieval & Indexing Systems:** FAISS, Pinecone, Elastic, Tantivy (lexical, semantic, hybrid search)
-- **MLOps & Deployment:** Docker, FastAPI, Flask, gRPC, TorchServe, Triton Inference Server, TensorRT, vLLM, Kubernetes, Kubeflow, Helm, ArgoCD, Kueue, Kai Scheduling, Kyverno
-- **Cloud Platforms:** AWS (EC2, S3, Lambda, SageMaker, EKS), Google Cloud Platform (Vertex AI, GKE, Compute Engine, Cloud Run)
-- **Core Competencies:**
-  - **LLMs & RAG:** LoRA/PEFT fine-tuning, retrieval pipeline design (Sentence Transformers, Tantivy), vLLM-based inference orchestration, knowledge base integration
-  - **MLOps & Infrastructure:** Cluster orchestration, workload scheduling, resource management, model lifecycle automation, CI/CD, observability (Prometheus, Grafana, ELK)
-  - **Conversational AI:** Voice-to-voice AI agents with ASR, LLMs, and TTS pipelines using LiveKit and related tools
-  - **Multimodal AI:** Vision-Language Models, OCR, object detection, tracking, re-identification, video action recognition
-  - **Generative AI:** sLLMs, Diffusion Models, GANs, DeepFakes, image-to-video, face restoration and enhancement
-  - **Edge Deployment:** Model pruning, quantization, on-device inference, latency optimization
-  - **ML Engineering:** End-to-end pipeline design, scalable deployment, model monitoring, MLOps best practices
+<dl class="resume-skills">
+  <dt>Programming Languages</dt>
+  <dd>Python, C/C++, Java</dd>
+
+  <dt>Data &amp; Query Systems</dt>
+  <dd>MySQL, PostgreSQL, PySpark; Pandas, Polars; Power BI</dd>
+
+  <dt>ML &amp; DL Frameworks</dt>
+  <dd>NumPy, Scikit-learn, PyTorch (incl. Lightning), TensorFlow, Keras, Hugging Face, LangChain, Unsloth</dd>
+
+  <dt>Retrieval &amp; Indexing</dt>
+  <dd>FAISS, Pinecone, Elastic, Tantivy (lexical, semantic, hybrid search)</dd>
+
+  <dt>MLOps &amp; Deployment</dt>
+  <dd>Docker, FastAPI, Flask, gRPC, TorchServe, Triton, TensorRT, vLLM, Kubernetes, Kubeflow, Helm, ArgoCD, Kueue, Kai Scheduling, Kyverno</dd>
+
+  <dt>Cloud Platforms</dt>
+  <dd>AWS (EC2, S3, Lambda, SageMaker, EKS); GCP (Vertex AI, GKE, Compute Engine, Cloud Run)</dd>
+
+  <dt>LLMs &amp; RAG</dt>
+  <dd>LoRA/PEFT fine-tuning, retrieval pipelines (Sentence Transformers, Tantivy), vLLM-based inference, knowledge base integration</dd>
+
+  <dt>MLOps &amp; Infrastructure</dt>
+  <dd>Cluster orchestration, workload scheduling, resource management, model lifecycle automation, CI/CD, observability (Prometheus, Grafana, ELK)</dd>
+
+  <dt>Conversational AI</dt>
+  <dd>Voice-to-voice agents (ASR + LLM + TTS) with LiveKit and related tools</dd>
+
+  <dt>Multimodal AI</dt>
+  <dd>Vision-Language Models, OCR, object detection, tracking, re-identification, video action recognition</dd>
+
+  <dt>Generative AI</dt>
+  <dd>sLLMs, Diffusion Models, GANs, DeepFakes, image-to-video, face restoration</dd>
+
+  <dt>Edge Deployment</dt>
+  <dd>Model pruning, quantization, on-device inference, latency optimization</dd>
+</dl>
 
 ## Work Experience
 
@@ -112,10 +161,3 @@ Experienced in developing and optimizing **LLM-based**, **multimodal**, and **re
 - **Russian:** Limited Working Proficiency
 - **Uzbek:** Native Proficiency
 
----
-<br>
-_Last Updated: {{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 0, 4 }}-{{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 4, 2 }}-{{ site.resume.pdf | replace: 'yakhyo_', '' | replace: '.pdf', '' | slice: 6, 2 }}_
-
-<a href="{{ site.baseurl }}/assets/resumes/{{ site.resume.pdf }}" download data-track-event="resume-download" style="text-decoration: none; font-size: 1.2em;">
-  📥 Download Resume (PDF)
-</a>

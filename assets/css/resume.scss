@@ -1,0 +1,162 @@
+---
+---
+@import "tokens";
+
+// =============================================================================
+// Resume page — header, skills 2-column layout, print stylesheet.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Top header: name + role + last-updated + download button + social icons
+// -----------------------------------------------------------------------------
+.resume-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 0 0 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.resume-name {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.resume-role {
+  margin: 0 0 0.4rem;
+  color: $text-secondary;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.resume-updated {
+  margin: 0;
+  font-size: 0.8rem;
+  color: $text-muted;
+  font-style: italic;
+}
+
+.resume-header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.resume-social {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  a {
+    color: $text-primary;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    font-size: 1.05rem;
+
+    &:hover { transform: translateY(-2px); }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Skills Summary — two-column layout (category | items).
+// -----------------------------------------------------------------------------
+.resume-skills {
+  margin: 1rem 0 2rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  column-gap: 1.5rem;
+  row-gap: 0.6rem;
+
+  dt {
+    margin: 0;
+    font-weight: 600;
+    color: $text-primary;
+    line-height: 1.6;
+  }
+
+  dd {
+    margin: 0;
+    color: $text-secondary;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 600px) {
+  .resume-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .resume-header-actions {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .resume-skills {
+    grid-template-columns: 1fr;
+    row-gap: 0.25rem;
+
+    dt { margin-top: 0.5rem; }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Print stylesheet — make /resume/ printable as a clean CV.
+// Strips chrome (header nav, footer, announcement, social icons, download
+// button), tightens type, neutralizes colors for ink savings.
+// -----------------------------------------------------------------------------
+@media print {
+  .site-header,
+  .site-footer,
+  .announcement-banner,
+  .resume-header-actions {
+    display: none !important;
+  }
+
+  body {
+    font-size: 10pt;
+    line-height: 1.4;
+    color: black;
+    background: white;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  // Avoid orphan headings: don't break right after a heading.
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  // Avoid breaking inside list items / table rows.
+  li, tr {
+    page-break-inside: avoid;
+  }
+
+  // Tighter top margin on the resume itself (chrome is hidden).
+  .resume-header {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #999;
+  }
+
+  .resume-name {
+    font-size: 18pt;
+  }
+
+  // Don't carry over hover transforms / box-shadows in print.
+  * {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
