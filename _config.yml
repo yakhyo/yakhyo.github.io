@@ -1,0 +1,131 @@
+# Site Configuration
+# Restart server after editing this file
+
+# Site Information
+title: Yakhyo's Page
+email: yakhyo9696@gmail.com
+description: >-
+  Exploring Life Through the Lens of a Computer Scientist: AI, Tech, and Beyond.
+
+baseurl: ""
+url: "https://yakhyo.github.io"
+
+# Author Information
+author:
+  name: Yakhyokhuja Valikhujaev
+  preferred_name: Yakhyo Valikhujaev
+
+# Profile URLs — single source of truth for every social / professional link.
+# Update the URL here once and it flows into the footer, landing page, about,
+# and resume. Templates reference `site.profiles.<name>`.
+profiles:
+  github:        https://github.com/yakhyo
+  linkedin:      https://linkedin.com/in/y-valikhujaev
+  scholar:       https://scholar.google.com/citations?user=I66QbJIAAAAJ
+  stackoverflow: https://stackoverflow.com/users/14815986/yakhyo
+  leetcode:      https://leetcode.com/y_valikhujaev
+  youtube:       https://youtube.com/codeuz
+  telegram:      https://t.me/valikhujaev
+  twitter:       https://twitter.com/y_valikhujaev
+
+# SEO Configuration — jekyll-seo-tag consumes this exact shape. Don't merge
+# into `profiles` above; the plugin expects `social.name` and `social.links`.
+social:
+  name: Yakhyokhuja Valikhujaev
+  links:
+    - https://github.com/yakhyo
+    - https://linkedin.com/in/y-valikhujaev
+    - https://scholar.google.com/citations?user=I66QbJIAAAAJ
+    - https://twitter.com/y_valikhujaev
+
+lang: en
+timezone: Asia/Seoul
+
+# Theme and Plugins
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Navigation
+header_pages:
+  - _pages/blog.md
+  - _pages/about.md
+
+include:
+  - _pages
+
+# Comments — giscus (GitHub Discussions)
+giscus:
+  repo: "yakhyo/yakhyo.github.io"
+  repo_id: "R_kgDOMNAolA"
+  category: "General"
+  category_id: "DIC_kwDOMNAolM4C8ulE"
+  mapping: "pathname"
+  theme: "light"
+  lang: "en"
+
+# Analytics
+google_analytics: G-G2VCRRX3LR
+
+# Display Settings
+show_excerpts: true
+
+# Resume — single source of truth for the current PDF filename.
+# Update here when uploading a new resume PDF to /assets/resumes/.
+resume:
+  pdf: yakhyo_20251110.pdf
+
+# Landing-page typewriter titles
+landing_titles:
+  - "ML Software Engineer"
+  - "MLOps Engineer"
+
+# Default OG/Twitter image used by jekyll-seo-tag when a post does not
+# define its own `image:` in front matter.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      image: /assets/images/avatar.webp
+      author: Yakhyokhuja Valikhujaev
+
+# Permalink Structure
+permalink: /blog/:year/:month/:title/
+
+# Markdown Configuration
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+
+# Sass Configuration
+sass:
+  style: compressed
+  quiet_deps: true
+  verbose: false
+  silence_deprecations:
+    - import
+    - global-builtin
+    - color-functions
+
+# Exclude from Build
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# Announcement Banner
+announcement:
+  enabled: true
+  text: "Support our work — give"
+  link: "https://github.com/yakhyo/uniface"
+  link_text: "UniFace"
+  post_text: "a ⭐ on GitHub and help us reach more developers!"

@@ -1,0 +1,28 @@
+// =============================================================================
+// Design tokens — one source of truth for every color and shadow used in more
+// than one place. Values used only once should stay inline at their use site
+// (a "token used once" is just a renamed constant).
+// =============================================================================
+
+// Brand
+$brand-primary:        #1e90ff;   // links, focus rings, active states
+$brand-primary-hover:  #0066cc;   // darker shade for hover/active
+
+// Text — four shades, lightest to darkest
+$text-primary:    #1a1a1a;        // body copy, headings
+$text-secondary:  #555;           // post excerpts, secondary labels
+$text-muted:      #595959;        // meta lines, dates, captions, timeline support
+$text-faint:      #999;           // placeholders, empty states
+
+// Backgrounds & borders
+$bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
+$bg-tag:         #f0f0f0;         // chips, timeline borders
+$border-light:   #e8e8e8;         // dividers, input borders
+
+// Semantic
+$color-success:  #10b981;         // "Copied!" state, timeline education accent
+
+// Shadows — small (subtle hover) to large (lifted card / CTA hover)
+$shadow-sm: 0 2px 8px rgba($brand-primary, 0.1);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);

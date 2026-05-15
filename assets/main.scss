@@ -1,0 +1,18 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough).
+# This file is intentionally just a manifest of imports — keep component styles
+# in their respective _sass/_<name>.scss partial.
+#
+# Order matters: tokens first (so partials can reference them), then partials.
+---
+
+// Minima theme reset / layout. Our partials override or extend where needed.
+@import "minima";
+
+// Design tokens (colors, shadows). Must come before any partial that uses them.
+@import "tokens";
+
+// Component partials.
+@import "base";       // typography, icons, utilities, nav, footer, announcement, 404
+@import "blog";       // blog index + single-post layout, code blocks, share row
+@import "timeline";   // experience timeline on the landing page
