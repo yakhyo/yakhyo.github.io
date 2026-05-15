@@ -1,11 +1,11 @@
 // =============================================================================
-// Base — global utilities, typography, and icon brand colors.
-// Things that apply site-wide and aren't tied to a specific component.
+// Base — global chrome + utilities: icons, accessibility, typography,
+// site nav, header, footer, announcement banner, 404 page.
 // =============================================================================
 
 // -----------------------------------------------------------------------------
 // Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
-// All icons inherit color from currentColor and size from font-size.
+// Icons inherit color from currentColor and size from font-size.
 // -----------------------------------------------------------------------------
 .icon {
   display: inline-block;
@@ -35,7 +35,6 @@
 // -----------------------------------------------------------------------------
 // Accessibility utilities
 // -----------------------------------------------------------------------------
-
 // Keyboard-only focus indicator. Mouse clicks won't trigger this in browsers
 // that support :focus-visible; tab-based navigation will.
 :focus-visible {
@@ -58,10 +57,8 @@
 }
 
 // -----------------------------------------------------------------------------
-// Typography
-// JetBrains Mono everywhere — body, headings, UI chrome. Brand identity stays
-// strong; readability is tuned via the surrounding levers (size, line-height,
-// measure, color, spacing) instead of swapping typefaces.
+// Typography — JetBrains Mono throughout. Readability is tuned via size,
+// line-height, measure, color, and spacing rather than swapping typefaces.
 // -----------------------------------------------------------------------------
 body {
   font-family: 'JetBrains Mono', monospace;
@@ -79,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .post-title {
   font-size: 2.125rem;
-  font-weight: 600;             // mono renders heavy; 600 reads as confident, not shouty
+  font-weight: 600;             // mono renders heavy; 600 reads confident, not shouty
   line-height: 1.25;
   letter-spacing: -0.01em;      // tighten slightly at large sizes
   margin-bottom: 0.5rem;
@@ -88,5 +85,178 @@ h1, h2, h3, h4, h5, h6 {
   @media (max-width: 480px) {
     font-size: 1.625rem;
     line-height: 1.2;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Site header / nav
+// -----------------------------------------------------------------------------
+.site-header {
+  border-top: none;             // drop Minima's default top border
+}
+
+.site-title {
+  transition: color 0.3s ease;
+
+  &:hover {
+    text-decoration: none;
+    color: $brand-primary;
+  }
+}
+
+// Underline animates from left on hover; stays underlined on the active page.
+.site-nav .page-link {
+  position: relative;
+  transition: color 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: $brand-primary;
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $brand-primary;
+    &::after { transform: scaleX(1); }
+  }
+
+  &.active {
+    color: $brand-primary;
+    &::after { transform: scaleX(1); }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Site footer
+// -----------------------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid $border-light;
+  padding: 1.25rem 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copyright {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #767676;
+    font-weight: 400;
+  }
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+
+  a {
+    color: $text-primary;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    &:hover {
+      color: $brand-primary;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+// Footer stacks vertically on narrow viewports.
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-copyright { text-align: center; }
+  .footer-social { justify-content: center; }
+}
+
+// -----------------------------------------------------------------------------
+// Announcement banner — site-wide notification strip at the very top.
+// Kept low-saturation so it doesn't compete with the landing page name.
+// -----------------------------------------------------------------------------
+.announcement-banner {
+  background: #f5f7fa;
+  color: #333;
+  border-bottom: 1px solid $border-light;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.announcement-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.announcement-text {
+  font-size: 0.85rem;
+
+  a {
+    color: $brand-primary;
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover { color: $brand-primary-hover; }
+  }
+}
+
+.announcement-close {
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .announcement-banner { padding: 0.6rem 0.75rem; }
+  .announcement-text { font-size: 0.8rem; }
+  .announcement-close { font-size: 1rem; }
+}
+
+// -----------------------------------------------------------------------------
+// 404 page
+// -----------------------------------------------------------------------------
+.error-page {
+  margin: 10px auto;
+  max-width: 600px;
+  text-align: center;
+
+  h1 {
+    margin: 30px 0;
+    font-size: 4em;
+    line-height: 1;
+    letter-spacing: -1px;
   }
 }

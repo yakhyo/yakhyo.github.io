@@ -81,14 +81,10 @@ CSS lives in its own partial under `_sass/`:
 
 | Partial | What's in it |
 |---|---|
-| `_sass/_tokens.scss` | Colors, shadows, gradients — **edit this first** when changing the look |
-| `_sass/_base.scss` | Typography, icons, `.sr-only`, `:focus-visible` |
-| `_sass/_navigation.scss` | Site title, header nav, footer |
-| `_sass/_blog-list.scss` | Blog index: search, filters, post cards |
-| `_sass/_post.scss` | Single post: content typography, code blocks, share row |
+| `_sass/_tokens.scss` | Colors and shadows — **edit this first** when changing the look |
+| `_sass/_base.scss` | Site chrome: typography, icons, utilities, nav, footer, announcement, 404 |
+| `_sass/_blog.scss` | Blog index + single-post layout, code blocks, share row |
 | `_sass/_timeline.scss` | Experience timeline on the landing page |
-| `_sass/_announcement.scss` | Top-of-page announcement banner |
-| `_sass/_error.scss` | 404 page |
 
 Per-page bundles (`assets/css/landing.scss`, `assets/css/about.scss`, …) are
 loaded via `custom_css:` in page frontmatter ([_includes/head.html](_includes/head.html)).

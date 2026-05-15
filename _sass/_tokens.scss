@@ -1,62 +1,28 @@
 // =============================================================================
-// Design tokens — one source of truth for every color, shadow, and radius.
-// Add new tokens here before reaching for a hex literal. If a value is used
-// in more than one file, it belongs here.
+// Design tokens — one source of truth for every color and shadow used in more
+// than one place. Values used only once should stay inline at their use site
+// (a "token used once" is just a renamed constant).
 // =============================================================================
 
-// -----------------------------------------------------------------------------
 // Brand
-// -----------------------------------------------------------------------------
-$brand-primary:        #1e90ff;   // primary accent (links, focus rings, badges)
-$brand-primary-hover:  #0066cc;   // darker shade for hover/active states
+$brand-primary:        #1e90ff;   // links, focus rings, active states
+$brand-primary-hover:  #0066cc;   // darker shade for hover/active
 
-// -----------------------------------------------------------------------------
-// Text
-// -----------------------------------------------------------------------------
+// Text — four shades, lightest to darkest
 $text-primary:    #1a1a1a;        // body copy, headings
 $text-secondary:  #555;           // post excerpts, secondary labels
-$text-muted:      #595959;        // meta lines, dates, captions
-$text-faint:      #999;           // placeholders, "no posts" empty state
-$text-soft:       #666;           // tag chip text, timeline supporting copy
-$text-strong:     #111;           // timeline titles (slightly punchier than text-primary)
+$text-muted:      #595959;        // meta lines, dates, captions, timeline support
+$text-faint:      #999;           // placeholders, empty states
 
-// -----------------------------------------------------------------------------
 // Backgrounds & borders
-// -----------------------------------------------------------------------------
-$bg-soft:          #fafafa;       // post excerpt rows, TOC, timeline cards
-$bg-tag:           #f0f0f0;       // chips, timeline borders
-$border-light:     #e8e8e8;       // dividers, input borders
-$border-marker:    #d0d7de;       // timeline marker outer ring
+$bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
+$bg-tag:         #f0f0f0;         // chips, timeline borders
+$border-light:   #e8e8e8;         // dividers, input borders
 
-// -----------------------------------------------------------------------------
-// Semantic (status / category)
-// -----------------------------------------------------------------------------
-$color-success:           #10b981;   // "copied!" state, education category text
-$color-success-bg:        #ecfdf5;   // education category chip background
+// Semantic
+$color-success:  #10b981;         // "Copied!" state, timeline education accent
 
-$category-work:           #2563eb;   // timeline: work marker
-$category-work-bg:        #e8f4fd;   // timeline: work category chip background
-
-$category-research:       #7c3aed;   // timeline: research marker
-$category-research-text:  #8b5cf6;   // timeline: research category text
-$category-research-bg:    #f3effe;   // timeline: research category chip background
-
-$category-education:      #059669;   // timeline: education marker
-
-// -----------------------------------------------------------------------------
-// Shadows — sized small (subtle hover) to large (lifted card)
-// -----------------------------------------------------------------------------
-$shadow-xs: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+// Shadows — small (subtle hover) to large (lifted card / CTA hover)
 $shadow-sm: 0 2px 8px rgba($brand-primary, 0.1);
 $shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
 $shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
-$shadow-xl: 0 8px 15px 0 rgba(0, 0, 0, 0.25);
-
-// -----------------------------------------------------------------------------
-// Misc
-// -----------------------------------------------------------------------------
-$timeline-line: linear-gradient(
-  to bottom,
-  rgba($brand-primary, 0.85) 0%,
-  rgba(100, 116, 139, 0.55) 100%
-);  // vertical line connecting timeline entries
