@@ -58,6 +58,25 @@ CLAUDE.md                          Detailed architecture notes for contributors 
 2. Edit the frontmatter and body. The template's comments explain every field.
 3. Run `bundle exec jekyll serve` and visit the post URL.
 
+If you prefer not to use the template, this frontmatter works:
+
+```yaml
+---
+layout: post
+title: "Post title"
+date: YYYY-MM-DD 12:00:00 +0900
+modified_date: YYYY-MM-DD 12:00:00 +0900   # optional — shows "Updated …"
+categories: <single-category-slug>          # e.g. computer-vision; powers topic filter
+tags: [kebab-case, tags]
+description: "One-line description used in SEO and as the excerpt."
+image: /assets/images/your-cover.jpg        # optional; falls back to site default
+---
+```
+
+If you start from scratch instead of the template, write the content in Markdown.
+Code blocks get a copy button automatically. For a table of contents, drop
+`{:toc}` after a list.
+
 The topic filter on the blog index only shows categories with ≥ 2 posts.
 
 ## Forking — what to edit
