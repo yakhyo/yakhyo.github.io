@@ -28,63 +28,33 @@
 }
 
 .resume-role {
-  margin: 0 0 0.4rem;
+  margin: 0;
   color: $text-secondary;
   font-size: 1rem;
   line-height: 1.5;
 }
 
-.resume-updated {
-  margin: 0;
-  font-size: 0.8rem;
-  color: $text-muted;
-  font-style: italic;
-}
-
 .resume-header-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.75rem;
+  align-items: center;
 }
 
+// Social icons sit under the role on the left — part of the identity block,
+// not the action column. Slightly larger than meta icons so they read as
+// primary navigation, not decoration.
 .resume-social {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   align-items: center;
+  margin-top: 0.75rem;
+  font-size: 1.35rem;
 
   a {
     color: $text-primary;
     text-decoration: none;
-    transition: transform 0.2s ease;
-    font-size: 1.05rem;
+    transition: transform 0.2s ease, color 0.2s ease;
 
     &:hover { transform: translateY(-2px); }
-  }
-}
-
-// -----------------------------------------------------------------------------
-// Skills Summary — two-column layout (category | items).
-// -----------------------------------------------------------------------------
-.resume-skills {
-  margin: 1rem 0 2rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 14rem 1fr;
-  column-gap: 1.5rem;
-  row-gap: 0.6rem;
-
-  dt {
-    margin: 0;
-    font-weight: 600;
-    color: $text-primary;
-    line-height: 1.6;
-  }
-
-  dd {
-    margin: 0;
-    color: $text-secondary;
-    line-height: 1.6;
   }
 }
 
@@ -98,13 +68,6 @@
   .resume-header-actions {
     align-items: flex-start;
     width: 100%;
-  }
-
-  .resume-skills {
-    grid-template-columns: 1fr;
-    row-gap: 0.25rem;
-
-    dt { margin-top: 0.5rem; }
   }
 }
 

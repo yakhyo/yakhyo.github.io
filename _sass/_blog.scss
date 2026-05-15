@@ -284,6 +284,29 @@
     }
   }
 
+  // Tables — always fill the content width so multi-column comparison tables
+  // line up consistently across a post. Without this, browsers size tables to
+  // their content and adjacent tables end up at different widths.
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 0.95rem;
+
+    th, td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid $border-light;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: 600;
+      color: $text-primary;
+      background: $bg-soft;
+    }
+  }
+
   // Code blocks: copy button reveals on hover, fades back out.
   pre {
     position: relative;

@@ -15,22 +15,28 @@ author:
   name: Yakhyokhuja Valikhujaev
   preferred_name: Yakhyo Valikhujaev
 
-# Social Media
-twitter_username: y_valikhujaev
-github_username: yakhyo
-linkedin_username: y-valikhujaev
-youtube_username: codeuz
-stackoverflow_id: 14815986
-leetcode_username: y_valikhujaev
+# Profile URLs — single source of truth for every social / professional link.
+# Update the URL here once and it flows into the footer, landing page, about,
+# and resume. Templates reference `site.profiles.<name>`.
+profiles:
+  github:        https://github.com/yakhyo
+  linkedin:      https://linkedin.com/in/y-valikhujaev
+  scholar:       https://scholar.google.com/citations?user=I66QbJIAAAAJ
+  stackoverflow: https://stackoverflow.com/users/14815986/yakhyo
+  leetcode:      https://leetcode.com/y_valikhujaev
+  youtube:       https://youtube.com/codeuz
+  telegram:      https://t.me/valikhujaev
+  twitter:       https://twitter.com/y_valikhujaev
 
-# SEO Configuration
+# SEO Configuration — jekyll-seo-tag consumes this exact shape. Don't merge
+# into `profiles` above; the plugin expects `social.name` and `social.links`.
 social:
   name: Yakhyokhuja Valikhujaev
   links:
-    - https://twitter.com/y_valikhujaev
     - https://github.com/yakhyo
     - https://linkedin.com/in/y-valikhujaev
     - https://scholar.google.com/citations?user=I66QbJIAAAAJ
+    - https://twitter.com/y_valikhujaev
 
 lang: en
 timezone: Asia/Seoul

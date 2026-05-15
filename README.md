@@ -43,36 +43,33 @@ _layouts/                          Page layouts (default, post, home, landing, p
 _includes/                         Partials (header, footer, icon, timeline, giscus, …)
 _data/timeline.yml                 Experience entries rendered on the landing page
 _sass/                             SCSS partials, imported by assets/main.scss
+_drafts/                           Unpublished posts; copy post-template.md to start
 assets/css/                        Per-page SCSS bundles (landing, about, admin)
 assets/js/                         Per-page JS bundles (site, blog-filter, landing, …)
 assets/images/                     Avatar, post images, company logos
 assets/resumes/                    Resume PDF (filename in _config.yml under resume.pdf)
-_config.yml                        Site config: title, nav, defaults, plugins
+_config.yml                        Site config: title, nav, defaults, plugins, profile URLs
 CLAUDE.md                          Detailed architecture notes for contributors / AI
 ```
 
 ## Adding a blog post
 
-1. Create `_posts/<year>/YYYY-MM-DD-slug.md` (filename's date drives the URL).
-2. Use this frontmatter:
-
-   ```yaml
-   ---
-   layout: post
-   title: "Post title"
-   date: YYYY-MM-DD 12:00:00 +0900
-   modified_date: YYYY-MM-DD 12:00:00 +0900   # optional — shows "Updated …"
-   categories: <single-category-slug>          # e.g. computer-vision; powers topic filter
-   tags: [kebab-case, tags]
-   description: "One-line description used in SEO and as the excerpt."
-   image: /assets/images/your-cover.jpg        # optional; falls back to site default
-   ---
-   ```
-3. Write content in Markdown. Code blocks get a copy button automatically.
-   For a table of contents, drop `{:toc}` after a list.
-4. Run `bundle exec jekyll serve` and visit the post URL.
+1. Copy [_drafts/post-template.md](_drafts/post-template.md) to `_posts/<year>/YYYY-MM-DD-your-slug.md` — the filename's date drives the URL.
+2. Edit the frontmatter and body. The template's comments explain every field.
+3. Run `bundle exec jekyll serve` and visit the post URL.
 
 The topic filter on the blog index only shows categories with ≥ 2 posts.
+
+## Forking — what to edit
+
+To rebrand this repo as your own personal site, change these 4 things:
+
+1. **`_config.yml`** — site title, description, author, `profiles:` map (all your social URLs), `giscus.*`, `google_analytics`. Single source of truth.
+2. **`assets/images/avatar.webp`** — replace with your photo.
+3. **`_data/timeline.yml`** — replace experience entries.
+4. **`_pages/about.md`** + **`_pages/resume.md`** — rewrite the prose.
+
+Everything else (footer, landing page, resume header) reads its social URLs from `site.profiles.*`, so step 1 fans out automatically.
 
 ## Where styles live
 

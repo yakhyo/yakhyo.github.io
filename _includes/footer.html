@@ -11,38 +11,38 @@
 
       <!-- Social Links - Icons Only -->
       <div class="footer-social">
-        {%- if site.github_username -%}
-        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        {%- if site.profiles.github -%}
+        <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           {% include icon.html name="github" %}
         </a>
         {%- endif -%}
 
-        {%- if site.linkedin_username -%}
-        <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        {%- if site.profiles.linkedin -%}
+        <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           {% include icon.html name="linkedin" %}
         </a>
         {%- endif -%}
 
-        {%- if site.twitter_username -%}
-        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+        {%- if site.profiles.twitter -%}
+        <a href="{{ site.profiles.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
           {% include icon.html name="twitter" %}
         </a>
         {%- endif -%}
 
-        {%- if site.stackoverflow_id -%}
-        <a href="https://stackoverflow.com/users/{{ site.stackoverflow_id }}" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
+        {%- if site.profiles.stackoverflow -%}
+        <a href="{{ site.profiles.stackoverflow }}" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
           {% include icon.html name="stack-overflow" %}
         </a>
         {%- endif -%}
 
-        {%- if site.leetcode_username -%}
-        <a href="https://leetcode.com/{{ site.leetcode_username }}" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+        {%- if site.profiles.leetcode -%}
+        <a href="{{ site.profiles.leetcode }}" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
           {% include icon.html name="code" %}
         </a>
         {%- endif -%}
 
-        {%- if site.youtube_username -%}
-        <a href="https://www.youtube.com/@{{ site.youtube_username }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        {%- if site.profiles.youtube -%}
+        <a href="{{ site.profiles.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
           {% include icon.html name="youtube" %}
         </a>
         {%- endif -%}
