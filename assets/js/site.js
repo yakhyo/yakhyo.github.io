@@ -104,10 +104,32 @@
     });
   }
 
+  // ---------------------------------------------------------------------------
+  // 4. Reading-progress bar (post pages only — element absent elsewhere).
+  // ---------------------------------------------------------------------------
+  function bindReadingProgress() {
+    const bar = document.querySelector('.reading-progress-bar');
+    if (!bar) return;
+    let ticking = false;
+    function update() {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollable > 0 ? (doc.scrollTop || document.body.scrollTop) / scrollable : 0;
+      bar.style.width = Math.min(100, Math.max(0, pct * 100)) + '%';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
   function init() {
     injectCopyButtons();
     bindCopyLinkButtons();
     bindTrackedLinks();
+    bindReadingProgress();
   }
 
   if (document.readyState === 'loading') {

@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar"></div></div>
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -15,12 +17,6 @@ layout: default
         {% include icon.html name="clock" %}
         <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
       </span>
-      {%- if page.modified_date -%}
-      {%- assign mdate = page.modified_date | date_to_xmlschema -%}
-      <span class="meta-item meta-updated">
-        <em>Updated <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">{{ mdate | date: date_format }}</time></em>
-      </span>
-      {%- endif -%}
       {%- comment -%}
         Author preserved in JSON-LD below for SEO/structured data, but hidden
         from the visible meta line — this is a single-author site.
@@ -77,17 +73,19 @@ layout: default
   <nav class="post-nav" aria-label="Post navigation">
     {%- if prev -%}
       <a class="post-nav-prev" href="{{ prev.url | relative_url }}" rel="prev">
-        <span class="post-nav-label">← Previous</span>
-        <span class="post-nav-title">{{ prev.title | escape }}</span>
+        {% include icon.html name="chevron-left" %}
+        <span class="post-nav-label">Previous</span>
       </a>
     {%- else -%}
       <span></span>
     {%- endif -%}
     {%- if next -%}
       <a class="post-nav-next" href="{{ next.url | relative_url }}" rel="next">
-        <span class="post-nav-label">Next →</span>
-        <span class="post-nav-title">{{ next.title | escape }}</span>
+        <span class="post-nav-label">Next</span>
+        {% include icon.html name="chevron-right" %}
       </a>
+    {%- else -%}
+      <span></span>
     {%- endif -%}
   </nav>
   {%- endif -%}
