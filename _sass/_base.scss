@@ -246,6 +246,63 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // -----------------------------------------------------------------------------
+// Buttons — used for CTAs across pages (contact, resume download, etc.).
+// .btn is the outlined default; .btn-primary is the solid filled variant.
+// A .btn-row wrapper provides horizontal flex layout that wraps on mobile.
+// -----------------------------------------------------------------------------
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid $brand-primary;
+  color: $brand-primary;
+  background: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $brand-primary-hover;
+    color: $brand-primary-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  background: $brand-primary;
+  color: white;
+
+  &:hover {
+    background: $brand-primary-hover;
+    color: white;
+  }
+}
+
+// On narrow phones, stretch buttons full-width and stack them.
+@media (max-width: 480px) {
+  .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+}
+
+// -----------------------------------------------------------------------------
 // 404 page
 // -----------------------------------------------------------------------------
 .error-page {
