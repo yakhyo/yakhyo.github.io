@@ -4,15 +4,11 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
-    const filterButtons = document.querySelectorAll('.filter-btn');
     const postItems = document.querySelectorAll('.post-item');
+    const yearGroups = document.querySelectorAll('.post-year-group');
     const noPostsMessage = document.getElementById('no-posts');
     const searchInput = document.getElementById('search-input');
-    const yearFilter = document.getElementById('year-filter');
-    if (!postItems.length) return;
-
-    let currentTopic = 'all';
-    let currentYear = 'all';
+    if (!postItems.length || !searchInput) return;
 
     function setNoPosts(visible, message) {
       if (!noPostsMessage) return;
@@ -24,58 +20,36 @@
     }
 
     function applyFiltersWithSearch() {
-      const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      const term = searchInput.value.toLowerCase().trim();
       let visibleCount = 0;
       postItems.forEach(function (post) {
-        const categories = post.getAttribute('data-categories') || '';
-        const year = post.getAttribute('data-year') || '';
-        const topicMatch = currentTopic === 'all' || categories.includes(currentTopic);
-        const yearMatch = currentYear === 'all' || year === currentYear;
-        var textMatch = true;
+        var match = true;
         if (term) {
           var link = post.querySelector('.post-link');
           var title = link ? link.textContent.toLowerCase() : '';
-          var cats = categories.toLowerCase();
           var excerptEl = post.querySelector('.post-excerpt');
           var excerpt = excerptEl ? excerptEl.textContent.toLowerCase() : '';
-          textMatch = title.includes(term) || cats.includes(term) || excerpt.includes(term);
+          match = title.includes(term) || excerpt.includes(term);
         }
-        if (topicMatch && yearMatch && textMatch) {
-          post.style.display = 'block';
+        if (match) {
+          post.style.display = '';
           visibleCount++;
         } else {
           post.style.display = 'none';
         }
       });
-      setNoPosts(visibleCount === 0, term ? 'No posts found matching your search.' : 'No posts found for this selection.');
+      // Hide year sections whose posts are all filtered out.
+      yearGroups.forEach(function (section) {
+        const anyVisible = section.querySelector('.post-item:not([style*="display: none"])');
+        section.style.display = anyVisible ? '' : 'none';
+      });
+      setNoPosts(visibleCount === 0, 'No posts found matching your search.');
     }
 
-    if (searchInput) {
-      let searchTimer;
-      searchInput.addEventListener('input', function () {
-        clearTimeout(searchTimer);
-        searchTimer = setTimeout(applyFiltersWithSearch, 200);
-      });
-    }
-
-    if (yearFilter) {
-      yearFilter.addEventListener('change', function () {
-        currentYear = this.value;
-        applyFiltersWithSearch();
-      });
-    }
-
-    filterButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        filterButtons.forEach(function (btn) {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-pressed', 'false');
-        });
-        this.classList.add('active');
-        this.setAttribute('aria-pressed', 'true');
-        currentTopic = this.getAttribute('data-topic');
-        applyFiltersWithSearch();
-      });
+    let searchTimer;
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFiltersWithSearch, 200);
     });
   });
 })();

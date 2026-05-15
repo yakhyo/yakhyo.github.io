@@ -70,7 +70,7 @@ giscus:
 google_analytics: G-G2VCRRX3LR
 
 # Display Settings
-show_excerpts: true
+show_excerpts: false
 
 # Resume — single source of truth for the current PDF filename.
 # Update here when uploading a new resume PDF to /assets/resumes/.

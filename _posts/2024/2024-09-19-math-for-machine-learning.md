@@ -11,9 +11,6 @@ description: "Why geometric intuition for vectors and matrix transformations mat
 
 While I have a strong mathematical background in calculus and linear algebra, including the ability to perform matrix operations and transformations by hand, I recently discovered a crucial gap in my understanding: the geometric interpretation of vectors and their operations.
 
-* TOC
-{:toc}
-
 <div align="center">
   <img src="https://www.3blue1brown.com/content/lessons/2016/vectors/figures/introduction/Perspectives.svg" alt="Three perspectives on vectors: physics, computer science, and mathematics">
 </div>

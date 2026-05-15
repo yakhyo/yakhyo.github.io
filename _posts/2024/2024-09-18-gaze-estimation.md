@@ -11,9 +11,6 @@ description: "Lightweight gaze-direction estimation built for real-time inferenc
 
 This project focuses on predicting gaze direction using lightweight deep learning models optimized for real-time performance on mobile devices. The implementation combines classification and regression techniques to create an efficient and accurate solution suitable for deployment on resource-constrained hardware.
 
-* TOC
-{:toc}
-
 [GitHub Repository](https://github.com/yakhyo/gaze-estimation)
 
 {% include youtube.html id="q-uxquFdPB8" title="Real-time gaze estimation demo" %}

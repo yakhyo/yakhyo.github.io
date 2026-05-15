@@ -12,9 +12,6 @@ image: "https://yakhyo.github.io/tiny-face-pytorch/assets/largeselfi_retina.jpg"
 
 Tiny-Face is an ultra-lightweight face detection model specifically designed for deployment on mobile and edge devices where computational resources are limited. Unlike conventional face detection models that prioritize accuracy at the cost of model size and inference speed, Tiny-Face achieves an optimal balance between detection performance and computational efficiency.
 
-* TOC
-{:toc}
-
 [GitHub Repository](https://github.com/yakhyo/tiny-face-pytorch)
 
 Building upon the core concepts of RetinaFace, Tiny-Face introduces several key optimizations that make it practical for real-world deployment on mobile phones, embedded systems, and IoT devices. The model is streamlined to use minimal memory and processing power while maintaining high precision in face detection across various challenging conditions.

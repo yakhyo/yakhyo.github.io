@@ -12,9 +12,6 @@ image: "https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg"
 
 BiSeNet (Bilateral Segmentation Network) is a state-of-the-art model for real-time semantic segmentation, initially proposed in the paper [Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/abs/1808.00897). The architecture addresses the fundamental challenge in semantic segmentation: achieving high accuracy while maintaining real-time performance.
 
-* TOC
-{:toc}
-
 [GitHub Repository](https://github.com/yakhyo/face-parsing)
 
 ## Architecture Overview

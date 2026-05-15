@@ -12,9 +12,6 @@ image: "https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg"
 
 RetinaFace is a robust single-stage face detection framework designed for dense face localisation in unconstrained environments. This implementation provides a production-ready solution with multiple backbone options, enabling flexible deployment across different hardware constraints and accuracy requirements.
 
-* TOC
-{:toc}
-
 The model excels at detecting faces across extreme variations in scale, pose, and occlusion, making it particularly effective for real-world applications where faces may appear at any size or orientation within the image.
 
 [GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)

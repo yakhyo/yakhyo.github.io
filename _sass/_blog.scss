@@ -54,41 +54,20 @@
   }
 }
 
-.year-filter-container {
-  position: relative;
-  min-width: 130px;
+.post-year-group { margin-top: 2.5rem; }
+.post-year-group:first-of-type { margin-top: 1.5rem; }
 
-  .year-filter {
-    width: 100%;
-    padding: 0.5rem 2.25rem 0.5rem 0.875rem;
-    font-size: 0.9rem;
-    border: 1px solid $border-light;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-    background: $bg-soft;
-    cursor: pointer;
-    appearance: none;
-    box-sizing: border-box;
-
-    &:hover { border-color: #ccc; }
-
-    &:focus {
-      border-color: $brand-primary;
-      background: white;
-      box-shadow: $shadow-sm;
-    }
-  }
-
-  .year-icon {
-    position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $text-faint;
-    font-size: 0.9rem;
-    pointer-events: none;
-  }
+.post-year-heading {
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-muted;
+  margin: 0 0 1rem;
+  padding: 0.6rem 0 0.4rem;
+  background: white;
+  border-bottom: 1px solid $border-light;
 }
 
 // Topic filter chips
@@ -130,12 +109,9 @@
   margin-left: 0;
 
   .post-item {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid $border-light;
     transition: opacity 0.3s ease;
-
-    &:last-child { border-bottom: none; }
   }
 
   .post-list-title {
@@ -217,16 +193,6 @@
       padding: 0.65rem 1rem 0.65rem 2.5rem;
     }
     .search-icon { font-size: 0.9rem; left: 0.9rem; }
-  }
-
-  .year-filter-container {
-    min-width: 100%;
-
-    .year-filter {
-      font-size: 0.95rem;
-      padding: 0.65rem 2.5rem 0.65rem 1rem;
-    }
-    .year-icon { font-size: 0.9rem; right: 0.9rem; }
   }
 
   .topic-filter { gap: 0.5rem; }
@@ -338,48 +304,6 @@
   }
 }
 
-// Table of contents (kramdown `{:toc}` directive)
-#markdown-toc {
-  margin: 0 0 2rem 0;
-  padding: 1rem 1.25rem;
-  background: $bg-soft;
-  border: 1px solid $border-light;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  line-height: 1.9;
-
-  &::before {
-    content: "Contents";
-    display: block;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: $text-primary;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid $border-light;
-  }
-
-  li {
-    list-style: none;
-    margin-bottom: 0;
-  }
-
-  > li { padding-left: 0; }
-
-  a {
-    color: $text-muted;
-    text-decoration: none;
-    transition: color 0.15s ease;
-
-    &:hover { color: $brand-primary; }
-  }
-
-  ul {
-    margin-left: 1rem;
-    margin-bottom: 0;
-    padding-left: 0;
-  }
-}
 
 // Bottom-of-post action row: share on the left, edit link on the right.
 .post-footer-row {

@@ -93,6 +93,10 @@ h1, h2, h3, h4, h5, h6 {
 // -----------------------------------------------------------------------------
 .site-header {
   border-top: none;             // drop Minima's default top border
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
 }
 
 .site-title {

@@ -11,9 +11,6 @@ description: "Real-time head pose estimation pipeline combining SCRFD face detec
 
 This project delivers accurate real-time head pose estimation through optimized deep learning architectures. The implementation focuses on achieving high performance across various deployment scenarios, from mobile devices to desktop applications, while maintaining robust accuracy in challenging conditions.
 
-* TOC
-{:toc}
-
 [GitHub Repository](https://github.com/yakhyo/head-pose-estimation)
 
 {% include youtube.html id="DF2mAlwRr04" title="Real-time head pose estimation demo" %}
