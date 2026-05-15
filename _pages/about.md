@@ -14,7 +14,7 @@ custom_css: about
        width="120" height="120">
   <div class="about-hero-text">
     <h1 class="about-name">Yakhyokhuja Valikhujaev</h1>
-    <p class="about-tagline">AI/ML &amp; MLOps Engineer — LLMs, RAG, and Kubernetes-native ML platforms.</p>
+    <p class="about-tagline">AI/ML &amp; MLOps Engineer focused on production LLMs, multimodal AI, and ML platforms.</p>
     <p class="resume-links-container">
       <a href="{{ site.baseurl }}/resume/" target="_blank" rel="noopener noreferrer" class="resume-link">
         {% include icon.html name="file-text" %} View Resume
@@ -32,51 +32,33 @@ custom_css: about
   Currently building MLOps platforms at <a href="https://www.thakicloud.com/" target="_blank" rel="noopener noreferrer">Thaki Cloud</a>.
 </p>
 
-I'm an AI/ML & MLOps Engineer with 6+ years of industry and research experience focused on Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Vision-Language Models (VLMs), and scalable MLOps infrastructure.
+I'm an AI/ML and MLOps engineer based in Seoul, focused on building reliable systems around LLMs, multimodal models, and Kubernetes-native ML infrastructure.
 
-## Professional Background
+My work sits between model development and production engineering. I'm most interested in making ML systems practical: fine-tuning models for real use cases, designing retrieval pipelines, and building platform tooling that helps teams train, deploy, and operate models more reliably.
 
-I hold a Master's degree in Computer Engineering from Gachon University, where I specialized in computer vision and deep learning. Today I work as an MLOps Engineer at [Thaki Cloud](https://www.thakicloud.com/), designing and maintaining Kubernetes-based ML platforms for distributed training and inference workloads.
+At [Thaki Cloud](https://www.thakicloud.com/), I work on private-cloud and Kubernetes infrastructure for distributed training and inference. Before that, I worked across conversational AI, multimodal systems, computer vision, and production model deployment in both research and product settings.
 
-My expertise spans fine-tuning and deploying transformer architectures, building Kubernetes clusters, and automating model training and deployment across cloud and on-prem environments. I focus on production-ready ML systems that solve real problems across industries.
+## What I Work On
 
-Through this site I share what I've learned in ML engineering, document technical challenges, and contribute to the broader ML community. I also maintain a [YouTube channel](https://youtube.com/codeuz) where I publish programming tutorials.
+I enjoy working on the parts of AI systems that turn promising models into dependable products: training workflows, inference infrastructure, retrieval systems, and the operational details that make them usable at scale. My background includes LLMs, RAG, VLMs, model serving, and Kubernetes-based platform engineering across cloud and on-prem environments.
 
-## Technical Interests
+## Writing & Community
 
-My primary areas of focus include:
-
-- **LLMs & RAG**: LoRA/PEFT fine-tuning, retrieval pipeline design, vLLM-based inference orchestration
-- **MLOps & Infrastructure**: Kubernetes cluster orchestration, workload scheduling, resource management, CI/CD pipelines
-- **Conversational AI**: Voice-to-voice AI agents with ASR, LLMs, and TTS pipelines
-- **Multimodal AI**: Vision-Language Models, OCR, object detection, tracking, video action recognition
-- **Generative AI**: Diffusion Models, GANs, DeepFakes, image-to-video generation
-- **Edge Deployment**: Model pruning, quantization, on-device inference optimization
-
-## Continuous Learning
-
-A few technical books that have shaped my approach:
-
-- _Designing Machine Learning Systems_ — Chip Huyen (2022)
-- _Fluent Python (2nd Edition)_ — Luciano Ramalho (2021)
-- _Deep Learning with PyTorch_ — Eli Stevens, Luca Antiga, Thomas Viehmann (2020)
-- _Hands-On Machine Learning with Scikit-Learn and TensorFlow_ — Aurélien Géron (2017)
+I use this site to write about ML engineering, infrastructure, and applied AI. I also run a [YouTube channel]({{ site.profiles.youtube }}) where I publish programming tutorials, with a special interest in making technical content more accessible for Uzbek-speaking learners.
 
 ## Beyond Work
 
-When I'm not coding, I enjoy swimming, hiking, and spending time with friends. I have a deep appreciation for mathematics and physics, and ~~I'm interested in pursuing a PhD if I find the right research opportunity in ML/AI~~.
-
-I also solve algorithmic challenges on [LeetCode](https://leetcode.com/y_valikhujaev), contribute to open-source projects, and create programming tutorials on my [YouTube channel](https://youtube.com/codeuz) — including courses on Python, C++, and Java for Uzbek-speaking learners.
+Outside of work, I enjoy swimming, hiking, and spending time with friends. I also keep a long-running interest in mathematics and physics, contribute to open source when I can, and occasionally solve algorithm problems on [LeetCode]({{ site.profiles.leetcode }}) to stay sharp on fundamentals.
 
 ## Get in Touch
 
-I'm always interested in discussing ML engineering, potential collaborations, or interesting technical challenges. I'm especially open to open-source projects and research initiatives around LLMs, MLOps, and AI infrastructure.
+I'm always happy to talk about ML platforms, LLM systems, research collaboration, and open-source work. If you think we should build something together, feel free to reach out.
 
 <div class="contact-buttons btn-row">
-  <a href="mailto:yakhyo9696@gmail.com" class="btn btn-primary" data-track-event="contact-email">
+  <a href="mailto:{{ site.email }}" class="btn btn-primary" data-track-event="contact-email">
     Email me
   </a>
-  <a href="https://linkedin.com/in/y-valikhujaev" target="_blank" rel="noopener noreferrer" class="btn" data-track-event="contact-linkedin">
+  <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn" data-track-event="contact-linkedin">
     {% include icon.html name="linkedin" %} LinkedIn
   </a>
 </div>
