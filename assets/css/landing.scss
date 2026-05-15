@@ -21,17 +21,32 @@
     animation: bottomToTop 1s ease-out;
 }
 
+// Photo + name/title + social-links share one grid container so the layout
+// can flip at mobile without changing the HTML.
+// Desktop/tablet: photo on left, info top-right, socials below info.
+// Mobile (≤480px): photo + info on row 1, socials full-width on row 2.
+.profile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "photo info"
+        "photo socials";
+    column-gap: 20px;
+    row-gap: 8px;
+    align-items: center;
+}
+
 .profile-photo {
+    grid-area: photo;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    vertical-align: middle;
 }
 
 .profile-info {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 20px;
+    grid-area: info;
+    min-width: 0;
+    align-self: end;
     animation: bottomToTop 1s ease-out;
 }
 
@@ -72,7 +87,9 @@
 }
 
 .social-links {
-    margin-top: 10px;
+    grid-area: socials;
+    align-self: start;
+    margin-top: 0;
     animation: bottomToTop 1s ease-out;
 }
 
@@ -246,6 +263,17 @@ body.landing-page-body footer {
     }
 }
 
+@media (max-width: 768px) {
+    .profile {
+        column-gap: 16px;
+    }
+
+    .profile-photo {
+        width: 110px;
+        height: 110px;
+    }
+}
+
 @media (max-width: 480px) {
     .landing-page {
         padding: 0;
@@ -256,29 +284,32 @@ body.landing-page-body footer {
         margin-top: -20px;
     }
 
+    // Mobile layout: photo + info on top row, socials full-width below.
+    .profile {
+        grid-template-areas:
+            "photo info"
+            "socials socials";
+        column-gap: 14px;
+        row-gap: 14px;
+    }
+
     .profile-photo {
-        display: block;
-        margin: 0 0 20px 0;
-        width: 120px;
-        height: 120px;
+        width: 96px;
+        height: 96px;
     }
 
     .profile-info {
-        display: block;
-        margin-left: 0;
+        align-self: center;
     }
 
     .name {
-        font-size: 2em;
+        font-size: 1.6em;
+        line-height: 1.15;
     }
 
     .title {
-        font-size: 1.2em;
+        font-size: 1em;
         min-width: auto;
-    }
-
-    .social-links {
-        margin-top: 15px;
     }
 
     .social-links a {
@@ -307,6 +338,26 @@ body.landing-page-body footer {
 
     .timeline-section-title {
         font-size: 1.8em;
+    }
+}
+
+// Extra-small phones (~iPhone SE width): shrink the avatar more.
+@media (max-width: 360px) {
+    .profile {
+        column-gap: 12px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .name {
+        font-size: 1.4em;
+    }
+
+    .title {
+        font-size: 0.95em;
     }
 }
 

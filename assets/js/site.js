@@ -69,15 +69,18 @@
   // 3. Copy-link buttons in the post share row.
   function bindCopyLinkButtons() {
     document.querySelectorAll('.copy-link-btn').forEach(function (btn) {
+      // Capture the original aria-label once at bind time so rapid clicks
+      // (which transiently set it to "Link copied") can't poison the restore.
+      const originalLabel = btn.getAttribute('aria-label');
       btn.addEventListener('click', function () {
+        if (btn.classList.contains('copied')) return;   // already mid-flash
         const url = btn.getAttribute('data-copy-url') || window.location.href;
         const flash = function (ok) {
           btn.classList.add('copied');
-          const original = btn.getAttribute('aria-label');
           btn.setAttribute('aria-label', ok ? 'Link copied' : 'Copy failed');
           setTimeout(function () {
             btn.classList.remove('copied');
-            btn.setAttribute('aria-label', original);
+            btn.setAttribute('aria-label', originalLabel);
           }, 1500);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
