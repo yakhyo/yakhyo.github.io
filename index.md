@@ -7,17 +7,19 @@ description: "Yakhyokhuja Valikhujaev — ML Software Engineer. Notes on LLMs, c
 ---
 
 <div class="landing-page">
-    <img src="{{ site.baseurl }}/assets/images/avatar.webp"
-         alt="Yakhyo Valikhujaev — ML Software Engineer"
-         class="profile-photo"
-         width="150" height="150"
-         fetchpriority="high">
-    <div class="profile-info">
-        <div class="name">Yakhyo Valikhujaev</div>
-        <div class="title"
-             data-titles='{{ site.landing_titles | jsonify }}'
-             aria-live="off"
-             aria-label="ML Software Engineer">{{ site.landing_titles | first }}</div>
+    <div class="profile">
+        <img src="{{ site.baseurl }}/assets/images/avatar.webp"
+             alt="Yakhyo Valikhujaev — ML Software Engineer"
+             class="profile-photo"
+             width="150" height="150"
+             fetchpriority="high">
+        <div class="profile-info">
+            <div class="name">Yakhyo Valikhujaev</div>
+            <div class="title"
+                 data-titles='{{ site.landing_titles | jsonify }}'
+                 aria-live="off"
+                 aria-label="ML Software Engineer">{{ site.landing_titles | first }}</div>
+        </div>
         <div class="social-links">
             <a href="https://scholar.google.com/citations?user=I66QbJIAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar Profile">{% include icon.html name="google-scholar" %}</a>
             <a href="https://github.com/yakhyo" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">{% include icon.html name="github" %}</a>
