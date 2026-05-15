@@ -1,61 +1,99 @@
-# Personal Website
+# yakhyo.github.io
 
 <p align="center">
-  <img src="assets/images/website.gif" alt="Website Preview" width="800">
+  <img src="assets/images/website.gif" alt="Website preview" width="800">
 </p>
 
-[![GitHub License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
+<!-- TODO: capture a fresh screenshot/GIF of the current site (typewriter title,
+     timeline section, blog index) and replace assets/images/website.gif. -->
+
+[![License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
 [![Deploy](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml)
 
-Live at [https://yakhyo.github.io](https://yakhyo.github.io)
+Personal site + blog. Live at [yakhyo.github.io](https://yakhyo.github.io).
 
-## Tech Stack
-
-- Jekyll 4.3.4 with Minima theme
-- GitHub Pages
-- giscus comments (GitHub Discussions) and Google Analytics
-
-## Installation
+## Quickstart
 
 ```bash
-git clone https://github.com/yakhyo/yakhyo.github.io.git
-cd yakhyo.github.io
-bundle install
+bundle install                                  # one-time, after cloning
+bundle exec jekyll serve                        # local dev at http://localhost:4000
+JEKYLL_ENV=production bundle exec jekyll serve  # preview the production build
+bundle exec jekyll build                        # one-shot build to _site/
 ```
 
-## Development
-
+Ruby 3.3 (see [.ruby-version](.ruby-version)). The only test runs in CI:
 ```bash
-# Development mode (default)
-bundle exec jekyll serve
-
-# Production mode (for testing production build locally)
-JEKYLL_ENV=production bundle exec jekyll serve
+bundle exec htmlproofer ./_site --disable-external --allow-hash-href \
+  --ignore-empty-alt --ignore-urls "/^\/admin/"
 ```
 
-Visit `http://localhost:4000`
+## Stack
 
-## Build
+Jekyll 4.3 + the Minima theme, heavily customized. Plugins: `jekyll-feed`,
+`jekyll-seo-tag`, `jekyll-sitemap`. Comments via giscus (GitHub Discussions),
+analytics via Google Analytics — both only load in `production`. Deployed by
+GitHub Pages from the `main` branch ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
-```bash
-# Development build
-bundle exec jekyll build
+## Repository layout
 
-# Production build (minified, optimized)
-JEKYLL_ENV=production bundle exec jekyll build
+```
+_posts/<year>/YYYY-MM-DD-slug.md   Blog posts. Permalink: /blog/:year/:month/:title/
+_pages/                            Standalone pages (about, blog, resume, admin)
+_layouts/                          Page layouts (default, post, home, landing, page)
+_includes/                         Partials (header, footer, icon, timeline, giscus, …)
+_data/timeline.yml                 Experience entries rendered on the landing page
+_sass/                             SCSS partials, imported by assets/main.scss
+assets/css/                        Per-page SCSS bundles (landing, about, admin)
+assets/js/                         Per-page JS bundles (site, blog-filter, landing, …)
+assets/images/                     Avatar, post images, company logos
+assets/resumes/                    Resume PDF (filename in _config.yml under resume.pdf)
+_config.yml                        Site config: title, nav, defaults, plugins
+CLAUDE.md                          Detailed architecture notes for contributors / AI
 ```
 
-**Note:** GitHub Pages automatically builds with `JEKYLL_ENV=production`
+## Adding a blog post
+
+1. Create `_posts/<year>/YYYY-MM-DD-slug.md` (filename's date drives the URL).
+2. Use this frontmatter:
+
+   ```yaml
+   ---
+   layout: post
+   title: "Post title"
+   date: YYYY-MM-DD 12:00:00 +0900
+   modified_date: YYYY-MM-DD 12:00:00 +0900   # optional — shows "Updated …"
+   categories: <single-category-slug>          # e.g. computer-vision; powers topic filter
+   tags: [kebab-case, tags]
+   description: "One-line description used in SEO and as the excerpt."
+   image: /assets/images/your-cover.jpg        # optional; falls back to site default
+   ---
+   ```
+3. Write content in Markdown. Code blocks get a copy button automatically.
+   For a table of contents, drop `{:toc}` after a list.
+4. Run `bundle exec jekyll serve` and visit the post URL.
+
+The topic filter on the blog index only shows categories with ≥ 2 posts.
+
+## Where styles live
+
+`assets/main.scss` is intentionally just a manifest of imports. Each component's
+CSS lives in its own partial under `_sass/`:
+
+| Partial | What's in it |
+|---|---|
+| `_sass/_tokens.scss` | Colors, shadows, gradients — **edit this first** when changing the look |
+| `_sass/_base.scss` | Typography, icons, `.sr-only`, `:focus-visible` |
+| `_sass/_navigation.scss` | Site title, header nav, footer |
+| `_sass/_blog-list.scss` | Blog index: search, filters, post cards |
+| `_sass/_post.scss` | Single post: content typography, code blocks, share row |
+| `_sass/_timeline.scss` | Experience timeline on the landing page |
+| `_sass/_announcement.scss` | Top-of-page announcement banner |
+| `_sass/_error.scss` | 404 page |
+
+Per-page bundles (`assets/css/landing.scss`, `assets/css/about.scss`, …) are
+loaded via `custom_css:` in page frontmatter ([_includes/head.html](_includes/head.html)).
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Copyright
-
-© 2024 Yakhyo Valikhujaev. All rights reserved.
-
-- Blog posts, articles, and written content: All rights reserved
-- Feel free to use the code structure and design as inspiration
-- Please do not copy blog content or personal information
-- Attribution is appreciated but not required for code
+Code under [MIT](LICENSE). Blog post content © Yakhyokhuja Valikhujaev; please
+do not republish without attribution.
