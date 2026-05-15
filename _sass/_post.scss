@@ -1,0 +1,279 @@
+// =============================================================================
+// Single post — content typography, code blocks, TOC, share row, prev/next.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Post content: typography, media, and code blocks.
+// -----------------------------------------------------------------------------
+.post-content {
+  h2 { font-size: 1.5rem;    font-weight: 600; line-height: 1.3; margin-top: 2.5rem; margin-bottom: 0.75rem; }
+  h3 { font-size: 1.25rem;   font-weight: 600; line-height: 1.3; margin-top: 2rem;   margin-bottom: 0.5rem; }
+  h4 { font-size: 1.0625rem; font-weight: 600; line-height: 1.3; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  h5, h6 { font-weight: 600; }
+
+  p { margin-bottom: 1.25em; }
+
+  img:not(.profile-photo):not(.timeline-logo),
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  img:not(.profile-photo):not(.timeline-logo) {
+    padding: 0.3%;
+  }
+
+  video,
+  iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  // Inline image grids — collapse whitespace so %-width images fit.
+  div[align] {
+    font-size: 0;
+  }
+
+  .media-figure {
+    margin: 1.5em 0;
+
+    img {
+      display: block;
+      padding: 0;
+    }
+
+    figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: $text-muted;
+      text-align: center;
+      line-height: 1.5;
+      font-style: italic;
+    }
+  }
+
+  // Code blocks: copy button reveals on hover, fades back out.
+  pre {
+    position: relative;
+    border: 1px solid $border-light;
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid $border-light;
+      border-radius: 4px;
+      color: $text-secondary;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, background 0.2s ease;
+
+      &:hover {
+        background: white;
+        color: $brand-primary;
+      }
+
+      &.copied {
+        color: $color-success;
+      }
+    }
+
+    &:hover .copy-btn,
+    .copy-btn:focus {
+      opacity: 1;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Table of contents (kramdown `{:toc}` directive)
+// -----------------------------------------------------------------------------
+#markdown-toc {
+  margin: 0 0 2rem 0;
+  padding: 1rem 1.25rem;
+  background: $bg-soft;
+  border: 1px solid $border-light;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.9;
+
+  &::before {
+    content: "Contents";
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: $text-primary;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid $border-light;
+  }
+
+  li {
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  > li { padding-left: 0; }
+
+  a {
+    color: $text-muted;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover { color: $brand-primary; }
+  }
+
+  ul {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Bottom-of-post action row: share controls on the left, edit link on the right.
+// -----------------------------------------------------------------------------
+.post-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 3rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid $border-light;
+}
+
+.post-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.post-share-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid $border-light;
+  border-radius: 50%;
+  background: transparent;
+  color: $text-secondary;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+
+  &:hover,
+  &:focus {
+    border-color: $brand-primary;
+    color: $brand-primary;
+    text-decoration: none;        // override Minima's default a:hover underline
+  }
+
+  &.copied {
+    border-color: $color-success;
+    color: $color-success;
+  }
+}
+
+// "Copied!" floating tooltip on the copy-link button.
+// Driven by the .copied class added by site.js for ~1.5s.
+.copy-link-btn::after {
+  content: "Copied!";
+  position: absolute;
+  bottom: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: $text-primary;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.copy-link-btn.copied::after {
+  opacity: 1;
+}
+
+// Quiet "Edit on GitHub" text link, right side of the footer row.
+.post-edit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: $text-muted;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $brand-primary;
+
+    .icon-github {
+      color: $brand-primary;     // brand-primary on hover instead of GitHub black
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Previous / next post navigation
+// -----------------------------------------------------------------------------
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 3rem 0 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-light;
+
+  a {
+    flex: 1;
+    text-decoration: none;
+    color: $text-primary;
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-light;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      border-color: $brand-primary;
+      color: $brand-primary;
+    }
+  }
+
+  .post-nav-label {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+
+  .post-nav-title {
+    display: block;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .post-nav-next { text-align: right; }
+}
+
+@media (max-width: 600px) {
+  .post-nav {
+    flex-direction: column;
+  }
+}

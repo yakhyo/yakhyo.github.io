@@ -136,19 +136,19 @@
 .read-blog {
     background-color: $brand-primary;
     border: 1px solid $brand-primary;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    box-shadow: $shadow-lg;
     color: white !important;
 }
 
 .read-blog:hover {
     background-color: $brand-primary-hover;
-    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, .25);
+    box-shadow: $shadow-xl;
     transform: translateY(-2px);
 }
 
 .read-blog:active {
     transform: translateY(0);
-    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .15);
+    box-shadow: $shadow-lg;
 }
 
 .about-me {
@@ -160,13 +160,13 @@
 .about-me:hover {
     border-color: $brand-primary-hover;
     color: $brand-primary-hover !important;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    box-shadow: $shadow-lg;
     transform: translateY(-2px);
 }
 
 .about-me:active {
     transform: translateY(0);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .05);
+    box-shadow: $shadow-xs;
 }
 
 body.landing-page-body footer {
