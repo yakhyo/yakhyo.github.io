@@ -1,0 +1,133 @@
+---
+layout: default
+---
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar"></div></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    <p class="post-meta">
+      <span class="meta-item">
+        {% include icon.html name="calendar" %}
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: date_format }}</time>
+      </span>
+      <span class="meta-item">
+        {% include icon.html name="clock" %}
+        <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
+      </span>
+      {%- comment -%}
+        Author preserved in JSON-LD below for SEO/structured data, but hidden
+        from the visible meta line — this is a single-author site.
+      {%- endcomment -%}
+      {%- if page.author -%}
+      {% for author in page.author %}
+      <span class="sr-only" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-author h-card" itemprop="name">{{ author }}</span>
+      </span>
+      {% endfor %}
+      {%- endif -%}
+    </p>
+
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- assign post_url = page.url | absolute_url -%}
+  {%- assign share_text = page.title | uri_escape -%}
+  <aside class="post-footer-row" aria-label="Post actions">
+    <div class="post-share" aria-label="Share this post">
+      <a class="post-share-btn"
+         href="https://twitter.com/intent/tweet?text={{ share_text }}&amp;url={{ post_url | uri_escape }}"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Share on X"
+         data-track-event="share-x">
+        {% include icon.html name="x" %}
+      </a>
+      <a class="post-share-btn"
+         href="https://www.linkedin.com/sharing/share-offsite/?url={{ post_url | uri_escape }}"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Share on LinkedIn"
+         data-track-event="share-linkedin">
+        {% include icon.html name="linkedin" %}
+      </a>
+      <button type="button" class="post-share-btn copy-link-btn"
+         data-copy-url="{{ post_url }}"
+         aria-label="Copy link to clipboard">
+        {% include icon.html name="link" %}
+      </button>
+    </div>
+    {%- if site.giscus.repo and page.path -%}
+    <a class="post-edit-link" href="https://github.com/{{ site.giscus.repo }}/blob/main/{{ page.path }}" target="_blank" rel="noopener noreferrer">
+      {% include icon.html name="github" %} Edit on GitHub
+    </a>
+    {%- endif -%}
+  </aside>
+
+  {%- assign prev = page.previous -%}
+  {%- assign next = page.next -%}
+  {%- if prev or next -%}
+  <nav class="post-nav" aria-label="Post navigation">
+    {%- if prev -%}
+      <a class="post-nav-prev" href="{{ prev.url | relative_url }}" rel="prev">
+        {% include icon.html name="chevron-left" %}
+        <span class="post-nav-label">Previous</span>
+      </a>
+    {%- else -%}
+      <span></span>
+    {%- endif -%}
+    {%- if next -%}
+      <a class="post-nav-next" href="{{ next.url | relative_url }}" rel="next">
+        <span class="post-nav-label">Next</span>
+        {% include icon.html name="chevron-right" %}
+      </a>
+    {%- else -%}
+      <span></span>
+    {%- endif -%}
+  </nav>
+  {%- endif -%}
+
+  {%- if site.giscus.repo -%}
+    {%- include giscus.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
+
+{%- comment -%} JSON-LD structured data for richer search-result snippets {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 200 | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {%- if page.modified_date -%}
+  "dateModified": "{{ page.modified_date | date_to_xmlschema }}",
+  {%- else -%}
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  {%- endif -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  "image": "{{ page.image | default: '/assets/images/avatar.webp' | absolute_url }}",
+  "url": "{{ page.url | absolute_url }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  {%- if page.tags and page.tags.size > 0 -%}
+  "keywords": {{ page.tags | join: ", " | jsonify }},
+  {%- endif -%}
+  "inLanguage": "{{ site.lang | default: 'en' }}"
+}
+</script>

@@ -1,0 +1,36 @@
+{%- comment -%}
+  GA4 loader.
+  - Honors Do-Not-Track (sets the per-property disable flag).
+  - Defers the full SDK until first user interaction (scroll / click / key)
+    or 4s after load, whichever comes first. Saves ~50KB on bounce visits.
+{%- endcomment -%}
+<script>
+  (function () {
+    var GA_ID = '{{ site.google_analytics }}';
+    var dnt = window.doNotTrack === '1' ||
+              navigator.doNotTrack === '1' ||
+              navigator.doNotTrack === 'yes' ||
+              navigator.msDoNotTrack === '1';
+    window['ga-disable-' + GA_ID] = dnt;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    if (dnt) return;
+    gtag('js', new Date());
+    gtag('config', GA_ID, { 'anonymize_ip': true });
+
+    var loaded = false;
+    function loadGa() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    }
+    var events = ['scroll', 'mousemove', 'keydown', 'touchstart', 'click'];
+    events.forEach(function (ev) {
+      window.addEventListener(ev, loadGa, { once: true, passive: true });
+    });
+    setTimeout(loadGa, 4000);
+  })();
+</script>

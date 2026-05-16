@@ -1,0 +1,330 @@
+// =============================================================================
+// Base — global chrome + utilities: icons, accessibility, typography,
+// site nav, header, footer, announcement banner, 404 page.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
+// Icons inherit color from currentColor and size from font-size.
+// -----------------------------------------------------------------------------
+.icon {
+  display: inline-block;
+  vertical-align: -0.125em;     // baseline-align with surrounding text
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  transition: filter 0.2s ease;
+}
+
+// Brand colors on social icons only — meta icons (calendar/clock/etc.) stay
+// at currentColor so they tone-match surrounding text.
+.social-links, .footer-social {
+  .icon-github         { color: #181717; }
+  .icon-linkedin       { color: #0a66c2; }
+  .icon-twitter,
+  .icon-x              { color: #000;    }
+  .icon-youtube        { color: #ff0000; }
+  .icon-telegram       { color: #229ed9; }
+  .icon-stack-overflow { color: #f58025; }
+  .icon-google-scholar { color: #4285f4; }
+  .icon-code           { color: #ffa116; } // LeetCode-ish
+
+  a:hover .icon { filter: brightness(1.15); }
+}
+
+// -----------------------------------------------------------------------------
+// Accessibility utilities
+// -----------------------------------------------------------------------------
+// Keyboard-only focus indicator. Mouse clicks won't trigger this in browsers
+// that support :focus-visible; tab-based navigation will.
+:focus-visible {
+  outline: 2px solid $brand-primary;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Visually hide while keeping accessible to screen readers.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Typography — Inter for prose, system mono stack for code (matches GitHub's
+// Primer look: SFMono on macOS, Consolas on Windows, etc.).
+// -----------------------------------------------------------------------------
+body {
+  font-family: $font-sans;
+  font-size: $text-base;       // 16px — denser, technical-doc feel
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: $text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-sans;
+}
+
+// Override Minima's defaults so every code surface uses the system mono stack.
+code, pre, kbd, samp { font-family: $font-mono; }
+
+// <strong>/<b> default to 700 in the browser. Drop to $weight-medium so inline
+// emphasis matches heading weight and never out-bolds a heading.
+strong, b { font-weight: $weight-medium; }
+
+.post-title {
+  font-size: 2.125rem;
+  font-weight: $weight-semibold;             // mono renders heavy; 600 reads confident, not shouty
+  line-height: 1.25;
+  letter-spacing: -0.01em;      // tighten slightly at large sizes
+  margin-bottom: 0.5rem;
+
+  // Mono titles wrap aggressively on phones — drop the size below 480px.
+  @media (max-width: 480px) {
+    font-size: 1.625rem;
+    line-height: 1.2;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Site header / nav
+// -----------------------------------------------------------------------------
+.site-header {
+  border-top: none;             // drop Minima's default top border
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+}
+
+.site-title {
+  transition: color 0.3s ease;
+
+  &:hover {
+    text-decoration: none;
+    color: $brand-primary;
+  }
+}
+
+// Underline animates from left on hover; stays underlined on the active page.
+.site-nav .page-link {
+  position: relative;
+  transition: color 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: $brand-primary;
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $brand-primary;
+    &::after { transform: scaleX(1); }
+  }
+
+  &.active {
+    color: $brand-primary;
+    &::after { transform: scaleX(1); }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Site footer
+// -----------------------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid $border-light;
+  padding: 1.25rem 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copyright {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0;
+    font-size: $text-sm;
+    color: #767676;
+    font-weight: $weight-regular;
+  }
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+
+  a {
+    color: $text-primary;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    &:hover {
+      color: $brand-primary;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+// Footer stacks vertically on narrow viewports.
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-copyright { text-align: center; }
+  .footer-social { justify-content: center; }
+}
+
+// -----------------------------------------------------------------------------
+// Announcement banner — site-wide notification strip at the very top.
+// Kept low-saturation so it doesn't compete with the landing page name.
+// -----------------------------------------------------------------------------
+.announcement-banner {
+  background: #f5f7fa;
+  color: #333;
+  border-bottom: 1px solid $border-light;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.announcement-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.announcement-text {
+  font-size: 0.85rem;
+
+  a {
+    color: $brand-primary;
+    text-decoration: underline;
+    font-weight: $weight-semibold;
+
+    &:hover { color: $brand-primary-hover; }
+  }
+}
+
+.announcement-close {
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .announcement-banner { padding: 0.6rem 0.75rem; }
+  .announcement-text { font-size: 0.8rem; }
+  .announcement-close { font-size: 1rem; }
+}
+
+// -----------------------------------------------------------------------------
+// Buttons — used for CTAs across pages (contact, resume download, etc.).
+// .btn is the outlined default; .btn-primary is the solid filled variant.
+// A .btn-row wrapper provides horizontal flex layout that wraps on mobile.
+// -----------------------------------------------------------------------------
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: $radius-md;
+  font-weight: $weight-medium;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid $brand-primary;
+  color: $brand-primary;
+  background: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $brand-primary-hover;
+    color: $brand-primary-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  background: $brand-primary;
+  color: white;
+
+  &:hover {
+    background: $brand-primary-hover;
+    color: white;
+  }
+}
+
+// On narrow phones, stretch buttons full-width and stack them.
+@media (max-width: 480px) {
+  .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 404 page
+// -----------------------------------------------------------------------------
+.error-page {
+  margin: 10px auto;
+  max-width: 600px;
+  text-align: center;
+
+  h1 {
+    margin: 30px 0;
+    font-size: 4em;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+}

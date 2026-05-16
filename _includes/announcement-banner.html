@@ -1,0 +1,16 @@
+{% if site.announcement.enabled %}
+<div id="announcement-banner" class="announcement-banner"
+     data-version="{{ site.announcement.text | append: site.announcement.link | slugify }}">
+  <div class="announcement-content">
+    <span class="announcement-text">
+      {{ site.announcement.text }}
+      {% if site.announcement.link %}
+        <a href="{{ site.announcement.link }}">{{ site.announcement.link_text }}</a>
+      {% endif %}
+      {{ site.announcement.post_text }}
+    </span>
+    <button class="announcement-close" aria-label="Close announcement">✕</button>
+  </div>
+</div>
+<script src="{{ "/assets/js/announcement.js" | relative_url }}" defer></script>
+{% endif %}

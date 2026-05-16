@@ -1,0 +1,88 @@
+- date: "2025.08"
+  date_end: "Present"
+  title: "MLOps Engineer"
+  company: "Thaki Cloud Co. Ltd"
+  description: |
+    Designing and maintaining **Kubernetes clusters** for private cloud platform supporting distributed model training and inference.
+
+    Building systems for resource discovery, policy enforcement, and workload scheduling using **Kubeflow**, **Kueue**, **Kai Scheduling**, and **Kyverno**.
+
+    Managing ML pipelines with **Helm** and **ArgoCD** for continuous delivery across staging and production environments.
+  category: "work"
+  link: "https://www.thakicloud.com/"
+  logo: "assets/images/logos/thakicloud.png"
+
+- date: "2024.03"
+  date_end: "2025.08"
+  title: "AI/ML Research Engineer"
+  company: "Aria Studios Co. Ltd"
+  description: |
+    Fine-tuned **Qwen-2.5-7B/3B** models using **LoRA** and **DPO** for Korean language. Fine-tuned **GPT-3.5-turbo** on conversational data.
+
+    Built **voice-to-voice AI assistants** using **LiveKit**, **Whisper**, and **MCP servers** for real-time task execution.
+
+    Deployed **vLLM** APIs and **FLUX (Stable Diffusion)** models. Developed **Phi-3-Vision** VLM systems and DeepFake technologies.
+  category: "work"
+  link: "https://showaria.com/"
+  logo: "assets/images/logos/aria_studios.png"
+
+- date: "2022.07"
+  date_end: "2023.09"
+  title: "ML Engineer"
+  company: "Pyler Co. Ltd"
+  description: |
+    Built video and image content moderation pipelines achieving **10-20% improvement** in accuracy.
+
+    Implemented **real-time object detection** and **multi-label classification** systems for brand safety.
+
+    Leveraged **CLIP embeddings**, **PCA**, **KMeans**, and **DBSCAN** for dataset clustering. Built end-to-end pipelines on **Kubeflow** with **active learning**.
+  category: "work"
+  link: "https://www.pyler.tech/"
+  logo: "assets/images/logos/pyler.png"
+
+- date: "2020.11"
+  date_end: "2022.07"
+  title: "AI Research Engineer"
+  company: "D-Meta Co. Ltd"
+  description: |
+    Developed OCR pipeline using **Spatial Transformer Networks (STN)** achieving **90%+ accuracy** for industrial scene text.
+
+    Built **ANPR** system with **real-time RTSP stream** inference improving performance by **~15%**.
+
+    Deployed **car damage detection** on **Android devices** using TorchScript. Applied **Pix2Pix GAN** for shadow removal.
+  category: "work"
+  link: "https://www.d-meta.ai/"
+  logo: "assets/images/logos/dmeta.png"
+
+- date: "2018.09"
+  date_end: "2020.11"
+  title: "Research Assistant"
+  company: "AI and SC Lab, Gachon University"
+  description: |
+    Researched computer vision-based **fire and smoke detection** using **dilated CNNs**, achieving **1.5× faster inference** speed.
+
+    Optimized models for **edge devices** (Raspberry Pi 2) using hyper-parameter tuning and quantization.
+  category: "research"
+  logo: "assets/images/logos/gachon.png"
+
+- date: "2018.09"
+  date_end: "2021.02"
+  title: "MSc in Computer Engineering"
+  company: "Gachon University"
+  description: |
+    Master's degree in Computer Engineering, advised by Prof. Young Im Cho. **CGPA: 4.0/4.5**
+
+    **Focus:** Computer Vision, Image Processing, Algorithms, and Machine Learning.
+  category: "education"
+  logo: "assets/images/logos/gachon.png"
+
+- date: "2014.09"
+  date_end: "2018.06"
+  title: "BSc in Computer Engineering"
+  company: "Tashkent University of Information Technologies"
+  description: |
+    Bachelor's degree in Computer Engineering. **CGPA: 85/100 (3.72/4.0)**
+
+    **Focus:** IoT, Probabilities, Discrete Mathematics, and Calculus.
+  category: "education"
+  logo: "assets/images/logos/tuit.png"

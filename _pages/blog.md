@@ -1,0 +1,8 @@
+---
+layout: home
+title: Blog
+subtitle: "Personal opinions and useful information from building ML systems."
+permalink: /blog/
+description: "Technical writing on machine-learning engineering, computer vision, LLMs, and MLOps — practical lessons from shipping ML systems in production."
+custom_js: blog-filter
+---

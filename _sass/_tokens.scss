@@ -1,0 +1,65 @@
+// =============================================================================
+// Design tokens — one source of truth for every color and shadow used in more
+// than one place. Values used only once should stay inline at their use site
+// (a "token used once" is just a renamed constant).
+// =============================================================================
+
+// Brand
+$brand-primary:        #1e90ff;   // links, focus rings, active states
+$brand-primary-hover:  #0066cc;   // darker shade for hover/active
+
+// Text — four shades, lightest to darkest
+$text-primary:    #1a1a1a;        // body copy, headings
+$text-secondary:  #555;           // post excerpts, secondary labels
+$text-muted:      #595959;        // meta lines, dates, captions, timeline support
+$text-faint:      #999;           // placeholders, empty states
+
+// Backgrounds & borders
+$bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
+$bg-tag:         #f0f0f0;         // chips, timeline borders
+$border-light:   #e8e8e8;         // dividers, input borders
+
+// Semantic
+$color-success:  #10b981;         // "Copied!" state, timeline education accent
+
+// Typography — mono is the site default (see _base.scss).
+// Sans (Inter) is used for blog post body copy; serif is reserved for
+// blockquotes inside posts so they pick up an editorial voice.
+$font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+$font-serif: 'Charter', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', Times, serif;
+$font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+
+// Reading measure for post content. ~70ch on Inter lands near 700px.
+$post-measure: 44rem;
+
+// Corner radii — three steps + pill. Circles use 50% inline (universal idiom).
+$radius-sharp: 2px;     // cards & large surfaces — the pixel-frame look
+$radius-soft:  4px;     // small UI: inline code, tooltips, copy badges
+$radius-md:    6px;     // buttons, inputs, images, logos, post-nav, admin
+$radius-pill:  999px;   // chips, tags — adapts to element height
+
+// Font weights. Use medium by default for emphasis; reserve semibold for
+// chips, table headers, and other tight UI labels where 500 reads too soft.
+$weight-regular:  400;
+$weight-medium:   500;
+$weight-semibold: 600;
+
+// Font sizes — six steps cover everything from chip text to post titles.
+// Hand-tuned one-off sizes (e.g. an oddly-sized button) stay inline.
+$text-xs:    0.75rem;     // 12px — tiny chips, tooltips
+$text-sm:    0.875rem;    // 14px — meta lines, captions, post-meta
+$text-base:  1rem;        // 16px — body default
+$text-lg:    1.25rem;     // 20px — list titles, h4
+$text-xl:    1.625rem;    // 26px — h2, page-heading
+$text-2xl:   2.25rem;     // 36px — post title
+
+// Spacing — four steps cover the common rhythms. One-off paddings stay inline.
+$space-xs:   0.5rem;      // 8px  — inline gaps, meta-item gap
+$space-sm:   1rem;        // 16px — paragraph gap, between rows
+$space-md:   2rem;        // 32px — between cards / blocks
+$space-lg:   4rem;        // 64px — section breaks
+
+// Shadows — small (subtle hover) to large (lifted card / CTA hover)
+$shadow-sm: 0 2px 8px rgba($brand-primary, 0.1);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
