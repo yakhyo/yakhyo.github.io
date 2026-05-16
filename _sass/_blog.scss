@@ -241,14 +241,10 @@
 // 2. Single post page
 // =====================================================================
 
-// .post fills the wrapper width — no extra centering inset.
-// (Previously constrained to $post-measure for a tighter reading column.)
 .post {
   max-width: 100%;
 }
 
-// Post title uses the same Inter as the body for a unified editorial flow.
-// The post meta line below it stays mono (UI chrome).
 .post-header .post-title {
   font-family: $font-sans;
   font-size: $text-2xl;
@@ -262,16 +258,12 @@
   }
 }
 
-// Post content: Inter for paragraphs/lists, mono for headings (architectural
-// section breaks), serif italic for blockquotes only.
 .post-content {
   font-family: $font-sans;
-  font-size: 1.0625rem;       // 17px — Inter reads larger optically than serif
+  font-size: 1.0625rem;
   line-height: 1.7;
   color: $text-primary;
 
-  // Headings in the same Inter family as body, but heavier weight + tighter
-  // tracking for hierarchy.
   h2, h3, h4, h5, h6 {
     font-family: $font-sans;
     letter-spacing: -0.02em;
@@ -283,7 +275,6 @@
 
   p { margin-bottom: 1.25em; }
 
-  // Inline code + kbd stay mono so they remain visually distinct from prose.
   code {
     font-family: $font-mono;
     font-size: 0.9em;
@@ -294,7 +285,6 @@
   // Code inside <pre> is styled by Minima's rouge block — don't double-pad it.
   pre code { background: none; padding: 0; font-size: 0.95em; }
 
-  // Lists — give them breathing room and a sane indent for the serif body.
   ul, ol {
     margin-left: 1.5rem;
     margin-bottom: 1.25em;
@@ -304,8 +294,7 @@
     li > ul, li > ol { margin-top: 0.4em; margin-bottom: 0.4em; }
   }
 
-  // Quoted passages — serif italic gives them their own voice inside an
-  // otherwise sans body. One intentional accent; do not introduce more.
+  // Blockquote is the only serif element in the post — keep it that way; adding more serif accents dilutes the contrast.
   blockquote {
     margin: 1.75em 0;
     padding: 0.25em 0 0.25em 1.25rem;
@@ -318,8 +307,7 @@
     p:last-child { margin-bottom: 0; }
   }
 
-  // Section breaks: a centered dot trio reads better than a full-width rule
-  // inside a narrow reading column.
+  // Render <hr> as a centered "·  ·  ·" instead of a full-width line.
   hr {
     border: 0;
     margin: 2.5em auto;

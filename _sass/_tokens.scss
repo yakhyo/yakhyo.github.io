@@ -38,9 +38,8 @@ $radius-soft:  4px;     // small UI: inline code, tooltips, copy badges
 $radius-md:    6px;     // buttons, inputs, images, logos, post-nav, admin
 $radius-pill:  999px;   // chips, tags — adapts to element height
 
-// Font weights — the site uses only two: regular for body/nav, medium for
-// headings + inline emphasis. Hierarchy comes from size + tracking, not weight.
-// $weight-semibold is reserved for future use (e.g. a brand callout).
+// Font weights. Use medium by default for emphasis; reserve semibold for
+// chips, table headers, and other tight UI labels where 500 reads too soft.
 $weight-regular:  400;
 $weight-medium:   500;
 $weight-semibold: 600;
