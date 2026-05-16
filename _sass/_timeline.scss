@@ -106,13 +106,12 @@ $marker-ring:    #d0d7de;
   border-radius: $radius-sharp;
   padding: 1.25rem 1.5rem;
   border: 1px solid $bg-tag;
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .timeline-entry:hover .timeline-content {
   box-shadow: $shadow-md;
   transform: translateY(-2px);
-  border-color: $text-primary;
 }
 
 .timeline-header {
