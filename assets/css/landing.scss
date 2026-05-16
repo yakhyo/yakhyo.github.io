@@ -19,6 +19,10 @@
     padding: 50px 0;
     margin-left: 0;
     animation: bottomToTop 1s ease-out;
+    // Hero owns the first viewport so the timeline below sits below the fold at rest.
+    // 100dvh handles iOS Safari's dynamic URL bar correctly.
+    min-height: 100dvh;
+    box-sizing: border-box;
 }
 
 // Photo + name/title + social-links share one grid container so the layout
@@ -276,11 +280,7 @@ body.landing-page-body footer {
 
 @media (max-width: 480px) {
     .landing-page {
-        padding: 0;
-        justify-content: flex-start;
-        padding-top: 10px;
-        padding-bottom: 40px;
-        min-height: auto;
+        padding: 10px 0 40px;
         margin-top: -20px;
     }
 
