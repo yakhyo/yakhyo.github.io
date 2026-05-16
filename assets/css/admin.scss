@@ -10,7 +10,7 @@
 .stat-card {
   background: #f9f9f9;
   border: 1px solid $border-light;
-  border-radius: 8px;
+  border-radius: $radius-sharp;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -28,8 +28,8 @@
   background: $brand-primary;
   color: #fff;
   text-decoration: none;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: $radius-md;
+  font-weight: $weight-medium;
 }
 
 .admin-cta:hover {

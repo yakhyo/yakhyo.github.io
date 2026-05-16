@@ -6,6 +6,10 @@
 # Order matters: tokens first (so partials can reference them), then partials.
 ---
 
+// Override Minima's $content-width *before* importing — Minima declares it
+// with !default so this wins. Site chrome (.wrapper) sizes off this value.
+$content-width: 820px;
+
 // Minima theme reset / layout. Our partials override or extend where needed.
 @import "minima";
 

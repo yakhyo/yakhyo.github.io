@@ -57,26 +57,33 @@
 }
 
 // -----------------------------------------------------------------------------
-// Typography — JetBrains Mono throughout. Readability is tuned via size,
-// line-height, measure, color, and spacing rather than swapping typefaces.
+// Typography — Inter for prose, system mono stack for code (matches GitHub's
+// Primer look: SFMono on macOS, Consolas on Windows, etc.).
 // -----------------------------------------------------------------------------
 body {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.0625rem;        // 17px — mono needs ~1px more than sans
-  line-height: 1.75;           // generous; mono prefers more vertical air
-  letter-spacing: 0.005em;     // tiny positive tracking helps mono breathe
+  font-family: $font-sans;
+  font-size: $text-base;       // 16px — denser, technical-doc feel
+  line-height: 1.55;
+  letter-spacing: 0;
   color: $text-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: $font-sans;
 }
+
+// Override Minima's defaults so every code surface uses the system mono stack.
+code, pre, kbd, samp { font-family: $font-mono; }
+
+// <strong>/<b> default to 700 in the browser. Drop to $weight-medium so inline
+// emphasis matches heading weight and never out-bolds a heading.
+strong, b { font-weight: $weight-medium; }
 
 .post-title {
   font-size: 2.125rem;
-  font-weight: 600;             // mono renders heavy; 600 reads confident, not shouty
+  font-weight: $weight-semibold;             // mono renders heavy; 600 reads confident, not shouty
   line-height: 1.25;
   letter-spacing: -0.01em;      // tighten slightly at large sizes
   margin-bottom: 0.5rem;
@@ -159,9 +166,9 @@ h1, h2, h3, h4, h5, h6 {
 
   p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: $text-sm;
     color: #767676;
-    font-weight: 400;
+    font-weight: $weight-regular;
   }
 }
 
@@ -223,7 +230,7 @@ h1, h2, h3, h4, h5, h6 {
   a {
     color: $brand-primary;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: $weight-semibold;
 
     &:hover { color: $brand-primary-hover; }
   }
@@ -265,8 +272,8 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.25rem;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: $radius-md;
+  font-weight: $weight-medium;
   font-size: 0.95rem;
   text-decoration: none;
   border: 1px solid $brand-primary;
