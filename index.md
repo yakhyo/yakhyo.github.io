@@ -3,7 +3,6 @@ layout: landing
 permalink: /
 custom_css: landing
 custom_js: landing
-description: "Yakhyokhuja Valikhujaev — ML Software Engineer. Notes on LLMs, computer vision, and MLOps."
 ---
 
 <div class="landing-page">
@@ -29,7 +28,7 @@ description: "Yakhyokhuja Valikhujaev — ML Software Engineer. Notes on LLMs, c
         </div>
     </div>
     <div class="description">
-        Exploring Life Through the Lens of a Computer Scientist.
+        {{ site.description }}
     </div>
     <div class="buttons">
         <a href="{{ site.baseurl }}/blog" class="read-blog">Read Blog</a>
