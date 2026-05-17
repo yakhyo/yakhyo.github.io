@@ -83,6 +83,12 @@
   padding: 0.6rem 0 0.4rem;
   background: white;
   border-bottom: 1px solid $border-light;
+
+  // On phones the year sticky-strip steals vertical space and the index is
+  // short enough not to need it. Let it scroll with the page.
+  @media (max-width: 600px) {
+    position: static;
+  }
 }
 
 // Topic filter chips
@@ -235,6 +241,20 @@
   .topic-filter { gap: 0.5rem; }
   .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
   .page-heading { font-size: 2rem; }
+
+  // Cards normally bleed -1rem horizontally to give the chunky hover shadow
+  // room. On mobile the wrapper padding is too small for that — borders end
+  // up flush against (or past) the viewport edge. Tuck them back inside and
+  // shrink the stamped offset so the hover still fits.
+  .post-list .post-item {
+    margin-left: 0;
+    margin-right: 0;
+
+    &:hover {
+      box-shadow: 2px 2px 0 0 $text-primary;
+      transform: translate(-1px, -1px);
+    }
+  }
 }
 
 // =====================================================================
@@ -388,6 +408,14 @@
       color: $text-primary;
       background: $bg-soft;
     }
+
+    // Mobile: drop to `display: block` + horizontal scroll so wide tables
+    // don't force the whole page wider than the viewport. Desktop keeps
+    // the normal table layout so columns share width evenly.
+    @media (max-width: 600px) {
+      display: block;
+      overflow-x: auto;
+    }
   }
   // Code blocks: copy button reveals on hover, fades back out.
   pre {
@@ -396,28 +424,35 @@
 
     .copy-btn {
       position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      padding: 0.25rem 0.6rem;
-      font-size: 0.75rem;
+      top: 0.4rem;
+      right: 0.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      padding: 0;
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid $border-light;
       border-radius: $radius-soft;
-      color: $text-secondary;
+      color: $text-muted;
       cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.2s ease, background 0.2s ease;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.2s ease;
+
+      svg { width: 0.8rem; height: 0.8rem; display: block; }
 
       &:hover {
         background: white;
         color: $brand-primary;
+        border-color: $brand-primary;
       }
 
-      &.copied { color: $color-success; }
+      &.copied {
+        color: $brand-primary;
+        border-color: $brand-primary;
+      }
     }
 
-    &:hover .copy-btn,
-    .copy-btn:focus { opacity: 1; }
   }
 }
 
@@ -517,7 +552,8 @@
 
   > a,
   > span {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;            // allow flex children to shrink below their content width
   }
 
   a {
@@ -544,6 +580,11 @@
     font-size: 0.9rem;
     font-weight: $weight-medium;
     color: inherit;
+    // Truncate long titles instead of pushing the button wider than the viewport.
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
 }
 

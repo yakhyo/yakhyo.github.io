@@ -33,30 +33,35 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 1. Copy button injected on every <pre> code block in post content.
+  // 1. Copy icon button on every <pre> code block in post content.
+  // Lucide "files" icon → check icon on success; blue tint on success state.
   // ---------------------------------------------------------------------------
+  const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H10a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 3H6a2 2 0 0 0-2 2v10"/></svg>';
+  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
   function injectCopyButtons() {
     document.querySelectorAll('.post-content pre').forEach(function (pre) {
       if (pre.querySelector('.copy-btn')) return;
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'copy-btn';
-      btn.textContent = 'Copy';
+      btn.innerHTML = ICON_COPY;
       btn.setAttribute('aria-label', 'Copy code to clipboard');
       btn.addEventListener('click', function () {
+        if (btn.classList.contains('copied')) return;
         const code = pre.querySelector('code') || pre;
-        const flash = function (label, klass) {
-          btn.textContent = label;
-          if (klass) btn.classList.add(klass);
-          setTimeout(function () {
-            btn.textContent = 'Copy';
-            if (klass) btn.classList.remove(klass);
-          }, 1500);
-        };
-        copyToClipboard(
-          code.innerText,
-          function () { flash('Copied!', 'copied'); },
-          function () { flash('Failed', null); }
+        copyToClipboard(code.innerText,
+          function () {
+            btn.classList.add('copied');
+            btn.innerHTML = ICON_CHECK;
+            btn.setAttribute('aria-label', 'Copied');
+            setTimeout(function () {
+              btn.classList.remove('copied');
+              btn.innerHTML = ICON_COPY;
+              btn.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1500);
+          },
+          function () { btn.setAttribute('aria-label', 'Copy failed'); }
         );
       });
       pre.appendChild(btn);
