@@ -180,13 +180,9 @@ strong, b { font-weight: $weight-medium; }
   a {
     color: $text-primary;
     text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
+    transition: color 0.2s ease;
 
-    &:hover {
-      color: $brand-primary;
-      transform: translateY(-3px);
-    }
+    &:hover { color: $brand-primary; }
   }
 }
 

@@ -29,9 +29,6 @@ $font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Hel
 $font-serif: 'Charter', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', Times, serif;
 $font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 
-// Reading measure for post content. ~70ch on Inter lands near 700px.
-$post-measure: 44rem;
-
 // Corner radii — three steps + pill. Circles use 50% inline (universal idiom).
 $radius-sharp: 2px;     // cards & large surfaces — the pixel-frame look
 $radius-soft:  4px;     // small UI: inline code, tooltips, copy badges
@@ -51,7 +48,6 @@ $text-sm:    0.875rem;    // 14px — meta lines, captions, post-meta
 $text-base:  1rem;        // 16px — body default
 $text-lg:    1.25rem;     // 20px — list titles, h4
 $text-xl:    1.625rem;    // 26px — h2, page-heading
-$text-2xl:   2.25rem;     // 36px — post title
 
 // Spacing — four steps cover the common rhythms. One-off paddings stay inline.
 $space-xs:   0.5rem;      // 8px  — inline gaps, meta-item gap
@@ -59,7 +55,6 @@ $space-sm:   1rem;        // 16px — paragraph gap, between rows
 $space-md:   2rem;        // 32px — between cards / blocks
 $space-lg:   4rem;        // 64px — section breaks
 
-// Shadows — small (subtle hover) to large (lifted card / CTA hover)
+// Shadows — small (subtle hover) and large (lifted card / CTA hover).
 $shadow-sm: 0 2px 8px rgba($brand-primary, 0.1);
-$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
 $shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);

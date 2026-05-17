@@ -240,7 +240,6 @@
 
   .topic-filter { gap: 0.5rem; }
   .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
-  .page-heading { font-size: 2rem; }
 
   // Cards normally bleed -1rem horizontally to give the chunky hover shadow
   // room. On mobile the wrapper padding is too small for that — borders end
@@ -267,7 +266,7 @@
 
 .post-header .post-title {
   font-family: $font-sans;
-  font-size: $text-2xl;
+  font-size: 2.25rem;
   font-weight: $weight-medium;
   line-height: 1.2;
   letter-spacing: -0.022em;

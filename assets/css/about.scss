@@ -64,43 +64,6 @@
 }
 
 // -----------------------------------------------------------------------------
-// "Currently" callout — single-line status note with a pulsing dot
-// -----------------------------------------------------------------------------
-.about-currently {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 0 0 2rem;
-  padding: 0.5rem 0.9rem;
-  background: rgba($brand-primary, 0.08);
-  border-radius: 999px;
-  font-size: 0.9rem;
-  color: $text-primary;
-
-  a {
-    color: $brand-primary;
-    text-decoration: none;
-    font-weight: $weight-semibold;
-
-    &:hover { color: $brand-primary-hover; }
-  }
-}
-
-.about-currently-dot {
-  width: 0.55rem;
-  height: 0.55rem;
-  background: $color-success;
-  border-radius: 50%;
-  flex-shrink: 0;
-  animation: about-currently-pulse 2.5s ease-in-out infinite;
-}
-
-@keyframes about-currently-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba($color-success, 0.5); }
-  50%      { box-shadow: 0 0 0 6px rgba($color-success, 0); }
-}
-
-// -----------------------------------------------------------------------------
 // Contact CTAs at the bottom — uses .btn / .btn-primary from _base.scss
 // (the wrapper class .contact-buttons just supplies bottom margin).
 // -----------------------------------------------------------------------------

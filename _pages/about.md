@@ -27,11 +27,6 @@ custom_css: about
   </div>
 </header>
 
-<!-- <p class="about-currently">
-  <span class="about-currently-dot" aria-hidden="true"></span>
-  Currently building MLOps platforms at <a href="https://www.thakicloud.com/" target="_blank" rel="noopener noreferrer">Thaki Cloud</a>
-</p> -->
-
 I'm an AI/ML and MLOps engineer based in Seoul, focused on building reliable systems around LLMs, multimodal models, and Kubernetes-native ML infrastructure.
 
 My work sits between model development and production engineering. I'm most interested in making ML systems practical: fine-tuning models for real use cases, designing retrieval pipelines, and building platform tooling that helps teams train, deploy, and operate models more reliably.

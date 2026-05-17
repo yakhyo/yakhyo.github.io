@@ -1,70 +1,24 @@
+// Announcement banner: close-to-dismiss with per-version localStorage.
+// `data-version` on the banner is derived from the announcement text+link
+// (see _includes/announcement-banner.html). When you change the copy in
+// _config.yml the version key changes and the banner reappears for everyone.
 (function () {
   'use strict';
-
-  var STORAGE_PREFIX = 'announcement_dismissed_';
-  var PULL_DISTANCE_PX = 100;
-
-  function storageAvailable() {
-    try {
-      var key = '__storage_test__';
-      localStorage.setItem(key, '1');
-      localStorage.removeItem(key);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
 
   function init() {
     var banner = document.getElementById('announcement-banner');
     if (!banner) return;
+    var key = 'announcement_dismissed_' + (banner.getAttribute('data-version') || 'default');
 
-    var version = banner.getAttribute('data-version') || 'default';
-    var storageKey = STORAGE_PREFIX + version;
-    var hasStorage = storageAvailable();
+    try {
+      if (localStorage.getItem(key) === 'true') { banner.style.display = 'none'; return; }
+    } catch (_) { /* storage blocked — show banner, dismiss won't persist */ }
 
-    if (hasStorage && localStorage.getItem(storageKey) === 'true') {
+    var close = banner.querySelector('.announcement-close');
+    if (close) close.addEventListener('click', function () {
       banner.style.display = 'none';
-    }
-
-    var closeBtn = banner.querySelector('.announcement-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function () {
-        banner.style.display = 'none';
-        if (hasStorage) localStorage.setItem(storageKey, 'true');
-      });
-    }
-
-    var lastScrollY = 0;
-    var scrollUpDistance = 0;
-    var scrollScheduled = false;
-
-    function onScroll() {
-      var currentScrollY = window.scrollY;
-
-      if (currentScrollY < lastScrollY) {
-        scrollUpDistance += lastScrollY - currentScrollY;
-      } else {
-        scrollUpDistance = 0;
-      }
-
-      if (currentScrollY === 0 && scrollUpDistance > PULL_DISTANCE_PX && hasStorage &&
-          localStorage.getItem(storageKey) === 'true') {
-        banner.style.display = 'block';
-        localStorage.removeItem(storageKey);
-        scrollUpDistance = 0;
-      }
-
-      lastScrollY = currentScrollY;
-      scrollScheduled = false;
-    }
-
-    window.addEventListener('scroll', function () {
-      if (!scrollScheduled) {
-        scrollScheduled = true;
-        window.requestAnimationFrame(onScroll);
-      }
-    }, { passive: true });
+      try { localStorage.setItem(key, 'true'); } catch (_) { /* ignore */ }
+    });
   }
 
   if (document.readyState === 'loading') {

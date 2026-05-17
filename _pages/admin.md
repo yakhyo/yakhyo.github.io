@@ -4,8 +4,30 @@ title: Admin Dashboard
 permalink: /admin/
 sitemap: false
 noindex: true
-custom_css: admin
 ---
+
+<style>
+  .admin-container { max-width: 800px; margin: 2rem auto; }
+  .stat-card {
+    background: #f9f9f9;
+    border: 1px solid #e8e8e8;
+    border-radius: 2px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card h3 { margin-top: 0; color: #111; font-size: 1.2rem; }
+  .admin-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #1e90ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .admin-cta:hover { background: #0066cc; color: #fff; }
+</style>
 
 <div class="admin-container">
 
