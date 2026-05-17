@@ -1,6 +1,14 @@
 {% if site.announcement.enabled %}
+{%- assign banner_version = site.announcement.text | append: site.announcement.link | slugify -%}
+<script>
+  (function(){try{
+    if(localStorage.getItem('announcement_dismissed_{{ banner_version }}')==='true'){
+      document.write('<style>#announcement-banner{display:none}</style>');
+    }
+  }catch(_){}})();
+</script>
 <div id="announcement-banner" class="announcement-banner"
-     data-version="{{ site.announcement.text | append: site.announcement.link | slugify }}">
+     data-version="{{ banner_version }}">
   <div class="announcement-content">
     <span class="announcement-text">
       {{ site.announcement.text }}
