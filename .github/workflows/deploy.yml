@@ -1,0 +1,63 @@
+name: Deploy Blog
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
+      - ".gitignore"
+      - ".editorconfig"
+  # Manual trigger — Actions tab → "Deploy Blog" → "Run workflow" → pick any branch.
+  # Note: this publishes the chosen branch's content live until the next push to main.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: HTML & link check
+        run: |
+          bundle exec htmlproofer ./_site \
+            --disable-external \
+            --allow-hash-href \
+            --ignore-empty-alt
+        env:
+          # Nokogiri needs a UTF-8 locale to parse pages containing em-dashes etc.
+          LANG: en_US.UTF-8
+          LC_ALL: en_US.UTF-8
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

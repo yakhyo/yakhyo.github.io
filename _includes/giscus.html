@@ -1,0 +1,24 @@
+{%- comment -%}
+  giscus comments (GitHub Discussions). Configured in _config.yml under `giscus:`.
+  Re-issue tokens at https://giscus.app if `repo_id` / `category_id` ever drift.
+{%- endcomment -%}
+{% if page.comments != false and jekyll.environment == "production" and site.giscus.repo %}
+<section class="comments" aria-label="Comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscus.repo }}"
+          data-repo-id="{{ site.giscus.repo_id }}"
+          data-category="{{ site.giscus.category | default: 'General' }}"
+          data-category-id="{{ site.giscus.category_id }}"
+          data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="{{ site.giscus.theme | default: 'light' }}"
+          data-lang="{{ site.giscus.lang | default: 'en' }}"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async></script>
+  <noscript>Please enable JavaScript to view the comments.</noscript>
+</section>
+{% endif %}

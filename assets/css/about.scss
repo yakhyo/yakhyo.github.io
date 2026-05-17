@@ -1,0 +1,104 @@
+---
+---
+@import "tokens";
+
+// -----------------------------------------------------------------------------
+// Hero row: avatar + name + tagline + resume links
+// -----------------------------------------------------------------------------
+.about-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.about-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.about-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-name {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  font-weight: $weight-semibold;
+  line-height: 1.2;
+}
+
+.about-tagline {
+  margin: 0 0 0.5rem;
+  color: $text-secondary;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+// Resume links — sit inside the hero text column.
+.resume-link {
+  color: $text-secondary;
+  text-decoration: none;
+  font-weight: $weight-medium;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.resume-link:hover {
+  color: $brand-primary;
+}
+
+.resume-links-container {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+}
+
+.resume-separator {
+  margin: 0 0.5rem;
+  color: #ccc;
+}
+
+// -----------------------------------------------------------------------------
+// Contact CTAs at the bottom — uses .btn / .btn-primary from _base.scss
+// (the wrapper class .contact-buttons just supplies bottom margin).
+// -----------------------------------------------------------------------------
+.contact-buttons {
+  margin: 1.25rem 0 2rem;
+}
+
+// -----------------------------------------------------------------------------
+// Responsive: stack the hero on narrow viewports
+// -----------------------------------------------------------------------------
+@media (max-width: 600px) {
+  .about-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .about-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .about-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .resume-separator { display: none; }
+}

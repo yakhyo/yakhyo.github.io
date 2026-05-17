@@ -1,0 +1,55 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="wrapper">
+    <div class="footer-content">
+
+      <!-- Copyright -->
+      <div class="footer-copyright">
+        <p>© {{ 'now' | date: "%Y" }} {{ site.author.preferred_name | default: site.author.name | escape }}</p>
+      </div>
+
+      <!-- Social Links - Icons Only -->
+      <div class="footer-social">
+        {%- if site.profiles.github -%}
+        <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          {% include icon.html name="github" %}
+        </a>
+        {%- endif -%}
+
+        {%- if site.profiles.linkedin -%}
+        <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          {% include icon.html name="linkedin" %}
+        </a>
+        {%- endif -%}
+
+        {%- if site.profiles.twitter -%}
+        <a href="{{ site.profiles.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          {% include icon.html name="twitter" %}
+        </a>
+        {%- endif -%}
+
+        {%- if site.profiles.stackoverflow -%}
+        <a href="{{ site.profiles.stackoverflow }}" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
+          {% include icon.html name="stack-overflow" %}
+        </a>
+        {%- endif -%}
+
+        {%- if site.profiles.leetcode -%}
+        <a href="{{ site.profiles.leetcode }}" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+          {% include icon.html name="code" %}
+        </a>
+        {%- endif -%}
+
+        {%- if site.profiles.youtube -%}
+        <a href="{{ site.profiles.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          {% include icon.html name="youtube" %}
+        </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>

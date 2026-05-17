@@ -1,0 +1,366 @@
+---
+---
+@import "tokens";
+@import "timeline";
+
+.landing-page {
+    text-align: left;
+    padding: 50px 0;
+    margin-left: 0;
+    // Hero owns the first viewport so the timeline below sits below the fold at rest.
+    // 100dvh handles iOS Safari's dynamic URL bar correctly.
+    min-height: 100dvh;
+    box-sizing: border-box;
+}
+
+// Photo + name/title + social-links share one grid container so the layout
+// can flip at mobile without changing the HTML.
+// Desktop/tablet: photo on left, info top-right, socials below info.
+// Mobile (≤480px): photo + info on row 1, socials full-width on row 2.
+.profile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "photo info"
+        "photo socials";
+    column-gap: 20px;
+    row-gap: 8px;
+    align-items: center;
+}
+
+.profile-photo {
+    grid-area: photo;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+
+.profile-info {
+    grid-area: info;
+    min-width: 0;
+    align-self: end;
+}
+
+.name {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 1.5em;
+    color: $text-secondary;
+    min-height: 1.5em;
+    display: inline-block;
+    min-width: min(350px, 100%);
+    max-width: 100%;
+}
+
+.title::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+}
+
+.title.typewriter-static::after {
+    content: '';
+    animation: none;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+.social-links {
+    grid-area: socials;
+    align-self: start;
+    margin-top: 0;
+}
+
+.social-links a {
+    margin: 0 18px 0 0;
+    font-size: 1.5em;
+    color: black;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+.social-links a:active {
+    transform: translateY(0) scale(1);
+}
+
+.description {
+    margin: 20px 0;
+    font-size: 1.2em;
+    color: $text-secondary;
+}
+
+.buttons a {
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    padding: 10px 20px;
+    border-radius: $radius-md;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: $weight-semibold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.read-blog {
+    background-color: $brand-primary;
+    border: 1px solid $brand-primary;
+    box-shadow: $shadow-lg;
+    color: white !important;
+}
+
+.read-blog:hover {
+    background-color: $brand-primary-hover;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.read-blog:active {
+    transform: translateY(0);
+    box-shadow: $shadow-lg;
+}
+
+.about-me {
+    background: transparent;
+    color: $brand-primary !important;
+    border: 1px solid $brand-primary;
+}
+
+.about-me:hover {
+    border-color: $brand-primary-hover;
+    color: $brand-primary-hover !important;
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+}
+
+.about-me:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+}
+
+body.landing-page-body footer {
+    display: none;
+}
+
+.scroll-indicator {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-size: 0.9em;
+    color: $text-secondary;
+    margin-bottom: 20px;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 50px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.scroll-arrow span {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid $brand-primary;
+    border-right: 2px solid $brand-primary;
+    transform: rotate(45deg);
+    margin: -8px auto;
+    animation: scrollDown 2s infinite;
+}
+
+.scroll-arrow span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.scroll-arrow span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+@keyframes scrollDown {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(10px, 10px);
+    }
+}
+
+.timeline-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid $border-light;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.timeline-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-section-title {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+    .scroll-indicator {
+        margin-top: 60px;
+    }
+
+    .timeline-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .timeline-section-title {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile {
+        column-gap: 16px;
+    }
+
+    .profile-photo {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-page {
+        padding: 10px 0 40px;
+        margin-top: -20px;
+    }
+
+    // Mobile layout: photo + info on top row, socials full-width below.
+    .profile {
+        grid-template-areas:
+            "photo info"
+            "socials socials";
+        column-gap: 14px;
+        row-gap: 14px;
+    }
+
+    .profile-photo {
+        width: 96px;
+        height: 96px;
+    }
+
+    .profile-info {
+        align-self: center;
+    }
+
+    .name {
+        font-size: 1.6em;
+        line-height: 1.15;
+    }
+
+    .title {
+        font-size: 1em;
+        min-width: auto;
+    }
+
+    .social-links a {
+        margin: 0 15px 0 0;
+    }
+
+    .buttons a {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    .description {
+        font-size: 1em;
+        margin: 16px 0 8px;
+    }
+
+    .scroll-indicator {
+        margin-top: 40px;
+        position: static;
+    }
+
+    .timeline-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .timeline-section-title {
+        font-size: 1.8em;
+    }
+}
+
+// Extra-small phones (~iPhone SE width): shrink the avatar more.
+@media (max-width: 360px) {
+    .profile {
+        column-gap: 12px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .name {
+        font-size: 1.4em;
+    }
+
+    .title {
+        font-size: 0.95em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing-page,
+    .profile-info,
+    .name,
+    .social-links,
+    .description,
+    .buttons,
+    .scroll-indicator,
+    .scroll-arrow span,
+    .timeline-section,
+    .timeline-entry {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .title {
+        animation: none !important;
+    }
+
+    .title::after {
+        animation: none !important;
+    }
+}
