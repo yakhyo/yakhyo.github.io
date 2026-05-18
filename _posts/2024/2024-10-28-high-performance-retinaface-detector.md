@@ -1,97 +1,79 @@
 ---
 layout: post
-title: "RetinaFace: Single-stage Dense Face Localisation in the Wild"
+title: "RetinaFace: Single-Stage Face Detection with MobileNet and ResNet Backbones"
 date: 2024-10-28 12:00:00 +0900
-modified_date: 2026-05-12 12:00:00 +0900
+modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, retinaface, single-stage, production]
-description: "A production-ready RetinaFace implementation for dense face localisation in the wild, with multiple backbone options for trading off accuracy vs latency across hardware."
-image: "https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg"
+description: "A RetinaFace implementation with MobileNet and ResNet backbones, WIDER FACE evaluation, webcam inference, ONNX support, and pretrained weights."
+image: "https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_test.jpg"
 ---
 
-RetinaFace is a robust single-stage face detection framework designed for dense face localisation in unconstrained environments. This implementation provides a production-ready solution with multiple backbone options, enabling flexible deployment across different hardware constraints and accuracy requirements.
-
-The model excels at detecting faces across extreme variations in scale, pose, and occlusion, making it particularly effective for real-world applications where faces may appear at any size or orientation within the image.
-
-[GitHub Repository](https://github.com/yakhyo/retinaface-pytorch)
-
-> **UniFace Library**: For easier integration, check out [UniFace](https://github.com/yakhyo/uniface), a lightweight Python library built on models from this repository. UniFace provides a simple API for face detection, alignment, and landmark extraction.
-> [![PyPI Version](https://img.shields.io/pypi/v/uniface.svg)](https://pypi.org/project/uniface/) [![GitHub Stars](https://img.shields.io/github/stars/yakhyo/uniface)](https://github.com/yakhyo/uniface/stargazers)
+RetinaFace is a single-stage face detector that predicts face bounding boxes and 5-point landmarks. This implementation adds multiple backbones, WIDER FACE evaluation, webcam inference, PyTorch weights, and ONNX weights. See the project on [github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch).
 
 {% include video.html src="https://github.com/user-attachments/assets/ad279fea-33fb-43f1-884f-282e6d54c809" %}
 
-![RetinaFace detection results on a group photo using MobileNetV2 backbone](https://yakhyo.github.io/retinaface-pytorch/assets/mv2_test.jpg)
+![RetinaFace MobileNetV2 result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_test.jpg)
 
-## Key Features
+## Backbones
 
-- **Multiple Backbone Options**: Choose from MobileNetV1 (various width multipliers), MobileNetV2, ResNet18, and ResNet34
-- **Improved Training Strategy**: Enhanced filtering of small faces (< 16 pixels) to reduce false positives
-- **ONNX Export Support**: Seamless conversion for deployment on various platforms and inference engines
-- **Real-time Inference**: Optimized for webcam and video stream processing
-- **Production-Ready**: Clean, well-documented codebase with reproducible training pipelines
+The repository supports lightweight MobileNet models and heavier ResNet models.
 
-## Performance on WiderFace Dataset
+| Backbone | Notes |
+|----------|-------|
+| MobileNetV1 0.25 | smallest MobileNetV1 width multiplier |
+| MobileNetV1 0.50 | wider MobileNetV1 variant |
+| MobileNetV1 | standard lightweight backbone |
+| MobileNetV2 | stronger mobile backbone |
+| ResNet18 | moderate ResNet option |
+| ResNet34 | strongest reported model in the available tables |
+| ResNet50 | listed as supported, but release weights are not available in the README table |
 
-### Multi-scale Image Size
+The MobileNet models are intended for smaller runtime budgets. ResNet models are larger but usually more accurate.
 
-| RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
-| ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
-| MobileNetV1 (width mult=0.25) | True                   | 88.48%     | 87.02%     | 80.61%     |
-| MobileNetV1 (width mult=0.50) | False                  | 89.42%     | 87.97%     | 82.40%     |
-| MobileNetV1                   | False                  | 90.59%     | 89.14%     | 84.13%     |
-| MobileNetV2                   | True                   | 91.70%     | 91.03%     | 86.60%     |
-| ResNet18                      | True                   | 92.50%     | 91.02%     | 86.63%     |
-| ResNet34                      | True                   | **94.16%** | **93.12%** | **88.90%** |
+## WIDER FACE Results
+
+### Multi-scale Image Resizing
+
+| Backbone | Easy | Medium | Hard |
+|----------|------|--------|------|
+| MobileNetV1 0.25 | 88.48% | 87.02% | 80.61% |
+| MobileNetV1 0.50 | 89.42% | 87.97% | 82.40% |
+| MobileNetV1 | 90.59% | 89.14% | 84.13% |
+| MobileNetV2 | 91.70% | 91.03% | 86.60% |
+| ResNet18 | 92.50% | 91.02% | 86.63% |
+| ResNet34 | **94.16%** | **93.12%** | **88.90%** |
 
 ### Original Image Size
 
-| RetinaFace Backbones          | Pretrained on ImageNet | Easy       | Medium     | Hard       |
-| ----------------------------- | ---------------------- | ---------- | ---------- | ---------- |
-| MobileNetV1 (width mult=0.25) | True                   | 90.70%     | 88.12%     | 73.82%     |
-| MobileNetV1 (width mult=0.50) | False                  | 91.56%     | 89.46%     | 76.56%     |
-| MobileNetV1                   | False                  | 92.19%     | 90.41%     | 79.56%     |
-| MobileNetV2                   | True                   | 94.04%     | 92.26%     | 83.59%     |
-| ResNet18                      | True                   | 94.28%     | 92.69%     | 82.95%     |
-| ResNet34                      | True                   | **95.07%** | **93.48%** | **84.40%** |
+| Backbone | Easy | Medium | Hard |
+|----------|------|--------|------|
+| MobileNetV1 0.25 | 90.70% | 88.12% | 73.82% |
+| MobileNetV1 0.50 | 91.56% | 89.46% | 76.56% |
+| MobileNetV1 | 92.19% | 90.41% | 79.56% |
+| MobileNetV2 | 94.04% | 92.26% | 83.59% |
+| ResNet18 | 94.28% | 92.69% | 82.95% |
+| ResNet34 | **95.07%** | **93.48%** | **84.40%** |
 
-## Architecture Highlights
+## Small-Face Filtering
 
-RetinaFace incorporates several advanced techniques:
+The README includes an additional set of WIDER FACE results after filtering faces smaller than 16 pixels during training.
 
-- **Multi-task Learning**: Simultaneously performs face detection, landmark localization, and 3D face reconstruction
-- **Feature Pyramid Network**: Enables detection of faces at multiple scales efficiently
-- **Context Module**: Increases receptive field for better handling of small faces
-- **Dense Regression**: Pixel-wise prediction for precise face localization
+The change improves the easy and medium splits in several cases, because very small noisy annotations create fewer false positives. The tradeoff is visible on the hard split: performance drops sharply when the evaluation depends on very small faces.
 
-## Quick Start
+That makes the choice task-dependent. If the deployment mostly sees normal-sized faces, filtering can be useful. If the task is crowd scenes or surveillance-style images, the hard-split drop matters.
 
-Clone the repository:
+## Large Selfie Result
 
-```bash
-git clone https://github.com/yakhyo/retinaface-pytorch.git
-cd retinaface-pytorch
-```
+The repository also includes a large selfie example using MobileNetV2:
 
-Install dependencies:
+![RetinaFace large selfie result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_large_selfi_632people.jpg)
 
-```bash
-pip install -r requirements.txt
-```
+The README notes that the MobileNetV2 model finds 632 faces in this image.
 
-Run webcam inference:
+## PyTorch and ONNX
 
-```bash
-python detect.py --network mobilenetv1 --weights retinaface_mv1.pth
-```
+The repository provides PyTorch and ONNX weights for the published MobileNet and ResNet variants. It also includes training, WIDER FACE evaluation, image inference, video/webcam inference, and ONNX export code.
 
-## Deployment Options
-
-The implementation supports various deployment scenarios:
-
-- **Python Inference**: Direct PyTorch inference for development and testing
-- **ONNX Runtime**: Cross-platform deployment with optimized inference
-- **Mobile Deployment**: Lightweight MobileNet backbones for on-device inference
-- **Server Deployment**: High-accuracy ResNet backbones for cloud-based services
-
-For detailed documentation on training custom models, fine-tuning on specific datasets, and deployment guides, visit the [GitHub repository](https://github.com/yakhyo/retinaface-pytorch).
+For application code that only needs detection as part of a larger face-analysis pipeline, this model family is also available through [UniFace](https://github.com/yakhyo/uniface).

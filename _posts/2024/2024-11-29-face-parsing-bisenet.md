@@ -1,38 +1,24 @@
 ---
 layout: post
-title: "Face Parsing using BiSeNet for Real-time Semantic Segmentation"
+title: "Face Parsing with BiSeNet and ResNet Backbones"
 date: 2024-11-29 12:00:00 +0900
-modified_date: 2026-05-12 12:00:00 +0900
+modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [semantic-segmentation, bisenet, face-parsing, real-time]
-description: "Implementing BiSeNet for real-time face parsing — bilateral segmentation that delivers both spatial detail and semantic context fast enough for production use."
+description: "Face parsing with BiSeNet, ResNet18 and ResNet34 backbones, CelebAMask-HQ training, PyTorch inference, and ONNX export."
 image: "https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg"
 ---
 
-BiSeNet (Bilateral Segmentation Network) is a state-of-the-art model for real-time semantic segmentation, initially proposed in the paper [Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/abs/1808.00897). The architecture addresses the fundamental challenge in semantic segmentation: achieving high accuracy while maintaining real-time performance.
+Face parsing segments a face into semantic regions such as skin, hair, eyes, eyebrows, nose, mouth, and background. This repository implements BiSeNet for face parsing with ResNet18 and ResNet34 backbones. See the project on [github.com/yakhyo/face-parsing](https://github.com/yakhyo/face-parsing).
 
-[GitHub Repository](https://github.com/yakhyo/face-parsing)
+![Face parsing slideshow](https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/slideshow.gif)
 
-## Architecture Overview
+The model is trained for facial component segmentation, not general scene segmentation. That makes it useful for virtual makeup, AR filters, face editing, matting workflows, and feature-level face analysis.
 
-BiSeNet combines two complementary paths to balance spatial detail and semantic context:
+## Example Results
 
-- **Spatial Path**: Preserves high-resolution spatial information through a shallow network with wide channels, capturing fine-grained details essential for precise segmentation boundaries.
-- **Context Path**: Employs a lightweight backbone to aggregate rich contextual information with a large receptive field, enabling accurate semantic understanding.
-
-The fusion of these paths through a Feature Fusion Module ensures high segmentation accuracy with low computational cost, making it ideal for applications requiring real-time performance on resource-constrained devices.
-
-## Key Features
-
-- **Accurate Facial Parsing**: Segments detailed facial features including eyes, nose, mouth, and hair for precise analysis
-- **ONNX Support**: Seamless conversion from PyTorch to ONNX format for cross-platform deployment
-- **Flexible Backbones**: Support for ResNet18 and ResNet34, allowing trade-offs between speed and accuracy
-- **Production-Ready**: Optimized for real-time applications in AR/VR, digital makeup, and facial analysis systems
-
-## Performance Comparison
-
-### ResNet34 Backbone
+### Input Images
 
 <div align="center">
 <img src="https://yakhyo.github.io/face-parsing/assets/images/1.jpg" width="24%" alt="Original face image sample 1">
@@ -41,6 +27,8 @@ The fusion of these paths through a Feature Fusion Module ensures high segmentat
 <img src="https://yakhyo.github.io/face-parsing/assets/images/1321.jpg" width="24%" alt="Original face image sample 4">
 </div>
 
+### ResNet34 Results
+
 <div align="center">
 <img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg" width="24%" alt="ResNet34 face parsing result for sample 1">
 <img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1112.jpg" width="24%" alt="ResNet34 face parsing result for sample 2">
@@ -48,7 +36,7 @@ The fusion of these paths through a Feature Fusion Module ensures high segmentat
 <img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1321.jpg" width="24%" alt="ResNet34 face parsing result for sample 4">
 </div>
 
-### ResNet18 Backbone
+### ResNet18 Results
 
 <div align="center">
 <img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1.jpg" width="24%" alt="ResNet18 face parsing result for sample 1">
@@ -57,26 +45,36 @@ The fusion of these paths through a Feature Fusion Module ensures high segmentat
 <img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1321.jpg" width="24%" alt="ResNet18 face parsing result for sample 4">
 </div>
 
-## Getting Started
+## Models
 
-Clone the repository and install dependencies:
+| Model | Parameters | Size |
+|-------|------------|------|
+| ResNet18 | ~11.2M | ~43 MB |
+| ResNet34 | ~21.3M | ~82 MB |
 
-```bash
-git clone https://github.com/yakhyo/face-parsing.git
-cd face-parsing
-pip install -r requirements.txt
-```
+The model is trained on [CelebAMask-HQ](https://github.com/switchablenorms/CelebAMask-HQ), a face parsing dataset with 30,000 images.
 
-Pre-trained weights are available for download:
-- [ResNet18 Model](https://github.com/yakhyo/face-parsing/releases/download/v0.0.1/resnet18.pt)
-- [ResNet34 Model](https://github.com/yakhyo/face-parsing/releases/download/v0.0.1/resnet34.pt)
+## What the Repository Contains
 
-## Use Cases
+The repository includes training code, PyTorch inference, ONNX export, and ONNX inference. Released weights are available for both ResNet18 and ResNet34 in PyTorch and ONNX formats.
 
-This implementation is particularly useful for:
-- **Digital Makeup Applications**: Precise facial feature segmentation for virtual makeup try-on
-- **Face Swapping**: Accurate face region extraction for deepfake and face replacement systems
-- **Facial Analysis**: Detailed feature extraction for emotion recognition and facial attribute analysis
-- **AR/VR Applications**: Real-time face parsing for augmented reality filters and effects
+| Model | PyTorch | ONNX |
+|-------|---------|------|
+| ResNet18 | yes | yes |
+| ResNet34 | yes | yes |
 
-Visit the [GitHub repository](https://github.com/yakhyo/face-parsing) for detailed documentation, training scripts, and inference examples.
+The inference code accepts either a single image or a folder of images, which is useful when comparing parser output across a small validation set.
+
+## Why Face Parsing Matters
+
+Face detection gives a bounding box. Landmarks give sparse points. Face parsing gives a dense semantic mask.
+
+That mask can separate regions such as hair, skin, eyes, eyebrows, nose, lips, and background. This makes parsing useful for:
+
+- virtual makeup and face filters
+- face editing and compositing
+- portrait preprocessing
+- attribute and expression analysis
+- region-specific masking before downstream models
+
+For application code, this model family is also available through [UniFace](https://github.com/yakhyo/uniface).

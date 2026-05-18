@@ -17,6 +17,12 @@ layout: default
         {% include icon.html name="clock" %}
         <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
       </span>
+      {%- if page.modified_date -%}
+      <span class="meta-item meta-updated">
+        {% include icon.html name="history" %}
+        <span>Updated <time datetime="{{ page.modified_date | date_to_xmlschema }}" itemprop="dateModified">{{ page.modified_date | date: date_format }}</time></span>
+      </span>
+      {%- endif -%}
       {%- comment -%}
         Author preserved in JSON-LD below for SEO/structured data, but hidden
         from the visible meta line — this is a single-author site.

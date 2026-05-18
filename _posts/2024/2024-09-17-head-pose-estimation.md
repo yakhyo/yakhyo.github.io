@@ -1,84 +1,81 @@
 ---
 layout: post
-title: "Real-Time Head Pose Estimation with Efficient Deep Learning Backbones"
+title: "Real-Time Head Pose Estimation with MobileNet and ResNet"
 date: 2024-09-17 12:00:00 +0900
-modified_date: 2026-05-12 12:00:00 +0900
+modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [head-pose-estimation, mobilenet, resnet, scrfd, edge-deployment]
-description: "Real-time head pose estimation pipeline combining SCRFD face detection with MobileNet and ResNet backbones. Achieves 30+ FPS on mobile with sub-100ms latency for AR/VR, driver-monitoring, and HCI applications."
+description: "Head pose estimation with ResNet and MobileNet backbones, SCRFD face detection, PyTorch and ONNX weights, and pitch/yaw/roll output for real-time video."
 ---
 
-This project delivers accurate real-time head pose estimation through optimized deep learning architectures. The implementation focuses on achieving high performance across various deployment scenarios, from mobile devices to desktop applications, while maintaining robust accuracy in challenging conditions.
+This project estimates head orientation from images, videos, or webcam input. For each detected face, the model predicts three Euler angles: **yaw**, **pitch**, and **roll**. See the project on [github.com/yakhyo/head-pose-estimation](https://github.com/yakhyo/head-pose-estimation).
 
-[GitHub Repository](https://github.com/yakhyo/head-pose-estimation)
+{% include video.html src="https://github.com/user-attachments/assets/50f010cf-6fcf-46b0-87cc-53065cba3fe7" %}
 
-{% include youtube.html id="DF2mAlwRr04" title="Real-time head pose estimation demo" %}
+The implementation builds on [6DRepNet](https://github.com/thohemp/6DRepNet) and extends it with more pretrained backbones, updated weights, SCRFD-based face detection, ONNX export, ONNX Runtime inference, and distributed training support.
 
-## Applications and Industry Impact
+## What the Model Predicts
 
-Head pose estimation plays a critical role in numerous applications:
+Head pose is represented with three angles:
 
-- **Augmented and Virtual Reality**: Natural user interaction through head tracking
-- **Attention Monitoring**: Understanding user focus in educational and workplace settings
-- **Driver Safety Systems**: Detecting driver distraction and drowsiness in automotive applications
-- **Human-Computer Interaction**: Enabling intuitive control mechanisms
-- **Video Conferencing**: Automatic camera adjustment and gaze correction
-- **Accessibility Technologies**: Assistive systems for users with limited mobility
+| Angle | Meaning |
+|-------|---------|
+| Yaw | left-right head rotation |
+| Pitch | up-down head rotation |
+| Roll | sideways head tilt |
 
-## Technical Architecture
+The output is useful when a system needs a coarse estimate of attention or orientation. Common examples include driver monitoring, classroom attention analysis, video meeting tools, AR/VR interaction, and accessibility interfaces.
 
-The system integrates multiple components to achieve robust performance:
+## Model Families
 
-### Backbone Networks
+The repository provides both ResNet and MobileNet backbones.
 
-**ResNet Variants**
+| Backbone | Main tradeoff |
+|----------|---------------|
+| ResNet-18 | smaller ResNet baseline with good accuracy |
+| ResNet-34 | better accuracy with moderate size |
+| ResNet-50 | strongest reported accuracy, largest ResNet option |
+| MobileNet V2 | compact model for lower-resource inference |
+| MobileNet V3 small | smallest MobileNet option, lower accuracy |
+| MobileNet V3 large | larger mobile model with better accuracy than V3 small |
 
-ResNet architectures provide the foundation for high-accuracy head pose estimation. The residual connections enable training of deeper networks, capturing complex patterns in head orientation across various poses and lighting conditions.
+The README provides both PyTorch and ONNX weights for each of these models.
 
-**MobileNet v2 and v3**
+## Evaluation on AFLW2000
 
-MobileNet architectures are specifically optimized for mobile deployment:
-- Inverted residual structures reduce computational requirements
-- Depthwise separable convolutions minimize parameter count
-- Hardware-aware network design ensures efficient inference on mobile processors
-- Maintains accuracy while achieving real-time performance on edge devices
+The reported results are evaluated on AFLW2000. Lower MAE is better.
 
-### Face Detection Pipeline
+| Model | Size | Yaw | Pitch | Roll | MAE |
+|-------|------|-----|-------|------|-----|
+| ResNet-18 | 43 MB | 4.5027 | 5.8261 | 4.2188 | 4.8492 |
+| ResNet-34 | 81.6 MB | 4.4538 | 5.2690 | 3.8855 | 4.5361 |
+| ResNet-50 | 91.3 MB | 3.5529 | 4.9962 | 3.4986 | 4.0159 |
+| MobileNet V2 | 9.59 MB | 5.6880 | 6.0391 | 4.4433 | 5.3901 |
+| MobileNet V3 small | 6 MB | 8.6926 | 7.7089 | 6.0035 | 7.4683 |
+| MobileNet V3 large | 17 MB | 5.6068 | 6.6022 | 4.9959 | 5.7350 |
 
-The system incorporates SCRFD (Sample and Computation Redistribution for Efficient Face Detection) for robust face localization:
+ResNet-50 gives the best reported MAE. MobileNet V2 is much smaller, but its error is higher. That is the central tradeoff in this repository: accuracy versus runtime and model size.
 
-- High-speed detection suitable for real-time video processing
-- Accurate localization across various scales and orientations
-- Efficient resource utilization for mobile deployment
-- Reliable performance in challenging environmental conditions
+## Training and Data
 
-## Implementation Details
+The training setup uses **300W-LP**, while evaluation is reported on **AFLW2000**. The project also supports multi-GPU training through PyTorch distributed execution.
 
-The head pose estimation pipeline consists of:
+SCRFD is used as the face detector in the inference pipeline. That keeps face localization separate from pose estimation: first detect a face, then estimate head orientation on the crop.
 
-1. **Face Detection**: SCRFD localizes faces in the input frame with high precision
-2. **Face Preprocessing**: Detected faces are normalized and aligned to a standard format
-3. **Pose Estimation**: Deep learning model predicts Euler angles (pitch, yaw, roll)
-4. **Temporal Filtering**: Optional smoothing to reduce jitter in video streams
-5. **Visualization**: Real-time rendering of estimated head orientation
+## PyTorch and ONNX
 
-## Performance Characteristics
+The repository includes PyTorch weights for training and experimentation, plus ONNX weights for lighter deployment. ONNX is especially useful when the application does not need a full PyTorch runtime.
 
-The implementation achieves:
+Available released weight formats:
 
-- Real-time inference (30+ FPS) on modern mobile devices
-- Sub-100ms latency suitable for interactive applications
-- Robust accuracy across diverse demographics and lighting conditions
-- Efficient memory usage enabling deployment on resource-constrained devices
+| Model | PyTorch | ONNX |
+|-------|---------|------|
+| ResNet-18 | yes | yes |
+| ResNet-34 | yes | yes |
+| ResNet-50 | yes | yes |
+| MobileNet V2 | yes | yes |
+| MobileNet V3 small | yes | yes |
+| MobileNet V3 large | yes | yes |
 
-## Model Selection Guide
-
-Choose the appropriate backbone based on your deployment requirements:
-
-- **ResNet50**: Highest accuracy, suitable for server-side deployment or powerful edge devices
-- **ResNet34**: Balanced accuracy and speed for desktop applications
-- **MobileNet v3**: Optimal for mobile devices requiring real-time performance
-- **MobileNet v2**: Legacy mobile support with proven reliability
-
-The complete implementation, including training scripts, pre-trained weights, and deployment examples for various platforms, is available on [GitHub](https://github.com/yakhyo/head-pose-estimation).
+The repository README has the current weight links and usage details.

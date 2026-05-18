@@ -11,13 +11,14 @@ description: "Why geometric intuition for vectors and matrix transformations mat
 
 While I have a strong mathematical background in calculus and linear algebra, including the ability to perform matrix operations and transformations by hand, I recently discovered a crucial gap in my understanding: the geometric interpretation of vectors and their operations.
 
-<div align="center">
-  <img src="https://www.3blue1brown.com/content/lessons/2016/vectors/figures/introduction/Perspectives.svg" alt="Three perspectives on vectors: physics, computer science, and mathematics">
-</div>
-
 This realization came as I began exploring geometric explanations of linear algebra concepts. What were previously abstract lists of numbers or array indices suddenly transformed into intuitive geometric objects—arrows pointing to specific locations in space, representing directions and magnitudes in a visually comprehensible way.
 
 ## Why Geometric Intuition Matters
+
+<div align="center">
+  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MagnitudeAndDirection.svg" alt="Geometric perspective of a vector as magnitude and direction">
+  <p><em>Geometric perspective: a vector as magnitude and direction.</em></p>
+</div>
 
 Understanding vectors geometrically fundamentally changes how we approach machine learning problems:
 
@@ -27,6 +28,15 @@ Understanding vectors geometrically fundamentally changes how we approach machin
 - **Embeddings**: Word embeddings and latent representations become geometric relationships where similar concepts cluster together
 
 This geometric perspective provides deeper insight into why certain machine learning algorithms work and how to debug them when they don't.
+
+## The Mathematician's Perspective
+
+<div align="center">
+  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MathematiciansPerspective.svg" alt="Mathematician's perspective of a vector as coordinates">
+  <p><em>Mathematician's perspective: a vector as coordinates.</em></p>
+</div>
+
+The coordinate view is still essential. It is how vectors are stored, computed, and passed through machine learning systems. The problem is not the coordinate representation itself; the problem is learning only the coordinate view and missing the geometric meaning behind it.
 
 ## Recommended Learning Resources
 

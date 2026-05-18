@@ -1,73 +1,73 @@
 ---
 layout: post
-title: "Real-Time Gaze Estimation Using Lightweight Deep Learning Models"
+title: "MobileGaze: Lightweight Gaze Estimation with ResNet, MobileNet, and MobileOne"
 date: 2024-09-18 12:00:00 +0900
-modified_date: 2026-05-12 12:00:00 +0900
+modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [gaze-estimation, mobile, classification, regression, edge-deployment]
-description: "Lightweight gaze-direction estimation built for real-time inference on mobile hardware, combining classification and regression heads for accurate prediction under resource constraints."
+description: "MobileGaze estimates gaze direction with ResNet, MobileNetV2, and MobileOne backbones, using Gaze360 training, PyTorch weights, ONNX weights, and real-time inference."
 ---
 
-This project focuses on predicting gaze direction using lightweight deep learning models optimized for real-time performance on mobile devices. The implementation combines classification and regression techniques to create an efficient and accurate solution suitable for deployment on resource-constrained hardware.
+MobileGaze estimates gaze direction from a detected face. The project builds on [L2CS-Net](https://github.com/Ahmednull/L2CS-Net), adds more mobile-friendly backbones, and provides PyTorch and ONNX weights for inference. See the project on [github.com/yakhyo/gaze-estimation](https://github.com/yakhyo/gaze-estimation).
 
-[GitHub Repository](https://github.com/yakhyo/gaze-estimation)
+![MobileGaze demo](https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif)
 
-{% include youtube.html id="q-uxquFdPB8" title="Real-time gaze estimation demo" %}
+The inference pipeline first detects the face, then predicts gaze direction from the face crop. In the repository, face detection is handled through [UniFace](https://github.com/yakhyo/uniface).
 
-## Applications and Use Cases
+## Model Families
 
-Gaze estimation technology enables a wide range of applications across multiple domains:
+The repository includes three backbone families:
 
-- **Mobile User Experience**: Hands-free navigation and attention-aware interfaces
-- **Virtual and Augmented Reality**: Natural interaction through eye tracking in VR/AR systems
-- **Accessibility**: Assistive technologies for users with limited mobility
-- **Automotive Safety**: Driver attention monitoring and drowsiness detection
-- **Human-Computer Interaction**: Intuitive control mechanisms for various devices
-- **Market Research**: Understanding user attention patterns and visual behavior
+| Backbone | Role |
+|----------|------|
+| ResNet-18 / 34 / 50 | stronger accuracy, larger models |
+| MobileNet V2 | compact mobile-oriented baseline |
+| MobileOne S0 | very small mobile model with competitive reported error |
 
-## Model Architecture and Design
+The README also lists MobileOne S1-S4 as trainable architectures, but pretrained weights are not published for those variants.
 
-The project implements multiple lightweight architectures, each optimized for different deployment scenarios:
+## Training Data
 
-### ResNet Variants
+The released models are trained on **Gaze360**. The repository also documents dataset structure for **MPIIFaceGaze**, but the published pretrained results are Gaze360-based.
 
-Employs residual learning techniques to enable deeper networks without degradation. The residual connections allow gradients to flow more effectively during training, resulting in better accuracy without significant computational overhead.
+Gaze estimation is reported with MAE in degrees. Lower values mean the predicted gaze direction is closer to the annotation.
 
-### MobileNet v2
+## Reported Results
 
-Specifically designed for mobile deployment, MobileNet v2 introduces inverted residual structures and linear bottlenecks. This architecture achieves an optimal balance between model size, inference speed, and accuracy, making it ideal for on-device gaze estimation.
+| Model | Size | Epochs | MAE |
+|-------|------|--------|-----|
+| ResNet-18 | 43 MB | 200 | 12.84 |
+| ResNet-34 | 81.6 MB | 200 | 11.33 |
+| ResNet-50 | 91.3 MB | 200 | 11.34 |
+| MobileNet V2 | 9.59 MB | 200 | 13.07 |
+| MobileOne S0 | 4.8 MB | 200 | 12.58 |
 
-### MobileOne (s0-s4)
+ResNet-34 and ResNet-50 have the best reported MAE in the table. MobileOne S0 is much smaller while staying close to the ResNet-18 result, which makes it useful for real-time or lower-resource settings.
 
-The MobileOne family represents the state-of-the-art in mobile-optimized architectures. With variants ranging from s0 to s4, it offers flexibility in trading off between speed and accuracy. The architecture is specifically optimized for mobile CPUs, achieving impressive real-time performance without GPU acceleration.
+## What the Pipeline Produces
 
-### Face Detection Integration
+The model predicts gaze direction as pitch and yaw. In a live demo, those angles can be drawn back onto the frame as a gaze ray.
 
-The system integrates SCRFD (Sample and Computation Redistribution for Efficient Face Detection) for robust face localization. SCRFD provides:
+The full pipeline is:
 
-- Fast inference suitable for real-time applications
-- High accuracy across various face scales and poses
-- Efficient resource utilization for mobile deployment
-- Reliable performance in challenging lighting conditions
+1. Detect the face.
+2. Crop and preprocess the face region.
+3. Predict gaze pitch and yaw.
+4. Draw or consume the gaze direction in the application.
 
-## Technical Implementation
+This structure is useful for attention tracking, human-computer interaction, driver monitoring, and accessibility experiments.
 
-The gaze estimation pipeline consists of several stages:
+## PyTorch and ONNX
 
-1. **Face Detection**: SCRFD localizes faces in the input frame
-2. **Face Alignment**: Detected faces are normalized to a standard pose
-3. **Eye Region Extraction**: Precise localization of eye regions for gaze prediction
-4. **Gaze Prediction**: Deep learning model estimates gaze direction as pitch and yaw angles
-5. **Temporal Smoothing**: Optional filtering to reduce jitter in video streams
+The repository provides both PyTorch and ONNX weights for the published models:
 
-## Performance Characteristics
+| Model | PyTorch | ONNX |
+|-------|---------|------|
+| ResNet-18 | yes | yes |
+| ResNet-34 | yes | yes |
+| ResNet-50 | yes | yes |
+| MobileNet V2 | yes | yes |
+| MobileOne S0 | yes | yes |
 
-The implementation achieves:
-
-- Real-time inference (30+ FPS) on modern mobile devices
-- Low latency suitable for interactive applications
-- Minimal battery impact through efficient computation
-- Robust performance across different lighting conditions and head poses
-
-The complete implementation, including training scripts, pre-trained models, and deployment examples, is available on [GitHub](https://github.com/yakhyo/gaze-estimation).
+Use PyTorch when training or changing the model. Use ONNX when the target application only needs inference.
