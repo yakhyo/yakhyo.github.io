@@ -6,7 +6,7 @@ modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: python
 tags: [python, interview-prep, async, generators, concurrency]
-description: "A more human-readable Python interview guide covering data structures, identity, memory management, the GIL, iterators, generators, decorators, and async with answers grounded in the official docs."
+description: "Interview-ready explanations of Python core topics including data structures, object identity, memory management, the GIL, iterators, generators, decorators, and async FastAPI behavior."
 custom_css: mermaid
 custom_js: mermaid
 ---

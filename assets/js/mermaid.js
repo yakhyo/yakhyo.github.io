@@ -43,7 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const content = document.createElement("div");
     content.className = "mermaid-lightbox__content";
-    content.innerHTML = svg.outerHTML;
+    const stage = document.createElement("div");
+    stage.className = "mermaid-lightbox__stage";
+    stage.innerHTML = svg.outerHTML;
+    content.appendChild(stage);
 
     closeButton.addEventListener("click", closeOverlay);
     overlay.addEventListener("click", (event) => {
@@ -77,18 +80,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       startOnLoad: false,
       theme: "base",
       securityLevel: "loose",
+      htmlLabels: false,
       flowchart: {
-        useMaxWidth: true,
-        htmlLabels: false,
+        useMaxWidth: false,
+        curve: "linear",
       },
       themeVariables: {
         background: "#ffffff",
-        primaryColor: "#f7f7f5",
+        fontSize: "14px",
+        primaryColor: "#ffffff",
         primaryTextColor: "#111827",
-        primaryBorderColor: "#4b5563",
-        lineColor: "#6b7280",
-        secondaryColor: "#ecfeff",
-        tertiaryColor: "#fff7ed",
+        primaryBorderColor: "#475569",
+        secondaryColor: "#f8fafc",
+        secondaryBorderColor: "#94a3b8",
+        tertiaryColor: "#f8fafc",
+        tertiaryBorderColor: "#94a3b8",
+        lineColor: "#64748b",
+        edgeLabelBackground: "#ffffff",
         fontFamily: "Inter, sans-serif",
       },
     });
@@ -98,6 +106,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     diagrams.forEach((diagram) => {
+      const svg = diagram.querySelector("svg");
+
+      if (svg && !diagram.querySelector(".mermaid__viewport")) {
+        const viewport = document.createElement("div");
+        viewport.className = "mermaid__viewport";
+        diagram.insertBefore(viewport, svg);
+        viewport.appendChild(svg);
+      }
+
       diagram.setAttribute("tabindex", "0");
       diagram.setAttribute("role", "button");
       diagram.setAttribute("aria-label", "Open diagram in a larger view");

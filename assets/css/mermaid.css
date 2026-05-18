@@ -1,4 +1,4 @@
-body {
+:root {
   --mermaid-control-size: 1.9rem;
   --mermaid-control-icon-size: 0.85rem;
   --mermaid-control-size-mobile: 1.75rem;
@@ -16,7 +16,7 @@ body {
     radial-gradient(circle at top left, rgba(236, 254, 255, 0.9), transparent 42%),
     linear-gradient(180deg, rgba(249, 250, 251, 0.96), rgba(255, 255, 255, 0.98));
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
-  overflow-x: auto;
+  overflow: hidden;
   cursor: zoom-in;
   transition:
     transform 160ms ease,
@@ -24,11 +24,18 @@ body {
     border-color 160ms ease;
 }
 
+.post-content .mermaid__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable both-edges;
+}
+
 .post-content .mermaid svg {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: none;
   height: auto;
-  min-width: 640px;
+  margin: 0 auto;
 }
 
 .post-content .mermaid::after {
@@ -92,6 +99,7 @@ body.mermaid-lightbox-open {
   width: min(1200px, 100%);
   max-height: min(90vh, 980px);
   position: relative;
+  overflow: hidden;
   padding: 1rem;
   border-radius: 22px;
   background:
@@ -144,16 +152,22 @@ body.mermaid-lightbox-open {
   border-radius: 16px;
 }
 
+.mermaid-lightbox__stage {
+  width: fit-content;
+  min-width: 100%;
+  margin: 0 auto;
+}
+
 .mermaid-lightbox__content svg {
   display: block;
-  min-width: min(1100px, 100%);
   width: auto;
+  max-width: none;
   height: auto;
   margin: 0 auto;
 }
 
 @media (max-width: 700px) {
-  body {
+  :root {
     --mermaid-control-size: var(--mermaid-control-size-mobile);
     --mermaid-lightbox-close-size: var(--mermaid-lightbox-close-size-mobile);
   }
@@ -162,10 +176,6 @@ body.mermaid-lightbox-open {
     margin: 1.25rem -0.25rem;
     padding: 0.85rem;
     border-radius: 14px;
-  }
-
-  .post-content .mermaid svg {
-    min-width: 560px;
   }
 
   .post-content .mermaid::after {
@@ -192,7 +202,7 @@ body.mermaid-lightbox-open {
     max-height: calc(92vh - 1.7rem);
   }
 
-  .mermaid-lightbox__content svg {
-    min-width: 780px;
+  .mermaid-lightbox__stage {
+    min-width: max-content;
   }
 }
