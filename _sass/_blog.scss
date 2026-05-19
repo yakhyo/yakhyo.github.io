@@ -456,12 +456,12 @@
 }
 
 
-// Bottom-of-post action row: share on the left, edit link on the right.
+// Bottom-of-post action row: now holds only the "Edit on GitHub" link
+// (share moved to the top of the post, under the meta line).
 .post-footer-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: $space-sm;
   margin: $space-md 0 0;
   padding: 1.25rem 0 0;
@@ -472,6 +472,44 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+}
+
+// Top-of-post share row: sits under the meta line and is divided from the
+// article body so it reads as part of the header, not the content.
+.post-share-top {
+  display: flex;          // override .post-share inline-flex so the divider spans the column
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.post-share-label {
+  margin-right: 0.15rem;
+  color: $text-muted;
+  font-size: $text-sm;
+}
+
+// Wide screens: float the same share element as a sticky vertical rail in the
+// left gutter, vertically centred. Below this width there isn't enough gutter
+// beside the 820px content column, so it stays the inline row under the meta.
+@media (min-width: 1100px) {
+  .post-share-top {
+    position: fixed;
+    top: 50%;
+    // 410px = $content-width (820px) / 2; then clear the gutter + rail width.
+    left: calc(50% - 410px - 3.75rem);
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .post-share-top .post-share-label {
+    display: none;   // icons only in rail mode — vertical text reads poorly
+  }
 }
 
 .post-share-btn {

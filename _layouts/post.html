@@ -36,16 +36,10 @@ layout: default
       {%- endif -%}
     </p>
 
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content }}
-  </div>
-
-  {%- assign post_url = page.url | absolute_url -%}
-  {%- assign share_text = page.title | uri_escape -%}
-  <aside class="post-footer-row" aria-label="Post actions">
-    <div class="post-share" aria-label="Share this post">
+    {%- assign post_url = page.url | absolute_url -%}
+    {%- assign share_text = page.title | uri_escape -%}
+    <div class="post-share post-share-top" aria-label="Share this post">
+      <span class="post-share-label">Share</span>
       <a class="post-share-btn"
          href="https://twitter.com/intent/tweet?text={{ share_text }}&amp;url={{ post_url | uri_escape }}"
          target="_blank" rel="noopener noreferrer"
@@ -66,12 +60,20 @@ layout: default
         {% include icon.html name="link" %}
       </button>
     </div>
-    {%- if site.giscus.repo and page.path -%}
+
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if site.giscus.repo and page.path -%}
+  <aside class="post-footer-row" aria-label="Post actions">
     <a class="post-edit-link" href="https://github.com/{{ site.giscus.repo }}/blob/main/{{ page.path }}" target="_blank" rel="noopener noreferrer">
       {% include icon.html name="github" %} Edit on GitHub
     </a>
-    {%- endif -%}
   </aside>
+  {%- endif -%}
 
   {%- assign prev = page.previous -%}
   {%- assign next = page.next -%}

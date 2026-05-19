@@ -56,6 +56,16 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
+    // Hairline ring gives the circle a defined edge (the photo's sky/beach
+    // edge is light against the white page); soft shadow lifts it off the
+    // page. Hover deepens the shadow only — no transform, so it doesn't
+    // conflict with the filling heroRise entrance animation on this element.
+    box-shadow: 0 0 0 1px $border-light, 0 14px 32px rgba(0, 0, 0, 0.18);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+    box-shadow: 0 0 0 1px $border-light, 0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
 .profile-info {
@@ -148,6 +158,7 @@
 
 .read-blog:hover {
     background-color: $brand-primary-hover;
+    border-color: $brand-primary-hover;
     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
 }
