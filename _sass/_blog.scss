@@ -520,16 +520,18 @@
   display: none;
 }
 
-// Breakpoint raised to 1340px so the wider panel still fits the gutter
-// without overflowing the viewport at the cutoff.
-@media (min-width: 1340px) {
+// Shown only when the right gutter is wide enough for the panel without
+// crowding the 820px content column.
+@media (min-width: 1280px) {
   .post-toc {
     display: block;
     position: fixed;
     top: 6.5rem;
-    // 410px = $content-width (820px) / 2; clear the column, then the gutter.
-    left: calc(50% + 410px + 1rem);
-    width: 220px;
+    // 410px = $content-width (820px) / 2 (the content column's right edge).
+    // Negative nudge keeps the 200px panel + its scrollbar inside a real
+    // 1280px window (page scrollbar eats ~15px of usable width).
+    left: calc(50% + 410px - 4px);
+    width: 200px;
     max-height: calc(100vh - 9rem);
     overflow-y: auto;        // long headings wrap; only the list scrolls vertically
     padding-left: 0.9rem;
