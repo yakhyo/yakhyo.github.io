@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       htmlLabels: false,
       flowchart: {
         useMaxWidth: false,
-        curve: "linear",
+        curve: "cardinal",
       },
       themeVariables: {
         background: "#ffffff",
