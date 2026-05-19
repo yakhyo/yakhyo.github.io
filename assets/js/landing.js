@@ -28,9 +28,13 @@
     // we always run it. Screen readers don't spam-announce the changing text
     // because the markup uses aria-live="off". Reduced-motion users still get
     // the animation but skip the cursor blink (handled in landing.css).
+    //
+    // We start in "deleting" mode at the end of the first title (which is
+    // already rendered by Liquid as the initial textContent) so the hero
+    // fade-in lands on stable text — no flash of half-typed letters.
     let titleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    let charIndex = titles[0].length;
+    let isDeleting = true;
     let typingSpeed = 100;
 
     function tick() {
@@ -54,7 +58,10 @@
       }
       setTimeout(tick, typingSpeed);
     }
-    tick();
+    // Start once the title's own entrance has settled (~0.16s stagger delay +
+    // ~0.45s rise ≈ 0.6s) so deleting begins on stable, fully-visible text —
+    // right as the cascade finishes, not after a long static hold.
+    setTimeout(tick, 700);
   }
 
   function initTimelineReveal() {
