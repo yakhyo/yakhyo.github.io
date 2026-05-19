@@ -462,6 +462,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;   // lone "Edit on GitHub" link sits at the right edge
   gap: $space-sm;
   margin: $space-md 0 0;
   padding: 1.25rem 0 0;
@@ -509,6 +510,78 @@
 
   .post-share-top .post-share-label {
     display: none;   // icons only in rail mode — vertical text reads poorly
+  }
+}
+
+// "On this page" TOC. Hidden by default (and on narrower screens there's no
+// gutter beside the 820px column); shown only when the right gutter is wide
+// enough to hold it without crowding the content.
+.post-toc {
+  display: none;
+}
+
+// Breakpoint raised to 1340px so the wider panel still fits the gutter
+// without overflowing the viewport at the cutoff.
+@media (min-width: 1340px) {
+  .post-toc {
+    display: block;
+    position: fixed;
+    top: 6.5rem;
+    // 410px = $content-width (820px) / 2; clear the column, then the gutter.
+    left: calc(50% + 410px + 1rem);
+    width: 220px;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;        // long headings wrap; only the list scrolls vertically
+    padding-left: 0.9rem;
+    border-left: 1px solid $border-light;
+  }
+
+  .post-toc-title {
+    margin: 0 0 0.6rem;
+    font-size: $text-xs;
+    font-weight: $weight-semibold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $text-muted;
+  }
+
+  .post-toc-list,
+  .post-toc-sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-toc-sublist {
+    padding-left: 0.75rem;
+  }
+
+  .post-toc-item {
+    margin: 0.1rem 0;
+    line-height: 1.35;
+  }
+
+  .post-toc-link {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: $text-sm;
+    color: $text-muted;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -0.9rem;          // align the active bar with the rail border
+    padding-left: 0.9rem;
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      color: $brand-primary;
+      text-decoration: none;
+    }
+
+    &.is-active {
+      color: $brand-primary;
+      border-left-color: $brand-primary;
+      font-weight: $weight-semibold;
+    }
   }
 }
 
