@@ -1,7 +1,7 @@
 {
-    "name": "Yakhyo Valikhujaev - ML Engineer",
+    "name": "Yakhyokhuja Valikhujaev - ML Engineer",
     "short_name": "Yakhyo",
-    "description": "ML Software Engineer specializing in Computer Vision, NLP, and MLOps",
+    "description": "Yakhyokhuja Valikhujaev - ML Software Engineer specializing in Computer Vision, NLP, and MLOps",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
@@ -14,4 +14,3 @@
         }
     ]
 }
-

@@ -3,13 +3,13 @@ layout: page
 title: About
 permalink: /about/
 hide_page_title: true
-description: "Yakhyokhuja (Yakhyo) Valikhujaev — AI/ML & MLOps engineer with 6+ years of experience in LLMs, RAG, VLMs, and Kubernetes-based ML platforms."
+description: "Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer with 6+ years of experience in LLMs, RAG, VLMs, and Kubernetes-based ML platforms."
 custom_css: about
 ---
 
 <header class="about-hero">
   <img src="{{ site.baseurl }}/assets/images/avatar.webp"
-       alt="Yakhyo Valikhujaev"
+       alt="Yakhyokhuja Valikhujaev"
        class="about-avatar"
        width="120" height="120">
   <div class="about-hero-text">

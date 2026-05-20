@@ -1,7 +1,7 @@
 # Personal Blog Built with Jekyll + Minima
 
 <p align="center">
-  <img src="assets/images/landing-page.png" alt="Preview of Yakhyo Valikhujaev's personal website" width="800">
+  <img src="assets/images/landing-page.png" alt="Preview of Yakhyokhuja Valikhujaev's personal website" width="800">
 </p>
 
 [![License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)

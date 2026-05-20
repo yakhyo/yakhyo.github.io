@@ -6,7 +6,7 @@
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
     {%- comment -%} sr-only span exposes author name variants for SEO crawlers. {%- endcomment -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}" aria-label="{{ site.author.name }} — Home">Home<span class="sr-only"> — {{ site.author.name }}, {{ site.author.preferred_name }}</span></a>
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}" aria-label="{{ site.author.name }} — Home">Home<span class="sr-only"> — {{ site.author.name }}</span></a>
 
     {%- if titles_size > 0 -%}
       <nav class="site-nav">

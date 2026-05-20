@@ -1,19 +1,20 @@
 ---
 layout: landing
 permalink: /
+description: "Yakhyokhuja Valikhujaev is an ML Software Engineer specializing in Computer Vision, NLP, and MLOps."
 custom_css: landing
 custom_js: landing
 image:
   path: /assets/images/landing-page-preview.png
   width: 1200
   height: 630
-  alt: Yakhyo Valikhujaev personal website landing page
+  alt: Yakhyokhuja Valikhujaev personal website landing page
 ---
 
 <div class="landing-page">
     <div class="profile">
         <img src="{{ site.baseurl }}/assets/images/avatar.webp"
-             alt="Yakhyo Valikhujaev — ML Software Engineer"
+             alt="Yakhyokhuja Valikhujaev — ML Software Engineer"
              class="profile-photo"
              width="150" height="150"
              fetchpriority="high">

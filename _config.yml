@@ -2,10 +2,10 @@
 # Restart server after editing this file
 
 # Site Information
-title: Yakhyo's Page
+title: Yakhyokhuja Valikhujaev
 email: yakhyo9696@gmail.com
 description: >-
-  Exploring Life Through the Lens of a Computer Scientist.
+  ML Software Engineer specializing in Computer Vision, NLP, and MLOps.
 
 baseurl: ""
 url: "https://yakhyo.github.io"
@@ -13,7 +13,7 @@ url: "https://yakhyo.github.io"
 # Author Information
 author:
   name: Yakhyokhuja Valikhujaev
-  preferred_name: Yakhyo Valikhujaev
+  preferred_name: Yakhyokhuja Valikhujaev
 
 # Profile URLs — single source of truth for every social / professional link.
 # Update the URL here once and it flows into the footer, landing page, about,
@@ -93,7 +93,7 @@ defaults:
         path: /assets/images/landing-page-preview.png
         width: 1200
         height: 630
-        alt: Yakhyo Valikhujaev personal website landing page
+        alt: Yakhyokhuja Valikhujaev personal website landing page
       author: Yakhyokhuja Valikhujaev
 
 # Permalink Structure
