@@ -1,13 +1,21 @@
-# yakhyo.github.io
+# Yakhyo Valikhujaev - Personal Site and ML Engineering Blog
 
 <p align="center">
-  <img src="assets/images/landing-page.png" alt="Website preview" width="800">
+  <img src="assets/images/landing-page.png" alt="Preview of Yakhyo Valikhujaev's personal website" width="800">
 </p>
 
 [![License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
 [![Deploy](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml)
 
-Personal site + blog. Live at [yakhyo.github.io](https://yakhyo.github.io).
+Source for [yakhyo.github.io](https://yakhyo.github.io), my personal website and technical blog. The site highlights my work in ML software engineering, MLOps, computer vision, and LLM systems, with a landing page, experience timeline, resume, and long-form engineering posts.
+
+## What is inside
+
+- A Jekyll-powered personal website built on Minima with custom layouts and styles.
+- A technical blog under `/blog/` with client-side search, year filters, and topic filters.
+- SEO, sitemap, feed, Open Graph, and Twitter Card metadata for shareable pages.
+- A resume page and downloadable PDF wired through `_config.yml`.
+- Production-only analytics and giscus comments.
 
 ## Quickstart
 
@@ -24,14 +32,14 @@ bundle exec htmlproofer ./_site --disable-external --allow-hash-href \
   --ignore-empty-alt
 ```
 
-## Stack
+## Tech Stack
 
 Jekyll 4.3 + the Minima theme, heavily customized. Plugins: `jekyll-feed`,
 `jekyll-seo-tag`, `jekyll-sitemap`. Comments via giscus (GitHub Discussions),
 analytics via Google Analytics — both only load in `production`. Deployed by
 GitHub Pages from the `main` branch ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
-## Repository layout
+## Repository Layout
 
 ```
 _posts/<year>/YYYY-MM-DD-slug.md   Blog posts. Permalink: /blog/:year/:month/:title/
@@ -43,13 +51,12 @@ _sass/                             SCSS partials, imported by assets/main.scss
 _drafts/                           Unpublished posts; copy post-template.md to start
 assets/css/                        Per-page SCSS bundles (landing, about, resume)
 assets/js/                         Per-page JS bundles (site, blog-filter, landing, …)
-assets/images/                     Avatar, post images, company logos
+assets/images/                     Avatar, preview images, post images, company logos
 assets/resumes/                    Resume PDF (filename in _config.yml under resume.pdf)
 _config.yml                        Site config: title, nav, defaults, plugins, profile URLs
-CLAUDE.md                          Detailed architecture notes for contributors / AI
 ```
 
-## Adding a blog post
+## Adding a Blog Post
 
 1. Copy [_drafts/post-template.md](_drafts/post-template.md) to `_posts/<year>/YYYY-MM-DD-your-slug.md` — the filename's date drives the URL.
 2. Edit the frontmatter and body. The template's comments explain every field.
@@ -76,7 +83,7 @@ Code blocks get a copy button automatically. For a table of contents, drop
 
 The topic filter on the blog index only shows categories with ≥ 2 posts.
 
-## Forking — what to edit
+## Forking This Site
 
 To rebrand this repo as your own personal site, change these 4 things:
 
@@ -87,7 +94,7 @@ To rebrand this repo as your own personal site, change these 4 things:
 
 Everything else (footer, landing page, resume header) reads its social URLs from `site.profiles.*`, so step 1 fans out automatically.
 
-## Where styles live
+## Styling
 
 `assets/main.scss` is intentionally just a manifest of imports. Each component's
 CSS lives in its own partial under `_sass/`:
