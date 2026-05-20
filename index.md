@@ -5,8 +5,8 @@ custom_css: landing
 custom_js: landing
 image:
   path: /assets/images/landing-page.png
-  width: 1200
-  height: 630
+  width: 2400
+  height: 1330
   alt: Yakhyo Valikhujaev personal website landing page
 ---
 

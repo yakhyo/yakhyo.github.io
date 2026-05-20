@@ -7,7 +7,7 @@ description: "Technical writing on machine-learning engineering, computer vision
 custom_js: blog-filter
 image:
   path: /assets/images/landing-page.png
-  width: 1200
-  height: 630
+  width: 2400
+  height: 1330
   alt: Yakhyo Valikhujaev technical blog
 ---
