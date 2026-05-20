@@ -1,11 +1,8 @@
 # yakhyo.github.io
 
 <p align="center">
-  <img src="assets/images/website.gif" alt="Website preview" width="800">
+  <img src="assets/images/landing-page.png" alt="Website preview" width="800">
 </p>
-
-<!-- TODO: capture a fresh screenshot/GIF of the current site (typewriter title,
-     timeline section, blog index) and replace assets/images/website.gif. -->
 
 [![License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
 [![Deploy](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/yakhyo/yakhyo.github.io/actions/workflows/deploy.yml)
