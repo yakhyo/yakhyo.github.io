@@ -456,12 +456,13 @@
 }
 
 
-// Bottom-of-post action row: share on the left, edit link on the right.
+// Bottom-of-post action row: now holds only the "Edit on GitHub" link
+// (share moved to the top of the post, under the meta line).
 .post-footer-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;   // lone "Edit on GitHub" link sits at the right edge
   gap: $space-sm;
   margin: $space-md 0 0;
   padding: 1.25rem 0 0;
@@ -472,6 +473,118 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+}
+
+// Top-of-post share row: sits under the meta line and is divided from the
+// article body so it reads as part of the header, not the content.
+.post-share-top {
+  display: flex;          // override .post-share inline-flex so the divider spans the column
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.post-share-label {
+  margin-right: 0.15rem;
+  color: $text-muted;
+  font-size: $text-sm;
+}
+
+// Wide screens: float the same share element as a sticky vertical rail in the
+// left gutter, vertically centred. Below this width there isn't enough gutter
+// beside the 820px content column, so it stays the inline row under the meta.
+@media (min-width: 1100px) {
+  .post-share-top {
+    position: fixed;
+    top: 50%;
+    // 410px = $content-width (820px) / 2; then clear the gutter + rail width.
+    left: calc(50% - 410px - 3.75rem);
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .post-share-top .post-share-label {
+    display: none;   // icons only in rail mode — vertical text reads poorly
+  }
+}
+
+// "On this page" TOC. Hidden by default (and on narrower screens there's no
+// gutter beside the 820px column); shown only when the right gutter is wide
+// enough to hold it without crowding the content.
+.post-toc {
+  display: none;
+}
+
+// Shown only when the right gutter is wide enough for the panel without
+// crowding the 820px content column.
+@media (min-width: 1280px) {
+  .post-toc {
+    display: block;
+    position: fixed;
+    top: 6.5rem;
+    // 410px = $content-width (820px) / 2 (the content column's right edge).
+    // Negative nudge keeps the 200px panel + its scrollbar inside a real
+    // 1280px window (page scrollbar eats ~15px of usable width).
+    left: calc(50% + 410px - 4px);
+    width: 200px;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;        // long headings wrap; only the list scrolls vertically
+    padding-left: 0.9rem;
+    border-left: 1px solid $border-light;
+  }
+
+  .post-toc-title {
+    margin: 0 0 0.6rem;
+    font-size: $text-xs;
+    font-weight: $weight-semibold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $text-muted;
+  }
+
+  .post-toc-list,
+  .post-toc-sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-toc-sublist {
+    padding-left: 0.75rem;
+  }
+
+  .post-toc-item {
+    margin: 0.1rem 0;
+    line-height: 1.35;
+  }
+
+  .post-toc-link {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: $text-sm;
+    color: $text-muted;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -0.9rem;          // align the active bar with the rail border
+    padding-left: 0.9rem;
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      color: $brand-primary;
+      text-decoration: none;
+    }
+
+    &.is-active {
+      color: $brand-primary;
+      border-left-color: $brand-primary;
+      font-weight: $weight-semibold;
+    }
+  }
 }
 
 .post-share-btn {

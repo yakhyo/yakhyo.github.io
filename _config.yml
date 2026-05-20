@@ -89,7 +89,11 @@ defaults:
       path: ""
       type: posts
     values:
-      image: /assets/images/avatar.webp
+      image:
+        path: /assets/images/landing-page-preview.png
+        width: 1200
+        height: 630
+        alt: Yakhyo Valikhujaev personal website landing page
       author: Yakhyokhuja Valikhujaev
 
 # Permalink Structure

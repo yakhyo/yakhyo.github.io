@@ -13,6 +13,29 @@
     box-sizing: border-box;
 }
 
+// Entrance: each hero element rises + fades in, staggered ~80ms apart so the
+// hero assembles top-to-bottom. Every element finishes in <0.5s; the whole
+// cascade is done well under a second. Subtle on purpose — it should read as
+// "alive", not as an animation the user has to wait through.
+@keyframes heroRise {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-photo   { animation: heroRise 0.45s ease-out both; }
+.name            { animation: heroRise 0.45s ease-out 0.08s both; }
+.title           { animation: heroRise 0.45s ease-out 0.16s both; }
+.social-links    { animation: heroRise 0.45s ease-out 0.24s both; }
+.description      { animation: heroRise 0.45s ease-out 0.32s both; }
+.buttons         { animation: heroRise 0.45s ease-out 0.40s both; }
+.scroll-indicator { animation: heroRise 0.45s ease-out 0.52s both; }
+
 // Photo + name/title + social-links share one grid container so the layout
 // can flip at mobile without changing the HTML.
 // Desktop/tablet: photo on left, info top-right, socials below info.
@@ -33,6 +56,16 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
+    // Hairline ring gives the circle a defined edge (the photo's sky/beach
+    // edge is light against the white page); soft shadow lifts it off the
+    // page. Hover deepens the shadow only — no transform, so it doesn't
+    // conflict with the filling heroRise entrance animation on this element.
+    box-shadow: 0 0 0 1px $border-light, 0 14px 32px rgba(0, 0, 0, 0.18);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+    box-shadow: 0 0 0 1px $border-light, 0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
 .profile-info {
@@ -125,6 +158,7 @@
 
 .read-blog:hover {
     background-color: $brand-primary-hover;
+    border-color: $brand-primary-hover;
     box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
 }
@@ -342,6 +376,7 @@ body.landing-page-body footer {
 @media (prefers-reduced-motion: reduce) {
     .landing-page,
     .profile-info,
+    .profile-photo,
     .name,
     .social-links,
     .description,

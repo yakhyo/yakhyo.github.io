@@ -3,6 +3,12 @@
 // site nav, header, footer, announcement banner, 404 page.
 // =============================================================================
 
+// Anchor jumps (TOC clicks, copy-link, kramdown header anchors) must clear the
+// sticky .site-header (~57px) — without this the target lands behind the nav.
+html {
+  scroll-padding-top: 5rem;
+}
+
 // -----------------------------------------------------------------------------
 // Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
 // Icons inherit color from currentColor and size from font-size.

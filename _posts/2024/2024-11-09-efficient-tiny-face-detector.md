@@ -1,66 +1,69 @@
 ---
 layout: post
-title: "Tiny-Face: Ultra-lightweight Face Detection for Mobile and Edge Devices"
+title: "Tiny-Face: Ultra-Lightweight Face Detection for Edge Devices"
 date: 2024-11-09 12:00:00 +0900
-modified_date: 2026-05-12 12:00:00 +0900
+modified_date: 2026-05-18 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, tiny-face, mobile, edge-deployment]
-description: "Tiny-Face is an ultra-lightweight face detection model engineered to balance accuracy and speed on mobile and edge devices where compute is scarce."
-image: "https://yakhyo.github.io/tiny-face-pytorch/assets/largeselfi_retina.jpg"
+description: "Tiny-Face compares SlimFace, RFB, and compact RetinaFace variants for small face detection models with WIDER FACE results and PyTorch/ONNX weights."
+image: "https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg"
 ---
 
-Tiny-Face is an ultra-lightweight face detection model specifically designed for deployment on mobile and edge devices where computational resources are limited. Unlike conventional face detection models that prioritize accuracy at the cost of model size and inference speed, Tiny-Face achieves an optimal balance between detection performance and computational efficiency.
-
-[GitHub Repository](https://github.com/yakhyo/tiny-face-pytorch)
-
-Building upon the core concepts of RetinaFace, Tiny-Face introduces several key optimizations that make it practical for real-world deployment on mobile phones, embedded systems, and IoT devices. The model is streamlined to use minimal memory and processing power while maintaining high precision in face detection across various challenging conditions.
+Tiny-Face is a compact face detection project focused on mobile and edge environments. It compares three small detector variants: **SlimFace**, **RFB**, and a compact **RetinaFace** model. See the project on [github.com/yakhyo/tiny-face-pytorch](https://github.com/yakhyo/tiny-face-pytorch).
 
 {% include video.html src="https://github.com/user-attachments/assets/faf65b91-db76-4538-beca-87fc65566e51" %}
 
-![Tiny-Face detection results on a large group selfie](https://yakhyo.github.io/tiny-face-pytorch/assets/largeselfi_retina.jpg)
+![Tiny-Face RetinaFace sample](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/test_retina.jpg)
 
-## Key Features
+The project is based on the RetinaFace-style detection pipeline but reduces the model size for low-resource inference.
 
-- **Ultra-lightweight Architecture**: Model sizes ranging from 1.4MB to 1.8MB, ideal for mobile deployment
-- **Multiple Configurations**: SlimFace, RFB, and MobileNet variants optimized for different resource constraints
-- **Real-time Performance**: Achieves real-time inference on mobile CPUs without GPU acceleration
-- **Pretrained Models**: Ready-to-use weights trained on WiderFace dataset for immediate deployment
+## Model Variants
 
-## Performance on WiderFace Dataset
+| Model | Parameters | Size | Input |
+|-------|------------|------|-------|
+| SlimFace | 0.343M | 1.4 MB | 640x640 |
+| RFB | 0.359M | 1.5 MB | 640x640 |
+| RetinaFace | 0.426M | 1.8 MB | 640x640 |
+
+All three published models have PyTorch and ONNX weights in the repository release.
+
+## WIDER FACE Results
 
 ### Multi-scale Image Size
 
-| Models     | Pretrained on ImageNet | Easy   | Medium | Hard   | #Params(M) | Size(MB) |
-| ---------- | ---------------------- | ------ | ------ | ------ | ---------- | -------- |
-| SlimFace   | False                  | 79.50% | 79.40% | 68.36% | 0.343      | 1.4      |
-| RFB        | False                  | 80.49% | 81.51% | 75.73% | 0.359      | 1.5      |
-| RetinaFace | True                   | 87.69% | 86.39% | 80.21% | 0.426      | 1.8      |
+| Model | Easy | Medium | Hard |
+|-------|------|--------|------|
+| SlimFace | 79.50% | 79.40% | 68.36% |
+| RFB | 80.49% | 81.51% | 75.73% |
+| RetinaFace | 87.69% | 86.39% | 80.21% |
 
 ### Original Image Size
 
-| Models     | Pretrained on ImageNet | Easy   | Medium | Hard   | #Params(M) |
-| ---------- | ---------------------- | ------ | ------ | ------ | ---------- |
-| SlimFace   | False                  | 87.10% | 84.36% | 67.38% | 0.343      |
-| RFB        | False                  | 87.09% | 84.61% | 69.22% | 0.359      |
-| RetinaFace | True                   | 90.26% | 87.48% | 72.85% | 0.426      |
+| Model | Easy | Medium | Hard |
+|-------|------|--------|------|
+| SlimFace | 87.10% | 84.36% | 67.38% |
+| RFB | 87.09% | 84.61% | 69.22% |
+| RetinaFace | 90.26% | 87.48% | 72.85% |
 
-## Technical Implementation
+The compact RetinaFace variant is the strongest model in both tables. SlimFace and RFB are smaller alternatives for stricter model-size constraints.
 
-The model architecture incorporates several optimization techniques:
+## Large Selfie Test
 
-- **Depthwise Separable Convolutions**: Reduces computational cost while maintaining representational power
-- **Feature Pyramid Network**: Multi-scale feature extraction for detecting faces of various sizes
-- **Efficient Anchor Design**: Optimized anchor boxes specifically tuned for face detection tasks
-- **Quantization-Friendly**: Architecture designed to maintain accuracy after INT8 quantization
+The README includes a crowded selfie example and reports how many faces each model detects:
 
-## Use Cases
+| Model | Faces detected |
+|-------|----------------|
+| RetinaFace | 459 |
+| RFB | 430 |
+| SlimFace | 384 |
 
-Tiny-Face is particularly well-suited for:
+![Tiny-Face large selfie result](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg)
 
-- **Mobile Applications**: Face detection in camera apps, social media filters, and photo editing tools
-- **Edge Computing**: Real-time face detection on IoT devices and smart cameras
-- **Embedded Systems**: Integration into resource-constrained hardware for access control and monitoring
-- **Offline Applications**: Face detection without requiring cloud connectivity or GPU acceleration
+This example shows the recall tradeoff clearly. Smaller models are useful on constrained devices, but crowded images make missed detections more likely.
 
-Explore the [GitHub repository](https://github.com/yakhyo/tiny-face-pytorch) for detailed setup instructions, training scripts, and deployment examples for various platforms including Android, iOS, and embedded Linux systems.
+## What the Repository Contains
+
+The repository includes WIDER FACE training and evaluation code, pretrained PyTorch weights, ONNX weights, and inference code for the three detector variants.
+
+It is useful when model size is a first-order constraint and a larger detector is too expensive for the target device.

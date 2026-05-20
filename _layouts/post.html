@@ -17,6 +17,12 @@ layout: default
         {% include icon.html name="clock" %}
         <span class="post-reading-time">{% include reading-time.html content=page.content %}</span>
       </span>
+      {%- if page.modified_date -%}
+      <span class="meta-item meta-updated">
+        {% include icon.html name="history" %}
+        <span>Updated <time datetime="{{ page.modified_date | date_to_xmlschema }}" itemprop="dateModified">{{ page.modified_date | date: date_format }}</time></span>
+      </span>
+      {%- endif -%}
       {%- comment -%}
         Author preserved in JSON-LD below for SEO/structured data, but hidden
         from the visible meta line — this is a single-author site.
@@ -30,16 +36,10 @@ layout: default
       {%- endif -%}
     </p>
 
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content }}
-  </div>
-
-  {%- assign post_url = page.url | absolute_url -%}
-  {%- assign share_text = page.title | uri_escape -%}
-  <aside class="post-footer-row" aria-label="Post actions">
-    <div class="post-share" aria-label="Share this post">
+    {%- assign post_url = page.url | absolute_url -%}
+    {%- assign share_text = page.title | uri_escape -%}
+    <div class="post-share post-share-top" aria-label="Share this post">
+      <span class="post-share-label">Share</span>
       <a class="post-share-btn"
          href="https://twitter.com/intent/tweet?text={{ share_text }}&amp;url={{ post_url | uri_escape }}"
          target="_blank" rel="noopener noreferrer"
@@ -60,12 +60,24 @@ layout: default
         {% include icon.html name="link" %}
       </button>
     </div>
-    {%- if site.giscus.repo and page.path -%}
+
+  </header>
+
+  {%- comment -%} Right-rail "On this page" TOC — populated client-side by toc.js
+    from the rendered h2/h3, MkDocs-style. Removed if the post has < 2 headings. {%- endcomment -%}
+  <nav class="post-toc" aria-label="On this page" hidden></nav>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if site.giscus.repo and page.path -%}
+  <aside class="post-footer-row" aria-label="Post actions">
     <a class="post-edit-link" href="https://github.com/{{ site.giscus.repo }}/blob/main/{{ page.path }}" target="_blank" rel="noopener noreferrer">
       {% include icon.html name="github" %} Edit on GitHub
     </a>
-    {%- endif -%}
   </aside>
+  {%- endif -%}
 
   {%- assign prev = page.previous -%}
   {%- assign next = page.next -%}
@@ -96,6 +108,8 @@ layout: default
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+
+<script src="{{ '/assets/js/toc.js' | relative_url }}" defer></script>
 
 {%- comment -%} JSON-LD structured data for richer search-result snippets {%- endcomment -%}
 <script type="application/ld+json">

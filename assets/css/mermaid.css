@@ -1,0 +1,208 @@
+:root {
+  --mermaid-control-size: 1.9rem;
+  --mermaid-control-icon-size: 0.85rem;
+  --mermaid-control-size-mobile: 1.75rem;
+  --mermaid-lightbox-close-size: 2.35rem;
+  --mermaid-lightbox-close-size-mobile: 2.15rem;
+}
+
+.post-content .mermaid {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top left, rgba(236, 254, 255, 0.9), transparent 42%),
+    linear-gradient(180deg, rgba(249, 250, 251, 0.96), rgba(255, 255, 255, 0.98));
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.post-content .mermaid__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable both-edges;
+}
+
+.post-content .mermaid svg {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+}
+
+.post-content .mermaid::after {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: var(--mermaid-control-size);
+  height: var(--mermaid-control-size);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.82);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--mermaid-control-icon-size) var(--mermaid-control-icon-size);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  opacity: 0.72;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.post-content .mermaid:hover,
+.post-content .mermaid:focus-visible {
+  border-color: rgba(14, 165, 233, 0.24);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.09);
+}
+
+.post-content .mermaid:hover::after,
+.post-content .mermaid:focus-visible::after {
+  opacity: 1;
+  transform: scale(1.04);
+  background-color: rgba(255, 255, 255, 0.96);
+}
+
+.post-content .mermaid:focus-visible {
+  outline: 3px solid rgba(14, 165, 233, 0.55);
+  outline-offset: 3px;
+}
+
+body.mermaid-lightbox-open {
+  overflow: hidden;
+}
+
+.mermaid-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.mermaid-lightbox__panel {
+  width: min(1200px, 100%);
+  max-height: min(90vh, 980px);
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(236, 254, 255, 0.92), transparent 38%),
+    linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(255, 255, 255, 1));
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+}
+
+.mermaid-lightbox__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 1;
+  width: var(--mermaid-lightbox-close-size);
+  height: var(--mermaid-lightbox-close-size);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.mermaid-lightbox__close::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--mermaid-control-icon-size);
+  height: var(--mermaid-control-icon-size);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.mermaid-lightbox__close:hover,
+.mermaid-lightbox__close:focus-visible {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  transform: scale(1.04);
+}
+
+.mermaid-lightbox__content {
+  overflow: auto;
+  max-height: calc(90vh - 2rem);
+  border-radius: 16px;
+}
+
+.mermaid-lightbox__stage {
+  width: fit-content;
+  min-width: 100%;
+  margin: 0 auto;
+}
+
+.mermaid-lightbox__content svg {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --mermaid-control-size: var(--mermaid-control-size-mobile);
+    --mermaid-lightbox-close-size: var(--mermaid-lightbox-close-size-mobile);
+  }
+
+  .post-content .mermaid {
+    margin: 1.25rem -0.25rem;
+    padding: 0.85rem;
+    border-radius: 14px;
+  }
+
+  .post-content .mermaid::after {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .mermaid-lightbox {
+    padding: 1rem;
+  }
+
+  .mermaid-lightbox__panel {
+    max-height: 92vh;
+    padding: 0.85rem;
+    border-radius: 18px;
+  }
+
+  .mermaid-lightbox__close {
+    top: 0.7rem;
+    right: 0.7rem;
+  }
+
+  .mermaid-lightbox__content {
+    max-height: calc(92vh - 1.7rem);
+  }
+
+  .mermaid-lightbox__stage {
+    min-width: max-content;
+  }
+}
