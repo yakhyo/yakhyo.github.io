@@ -19,7 +19,7 @@ image:
              width="150" height="150"
              fetchpriority="high">
         <div class="profile-info">
-            <div class="name">Yakhyo Valikhujaev</div>
+            <div class="name">Yakhyokhuja Valikhujaev</div>
             <div class="title"
                  data-titles='{{ site.landing_titles | jsonify }}'
                  aria-live="off"
@@ -41,18 +41,13 @@ image:
         <a href="{{ site.baseurl }}/about" class="about-me">About Me</a>
     </div>
 
-    <div class="scroll-indicator" aria-hidden="true">
-        <span>Scroll to explore</span>
-        <div class="scroll-arrow">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
 </div>
 
-<div class="timeline-section">
+<a href="#experience" class="scroll-down-btn" aria-label="Scroll to experience">
+    <span class="scroll-dot"></span>
+</a>
+
+<div class="timeline-section" id="experience">
     <h2 class="timeline-section-title">Experience</h2>
     {% include timeline.html %}
 </div>
