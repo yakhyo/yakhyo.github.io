@@ -5,16 +5,25 @@
 
 .landing-page {
     text-align: left;
-    // Fluid vertical padding scales with the viewport — ~$space-md (2rem) on
-    // phones up to 3.125rem (~50px) on desktop — so no per-breakpoint override
-    // is needed and the hero never hugs the sticky header on mobile.
-    padding: clamp($space-md, 6vw, 3.125rem) 0;
-    margin-left: 0;
-    // Hero owns the first viewport so the timeline below sits below the fold at rest.
-    // 100dvh handles iOS Safari's dynamic URL bar correctly.
+    // Hero owns the first viewport so the timeline below sits below the fold at
+    // rest. 100dvh handles iOS Safari's dynamic URL bar correctly.
     min-height: 100dvh;
     box-sizing: border-box;
+    // Position the hero high in the viewport (dead-centre sat too low): split
+    // the free vertical space ~20% above / 80% below with flexible spacers
+    // (::before / ::after), so the hero lands in the top fifth on any monitor
+    // height without hardcoded offsets. On short viewports where the hero is
+    // taller than 100dvh, min-height lets the box grow and the page scrolls —
+    // content is never clipped. The padding is just a minimum gap for when the
+    // hero nearly fills the screen and there's no free space to split.
+    display: flex;
+    flex-direction: column;
+    padding: clamp($space-md, 6vw, 3.125rem) 0;
+    margin-left: 0;
 }
+
+.landing-page::before { content: ""; flex: 1 0 0; }   // 20% of the free space, above the hero
+.landing-page::after  { content: ""; flex: 4 0 0; }   // 80% of the free space, below the hero
 
 // Entrance: each hero element rises + fades in, staggered ~80ms apart so the
 // hero assembles top-to-bottom. Every element finishes in <0.5s; the whole

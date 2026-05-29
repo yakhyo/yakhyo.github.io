@@ -22,20 +22,24 @@ html {
   transition: filter 0.2s ease;
 }
 
-// Brand colors on social icons only — meta icons (calendar/clock/etc.) stay
-// at currentColor so they tone-match surrounding text.
+// Social icons: monochrome (near-black) at rest so the row reads as one
+// cohesive unit, then each icon lights up to its own brand color on hover.
+// Meta icons (calendar/clock/etc.) are untouched — they stay at currentColor
+// so they tone-match surrounding text.
 .social-links, .footer-social {
-  .icon-github         { color: #181717; }
-  .icon-linkedin       { color: #0a66c2; }
-  .icon-twitter,
-  .icon-x              { color: #000;    }
-  .icon-youtube        { color: #ff0000; }
-  .icon-telegram       { color: #229ed9; }
-  .icon-stack-overflow { color: #f58025; }
-  .icon-google-scholar { color: #4285f4; }
-  .icon-code           { color: #ffa116; } // LeetCode-ish
+  .icon { color: $text-primary; transition: color 0.2s ease; }
 
-  a:hover .icon { filter: brightness(1.15); }
+  a:hover {
+    .icon-github         { color: #181717; }
+    .icon-linkedin       { color: #0a66c2; }
+    .icon-twitter,
+    .icon-x              { color: #000;    }
+    .icon-youtube        { color: #ff0000; }
+    .icon-telegram       { color: #229ed9; }
+    .icon-stack-overflow { color: #f58025; }
+    .icon-google-scholar { color: #4285f4; }
+    .icon-code           { color: #ffa116; } // LeetCode-ish
+  }
 }
 
 // -----------------------------------------------------------------------------

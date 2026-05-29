@@ -10,6 +10,7 @@
   --marker-top: 10px;
   --marker-size: 14px;
   --entry-gap: 2.5rem;
+  --rail-gap: 5px;                 // breathing room between the rail and each dot
 
   display: flex;
   align-items: flex-start;
@@ -25,19 +26,15 @@
   transform: translateY(0);
 }
 
-// Category colors only used inside this file — kept inline rather than
-// promoted to tokens.
-$cat-work:       #2563eb;
-$cat-research:   #7c3aed;
-$cat-education:  #059669;
-$marker-ring:    #d0d7de;
-
 .timeline-entry:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: calc(var(--marker-left) + var(--marker-size) / 2 + 2px);
-  top: calc(var(--marker-top) + var(--marker-size));
-  bottom: calc(-1 * (var(--entry-gap) + var(--marker-top)));
+  // Centre the 1px rail on the dot (dot is border-box, so it renders exactly
+  // --marker-size wide → centre = marker-left + size/2), minus half the rail
+  // width. A --rail-gap above and below keeps the rail from touching the dots.
+  left: calc(var(--marker-left) + var(--marker-size) / 2 - 0.5px);
+  top: calc(var(--marker-top) + var(--marker-size) + var(--rail-gap));
+  bottom: calc(var(--rail-gap) - var(--entry-gap) - var(--marker-top));
   width: 1px;
   background: linear-gradient(
     to bottom,
@@ -46,34 +43,34 @@ $marker-ring:    #d0d7de;
   );
 }
 
+// Hollow dot with a blue ring — uniform across categories (the WORK/RESEARCH/
+// EDUCATION chip already carries the category colour, so the marker doesn't
+// need to repeat it).
 .timeline-marker {
-  --marker-bg: #{$cat-work};
-
   position: absolute;
   left: var(--marker-left);
   top: var(--marker-top);
   width: var(--marker-size);
   height: var(--marker-size);
-  background: var(--marker-bg);
-  border: 2px solid white;
+  box-sizing: border-box;          // dot renders exactly --marker-size so the rail centres on it
+  background: white;
+  border: 2px solid $brand-primary;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px $marker-ring;
   z-index: 1;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.timeline-entry[data-category="work"]      .timeline-marker { --marker-bg: #{$cat-work}; }
-.timeline-entry[data-category="research"]  .timeline-marker { --marker-bg: #{$cat-research}; }
-.timeline-entry[data-category="education"] .timeline-marker { --marker-bg: #{$cat-education}; }
-
+// Current entry: filled blue dot that pulses an expanding ring so the live
+// item reads as "now".
 .timeline-entry[data-current="true"] .timeline-marker {
-  --marker-bg: #{$brand-primary};
+  background: $brand-primary;
   animation: pulse-marker 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse-marker {
-  0%, 100% { box-shadow: 0 0 0 1px $marker-ring; }
-  50%      { box-shadow: 0 0 0 1px $marker-ring, 0 0 0 4px rgba($brand-primary, 0.2); }
+  0%   { box-shadow: 0 0 0 0 rgba($brand-primary, 0.4); }
+  70%  { box-shadow: 0 0 0 6px rgba($brand-primary, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($brand-primary, 0); }
 }
 
 .timeline-entry:hover .timeline-marker {
@@ -103,7 +100,7 @@ $marker-ring:    #d0d7de;
   flex: 1;
   margin-left: 2.5rem;
   background: $bg-soft;
-  border-radius: $radius-sharp;
+  border-radius: $radius-md;        // small, consistent with buttons/inputs/images site-wide
   padding: 1.25rem 1.5rem;
   border: 1px solid $bg-tag;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -270,7 +267,6 @@ $marker-ring:    #d0d7de;
   .timeline-content {
     margin-left: 0;
     padding: 1rem;
-    border-radius: $radius-sharp;
   }
 
   .timeline-header {

@@ -91,39 +91,6 @@
   }
 }
 
-// Topic filter chips
-.topic-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: $space-md 0;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid $border-light;
-}
-
-.filter-btn {
-  padding: 0.5rem 1.25rem;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: $radius-pill;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: $weight-medium;
-  transition: all 0.3s ease;
-  color: #333;
-
-  &:hover {
-    background: $border-light;
-    border-color: #ccc;
-  }
-
-  &.active {
-    background: $brand-primary;
-    color: white;
-    border-color: $brand-primary;
-  }
-}
-
 // Post list (cards on the blog index). The whole row is a click target: the
 // title's <a> uses ::before to span the parent .post-item.
 .post-list {
@@ -132,18 +99,15 @@
 
   .post-item {
     position: relative;
-    margin: 0.5rem -1rem;                   // gap between cards so the shadow has room
-    padding: 0.875rem 1rem;
-    border: 2px solid transparent;          // reserved at all times → no layout shift
-    border-radius: $radius-sharp;           // pixel-frame look
-    background: white;
-    transition: border-color 0.12s ease, box-shadow 0.12s ease,
-                transform 0.12s ease, opacity 0.3s ease;
+    margin: 0.25rem 0;
+    padding: 0.875rem 0;
+    transition: opacity 0.3s ease;
 
-    &:hover {
-      border-color: $text-primary;          // hard near-black frame
-      box-shadow: 4px 4px 0 0 $text-primary; // chunky offset — the "stamped" look
-      transform: translate(-2px, -2px);     // lifts toward the shadow's origin
+    // Flat list — no card chrome, no motion. The only hover affordance is the
+    // title underlining. (The whole row stays clickable via .post-link::before.)
+    &:hover .post-link {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
     }
   }
 
@@ -236,23 +200,6 @@
       padding: 0.65rem 1rem 0.65rem 2.5rem;
     }
     .search-icon { font-size: 0.9rem; left: 0.9rem; }
-  }
-
-  .topic-filter { gap: 0.5rem; }
-  .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
-
-  // Cards normally bleed -1rem horizontally to give the chunky hover shadow
-  // room. On mobile the wrapper padding is too small for that — borders end
-  // up flush against (or past) the viewport edge. Tuck them back inside and
-  // shrink the stamped offset so the hover still fits.
-  .post-list .post-item {
-    margin-left: 0;
-    margin-right: 0;
-
-    &:hover {
-      box-shadow: 2px 2px 0 0 $text-primary;
-      transform: translate(-1px, -1px);
-    }
   }
 }
 

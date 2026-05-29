@@ -1,5 +1,5 @@
-// Blog index: search + year + topic filtering.
-// Extracted from _layouts/home.html.
+// Blog index: live text search over post titles + excerpts. Year sections
+// whose posts all filter out are hidden.
 (function () {
   'use strict';
 

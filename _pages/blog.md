@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Blog
-subtitle: "Personal opinions and useful information from building ML systems."
+subtitle: "Personal opinions and useful information on the things worth figuring out."
 permalink: /blog/
 description: "Technical writing on machine-learning engineering, computer vision, LLMs, and MLOps — practical lessons from shipping ML systems in production."
 custom_js: blog-filter
