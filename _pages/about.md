@@ -48,12 +48,3 @@ Outside of work, I enjoy swimming, hiking, and spending time with friends. I als
 ## Get in Touch
 
 I'm always happy to talk about ML platforms, LLM systems, research collaboration, and open-source work. If you think we should build something together, feel free to reach out.
-
-<div class="contact-buttons btn-row">
-  <a href="mailto:{{ site.email }}" class="btn btn-primary" data-track-event="contact-email">
-    Email me
-  </a>
-  <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn" data-track-event="contact-linkedin">
-    {% include icon.html name="linkedin" %} LinkedIn
-  </a>
-</div>

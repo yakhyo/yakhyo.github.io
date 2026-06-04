@@ -18,12 +18,14 @@
     // hero nearly fills the screen and there's no free space to split.
     display: flex;
     flex-direction: column;
-    padding: clamp($space-md, 6vw, 3.125rem) 0;
+    // Asymmetric: small top gap keeps the hero high; the larger bottom value is
+    // just a minimum floor for when the hero nearly fills a short screen.
+    padding: $space-sm 0 clamp($space-md, 6vw, 3.125rem);
     margin-left: 0;
 }
 
-.landing-page::before { content: ""; flex: 1 0 0; }   // 20% of the free space, above the hero
-.landing-page::after  { content: ""; flex: 4 0 0; }   // 80% of the free space, below the hero
+.landing-page::before { content: ""; flex: 1 0 0; }   // small share of free space, above the hero
+.landing-page::after  { content: ""; flex: 8 0 0; }   // larger share of free space, below the hero
 
 // Entrance: each hero element rises + fades in, staggered ~80ms apart so the
 // hero assembles top-to-bottom. Every element finishes in <0.5s; the whole
@@ -67,16 +69,15 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    // Hairline ring gives the circle a defined edge (the photo's sky/beach
-    // edge is light against the white page); soft shadow lifts it off the
-    // page. Hover deepens the shadow only — no transform, so it doesn't
-    // conflict with the filling heroRise entrance animation on this element.
-    box-shadow: 0 0 0 1px $border-light, 0 14px 32px rgba(0, 0, 0, 0.18);
+    // Soft shadow lifts the circle off the page. Hover deepens the shadow only
+    // — no transform, so it doesn't conflict with the filling heroRise entrance
+    // animation on this element.
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
     transition: box-shadow 0.3s ease;
 }
 
 .profile-photo:hover {
-    box-shadow: 0 0 0 1px $border-light, 0 18px 42px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
 .profile-info {
@@ -285,9 +286,12 @@ body.landing-page-body footer {
     transform: translateY(0);
 }
 
-.timeline-section-title {
+// Qualified with the tag so specificity (0,1,1) ties .post-content h2 (from
+// _blog.scss, applied because the landing layout wraps content in .post-content);
+// landing.css loads after main.css, so these values win on source order.
+h2.timeline-section-title {
     text-align: center;
-    font-size: 3em;
+    font-size: 2.2em;
     font-weight: bold;
     margin-bottom: 40px;
     color: #000;
@@ -299,8 +303,8 @@ body.landing-page-body footer {
         padding-top: 28px;
     }
 
-    .timeline-section-title {
-        font-size: 2.4em;
+    h2.timeline-section-title {
+        font-size: 2em;
     }
 }
 
@@ -369,8 +373,8 @@ body.landing-page-body footer {
         padding-top: 28px;
     }
 
-    .timeline-section-title {
-        font-size: 2.1em;
+    h2.timeline-section-title {
+        font-size: 1.8em;
     }
 }
 
