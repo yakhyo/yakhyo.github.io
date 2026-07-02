@@ -288,11 +288,15 @@
   }
 
   a {
+    color: $brand-link;              // AA-compliant link blue (brand #1e90ff is 3.2:1 — fails as body text)
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
 
-    &:hover { text-decoration-thickness: 2px; }
+    &:hover {
+      color: $brand-primary-hover;
+      text-decoration-thickness: 2px;
+    }
   }
 
   img:not(.profile-photo):not(.timeline-logo),
@@ -667,4 +671,96 @@
   width: 0;
   background: $brand-primary;
   transition: width 80ms linear;
+}
+
+// -----------------------------------------------------------------------------
+// Mobile "On this page" — collapsible disclosure built by toc.js, shown only
+// below the desktop-rail breakpoint (the fixed .post-toc rail needs ≥1280px).
+// -----------------------------------------------------------------------------
+.post-toc-mobile { display: none; }   // hidden by default; revealed below 1280px
+
+@media (max-width: 1279px) {
+  .post-toc-mobile {
+    display: block;
+    margin: 0 0 2rem;
+    border: 1px solid $border-light;
+    border-radius: $radius-md;
+    background: $bg-soft;
+
+    .post-toc-mobile-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      list-style: none;                 // drop the native marker; use our own
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: $text-muted;
+
+      &::-webkit-details-marker { display: none; }
+      &::after {
+        content: "\25BE";               // ▾ — rotates when open
+        font-size: 0.9rem;
+        transition: transform 0.2s ease;
+      }
+    }
+
+    &[open] .post-toc-mobile-summary::after { transform: rotate(180deg); }
+
+    .post-toc-list,
+    .post-toc-sublist { list-style: none; margin: 0; padding: 0; }
+    .post-toc-list { padding: 0 1rem 0.75rem; }
+    .post-toc-sublist { padding-left: 0.85rem; }
+    .post-toc-item { margin: 0.1rem 0; line-height: 1.4; }
+
+    .post-toc-link {
+      display: block;
+      padding: 0.3rem 0;
+      font-size: $text-sm;
+      color: $text-muted;
+      text-decoration: none;
+
+      &:hover { color: $brand-primary; }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Back-to-top button — injected by site.js on post pages, fades in after the
+// reader scrolls down. Sits clear of the left share rail and right TOC rail.
+// -----------------------------------------------------------------------------
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: $brand-primary;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: $shadow-lg;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background 0.2s ease;
+
+  svg { width: 1.15rem; height: 1.15rem; display: block; }
+
+  &:hover { background: $brand-primary-hover; }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }

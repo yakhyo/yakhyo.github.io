@@ -66,6 +66,18 @@
     nav.appendChild(list);
     nav.hidden = false;
 
+    // Mobile disclosure: the same list, collapsible, inserted at the top of the
+    // article. The fixed right-rail nav above is hidden below 1280px, so this is
+    // the only in-page navigation small screens get.
+    var details = document.createElement('details');
+    details.className = 'post-toc-mobile';
+    var summary = document.createElement('summary');
+    summary.className = 'post-toc-mobile-summary';
+    summary.textContent = 'On this page';
+    details.appendChild(summary);
+    details.appendChild(list.cloneNode(true));
+    content.insertBefore(details, content.firstChild);
+
     // Scrollspy: the current section is the last heading whose top has
     // scrolled past a line near the top of the viewport. A throttled scroll
     // handler (rather than IntersectionObserver) keeps this deterministic.
@@ -108,19 +120,20 @@
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!prefersReducedMotion) {
-      nav.addEventListener('click', function (e) {
-        var a = e.target.closest && e.target.closest('a.post-toc-link');
-        if (!a) return;
-        var target = document.getElementById(
-          decodeURIComponent(a.getAttribute('href').slice(1))
-        );
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        history.replaceState(null, '', a.getAttribute('href'));
-      });
-    }
+    // One delegated handler covers both the rail and the mobile disclosure.
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a.post-toc-link');
+      if (!a) return;
+      var target = document.getElementById(
+        decodeURIComponent(a.getAttribute('href').slice(1))
+      );
+      if (!target) return;
+      if (details.open) details.open = false;   // collapse mobile TOC after a jump
+      if (prefersReducedMotion) return;          // let the native anchor jump happen
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', a.getAttribute('href'));
+    });
   }
 
   if (document.readyState === 'loading') {

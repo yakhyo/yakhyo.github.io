@@ -66,6 +66,41 @@ html {
   border: 0;
 }
 
+// Skip link (WCAG 2.4.1): off-screen until a keyboard user tabs to it, then it
+// drops in above the sticky header so they can jump past the nav to the content.
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3.5rem;
+  z-index: 200;                 // above the sticky header (z-index 100)
+  padding: 0.5rem 1rem;
+  background: $brand-primary;
+  color: white;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+  text-decoration: none;
+  transition: top 0.15s ease;
+
+  &:focus { top: 0.5rem; }
+}
+
+// The <main> skip target shouldn't paint a focus ring when jumped to.
+#main-content:focus { outline: none; }
+
+// Honor a reduced-motion preference site-wide: neutralize non-essential
+// animation and transitions. State still changes — just instantly.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Typography — Inter for prose, system mono stack for code (matches GitHub's
 // Primer look: SFMono on macOS, Consolas on Windows, etc.).

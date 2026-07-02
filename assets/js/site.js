@@ -130,11 +130,45 @@
     update();
   }
 
+  // ---------------------------------------------------------------------------
+  // 5. Back-to-top button (post pages only). Appears once the reader is well
+  // down a long article — the desktop TOC rail is hidden on small screens, so
+  // this is the quickest way back up on mobile.
+  // ---------------------------------------------------------------------------
+  const ICON_ARROW_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+
+  function bindBackToTop() {
+    if (!document.querySelector('article.post')) return;   // post pages only
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'back-to-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = ICON_ARROW_UP;
+    document.body.appendChild(btn);
+
+    const reduce = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+
+    let ticking = false;
+    function update() {
+      btn.classList.toggle('is-visible', window.scrollY > 600);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
   function init() {
     injectCopyButtons();
     bindCopyLinkButtons();
     bindTrackedLinks();
     bindReadingProgress();
+    bindBackToTop();
   }
 
   if (document.readyState === 'loading') {

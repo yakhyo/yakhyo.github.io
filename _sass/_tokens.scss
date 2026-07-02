@@ -5,14 +5,15 @@
 // =============================================================================
 
 // Brand
-$brand-primary:        #1e90ff;   // links, focus rings, active states
-$brand-primary-hover:  #0066cc;   // darker shade for hover/active
+$brand-primary:        #1e90ff;   // accents, borders, focus rings, active states (3:1 UI — not for body text)
+$brand-primary-hover:  #0066cc;   // darker shade for hover/active (5.6:1)
+$brand-link:           #1877cc;   // in-prose text links — WCAG AA on white (4.6:1)
 
 // Text — four shades, lightest to darkest
 $text-primary:    #1a1a1a;        // body copy, headings
 $text-secondary:  #555;           // post excerpts, secondary labels
 $text-muted:      #595959;        // meta lines, dates, captions, timeline support
-$text-faint:      #999;           // placeholders, empty states
+$text-faint:      #6f6f6f;        // placeholders, empty states, year headings — WCAG AA (4.8:1 on white & $bg-soft)
 
 // Backgrounds & borders
 $bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
