@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 hide_page_title: true
-description: "Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer with 6+ years of experience in LLMs, RAG, VLMs, and Kubernetes-based ML platforms."
+description: "Yakhyokhuja Valikhujaev — AI/ML Software Engineer with 6+ years of experience in LLMs, RAG, VLMs, and Kubernetes-based ML platforms."
 custom_css: about
 ---
 
@@ -27,15 +27,15 @@ custom_css: about
   </div>
 </header>
 
-I'm an AI/ML and MLOps engineer based in Seoul, focused on building reliable systems around LLMs, multimodal models, and Kubernetes-native ML infrastructure.
+I'm an AI/ML Software Engineer based in Seoul, South Korea, with 6+ years of experience building reliable systems around LLMs, multimodal models, and Kubernetes-native ML infrastructure.
 
-My work sits between model development and production engineering. I'm most interested in making ML systems practical: fine-tuning models for real use cases, designing retrieval pipelines, and building platform tooling that helps teams train, deploy, and operate models more reliably.
+My work sits at the seam between model development and production engineering — where promising models become dependable products. I care most about making ML *practical*: fine-tuning models for real use cases, designing retrieval pipelines, and building the platform tooling that helps teams train, deploy, and operate models reliably at scale.
 
-At [Thaki Cloud](https://www.thakicloud.com/), I work on private-cloud and Kubernetes infrastructure for distributed training and inference. Before that, I worked across conversational AI, multimodal systems, computer vision, and production model deployment in both research and product settings.
+Over the years I've worked across conversational AI, multimodal systems, computer vision, and production model deployment in both research and product settings — most recently on private-cloud and Kubernetes infrastructure for distributed training and inference.
 
 ## What I Work On
 
-I enjoy working on the parts of AI systems that turn promising models into dependable products: training workflows, inference infrastructure, retrieval systems, and the operational details that make them usable at scale. My background includes LLMs, RAG, VLMs, model serving, and Kubernetes-based platform engineering across cloud and on-prem environments.
+The parts I gravitate toward are the ones that decide whether a model actually ships: training workflows, inference infrastructure, retrieval systems, and the operational details that keep them usable at scale. In practice that spans LLMs, RAG, VLMs, model serving, and Kubernetes-based platform engineering across cloud and on-prem environments.
 
 ## Writing & Community
 

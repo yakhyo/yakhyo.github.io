@@ -99,15 +99,30 @@
 
   .post-item {
     position: relative;
-    margin: 0.25rem 0;
-    padding: 0.875rem 0;
-    transition: opacity 0.3s ease;
+    // Bleed the tint 0.75rem past the text on each side so the hover zone has
+    // breathing room while the text stays aligned with the year heading. 0.75rem
+    // stays inside the 15px wrapper gutter, so no horizontal overflow on mobile.
+    margin: 0.25rem -0.75rem;
+    padding: 0.875rem 0.75rem;
+    border-radius: $radius-sharp;
+    transition: opacity 0.3s ease, background-color 0.15s ease;
 
-    // Flat list — no card chrome, no motion. The only hover affordance is the
-    // title underlining. (The whole row stays clickable via .post-link::before.)
-    &:hover .post-link {
-      text-decoration: underline;
-      text-underline-offset: 0.15em;
+    // The whole row is one click target, so the whole row responds. Hover is
+    // gated behind (hover: hover) so a tap on touch doesn't leave the row stuck
+    // in its hover state; :active is the press feedback on mobile, and
+    // :has(:focus-visible) covers keyboard. All three share one soft tint.
+    @media (hover: hover) {
+      &:hover {
+        background: $bg-soft;
+        .post-link { color: $brand-link; }
+      }
+    }
+
+    &:active { background: $bg-soft; }
+
+    &:has(.post-link:focus-visible) {
+      background: $bg-soft;
+      .post-link { color: $brand-link; }
     }
   }
 
@@ -123,13 +138,24 @@
     .post-link {
       color: inherit;
       text-decoration: none;
+      transition: color 0.15s ease;
 
       // Expand the click target to the full .post-item.
       &::before {
         content: "";
         position: absolute;
         inset: 0;
-        border-radius: inherit;
+        border-radius: $radius-sharp;
+      }
+
+      // Keyboard focus gets a visible ring tracing the whole row (WCAG AA).
+      &:focus-visible {
+        outline: none;
+
+        &::before {
+          outline: 2px solid $brand-primary;
+          outline-offset: 2px;
+        }
       }
     }
   }
@@ -271,6 +297,57 @@
     font-style: italic;
 
     p:last-child { margin-bottom: 0; }
+  }
+
+  // Labeled callout boxes — "Key takeaways" summaries and the "Short answer"
+  // capsules in Q&A posts. Distinct from the serif pull-quote above: these are
+  // structured callouts, not quotations, so they drop the serif/italic editorial
+  // voice for the sans body font inside a pixel-frame box, with a mono uppercase
+  // eyebrow for the bold label (the site's mono identity). Genuine unlabeled
+  // quotes keep the serif blockquote style.
+  blockquote.takeaways,
+  blockquote.callout {
+    margin: 1.75em 0;
+    padding: 1.1rem 1.35rem;
+    border: 1px solid $border-light;
+    border-left: 3px solid $brand-primary;
+    border-radius: $radius-sharp;
+    background: $bg-soft;
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-style: normal;
+    color: $text-primary;
+    line-height: 1.65;
+
+    > p { margin: 0 0 0.6rem; }
+    > p:last-child { margin-bottom: 0; }
+
+    // Bold label -> mono uppercase eyebrow.
+    > p:first-child > strong:first-child {
+      font-family: $font-mono;
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $text-faint;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    li {
+      margin-bottom: 0.4em;
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  // In "Short answer" capsules the label shares a paragraph with the answer,
+  // so promote it to its own line; takeaways labels already sit alone.
+  blockquote.callout > p:first-child > strong:first-child {
+    display: block;
+    margin-bottom: 0.3rem;
   }
 
   // Render <hr> as a centered "·  ·  ·" instead of a full-width line.

@@ -9,6 +9,7 @@ tags: [python, interview-prep, async, generators, concurrency]
 description: "Practical Python interview answers for core topics like data structures, object identity, memory management, the GIL, generators, decorators, and async FastAPI behavior."
 custom_css: mermaid
 custom_js: mermaid
+toc_depth: 2
 ---
 
 Python interview questions have a strange way of sounding easy right up until you answer them out loud. You may know what a list is, what the GIL does, or why `async` exists, but an interview answer needs more than a keyword. It has to be clear, accurate, and practical.
@@ -56,6 +57,7 @@ flowchart TD
 ## 1. What Is the Difference Between a List, Tuple, Set, and Dictionary in Python?
 
 > **Short answer:** A list is an ordered mutable sequence, a tuple is an ordered immutable sequence, a set is an unordered collection of unique items, and a dict maps unique keys to values.
+{: .callout}
 
 These four container types overlap just enough to confuse people, but they are built for different jobs:
 
@@ -133,6 +135,7 @@ if "alice" in seen:
 ## 2. What Is the Difference Between `is` and `==`?
 
 > **Short answer:** `==` compares values; `is` compares identity, that is, whether two names point to the exact same object in memory.
+{: .callout}
 
 This is one of those small Python questions that quickly reveals whether someone understands objects or has only memorized syntax.
 
@@ -209,6 +212,7 @@ if result is None:
 ## 3. Explain Python's Memory Management
 
 > **Short answer:** CPython frees an object immediately when its reference count drops to zero, and a separate cyclic garbage collector reclaims reference cycles that counting alone can never free.
+{: .callout}
 
 At a high level, Python handles memory for you. In a CPython interview answer, the two ideas that matter most are reference counting and cyclic garbage collection.
 
@@ -291,6 +295,7 @@ Common real-world mistakes include:
 ## 4. What Is the GIL?
 
 > **Short answer:** The GIL lets only one thread execute Python bytecode at a time per process, so threads do not speed up CPU-bound Python, but they still help I/O-bound work because the GIL is released during blocking I/O.
+{: .callout}
 
 The GIL is the Global Interpreter Lock in CPython. In day-to-day terms, it means only one thread at a time can execute Python bytecode inside a single interpreter process.
 
@@ -376,6 +381,7 @@ A better answer is:
 ## 5. What Is an Iterator in Python?
 
 > **Short answer:** An iterator is an object with `__next__()` that yields items one at a time and raises `StopIteration` when exhausted; an iterable is anything that can hand you a fresh iterator via `iter()`.
+{: .callout}
 
 An iterator represents a stream of data. Repeated calls to `__next__()` return the next item, and when there is nothing left, the iterator raises `StopIteration`.
 
@@ -447,6 +453,7 @@ print(list(it))     # []         -> the iterator is now exhausted
 ## 6. What Is a Generator?
 
 > **Short answer:** A generator is a lazy iterator built with `yield`; it produces values one at a time and preserves its local state between calls, so it avoids materializing the whole result in memory.
+{: .callout}
 
 A generator is one of Python's nicest features because it lets you build an iterator without writing the iterator class by hand.
 
@@ -518,6 +525,7 @@ If you need to scan a huge dataset once, a generator is often the right tool. If
 ## 7. What Is a Decorator?
 
 > **Short answer:** A decorator is a callable that takes a function and returns a replacement, letting you add behavior like logging, caching, or auth around it without editing its body.
+{: .callout}
 
 A decorator is a callable that takes something, often a function, and returns a replacement for it. In practice, it lets you add behavior around a function without rewriting that function's core logic.
 
@@ -581,6 +589,7 @@ print(add.__name__)  # 'wrapper' — the original identity is lost
 ## 8. What Is a Context Manager?
 
 > **Short answer:** A context manager defines setup and teardown through `__enter__` and `__exit__`, so a `with` block guarantees the teardown runs even if the body raises an exception.
+{: .callout}
 
 The everyday use is the `with` statement. It acquires a resource, hands it to the block, and releases it on exit no matter how the block ends.
 
@@ -643,6 +652,7 @@ The `try/finally` is the important part. Putting teardown in `finally` is what g
 ## 9. Can a Context Manager Be Used as a Decorator?
 
 > **Short answer:** Yes — `contextlib`'s `@contextmanager` and `ContextDecorator` make a context manager usable as `@cm()`, so its setup/teardown brackets an entire function call instead of just a `with` block.
+{: .callout}
 
 This is a natural follow-up because it connects the decorator and context manager ideas. Sometimes you want the same enter/exit behavior to wrap a whole function, not just a block inside it.
 
@@ -705,6 +715,7 @@ One caveat matters: the decorator form cannot bind the `__enter__` return value 
 ## 10. Explain `async` and `await`
 
 > **Short answer:** `async def` defines a coroutine and `await` suspends it until the awaited operation is ready, letting the event loop run other coroutines meanwhile — great for I/O-bound concurrency, not a CPU-bound speedup.
+{: .callout}
 
 Start with this: `async` is about concurrency, especially I/O-bound concurrency.
 
@@ -775,6 +786,7 @@ Avoid forcing async when:
 ## 11. What Happens If You Call a Blocking Function Inside an Async Endpoint?
 
 > **Short answer:** A blocking call inside `async def` freezes the whole event loop, so every other in-flight request stalls until it returns; fix it with an async library, a plain `def` endpoint (FastAPI runs those in a threadpool), or a worker queue.
+{: .callout}
 
 You block the event loop, which is exactly what async code is trying to avoid.
 

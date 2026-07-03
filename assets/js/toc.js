@@ -16,8 +16,13 @@
     var content = document.querySelector('.post-content');
     if (!nav || !content) return;
 
+    // Depth is set per-post via `toc_depth` frontmatter (default 3 = h2+h3).
+    // Long Q&A posts set it to 2 so the rail lists only top-level questions
+    // instead of drowning them in subsection headings.
+    var tocDepth = parseInt(nav.getAttribute('data-toc-depth'), 10);
+    if (!(tocDepth >= 2)) tocDepth = 3;
     var headings = Array.prototype.slice.call(
-      content.querySelectorAll('h2, h3')
+      content.querySelectorAll(tocDepth >= 3 ? 'h2, h3' : 'h2')
     );
     // A TOC with one (or zero) entries is noise — drop the rail entirely.
     if (headings.length < 2) {
