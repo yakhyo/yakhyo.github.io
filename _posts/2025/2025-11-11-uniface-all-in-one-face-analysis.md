@@ -2,7 +2,7 @@
 layout: post
 title: "UniFace: A Unified Face Analysis Library for Python"
 date: 2025-11-11 12:00:00 +0900
-modified_date: 2026-05-18 12:00:00 +0900
+modified_date: 2026-07-03 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-analysis, uniface, onnx, production, open-source]
@@ -140,3 +140,12 @@ There is also a live Hugging Face demo at [huggingface.co/spaces/yakhyo/uniface]
 UniFace keeps the individual modules independent, but makes them work together through shared inputs and outputs. You can use only the detector, build a recognition pipeline yourself, or start from `FaceAnalyzer` when you want the common detection-plus-recognition path.
 
 The library supports macOS, Linux, and Windows, including CPU inference, Apple Silicon, and NVIDIA CUDA through ONNX Runtime providers.
+
+## Related Deep-Dives
+
+Several UniFace modules started as standalone projects. These posts go deeper on the individual models the library bundles:
+
+- [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}) — the detection backbone family, with WIDER FACE benchmarks.
+- [Face Parsing with BiSeNet and ResNet Backbones]({% link _posts/2024/2024-11-29-face-parsing-bisenet.md %}) — the semantic segmentation module for per-region masks.
+- [MobileGaze: Lightweight Gaze Estimation with MobileOne]({% link _posts/2024/2024-09-18-gaze-estimation.md %}) — the gaze direction module.
+- [Real-Time Head Pose Estimation with MobileNet and ResNet]({% link _posts/2024/2024-09-17-head-pose-estimation.md %}) — the pitch/yaw/roll head pose module.

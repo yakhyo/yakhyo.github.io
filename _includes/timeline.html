@@ -38,7 +38,7 @@
           {% if entry.link %}
             <a href="{{ entry.link }}" class="timeline-link"
                {% if entry.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              View →
+              View{% include icon.html name="arrow-up-right" %}
             </a>
           {% endif %}
         </div>

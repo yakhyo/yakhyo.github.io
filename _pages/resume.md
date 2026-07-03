@@ -4,13 +4,13 @@ title: Resume
 permalink: /resume/
 hide_page_title: true
 custom_css: resume
-description: "Resume of Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer; LLMs, RAG, VLMs, Kubernetes, vLLM, Triton, and production ML."
+description: "Resume of Yakhyokhuja Valikhujaev — AI/ML Software Engineer; LLMs, RAG, VLMs, Kubernetes, vLLM, Triton, and production ML."
 ---
 
 <header class="resume-header">
   <div class="resume-header-text">
     <h1 class="resume-name">Yakhyokhuja Valikhujaev</h1>
-    <p class="resume-role">AI/ML &amp; MLOps Engineer</p>
+    <p class="resume-role">AI/ML Software Engineer</p>
     <div class="resume-social" aria-label="Profiles">
       <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{% include icon.html name="github" %}</a>
       <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{% include icon.html name="linkedin" %}</a>
@@ -24,14 +24,14 @@ description: "Resume of Yakhyokhuja Valikhujaev — AI/ML & MLOps engineer; LLMs
        download
        class="btn btn-primary"
        data-track-event="resume-download">
-      {% include icon.html name="download" %} Download PDF
+      Download PDF {% include icon.html name="arrow-down" %}
     </a>
   </div>
 </header>
 
 ## Summary
 
-AI/ML & MLOps Engineer with 6+ years of experience building production ML systems across LLMs, multimodal AI, and Kubernetes-based infrastructure. Experienced in model fine-tuning, retrieval systems, inference optimization, and platform engineering for distributed training and deployment across private cloud, AWS, and GCP environments.
+AI/ML Software Engineer with 6+ years of experience building production ML systems across LLMs, multimodal AI, and Kubernetes-based infrastructure. Experienced in model fine-tuning, retrieval systems, inference optimization, and platform engineering for distributed training and deployment across private cloud, AWS, and GCP environments.
 
 ## Skills Summary
 

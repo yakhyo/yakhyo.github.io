@@ -6,11 +6,19 @@
 // =====================================================================
 // 1. Blog index page
 // =====================================================================
+// Page titles sit one step above .post-content h2 ($text-xl / 26px) on the
+// global type scale, so every page reads h1 > h2 > h3 > body with the same
+// sizes site-wide. Article titles (.post-title) stay the largest at every
+// width, so the mobile steps here track just below .post-title's own steps
+// (1.875rem ≤600px, 1.625rem ≤480px).
 .page-heading {
   margin: 0 0 0.25rem;
-  font-size: $text-xl;
-  font-weight: $weight-medium;
+  font-size: $text-2xl;
+  font-weight: $weight-semibold;
   letter-spacing: -0.015em;
+
+  @media (max-width: 600px) { font-size: 1.75rem; }
+  @media (max-width: 480px) { font-size: 1.5rem; }
 }
 
 // Blog index header: small bold heading + one-line tagline.
@@ -91,39 +99,6 @@
   }
 }
 
-// Topic filter chips
-.topic-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: $space-md 0;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid $border-light;
-}
-
-.filter-btn {
-  padding: 0.5rem 1.25rem;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: $radius-pill;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: $weight-medium;
-  transition: all 0.3s ease;
-  color: #333;
-
-  &:hover {
-    background: $border-light;
-    border-color: #ccc;
-  }
-
-  &.active {
-    background: $brand-primary;
-    color: white;
-    border-color: $brand-primary;
-  }
-}
-
 // Post list (cards on the blog index). The whole row is a click target: the
 // title's <a> uses ::before to span the parent .post-item.
 .post-list {
@@ -132,18 +107,30 @@
 
   .post-item {
     position: relative;
-    margin: 0.5rem -1rem;                   // gap between cards so the shadow has room
-    padding: 0.875rem 1rem;
-    border: 2px solid transparent;          // reserved at all times → no layout shift
-    border-radius: $radius-sharp;           // pixel-frame look
-    background: white;
-    transition: border-color 0.12s ease, box-shadow 0.12s ease,
-                transform 0.12s ease, opacity 0.3s ease;
+    // Bleed the tint 0.75rem past the text on each side so the hover zone has
+    // breathing room while the text stays aligned with the year heading. 0.75rem
+    // stays inside the 15px wrapper gutter, so no horizontal overflow on mobile.
+    margin: 0.25rem -0.75rem;
+    padding: 0.875rem 0.75rem;
+    border-radius: $radius-sharp;
+    transition: opacity 0.3s ease, background-color 0.15s ease;
 
-    &:hover {
-      border-color: $text-primary;          // hard near-black frame
-      box-shadow: 4px 4px 0 0 $text-primary; // chunky offset — the "stamped" look
-      transform: translate(-2px, -2px);     // lifts toward the shadow's origin
+    // The whole row is one click target, so the whole row responds. Hover is
+    // gated behind (hover: hover) so a tap on touch doesn't leave the row stuck
+    // in its hover state; :active is the press feedback on mobile, and
+    // :has(:focus-visible) covers keyboard. All three share one soft tint.
+    @media (hover: hover) {
+      &:hover {
+        background: $bg-soft;
+        .post-link { color: $brand-link; }
+      }
+    }
+
+    &:active { background: $bg-soft; }
+
+    &:has(.post-link:focus-visible) {
+      background: $bg-soft;
+      .post-link { color: $brand-link; }
     }
   }
 
@@ -159,13 +146,24 @@
     .post-link {
       color: inherit;
       text-decoration: none;
+      transition: color 0.15s ease;
 
       // Expand the click target to the full .post-item.
       &::before {
         content: "";
         position: absolute;
         inset: 0;
-        border-radius: inherit;
+        border-radius: $radius-sharp;
+      }
+
+      // Keyboard focus gets a visible ring tracing the whole row (WCAG AA).
+      &:focus-visible {
+        outline: none;
+
+        &::before {
+          outline: 2px solid $brand-primary;
+          outline-offset: 2px;
+        }
       }
     }
   }
@@ -237,23 +235,6 @@
     }
     .search-icon { font-size: 0.9rem; left: 0.9rem; }
   }
-
-  .topic-filter { gap: 0.5rem; }
-  .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
-
-  // Cards normally bleed -1rem horizontally to give the chunky hover shadow
-  // room. On mobile the wrapper padding is too small for that — borders end
-  // up flush against (or past) the viewport edge. Tuck them back inside and
-  // shrink the stamped offset so the hover still fits.
-  .post-list .post-item {
-    margin-left: 0;
-    margin-right: 0;
-
-    &:hover {
-      box-shadow: 2px 2px 0 0 $text-primary;
-      transform: translate(-1px, -1px);
-    }
-  }
 }
 
 // =====================================================================
@@ -274,6 +255,33 @@
 
   @media (max-width: 600px) {
     font-size: 1.875rem;
+  }
+}
+
+// "← back to blog" link above the post title — terminal-voiced mono, muted at
+// rest, sharpening on hover while the arrow nudges left along its axis (same
+// directional language as the other arrow buttons).
+.back-to-blog {
+  @include arrow-nudge(-3px, 0);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-bottom: 1.25rem;
+  font-family: $font-mono-ui;
+  font-size: $text-chrome;
+  color: $chrome-muted;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  .icon {
+    width: 0.9em;
+    height: 0.9em;
+  }
+
+  &:hover {
+    color: $ink-hover;
+    text-decoration: none;
   }
 }
 
@@ -326,6 +334,57 @@
     p:last-child { margin-bottom: 0; }
   }
 
+  // Labeled callout boxes — "Key takeaways" summaries and the "Short answer"
+  // capsules in Q&A posts. Distinct from the serif pull-quote above: these are
+  // structured callouts, not quotations, so they drop the serif/italic editorial
+  // voice for the sans body font inside a pixel-frame box, with a mono uppercase
+  // eyebrow for the bold label (the site's mono identity). Genuine unlabeled
+  // quotes keep the serif blockquote style.
+  blockquote.takeaways,
+  blockquote.callout {
+    margin: 1.75em 0;
+    padding: 1.1rem 1.35rem;
+    border: 1px solid $border-light;
+    border-left: 3px solid $brand-primary;
+    border-radius: $radius-sharp;
+    background: $bg-soft;
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-style: normal;
+    color: $text-primary;
+    line-height: 1.65;
+
+    > p { margin: 0 0 0.6rem; }
+    > p:last-child { margin-bottom: 0; }
+
+    // Bold label -> mono uppercase eyebrow.
+    > p:first-child > strong:first-child {
+      font-family: $font-mono;
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $text-faint;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    li {
+      margin-bottom: 0.4em;
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  // In "Short answer" capsules the label shares a paragraph with the answer,
+  // so promote it to its own line; takeaways labels already sit alone.
+  blockquote.callout > p:first-child > strong:first-child {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
   // Render <hr> as a centered "·  ·  ·" instead of a full-width line.
   hr {
     border: 0;
@@ -340,12 +399,20 @@
     }
   }
 
-  a {
+  // Prose links only: scoped to text containers so UI components rendered
+  // inside content (buttons, back-links, timeline links, social icon rows)
+  // never inherit link blue + underline and don't need per-component
+  // specificity escapes. :where() keeps specificity at .post-content a level.
+  :where(p, li, td, dd) a {
+    color: $brand-link;              // AA-compliant link blue (brand #1e90ff is 3.2:1 — fails as body text)
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
 
-    &:hover { text-decoration-thickness: 2px; }
+    &:hover {
+      color: $brand-primary-hover;
+      text-decoration-thickness: 2px;
+    }
   }
 
   img:not(.profile-photo):not(.timeline-logo),
@@ -720,4 +787,106 @@
   width: 0;
   background: $brand-primary;
   transition: width 80ms linear;
+}
+
+// -----------------------------------------------------------------------------
+// Mobile "On this page" — collapsible disclosure built by toc.js, shown only
+// below the desktop-rail breakpoint (the fixed .post-toc rail needs ≥1280px).
+// -----------------------------------------------------------------------------
+.post-toc-mobile { display: none; }   // hidden by default; revealed below 1280px
+
+@media (max-width: 1279px) {
+  .post-toc-mobile {
+    display: block;
+    margin: 0 0 2rem;
+    border: 1px solid $border-light;
+    border-radius: $radius-md;
+    background: $bg-soft;
+
+    .post-toc-mobile-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      list-style: none;                 // drop the native marker; use our own
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: $text-muted;
+
+      &::-webkit-details-marker { display: none; }
+      &::after {
+        content: "\25BE";               // ▾ — rotates when open
+        font-size: 0.9rem;
+        transition: transform 0.2s ease;
+      }
+    }
+
+    &[open] .post-toc-mobile-summary::after { transform: rotate(180deg); }
+
+    .post-toc-list,
+    .post-toc-sublist { list-style: none; margin: 0; padding: 0; }
+    .post-toc-list { padding: 0 1rem 0.75rem; }
+    .post-toc-sublist { padding-left: 0.85rem; }
+    .post-toc-item { margin: 0.1rem 0; line-height: 1.4; }
+
+    .post-toc-link {
+      display: block;
+      padding: 0.3rem 0;
+      font-size: $text-sm;
+      color: $text-muted;
+      text-decoration: none;
+
+      &:hover { color: $brand-primary; }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Back-to-top button — injected by site.js on post pages, fades in after the
+// reader scrolls down. Sits clear of the left share rail and right TOC rail.
+// -----------------------------------------------------------------------------
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  background: white;
+  color: $text-primary;
+  border: 1px solid $text-primary;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: $shadow-sm;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  // Arrow nudges up on hover — same directional language as the other buttons.
+  @include arrow-nudge(0, -2px);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+  }
+
+  &:hover {
+    color: $ink-hover;
+    border-color: $ink-hover;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }

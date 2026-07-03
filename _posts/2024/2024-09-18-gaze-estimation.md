@@ -1,19 +1,26 @@
 ---
 layout: post
-title: "MobileGaze: Lightweight Gaze Estimation with ResNet, MobileNet, and MobileOne"
+title: "MobileGaze: Lightweight Gaze Estimation with MobileOne"
 date: 2024-09-18 12:00:00 +0900
-modified_date: 2026-05-18 12:00:00 +0900
+modified_date: 2026-07-03 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [gaze-estimation, mobile, classification, regression, edge-deployment]
-description: "MobileGaze estimates gaze direction with ResNet, MobileNetV2, and MobileOne backbones, using Gaze360 training, PyTorch weights, ONNX weights, and real-time inference."
+description: "MobileGaze estimates gaze direction with ResNet, MobileNet, and MobileOne backbones. Gaze360-trained, with PyTorch and ONNX weights for real-time inference."
+image: "https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif"
 ---
 
 MobileGaze estimates gaze direction from a detected face. The project builds on [L2CS-Net](https://github.com/Ahmednull/L2CS-Net), adds more mobile-friendly backbones, and provides PyTorch and ONNX weights for inference. See the project on [github.com/yakhyo/gaze-estimation](https://github.com/yakhyo/gaze-estimation).
 
 ![MobileGaze demo](https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif)
 
-The inference pipeline first detects the face, then predicts gaze direction from the face crop. In the repository, face detection is handled through [UniFace](https://github.com/yakhyo/uniface).
+> **Key takeaways**
+> - MobileGaze predicts gaze as pitch and yaw from a cropped face, trained on Gaze360.
+> - ResNet-34 has the best reported accuracy at 11.33° MAE; MobileOne S0 stays close at 12.58° while being only 4.8 MB.
+> - Every published model ships with both PyTorch and ONNX weights, so you can train in one format and deploy in the other.
+{: .takeaways}
+
+The inference pipeline first detects the face, then predicts gaze direction from the face crop. In the repository, face detection is handled through [UniFace]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}).
 
 ## Model Families
 
@@ -34,6 +41,8 @@ The released models are trained on **Gaze360**. The repository also documents da
 Gaze estimation is reported with MAE in degrees. Lower values mean the predicted gaze direction is closer to the annotation.
 
 ## Reported Results
+
+The short version: ResNet-34 gives the lowest reported error, and MobileOne S0 is the best accuracy-per-megabyte option in the table.
 
 | Model | Size | Epochs | MAE |
 |-------|------|--------|-----|
@@ -71,3 +80,63 @@ The repository provides both PyTorch and ONNX weights for the published models:
 | MobileOne S0 | yes | yes |
 
 Use PyTorch when training or changing the model. Use ONNX when the target application only needs inference.
+
+## FAQ
+
+**Which backbone should I choose?**
+If accuracy is the priority, ResNet-34 has the lowest reported error at 11.33° MAE. If size and speed matter more, MobileOne S0 stays close at 12.58° MAE while being only 4.8 MB, which makes it the better fit for real-time or edge use.
+
+**What dataset are the released models trained on?**
+The published weights are trained on Gaze360. The repository also documents dataset structure for MPIIFaceGaze, but the released pretrained results are Gaze360-based.
+
+**Do I need a separate face detector?**
+Yes. MobileGaze predicts gaze from a cropped face, so the pipeline detects the face first, then estimates gaze on the crop. In the repository, detection is handled through UniFace.
+
+**When should I use the ONNX weights instead of PyTorch?**
+Use PyTorch when you are training or modifying the model, and ONNX when the target application only needs inference without a full PyTorch runtime.
+
+## Related
+
+- [Real-Time Head Pose Estimation with MobileNet and ResNet]({% link _posts/2024/2024-09-17-head-pose-estimation.md %}) — the same detect-then-estimate pattern, applied to head orientation instead of gaze.
+- [UniFace: A Unified Face Analysis Library for Python]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) — the library that bundles this gaze model together with detection, recognition, and parsing.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which backbone should I choose for MobileGaze?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If accuracy is the priority, ResNet-34 has the lowest reported error at 11.33 degrees MAE. If size and speed matter more, MobileOne S0 stays close at 12.58 degrees MAE while being only 4.8 MB, which makes it the better fit for real-time or edge use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What dataset are the released MobileGaze models trained on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The published weights are trained on Gaze360. The repository also documents dataset structure for MPIIFaceGaze, but the released pretrained results are Gaze360-based."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a separate face detector to run gaze estimation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. MobileGaze predicts gaze from a cropped face, so the pipeline detects the face first, then estimates gaze on the crop. In the repository, detection is handled through UniFace."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use the ONNX weights instead of PyTorch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use PyTorch when you are training or modifying the model, and ONNX when the target application only needs inference without a full PyTorch runtime."
+      }
+    }
+  ]
+}
+</script>

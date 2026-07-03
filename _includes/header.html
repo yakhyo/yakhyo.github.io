@@ -6,7 +6,7 @@
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
     {%- comment -%} sr-only span exposes author name variants for SEO crawlers. {%- endcomment -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}" aria-label="{{ site.author.name }} — Home">Home<span class="sr-only"> — {{ site.author.name }}, {{ site.author.preferred_name }}</span></a>
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}" aria-label="{{ site.author.name }} — Home">~/yakhyo<span class="sr-only"> — {{ site.author.name }}</span></a>
 
     {%- if titles_size > 0 -%}
       <nav class="site-nav">
@@ -23,10 +23,13 @@
           {%- for path in page_paths -%}
             {%- assign my_page = site.pages | where: "path", path | first -%}
             {%- if my_page.title -%}
+            {%- comment -%} The "/" is a decorative path prefix — a real span
+            (not CSS content) so it can be aria-hidden from screen readers,
+            which would otherwise announce "slash blog". {%- endcomment -%}
             {%- if my_page.url == page.url -%}
-            <a class="page-link active" href="{{ my_page.url | relative_url }}" aria-current="page">{{ my_page.title | escape }}</a>
+            <a class="page-link active" href="{{ my_page.url | relative_url }}" aria-current="page"><span class="nav-slash" aria-hidden="true">/</span>{{ my_page.title | escape }}</a>
             {%- else -%}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+            <a class="page-link" href="{{ my_page.url | relative_url }}"><span class="nav-slash" aria-hidden="true">/</span>{{ my_page.title | escape }}</a>
             {%- endif -%}
             {%- endif -%}
           {%- endfor -%}

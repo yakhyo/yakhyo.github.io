@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
+      - ".gitignore"
+      - ".editorconfig"
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: HTML & link check
+        run: |
+          bundle exec htmlproofer ./_site \
+            --disable-external \
+            --allow-hash-href \
+            --ignore-empty-alt
+        env:
+          # Nokogiri needs a UTF-8 locale to parse pages containing em-dashes etc.
+          LANG: en_US.UTF-8
+          LC_ALL: en_US.UTF-8

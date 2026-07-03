@@ -5,6 +5,8 @@ layout: default
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
+  <a class="back-to-blog" href="{{ '/blog/' | relative_url }}">{% include icon.html name="arrow-left" %}back to blog</a>
+
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -64,8 +66,9 @@ layout: default
   </header>
 
   {%- comment -%} Right-rail "On this page" TOC — populated client-side by toc.js
-    from the rendered h2/h3, MkDocs-style. Removed if the post has < 2 headings. {%- endcomment -%}
-  <nav class="post-toc" aria-label="On this page" hidden></nav>
+    from the rendered headings, MkDocs-style. Removed if the post has < 2 headings.
+    `toc_depth` (default 3 = h2+h3) lets long Q&A posts drop to h2-only. {%- endcomment -%}
+  <nav class="post-toc" aria-label="On this page" data-toc-depth="{{ page.toc_depth | default: 3 }}" hidden></nav>
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}

@@ -56,10 +56,11 @@
   a {
     color: $text-primary;
     text-decoration: none;
-    transition: transform 0.2s ease;
+    transition: color 0.2s ease;
     font-size: 1.05rem;
 
-    &:hover { transform: translateY(-2px); }
+    // No lift — color shift only, like every other hover on the site.
+    &:hover { color: $ink-hover; }
   }
 }
 

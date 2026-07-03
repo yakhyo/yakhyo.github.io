@@ -5,10 +5,12 @@
 
 <body{% if page.url == '/' %} class="landing-page-body"{% endif %}>
 
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   {%- include announcement-banner.html -%}
   {%- include header.html -%}
 
-  <main class="page-content" aria-label="Content">
+  <main id="main-content" class="page-content" aria-label="Content" tabindex="-1">
     <div class="wrapper">
       {{ content }}
     </div>

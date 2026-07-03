@@ -13,10 +13,13 @@ $content-width: 820px;
 // Minima theme reset / layout. Our partials override or extend where needed.
 @import "minima";
 
-// Design tokens (colors, shadows). Must come before any partial that uses them.
+// Design tokens (colors, shadows) and shared mixins. Must come before any
+// partial that uses them.
 @import "tokens";
+@import "mixins";
 
 // Component partials.
 @import "base";       // typography, icons, utilities, nav, footer, announcement, 404
 @import "blog";       // blog index + single-post layout, code blocks, share row
+@import "syntax";     // light code panels + Rouge token colors (overrides Minima)
 @import "timeline";   // experience timeline on the landing page

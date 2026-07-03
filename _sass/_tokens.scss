@@ -5,14 +5,15 @@
 // =============================================================================
 
 // Brand
-$brand-primary:        #1e90ff;   // links, focus rings, active states
-$brand-primary-hover:  #0066cc;   // darker shade for hover/active
+$brand-primary:        #1e90ff;   // accents, borders, focus rings, active states (3:1 UI — not for body text)
+$brand-primary-hover:  #0066cc;   // darker shade for hover/active (5.6:1)
+$brand-link:           #1877cc;   // in-prose text links — WCAG AA on white (4.6:1)
 
 // Text — four shades, lightest to darkest
 $text-primary:    #1a1a1a;        // body copy, headings
 $text-secondary:  #555;           // post excerpts, secondary labels
 $text-muted:      #595959;        // meta lines, dates, captions, timeline support
-$text-faint:      #999;           // placeholders, empty states
+$text-faint:      #6f6f6f;        // placeholders, empty states, year headings — WCAG AA (4.8:1 on white & $bg-soft)
 
 // Backgrounds & borders
 $bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
@@ -23,16 +24,29 @@ $border-light:   #e8e8e8;         // dividers, input borders
 $color-success:  #10b981;         // "Copied!" state, timeline education accent
 
 // Typography — mono is the site default (see _base.scss).
-// Sans (Inter) is used for blog post body copy; serif is reserved for
+// Sans (Hanken Grotesk) is used for blog post body copy; serif is reserved for
 // blockquotes inside posts so they pick up an editorial voice.
-$font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+// $font-mono-ui is the branded mono for site chrome (nav, wordmark, social
+// text links) — IBM Plex Mono loaded from Google Fonts; code surfaces keep
+// the system stack in $font-mono.
+// Hanken Grotesk: closest free match to Anthropic Sans (code.claude.com docs)
+// — warm grotesque, generous x-height, soft terminals.
+$font-sans:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 $font-serif: 'Charter', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', Times, serif;
 $font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+$font-mono-ui: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+
+// Site chrome (nav + text links) — muted mono treatment, distinct from prose.
+$chrome-muted:  #5b5e66;          // nav links & back-links at rest (~6.5:1 on white)
+
+// Hover ink for the monochrome components (nav, buttons, arrow links, icons,
+// outlines): they rest on $chrome-muted/$text-primary and sharpen to this.
+$ink-hover: #000;
 
 // Corner radii — three steps + pill. Circles use 50% inline (universal idiom).
 $radius-sharp: 2px;     // cards & large surfaces — the pixel-frame look
 $radius-soft:  4px;     // small UI: inline code, tooltips, copy badges
-$radius-md:    6px;     // buttons, inputs, images, logos, post-nav
+$radius-md:    4px;     // buttons, inputs, images, logos, post-nav, code blocks
 $radius-pill:  999px;   // chips, tags — adapts to element height
 
 // Font weights. Use medium by default for emphasis; reserve semibold for
@@ -41,13 +55,15 @@ $weight-regular:  400;
 $weight-medium:   500;
 $weight-semibold: 600;
 
-// Font sizes — six steps cover everything from chip text to post titles.
+// Font sizes — these steps cover everything from chip text to page titles.
 // Hand-tuned one-off sizes (e.g. an oddly-sized button) stay inline.
-$text-xs:    0.75rem;     // 12px — tiny chips, tooltips
-$text-sm:    0.875rem;    // 14px — meta lines, captions, post-meta
-$text-base:  1rem;        // 16px — body default
-$text-lg:    1.25rem;     // 20px — list titles, h4
-$text-xl:    1.625rem;    // 26px — h2, page-heading
+$text-xs:     0.75rem;    // 12px — tiny chips, tooltips
+$text-chrome: 0.8125rem;  // 13px — mono UI chrome: nav links, back-links, timeline meta
+$text-sm:     0.875rem;   // 14px — meta lines, captions, post-meta
+$text-base:   1rem;       // 16px — body default
+$text-lg:     1.25rem;    // 20px — list titles, h4
+$text-xl:     1.625rem;   // 26px — h2
+$text-2xl:    2rem;       // 32px — page titles (.page-heading); article titles size up from here
 
 // Spacing — four steps cover the common rhythms. One-off paddings stay inline.
 $space-xs:   0.5rem;      // 8px  — inline gaps, meta-item gap

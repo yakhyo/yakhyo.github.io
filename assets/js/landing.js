@@ -64,6 +64,53 @@
     setTimeout(tick, 700);
   }
 
+  // Floating scroll-down button: smooth-scrolls to the timeline on click, and
+  // hides itself once you've scrolled past the hero, reappearing when you
+  // scroll back up to the top. Native anchor navigation (and the global
+  // scroll-padding-top that clears the sticky header) still works without JS.
+  function initScrollButton() {
+    const btn = document.querySelector('.scroll-down-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', function (e) {
+      const target = document.querySelector(btn.getAttribute('href'));
+      if (!target) return; // fall back to the bare hash jump
+      e.preventDefault();
+      // Land the section flush under the sticky header instead of relying on
+      // the global scroll-padding-top (5rem), which overshoots the ~57px header.
+      // NOTE: use the offsetTop chain, not getBoundingClientRect(): the section
+      // still has its reveal transform (translateY(30px)) until it scrolls into
+      // view, and getBoundingClientRect() would include that 30px, leaving a gap
+      // once the transform clears. offsetTop is layout-based and transform-free.
+      const header = document.querySelector('.site-header');
+      const offset = header ? header.offsetHeight : 0;
+      let top = 0;
+      for (let el = target; el; el = el.offsetParent) {
+        top += el.offsetTop;
+      }
+      window.scrollTo({
+        top: top - offset,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    });
+
+    // Hide once scrolled past ~40% of the first screen; show again above that.
+    // rAF-throttled so the scroll handler stays cheap.
+    let ticking = false;
+    function update() {
+      const hideAfter = window.innerHeight * 0.4;
+      btn.classList.toggle('is-hidden', window.scrollY > hideAfter);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
+  }
+
   function initTimelineReveal() {
     const timelineSection = document.querySelector('.timeline-section');
     const footer = document.querySelector('footer');
@@ -99,6 +146,7 @@
 
   function init() {
     initTypewriter();
+    initScrollButton();
     initTimelineReveal();
   }
 

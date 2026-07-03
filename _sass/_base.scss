@@ -22,20 +22,15 @@ html {
   transition: filter 0.2s ease;
 }
 
-// Brand colors on social icons only — meta icons (calendar/clock/etc.) stay
-// at currentColor so they tone-match surrounding text.
+// Social icons: monochrome — $text-primary at rest, $ink-hover on hover,
+// the same subtle sharpening as the read-the-blog button (deliberate owner
+// preference over a louder hover cue). Color shift only, no motion.
+// Meta icons (calendar/clock/etc.) are untouched — they stay at currentColor
+// so they tone-match surrounding text.
 .social-links, .footer-social {
-  .icon-github         { color: #181717; }
-  .icon-linkedin       { color: #0a66c2; }
-  .icon-twitter,
-  .icon-x              { color: #000;    }
-  .icon-youtube        { color: #ff0000; }
-  .icon-telegram       { color: #229ed9; }
-  .icon-stack-overflow { color: #f58025; }
-  .icon-google-scholar { color: #4285f4; }
-  .icon-code           { color: #ffa116; } // LeetCode-ish
+  .icon { color: $text-primary; transition: color 0.2s ease; }
 
-  a:hover .icon { filter: brightness(1.15); }
+  a:hover .icon { color: $ink-hover; }
 }
 
 // -----------------------------------------------------------------------------
@@ -62,8 +57,43 @@ html {
   border: 0;
 }
 
+// Skip link (WCAG 2.4.1): off-screen until a keyboard user tabs to it, then it
+// drops in above the sticky header so they can jump past the nav to the content.
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3.5rem;
+  z-index: 200;                 // above the sticky header (z-index 100)
+  padding: 0.5rem 1rem;
+  background: $brand-primary;
+  color: white;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+  text-decoration: none;
+  transition: top 0.15s ease;
+
+  &:focus { top: 0.5rem; }
+}
+
+// The <main> skip target shouldn't paint a focus ring when jumped to.
+#main-content:focus { outline: none; }
+
+// Honor a reduced-motion preference site-wide: neutralize non-essential
+// animation and transitions. State still changes — just instantly.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 // -----------------------------------------------------------------------------
-// Typography — Inter for prose, system mono stack for code (matches GitHub's
+// Typography — Hanken Grotesk for prose, system mono stack for code (matches GitHub's
 // Primer look: SFMono on macOS, Consolas on Windows, etc.).
 // -----------------------------------------------------------------------------
 body {
@@ -112,28 +142,47 @@ strong, b { font-weight: $weight-medium; }
   background: white;
 }
 
+// Wordmark: ~/yakhyo in branded mono — the terminal identity in the chrome.
 .site-title {
+  font-family: $font-mono-ui;
+  font-size: 1rem;
+  font-weight: $weight-semibold;
+  letter-spacing: 0;               // undo Minima's -1px; mono needs no tracking
+  color: $text-primary;
   transition: color 0.3s ease;
 
   &:hover {
     text-decoration: none;
-    color: $brand-primary;
+    color: $ink-hover;
   }
 }
 
-// Underline animates from left on hover; stays underlined on the active page.
+// Nav links: small muted mono, lowercased, each prefixed with a dim "/" so
+// they read as paths under the ~/yakhyo wordmark (the slash is an aria-hidden
+// span in header.html). On hover the slash and label sharpen to black while an
+// underline draws in from the left; both stay dark on the active page.
 .site-nav .page-link {
   position: relative;
+  font-family: $font-mono-ui;
+  font-size: $text-chrome;
+  font-weight: $weight-regular;
+  text-transform: lowercase;
+  color: $chrome-muted;
   transition: color 0.3s ease;
+
+  .nav-slash {
+    color: $text-faint;            // dimmer than the label, still WCAG AA (4.8:1)
+    transition: color 0.3s ease;
+  }
 
   &::after {
     content: '';
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 1px;
     bottom: -2px;
     left: 0;
-    background-color: $brand-primary;
+    background-color: $ink-hover;
     transform: scaleX(0);
     transform-origin: bottom left;
     transition: transform 0.3s ease;
@@ -141,12 +190,14 @@ strong, b { font-weight: $weight-medium; }
 
   &:hover {
     text-decoration: none;
-    color: $brand-primary;
+    color: $ink-hover;
+    .nav-slash { color: $ink-hover; }
     &::after { transform: scaleX(1); }
   }
 
   &.active {
-    color: $brand-primary;
+    color: $ink-hover;
+    .nav-slash { color: $ink-hover; }
     &::after { transform: scaleX(1); }
   }
 }
@@ -188,7 +239,7 @@ strong, b { font-weight: $weight-medium; }
     text-decoration: none;
     transition: color 0.2s ease;
 
-    &:hover { color: $brand-primary; }
+    &:hover { color: $ink-hover; }
   }
 }
 
@@ -284,21 +335,22 @@ strong, b { font-weight: $weight-medium; }
   transition: all 0.25s ease;
   cursor: pointer;
 
+  // No lift on hover — color shift only.
   &:hover {
     border-color: $brand-primary-hover;
     color: $brand-primary-hover;
-    transform: translateY(-2px);
-    box-shadow: $shadow-sm;
     text-decoration: none;
   }
 }
 
 .btn-primary {
-  background: $brand-primary;
+  background: $text-primary;
+  border-color: $text-primary;
   color: white;
 
   &:hover {
-    background: $brand-primary-hover;
+    background: $ink-hover;
+    border-color: $ink-hover;
     color: white;
   }
 }
