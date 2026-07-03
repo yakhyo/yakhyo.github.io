@@ -9,7 +9,18 @@
 
 This is the source code for [yakhyo.github.io](https://yakhyo.github.io), my personal website and technical blog. It is a Jekyll site based on Minima, customized for a simple landing page, experience timeline, resume, and blog posts.
 
+## Design
+
+The site is light-only and mostly monochrome, with a terminal-flavored identity: the `~/yakhyo` wordmark, `/blog /about /resume` nav paths, and a `$ whoami` hero prompt, all set in IBM Plex Mono. Body copy uses Hanken Grotesk; the landing nameplate uses Oswald.
+
+Styling rules live in two places every change should respect:
+
+- `_sass/_tokens.scss` — single source of truth for colors, type scale, spacing, radii, and shadows. Any value used in more than one place belongs here, not inline.
+- `_sass/_mixins.scss` — shared interaction patterns (e.g. `arrow-nudge`, the only sanctioned hover motion; everything else is color-shift only).
+
 ## Run Locally
+
+Requires Ruby 3.3 (see `.ruby-version`).
 
 ```bash
 bundle install
@@ -37,11 +48,22 @@ bundle exec htmlproofer ./_site --disable-external --allow-hash-href \
 _posts/        Blog posts
 _pages/        Standalone pages such as About, Blog, and Resume
 _layouts/      Jekyll layouts
-_includes/     Shared partials
-_data/         Timeline data
-_sass/         Shared styles
-assets/        CSS, JavaScript, images, and resume files
-_config.yml    Site configuration
+_includes/     Shared partials (header, icons, timeline, ...)
+_data/         Timeline data (experience/education entries)
+_sass/         Shared styles: tokens, mixins, base, blog, timeline, syntax
+assets/        Compiled CSS entrypoints, per-page styles, JS, images, resume PDF
+_config.yml    Site configuration (nav pages, landing titles, profiles)
+```
+
+## Dependencies
+
+Gem versions are pinned by `Gemfile.lock` (committed), and CI installs from the
+lockfile, so local and deployed builds use identical versions. To upgrade
+deliberately:
+
+```bash
+bundle outdated          # see what has newer releases
+bundle update <gem>      # update the lockfile for that gem
 ```
 
 ## Writing

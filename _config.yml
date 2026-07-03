@@ -45,6 +45,7 @@ plugins:
 header_pages:
   - _pages/blog.md
   - _pages/about.md
+  - _pages/resume.md
 
 include:
   - _pages
@@ -68,8 +69,8 @@ resume:
 
 # Typewriter titles cycled on the landing page.
 landing_titles:
-  - "ML Software Engineer"
-  - "MLOps Engineer"
+  - "AI/ML Software Engineer"
+  - "ML Researcher"
 
 # Fallback OG/Twitter image for posts that don't define their own `image:`.
 defaults:

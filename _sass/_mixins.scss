@@ -1,0 +1,21 @@
+// =============================================================================
+// Shared mixins. Import after tokens, before any component partial that uses
+// them (both assets/main.scss and per-page sheets like landing.scss).
+// =============================================================================
+
+// Directional arrow nudge — the site's one sanctioned hover motion: the arrow
+// inside a link/button slides along its own axis while everything else holds
+// still. Include on the link/button itself.
+@mixin arrow-nudge($x: 0, $y: 0) {
+  .icon,
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    .icon,
+    svg {
+      transform: translate($x, $y);
+    }
+  }
+}

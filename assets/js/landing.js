@@ -73,7 +73,7 @@
     if (!btn) return;
 
     btn.addEventListener('click', function (e) {
-      const target = document.querySelector('#experience');
+      const target = document.querySelector(btn.getAttribute('href'));
       if (!target) return; // fall back to the bare hash jump
       e.preventDefault();
       // Land the section flush under the sticky header instead of relying on

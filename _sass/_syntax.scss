@@ -1,0 +1,80 @@
+// =============================================================================
+// Syntax highlighting — light code panels (One Light palette) matching the
+// site's light-only theme. Keeps Minima's soft #eef background but replaces
+// its near-monochrome token colors with a real palette, plus roomier padding
+// and a thin scrollbar. Scoped to .post-content; inline code chips keep their
+// light style from _blog.scss. Colors live here (not _tokens.scss): they form
+// a self-contained code palette used nowhere else on the site.
+// =============================================================================
+
+$code-bg:      #eef;              // Minima's original panel color
+$code-fg:      #383a42;
+$code-comment: #8c8fa1;
+$code-keyword: #a626a4;
+$code-string:  #50a14f;
+$code-number:  #986801;
+$code-func:    #4078f2;
+$code-class:   #c18401;
+$code-tag:     #e45649;
+$code-cyan:    #0184bc;
+
+.post-content {
+  // Minima paints the background on both the wrapper and the <pre> — cover both.
+  .highlighter-rouge .highlight,
+  .highlight,
+  pre {
+    background: $code-bg;
+  }
+
+  pre {
+    border: 1px solid $border-light;
+    border-radius: $radius-md;
+    padding: 1rem 1.25rem;
+    color: $code-fg;
+    line-height: 1.65;
+
+    // Thin, unobtrusive scrollbar for long lines.
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+    &::-webkit-scrollbar { height: 8px; }
+    &::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+  }
+
+  pre code {
+    color: $code-fg;
+  }
+
+  // Rouge token colors.
+  .highlight {
+    .c, .cm, .c1, .cs, .cd, .cp { color: $code-comment; font-style: italic; }
+
+    .k, .kd, .kn, .kp, .kr, .kv { color: $code-keyword; }
+    .kt                         { color: $code-class; }
+    .o, .ow                     { color: $code-keyword; }
+
+    .s, .sa, .sb, .sc, .sd, .s2,
+    .se, .sh, .si, .sx, .s1, .ss { color: $code-string; }
+    .sr                          { color: $code-cyan; }
+
+    .m, .mb, .mf, .mh, .mi, .mo, .mx, .il { color: $code-number; }
+
+    .nf, .fm       { color: $code-func; }
+    .nc, .nn, .no  { color: $code-class; }
+    .nb, .bp       { color: $code-class; }
+    .nd            { color: $code-func; }
+    .nt            { color: $code-tag; }
+    .na            { color: $code-number; }
+    .nv, .vc, .vg, .vi { color: $code-tag; }
+
+    .p, .pi { color: $code-fg; }
+    .err    { color: $code-tag; background: none; }
+
+    // Diff / generic
+    .gd     { color: $code-tag; background: none; }
+    .gi     { color: $code-string; background: none; }
+    .gh, .gu { color: $code-func; font-weight: $weight-semibold; }
+    .ge     { font-style: italic; }
+    .gs     { font-weight: $weight-semibold; }
+  }
+}

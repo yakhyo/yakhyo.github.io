@@ -6,11 +6,19 @@
 // =====================================================================
 // 1. Blog index page
 // =====================================================================
+// Page titles sit one step above .post-content h2 ($text-xl / 26px) on the
+// global type scale, so every page reads h1 > h2 > h3 > body with the same
+// sizes site-wide. Article titles (.post-title) stay the largest at every
+// width, so the mobile steps here track just below .post-title's own steps
+// (1.875rem ≤600px, 1.625rem ≤480px).
 .page-heading {
   margin: 0 0 0.25rem;
-  font-size: $text-xl;
-  font-weight: $weight-medium;
+  font-size: $text-2xl;
+  font-weight: $weight-semibold;
   letter-spacing: -0.015em;
+
+  @media (max-width: 600px) { font-size: 1.75rem; }
+  @media (max-width: 480px) { font-size: 1.5rem; }
 }
 
 // Blog index header: small bold heading + one-line tagline.
@@ -250,6 +258,33 @@
   }
 }
 
+// "← back to blog" link above the post title — terminal-voiced mono, muted at
+// rest, sharpening on hover while the arrow nudges left along its axis (same
+// directional language as the other arrow buttons).
+.back-to-blog {
+  @include arrow-nudge(-3px, 0);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-bottom: 1.25rem;
+  font-family: $font-mono-ui;
+  font-size: $text-chrome;
+  color: $chrome-muted;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  .icon {
+    width: 0.9em;
+    height: 0.9em;
+  }
+
+  &:hover {
+    color: $ink-hover;
+    text-decoration: none;
+  }
+}
+
 .post-content {
   font-family: $font-sans;
   font-size: 1.0625rem;
@@ -364,7 +399,11 @@
     }
   }
 
-  a {
+  // Prose links only: scoped to text containers so UI components rendered
+  // inside content (buttons, back-links, timeline links, social icon rows)
+  // never inherit link blue + underline and don't need per-component
+  // specificity escapes. :where() keeps specificity at .post-content a level.
+  :where(p, li, td, dd) a {
     color: $brand-link;              // AA-compliant link blue (brand #1e90ff is 3.2:1 — fails as body text)
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -817,23 +856,33 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   padding: 0;
-  background: $brand-primary;
-  color: white;
-  border: none;
+  background: white;
+  color: $text-primary;
+  border: 1px solid $text-primary;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: $shadow-lg;
+  box-shadow: $shadow-sm;
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
-  svg { width: 1.15rem; height: 1.15rem; display: block; }
+  // Arrow nudges up on hover — same directional language as the other buttons.
+  @include arrow-nudge(0, -2px);
 
-  &:hover { background: $brand-primary-hover; }
+  svg {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+  }
+
+  &:hover {
+    color: $ink-hover;
+    border-color: $ink-hover;
+  }
 
   &.is-visible {
     opacity: 1;

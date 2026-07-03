@@ -38,12 +38,12 @@
   width: 1px;
   background: linear-gradient(
     to bottom,
-    rgba($brand-primary, 0.85) 0%,
+    rgba($text-primary, 0.6) 0%,
     rgba(100, 116, 139, 0.55) 100%
   );
 }
 
-// Hollow dot with a blue ring — uniform across categories (the WORK/RESEARCH/
+// Hollow dot with a dark ring — uniform across categories (the WORK/RESEARCH/
 // EDUCATION chip already carries the category colour, so the marker doesn't
 // need to repeat it).
 .timeline-marker {
@@ -54,23 +54,23 @@
   height: var(--marker-size);
   box-sizing: border-box;          // dot renders exactly --marker-size so the rail centres on it
   background: white;
-  border: 2px solid $brand-primary;
+  border: 2px solid $text-primary;
   border-radius: 50%;
   z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-// Current entry: filled blue dot that pulses an expanding ring so the live
+// Current entry: filled dark dot that pulses an expanding ring so the live
 // item reads as "now".
 .timeline-entry[data-current="true"] .timeline-marker {
-  background: $brand-primary;
+  background: $text-primary;
   animation: pulse-marker 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse-marker {
-  0%   { box-shadow: 0 0 0 0 rgba($brand-primary, 0.4); }
-  70%  { box-shadow: 0 0 0 6px rgba($brand-primary, 0); }
-  100% { box-shadow: 0 0 0 0 rgba($brand-primary, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba($text-primary, 0.35); }
+  70%  { box-shadow: 0 0 0 6px rgba($text-primary, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($text-primary, 0); }
 }
 
 .timeline-entry:hover .timeline-marker {
@@ -153,7 +153,7 @@
 
 .timeline-description {
   margin: 0 0 0.75rem 0;
-  font-size: 0.8125rem;
+  font-size: $text-chrome;
   line-height: 1.7;
   color: $text-secondary;
 }
@@ -171,9 +171,11 @@
   color: $text-muted;
 }
 
+// Amber — sits alongside research purple and education green without
+// repeating the blue that used to run through the whole timeline.
 .timeline-entry[data-category="work"] .timeline-category {
-  background: #e8f4fd;
-  color: $brand-primary;
+  background: #fff7ed;
+  color: #c2410c;
 }
 
 .timeline-entry[data-category="research"] .timeline-category {
@@ -186,19 +188,29 @@
   color: $color-success;
 }
 
+// No underline — the corner arrow nudges along its own diagonal instead.
 .timeline-link {
-  display: inline-block;
+  @include arrow-nudge(2px, -2px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
   margin-top: 0.5rem;
-  font-size: 0.8125rem;
-  color: $brand-primary;
+  font-size: $text-chrome;
+  color: $text-primary;
   text-decoration: none;
   font-weight: $weight-medium;
   transition: color 0.2s ease;
-}
 
-.timeline-link:hover {
-  color: $brand-primary-hover;
-  text-decoration: underline;
+  .icon {
+    width: 0.7em;
+    height: 0.7em;
+  }
+
+  &:hover {
+    color: $ink-hover;
+    text-decoration: none;
+  }
 }
 
 .timeline-empty {
