@@ -41,7 +41,7 @@ html {
 :focus-visible {
   outline: 2px solid $brand-primary;
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: $radius;       // match the unified surface radius
 }
 
 // Visually hide while keeping accessible to screen readers.
@@ -66,8 +66,11 @@ html {
   z-index: 200;                 // above the sticky header (z-index 100)
   padding: 0.5rem 1rem;
   background: $brand-primary;
-  color: white;
-  border-radius: $radius-md;
+  // Pair the foreground with the button-fill token so it inverts with the
+  // background: white-on-ink in light, ink-on-light in dark. A hardcoded
+  // `white` was invisible in dark ($brand-primary flips to near-white).
+  color: $btn-solid-fg;
+  border-radius: $radius;
   font-size: $text-sm;
   font-weight: $weight-medium;
   text-decoration: none;
@@ -102,6 +105,7 @@ body {
   line-height: 1.55;
   letter-spacing: 0;
   color: $text-primary;
+  background: $bg-page;        // themed page surface (light default / dark override)
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -136,10 +140,13 @@ strong, b { font-weight: $weight-medium; }
 // -----------------------------------------------------------------------------
 .site-header {
   border-top: none;             // drop Minima's default top border
+  // Minima's bottom border is a hardcoded light gray (#e8e8e8) — harsh on the
+  // dark header. Re-point it at the themed border token.
+  border-bottom: 1px solid $border-light;
   position: sticky;
   top: 0;
   z-index: 100;
-  background: white;
+  background: $bg-surface;
 }
 
 // Wordmark: ~/yakhyo in branded mono — the terminal identity in the chrome.
@@ -155,6 +162,16 @@ strong, b { font-weight: $weight-medium; }
     text-decoration: none;
     color: $ink-hover;
   }
+}
+
+// In dark mode the wordmark's heavier 600 mono reads a touch flatter than the
+// crisp lighter-weight nav links beside it, so at $text-primary (#ededed) it
+// looks *dimmer* than the nav despite being brighter numerically. Take it to
+// pure white ($ink-hover → #fff in dark) so it clearly anchors the chrome as
+// the brightest element. Light mode keeps $text-primary from the rule above.
+:root[data-theme="dark"] .site-title { color: $ink-hover; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-title { color: $ink-hover; }
 }
 
 // Nav links: small muted mono, lowercased, each prefixed with a dim "/" so
@@ -203,6 +220,96 @@ strong, b { font-weight: $weight-medium; }
 }
 
 // -----------------------------------------------------------------------------
+// Theme toggle — monochrome icon button in the header chrome. Floated right so
+// it sits at the far edge, left of the nav. Rests on $chrome-muted, sharpens to
+// $ink-hover — the same interaction language as the nav links.
+// -----------------------------------------------------------------------------
+.theme-toggle {
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  // Centre the 36px button against Minima's ~54px header line.
+  margin: 9px 0 9px 0.5rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: $radius;
+  color: $chrome-muted;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s ease;
+
+  &:hover { color: $ink-hover; }
+
+  .theme-icon { display: none; }
+  // Default (light): show the moon ("switch to dark").
+  .theme-icon-light { display: block; }
+
+  // Below 600px Minima turns .site-nav into an absolutely-positioned hamburger
+  // pinned to the right; clear it so the toggle sits to its left, not under it.
+  @media screen and (max-width: 600px) {
+    margin-right: 2.75rem;
+  }
+}
+
+// Dark chosen explicitly → show the sun ("switch to light").
+:root[data-theme="dark"] .theme-toggle {
+  .theme-icon-light { display: none; }
+  .theme-icon-dark  { display: block; }
+}
+
+// Following the OS in the dark (no explicit choice) → also show the sun.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle {
+    .theme-icon-light { display: none; }
+    .theme-icon-dark  { display: block; }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Minima base overrides — a few of Minima's stock defaults ship hardcoded light
+// colors that don't adapt to the theme. Re-point them at tokens so dark mode is
+// complete outside our own components. (These load after `@import "minima"`, so
+// they win on source order.)
+// -----------------------------------------------------------------------------
+
+// Tables: text color, header fill, and cell borders. Used on the resume and any
+// content table; .post-content refines cell spacing/borders on top. Minima ships
+// two hardcoded-light defaults that break in dark mode: a lightened cell text
+// color (#3f3f3f — invisible on dark) and a zebra stripe (tr:nth-child(even) —
+// a muddy checkerboard). Re-point the text at the themed token and neutralize
+// the stripe so rows are separated by borders alone.
+table {
+  color: $text-primary;
+
+  th {
+    background-color: $bg-soft;
+    border-color: $border-light;
+  }
+  td { border-color: $border-light; }
+  tr:nth-child(even) { background-color: transparent; }
+}
+
+// Global inline code / <pre> (Minima paints these #eef with an #e8e8e8 border).
+// .post-content code surfaces override this again via _blog / _syntax.
+pre, code {
+  background-color: $bg-tag;
+  border-color: $border-light;
+}
+
+// Mobile nav dropdown panel (opens below 600px) — Minima hardcodes it white.
+@media screen and (max-width: 600px) {
+  .site-nav {
+    background-color: $bg-surface;
+    border-color: $border-light;
+  }
+}
+
+// -----------------------------------------------------------------------------
 // Site footer
 // -----------------------------------------------------------------------------
 .site-footer {
@@ -224,7 +331,7 @@ strong, b { font-weight: $weight-medium; }
   p {
     margin: 0;
     font-size: $text-sm;
-    color: #767676;
+    color: $text-muted;
     font-weight: $weight-regular;
   }
 }
@@ -260,8 +367,8 @@ strong, b { font-weight: $weight-medium; }
 // Kept low-saturation so it doesn't compete with the landing page name.
 // -----------------------------------------------------------------------------
 .announcement-banner {
-  background: #f5f7fa;
-  color: #333;
+  background: $bg-subtle;
+  color: $text-secondary;
   border-bottom: 1px solid $border-light;
   padding: 0.5rem 1rem;
   text-align: center;
@@ -325,7 +432,7 @@ strong, b { font-weight: $weight-medium; }
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.25rem;
-  border-radius: $radius-md;
+  border-radius: $radius;
   font-weight: $weight-medium;
   font-size: 0.95rem;
   text-decoration: none;
@@ -344,14 +451,14 @@ strong, b { font-weight: $weight-medium; }
 }
 
 .btn-primary {
-  background: $text-primary;
-  border-color: $text-primary;
-  color: white;
+  background: $btn-solid-bg;
+  border-color: $btn-solid-bg;
+  color: $btn-solid-fg;
 
   &:hover {
     background: $ink-hover;
     border-color: $ink-hover;
-    color: white;
+    color: $btn-solid-fg;
   }
 }
 

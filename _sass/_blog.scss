@@ -50,7 +50,7 @@
     padding: 0.5rem 0.875rem 0.5rem 2.25rem;
     font-size: 0.9rem;
     border: 1px solid $border-light;
-    border-radius: $radius-md;
+    border-radius: $radius;
     outline: none;
     transition: all 0.3s ease;
     background: $bg-soft;
@@ -58,7 +58,7 @@
 
     &:focus {
       border-color: $brand-primary;
-      background: white;
+      background: $bg-surface;
       box-shadow: $shadow-sm;
     }
 
@@ -89,7 +89,7 @@
   color: $text-faint;
   margin: 0 0 1rem;
   padding: 0.6rem 0 0.4rem;
-  background: white;
+  background: $bg-page;
   border-bottom: 1px solid $border-light;
 
   // On phones the year sticky-strip steals vertical space and the index is
@@ -112,7 +112,7 @@
     // stays inside the 15px wrapper gutter, so no horizontal overflow on mobile.
     margin: 0.25rem -0.75rem;
     padding: 0.875rem 0.75rem;
-    border-radius: $radius-sharp;
+    border-radius: $radius;
     transition: opacity 0.3s ease, background-color 0.15s ease;
 
     // The whole row is one click target, so the whole row responds. Hover is
@@ -153,7 +153,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        border-radius: $radius-sharp;
+        border-radius: $radius;
       }
 
       // Keyboard focus gets a visible ring tracing the whole row (WCAG AA).
@@ -199,9 +199,9 @@
   .tag {
     background: $bg-tag;
     padding: 0.15rem 0.6rem;
-    border-radius: $radius-pill;
+    border-radius: $radius;
     font-size: $text-xs;
-    color: #424242;
+    color: $text-secondary;
   }
 }
 
@@ -279,6 +279,10 @@
     height: 0.9em;
   }
 
+  // Keep the back-link muted after it's been visited (Minima's `a:visited`
+  // blue outranks this class rule otherwise).
+  &:visited { color: $chrome-muted; }
+
   &:hover {
     color: $ink-hover;
     text-decoration: none;
@@ -307,7 +311,7 @@
     font-size: 0.9em;
     background: $bg-tag;
     padding: 0.1em 0.35em;
-    border-radius: $radius-soft;
+    border-radius: $radius;
   }
   // Code inside <pre> is styled by Minima's rouge block — don't double-pad it.
   pre code { background: none; padding: 0; font-size: 0.95em; }
@@ -346,7 +350,7 @@
     padding: 1.1rem 1.35rem;
     border: 1px solid $border-light;
     border-left: 3px solid $brand-primary;
-    border-radius: $radius-sharp;
+    border-radius: $radius;
     background: $bg-soft;
     font-family: $font-sans;
     font-size: $text-base;
@@ -401,13 +405,17 @@
 
   // Prose links only: scoped to text containers so UI components rendered
   // inside content (buttons, back-links, timeline links, social icon rows)
-  // never inherit link blue + underline and don't need per-component
+  // never inherit the underline and don't need per-component
   // specificity escapes. :where() keeps specificity at .post-content a level.
   :where(p, li, td, dd) a {
-    color: $brand-link;              // AA-compliant link blue (brand #1e90ff is 3.2:1 — fails as body text)
+    color: $brand-link;              // ink — the underline (not a hue) marks it as a link
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
+
+    // Minima's `a:visited` is blue (0,1,1) — without this pin a clicked prose
+    // link would turn blue and break the monochrome palette. Keep it ink.
+    &:visited { color: $brand-link; }
 
     &:hover {
       color: $brand-primary-hover;
@@ -420,7 +428,7 @@
   iframe {
     max-width: 100%;
     height: auto;
-    border-radius: $radius-md;
+    border-radius: $radius;
   }
 
   img:not(.profile-photo):not(.timeline-logo) {
@@ -469,10 +477,14 @@
       vertical-align: top;
     }
 
+    // Header stands off the body with a fill one step up from the page ($bg-tag)
+    // plus a firmer bottom rule, so it reads as a header in both themes without
+    // relying on zebra striping.
     th {
       font-weight: $weight-semibold;
       color: $text-primary;
-      background: $bg-soft;
+      background: $bg-tag;
+      border-bottom: 1px solid $text-faint;
     }
 
     // Mobile: drop to `display: block` + horizontal scroll so wide tables
@@ -498,9 +510,9 @@
       width: 1.5rem;
       height: 1.5rem;
       padding: 0;
-      background: rgba(255, 255, 255, 0.9);
+      background: $surface-overlay;
       border: 1px solid $border-light;
-      border-radius: $radius-soft;
+      border-radius: $radius;
       color: $text-muted;
       cursor: pointer;
       transition: color 0.15s ease, border-color 0.15s ease, background 0.2s ease;
@@ -508,7 +520,7 @@
       svg { width: 0.8rem; height: 0.8rem; display: block; }
 
       &:hover {
-        background: white;
+        background: $bg-surface;
         color: $brand-primary;
         border-color: $brand-primary;
       }
@@ -641,6 +653,11 @@
     padding-left: 0.9rem;
     transition: color 0.15s ease, border-color 0.15s ease;
 
+    // Anchor links mark themselves visited on click; keep the rail muted so it
+    // doesn't get stuck on Minima's visited-blue (:hover / .is-active below
+    // still win and turn it brand-blue).
+    &:visited { color: $text-muted; }
+
     &:hover {
       color: $brand-primary;
       text-decoration: none;
@@ -690,10 +707,10 @@
   bottom: calc(100% + 0.4rem);
   left: 50%;
   transform: translateX(-50%);
-  background: $text-primary;
-  color: white;
+  background: $btn-solid-bg;
+  color: $btn-solid-fg;
   padding: 0.2rem 0.5rem;
-  border-radius: $radius-soft;
+  border-radius: $radius;
   font-size: 0.7rem;
   font-weight: $weight-semibold;
   white-space: nowrap;
@@ -743,7 +760,7 @@
     color: $text-primary;
     padding: 0.75rem 1rem;
     border: 1px solid $border-light;
-    border-radius: $radius-md;
+    border-radius: $radius;
     transition: border-color 0.2s ease, color 0.2s ease;
 
     &:hover {
@@ -800,7 +817,7 @@
     display: block;
     margin: 0 0 2rem;
     border: 1px solid $border-light;
-    border-radius: $radius-md;
+    border-radius: $radius;
     background: $bg-soft;
 
     .post-toc-mobile-summary {
@@ -859,7 +876,7 @@
   width: 2.25rem;
   height: 2.25rem;
   padding: 0;
-  background: white;
+  background: $bg-surface;
   color: $text-primary;
   border: 1px solid $text-primary;
   border-radius: 50%;

@@ -4,18 +4,45 @@
   --mermaid-control-size-mobile: 1.75rem;
   --mermaid-lightbox-close-size: 2.35rem;
   --mermaid-lightbox-close-size-mobile: 2.15rem;
+
+  /* Theme-varying skin (light values). The dark blocks at the bottom re-point
+     ONLY these custom properties, so each rule below has a single source of
+     truth — no duplicated rule bodies to drift between the two dark entry
+     points (explicit [data-theme="dark"] and OS-dark). */
+  --mm-frame-border: rgba(17, 24, 39, 0.12);
+  --mm-frame-bg:
+    radial-gradient(circle at top left, rgba(236, 254, 255, 0.9), transparent 42%),
+    linear-gradient(180deg, rgba(249, 250, 251, 0.96), rgba(255, 255, 255, 0.98));
+  --mm-frame-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  --mm-frame-border-hover: rgba(14, 165, 233, 0.24);
+  --mm-frame-shadow-hover: 0 16px 34px rgba(15, 23, 42, 0.09);
+
+  --mm-ctrl-border: rgba(17, 24, 39, 0.08);
+  --mm-ctrl-bg: rgba(255, 255, 255, 0.82);
+  --mm-ctrl-bg-hover: rgba(255, 255, 255, 0.96);
+  --mm-ctrl-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  --mm-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+  --mm-panel-bg:
+    radial-gradient(circle at top left, rgba(236, 254, 255, 0.92), transparent 38%),
+    linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(255, 255, 255, 1));
+  --mm-panel-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+
+  --mm-close-bg: rgba(255, 255, 255, 0.9);
+  --mm-close-bg-hover: rgba(255, 255, 255, 1);
+  --mm-close-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  --mm-close-shadow-hover: 0 14px 34px rgba(15, 23, 42, 0.16);
+  --mm-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
 }
 
 .post-content .mermaid {
   position: relative;
   margin: 1.5rem 0;
   padding: 1rem;
-  border: 1px solid rgba(17, 24, 39, 0.12);
+  border: 1px solid var(--mm-frame-border);
   border-radius: 16px;
-  background:
-    radial-gradient(circle at top left, rgba(236, 254, 255, 0.9), transparent 42%),
-    linear-gradient(180deg, rgba(249, 250, 251, 0.96), rgba(255, 255, 255, 0.98));
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  background: var(--mm-frame-bg);
+  box-shadow: var(--mm-frame-shadow);
   overflow: hidden;
   cursor: zoom-in;
   transition:
@@ -45,14 +72,14 @@
   right: 0.75rem;
   width: var(--mermaid-control-size);
   height: var(--mermaid-control-size);
-  border: 1px solid rgba(17, 24, 39, 0.08);
+  border: 1px solid var(--mm-ctrl-border);
   border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.82);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+  background-color: var(--mm-ctrl-bg);
+  background-image: var(--mm-expand-icon);
   background-repeat: no-repeat;
   background-position: center;
   background-size: var(--mermaid-control-icon-size) var(--mermaid-control-icon-size);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  box-shadow: var(--mm-ctrl-shadow);
   opacity: 0.72;
   pointer-events: none;
   transition:
@@ -63,15 +90,15 @@
 
 .post-content .mermaid:hover,
 .post-content .mermaid:focus-visible {
-  border-color: rgba(14, 165, 233, 0.24);
-  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.09);
+  border-color: var(--mm-frame-border-hover);
+  box-shadow: var(--mm-frame-shadow-hover);
 }
 
 .post-content .mermaid:hover::after,
 .post-content .mermaid:focus-visible::after {
   opacity: 1;
   transform: scale(1.04);
-  background-color: rgba(255, 255, 255, 0.96);
+  background-color: var(--mm-ctrl-bg-hover);
 }
 
 .post-content .mermaid:focus-visible {
@@ -102,10 +129,8 @@ body.mermaid-lightbox-open {
   overflow: hidden;
   padding: 1rem;
   border-radius: 22px;
-  background:
-    radial-gradient(circle at top left, rgba(236, 254, 255, 0.92), transparent 38%),
-    linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(255, 255, 255, 1));
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+  background: var(--mm-panel-bg);
+  box-shadow: var(--mm-panel-shadow);
 }
 
 .mermaid-lightbox__close {
@@ -115,10 +140,10 @@ body.mermaid-lightbox-open {
   z-index: 1;
   width: var(--mermaid-lightbox-close-size);
   height: var(--mermaid-lightbox-close-size);
-  border: 1px solid rgba(17, 24, 39, 0.08);
+  border: 1px solid var(--mm-ctrl-border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  background: var(--mm-close-bg);
+  box-shadow: var(--mm-close-shadow);
   cursor: pointer;
   transition:
     transform 160ms ease,
@@ -133,7 +158,7 @@ body.mermaid-lightbox-open {
   margin: auto;
   width: var(--mermaid-control-icon-size);
   height: var(--mermaid-control-icon-size);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+  background-image: var(--mm-close-icon);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -141,8 +166,8 @@ body.mermaid-lightbox-open {
 
 .mermaid-lightbox__close:hover,
 .mermaid-lightbox__close:focus-visible {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  background: var(--mm-close-bg-hover);
+  box-shadow: var(--mm-close-shadow-hover);
   transform: scale(1.04);
 }
 
@@ -164,6 +189,69 @@ body.mermaid-lightbox-open {
   max-width: none;
   height: auto;
   margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark mode. Mermaid bakes node/edge colors into the SVG at render time
+   (handled in mermaid.js); these blocks only re-point the --mm-* skin variables
+   at the dark surfaces — the rules above consume them, so there is one source of
+   truth per property. Declared for an explicit choice ([data-theme="dark"]) and
+   for OS-dark with no explicit override (:not([data-theme="light"]) in @media).
+   --------------------------------------------------------------------------- */
+:root[data-theme="dark"] {
+  --mm-frame-border: rgba(255, 255, 255, 0.12);
+  --mm-frame-bg:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 42%),
+    linear-gradient(180deg, #16171b, #111214);
+  --mm-frame-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  --mm-frame-border-hover: rgba(56, 189, 248, 0.35);
+  --mm-frame-shadow-hover: 0 16px 34px rgba(0, 0, 0, 0.6);
+
+  --mm-ctrl-border: rgba(255, 255, 255, 0.12);
+  --mm-ctrl-bg: rgba(22, 22, 25, 0.85);
+  --mm-ctrl-bg-hover: rgba(30, 30, 34, 0.96);
+  --mm-ctrl-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  --mm-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+  --mm-panel-bg:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 38%),
+    linear-gradient(180deg, #16171b, #111214);
+  --mm-panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+
+  --mm-close-bg: rgba(22, 22, 25, 0.9);
+  --mm-close-bg-hover: rgba(34, 34, 38, 1);
+  --mm-close-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  --mm-close-shadow-hover: 0 14px 34px rgba(0, 0, 0, 0.6);
+  --mm-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --mm-frame-border: rgba(255, 255, 255, 0.12);
+    --mm-frame-bg:
+      radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 42%),
+      linear-gradient(180deg, #16171b, #111214);
+    --mm-frame-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    --mm-frame-border-hover: rgba(56, 189, 248, 0.35);
+    --mm-frame-shadow-hover: 0 16px 34px rgba(0, 0, 0, 0.6);
+
+    --mm-ctrl-border: rgba(255, 255, 255, 0.12);
+    --mm-ctrl-bg: rgba(22, 22, 25, 0.85);
+    --mm-ctrl-bg-hover: rgba(30, 30, 34, 0.96);
+    --mm-ctrl-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    --mm-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+    --mm-panel-bg:
+      radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 38%),
+      linear-gradient(180deg, #16171b, #111214);
+    --mm-panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+
+    --mm-close-bg: rgba(22, 22, 25, 0.9);
+    --mm-close-bg-hover: rgba(34, 34, 38, 1);
+    --mm-close-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    --mm-close-shadow-hover: 0 14px 34px rgba(0, 0, 0, 0.6);
+    --mm-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+  }
 }
 
 @media (max-width: 700px) {

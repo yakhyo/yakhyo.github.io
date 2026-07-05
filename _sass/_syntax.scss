@@ -1,22 +1,10 @@
 // =============================================================================
 // Syntax highlighting — light code panels (One Light palette) matching the
-// site's light-only theme. Keeps Minima's soft #eef background but replaces
-// its near-monochrome token colors with a real palette, plus roomier padding
-// and a thin scrollbar. Scoped to .post-content; inline code chips keep their
-// light style from _blog.scss. Colors live here (not _tokens.scss): they form
-// a self-contained code palette used nowhere else on the site.
+// site's theme. One Light in light mode, One Dark under dark mode — both wired
+// through the $code-* tokens (defined in _tokens.scss so they can flip at
+// runtime), plus roomier padding and a thin scrollbar. Scoped to .post-content;
+// inline code chips keep their style from _blog.scss.
 // =============================================================================
-
-$code-bg:      #eef;              // Minima's original panel color
-$code-fg:      #383a42;
-$code-comment: #8c8fa1;
-$code-keyword: #a626a4;
-$code-string:  #50a14f;
-$code-number:  #986801;
-$code-func:    #4078f2;
-$code-class:   #c18401;
-$code-tag:     #e45649;
-$code-cyan:    #0184bc;
 
 .post-content {
   // Minima paints the background on both the wrapper and the <pre> — cover both.
@@ -28,16 +16,16 @@ $code-cyan:    #0184bc;
 
   pre {
     border: 1px solid $border-light;
-    border-radius: $radius-md;
+    border-radius: $radius;
     padding: 1rem 1.25rem;
     color: $code-fg;
     line-height: 1.65;
 
     // Thin, unobtrusive scrollbar for long lines.
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+    scrollbar-color: $code-scrollbar transparent;
     &::-webkit-scrollbar { height: 8px; }
-    &::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+    &::-webkit-scrollbar-thumb { background: $code-scrollbar; border-radius: $radius; }
     &::-webkit-scrollbar-track { background: transparent; }
   }
 

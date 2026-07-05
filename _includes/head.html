@@ -1,6 +1,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Theme: apply a saved light/dark choice before first paint (no flash).
+       With no saved choice, the attribute stays unset and CSS follows the OS
+       via prefers-color-scheme. Keep this inline & synchronous, above the CSS. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)">
   {%- if page.noindex -%}
   <meta name="robots" content="noindex,nofollow">
   {%- endif -%}

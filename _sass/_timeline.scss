@@ -38,8 +38,8 @@
   width: 1px;
   background: linear-gradient(
     to bottom,
-    rgba($text-primary, 0.6) 0%,
-    rgba(100, 116, 139, 0.55) 100%
+    var(--timeline-rail-top) 0%,
+    var(--timeline-rail-bottom) 100%
   );
 }
 
@@ -53,7 +53,7 @@
   width: var(--marker-size);
   height: var(--marker-size);
   box-sizing: border-box;          // dot renders exactly --marker-size so the rail centres on it
-  background: white;
+  background: $bg-surface;
   border: 2px solid $text-primary;
   border-radius: 50%;
   z-index: 1;
@@ -68,9 +68,9 @@
 }
 
 @keyframes pulse-marker {
-  0%   { box-shadow: 0 0 0 0 rgba($text-primary, 0.35); }
-  70%  { box-shadow: 0 0 0 6px rgba($text-primary, 0); }
-  100% { box-shadow: 0 0 0 0 rgba($text-primary, 0); }
+  0%   { box-shadow: 0 0 0 0 var(--marker-pulse); }
+  70%  { box-shadow: 0 0 0 6px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
 }
 
 .timeline-entry:hover .timeline-marker {
@@ -100,14 +100,14 @@
   flex: 1;
   margin-left: 2.5rem;
   background: $bg-soft;
-  border-radius: $radius-md;        // small, consistent with buttons/inputs/images site-wide
+  border-radius: $radius;        // small, consistent with buttons/inputs/images site-wide
   padding: 1.25rem 1.5rem;
   border: 1px solid $bg-tag;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .timeline-entry:hover .timeline-content {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--timeline-hover-shadow);
   transform: translateY(-2px);
 }
 
@@ -122,8 +122,8 @@
   width: 2.75rem;
   height: 2.75rem;
   object-fit: contain;
-  border-radius: $radius-md;
-  background: white;
+  border-radius: $radius;
+  background: $logo-bg;
   padding: 0.25rem;
   box-sizing: content-box;
   flex-shrink: 0;
@@ -158,6 +158,9 @@
   color: $text-secondary;
 }
 
+// One neutral treatment for all categories — the WORK/RESEARCH/EDUCATION label
+// carries the distinction. Keeps the timeline monochrome, in line with the
+// site's terminal identity (no per-category color).
 .timeline-category {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -165,27 +168,10 @@
   font-weight: $weight-semibold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-radius: $radius-pill;
+  border-radius: $radius;
   margin-right: 0.5rem;
   background: $bg-tag;
   color: $text-muted;
-}
-
-// Amber — sits alongside research purple and education green without
-// repeating the blue that used to run through the whole timeline.
-.timeline-entry[data-category="work"] .timeline-category {
-  background: #fff7ed;
-  color: #c2410c;
-}
-
-.timeline-entry[data-category="research"] .timeline-category {
-  background: #f3effe;
-  color: #8b5cf6;
-}
-
-.timeline-entry[data-category="education"] .timeline-category {
-  background: #ecfdf5;
-  color: $color-success;
 }
 
 // No underline — the corner arrow nudges along its own diagonal instead.
@@ -201,6 +187,10 @@
   text-decoration: none;
   font-weight: $weight-medium;
   transition: color 0.2s ease;
+
+  // Minima's `a:visited` (0,1,1) outranks this class (0,1,0), so a clicked
+  // company link would flip to Minima's visited-blue. Pin it back to ink.
+  &:visited { color: $text-primary; }
 
   .icon {
     width: 0.7em;
