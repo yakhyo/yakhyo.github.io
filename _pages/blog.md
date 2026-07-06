@@ -9,5 +9,5 @@ image:
   path: /assets/images/landing-page-preview.png
   width: 1200
   height: 630
-  alt: Yakhyokhuja Valikhujaev technical blog
+  alt: Yakhyokhuja Valikhujaev Technical Blog
 ---

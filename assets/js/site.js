@@ -131,7 +131,103 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 5. Back-to-top button (post pages only). Appears once the reader is well
+  // 5. Theme toggle — light / dark. The effective theme is either an explicit
+  // choice on <html data-theme> (persisted to localStorage) or, absent that,
+  // the OS preference. Toggling flips to the opposite of what's showing, saves
+  // it, and notifies theme-aware widgets (giscus comments, mermaid diagrams).
+  // ---------------------------------------------------------------------------
+  function prefersDark() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function effectiveTheme() {
+    const attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'dark' || attr === 'light') return attr;
+    return prefersDark() ? 'dark' : 'light';
+  }
+
+  // Point giscus (if present) at the matching theme via its postMessage API.
+  function syncGiscusTheme(theme) {
+    const frame = document.querySelector('iframe.giscus-frame');
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+      'https://giscus.app'
+    );
+  }
+
+  // The static theme-color metas in head.html are keyed on prefers-color-scheme,
+  // so they follow the OS. Once JS is running, manage a single meta that tracks
+  // the *active* theme instead, so an explicit choice that differs from the OS
+  // still tints the browser chrome to match the page. (No-JS readers keep the
+  // static metas as a fallback.)
+  function updateThemeColor(theme) {
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+      if (!m.hasAttribute('data-dynamic')) m.remove();
+    });
+    let meta = document.querySelector('meta[name="theme-color"][data-dynamic]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', 'theme-color');
+      meta.setAttribute('data-dynamic', '');
+      document.head.appendChild(meta);
+    }
+    // $bg-surface per theme — matches the nav bar and the overscroll canvas
+    // (html background), so the browser chrome reads as one piece with the nav.
+    meta.setAttribute('content', theme === 'dark' ? '#161619' : '#ffffff');
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch (_) { /* ignore */ }
+    updateThemeColor(theme);
+    syncGiscusTheme(theme);
+    // Let non-CSS widgets (mermaid) re-render for the new theme.
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
+    trackEvent('theme-toggle', { event_label: theme });
+  }
+
+  function bindThemeToggle() {
+    const btn = document.querySelector('.theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        applyTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    // Match the browser chrome to the active theme on load — covers a saved
+    // choice that differs from the OS (the static metas alone follow the OS).
+    updateThemeColor(effectiveTheme());
+
+    // giscus loads lazily and injects its iframe *after* this runs, so we can't
+    // gate on `.giscus` existing yet. Listen for giscus's own ready message and
+    // push the current theme whenever it speaks — this themes the comments on
+    // first render (e.g. for a dark-mode reader) with no manual toggle needed.
+    window.addEventListener('message', function (e) {
+      if (e.origin === 'https://giscus.app' && e.data && e.data.giscus) {
+        syncGiscusTheme(effectiveTheme());
+      }
+    });
+
+    // Follow live OS theme flips while the reader has no explicit choice: CSS
+    // updates via the media query, but the chrome color and non-CSS widgets
+    // (mermaid, giscus) need a nudge.
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const onOsChange = function () {
+        if (document.documentElement.getAttribute('data-theme')) return; // explicit choice wins
+        const theme = mq.matches ? 'dark' : 'light';
+        updateThemeColor(theme);
+        syncGiscusTheme(theme);
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
+      };
+      if (mq.addEventListener) mq.addEventListener('change', onOsChange);
+      else if (mq.addListener) mq.addListener(onOsChange); // Safari < 14
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 6. Back-to-top button (post pages only). Appears once the reader is well
   // down a long article — the desktop TOC rail is hidden on small screens, so
   // this is the quickest way back up on mobile.
   // ---------------------------------------------------------------------------
@@ -168,6 +264,7 @@
     bindCopyLinkButtons();
     bindTrackedLinks();
     bindReadingProgress();
+    bindThemeToggle();
     bindBackToTop();
   }
 

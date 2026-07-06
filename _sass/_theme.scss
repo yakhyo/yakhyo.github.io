@@ -1,0 +1,22 @@
+// =============================================================================
+// Theme layer — emits the design-token custom properties for light & dark.
+// Imported ONLY by main.scss (so the :root rules ship once). The public SCSS
+// tokens in _tokens.scss already resolve to these custom properties, so every
+// rule across the site adapts automatically.
+//
+// Resolution order (later wins on equal specificity):
+//   1. :root                              → light default
+//   2. :root[data-theme="dark"]           → user chose dark (persisted)
+//   3. @media (prefers-color-scheme:dark) → follow the OS, unless user forced
+//      :root:not([data-theme="light"])       light
+// A user's explicit choice is written to <html data-theme> by an inline script
+// in head.html before first paint (no flash of the wrong theme).
+// =============================================================================
+
+:root { @include theme-light; }
+
+:root[data-theme="dark"] { @include theme-dark; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include theme-dark; }
+}

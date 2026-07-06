@@ -1,7 +1,8 @@
 # Personal Blog Built with Jekyll + Minima
 
 <p align="center">
-  <img src="assets/images/landing-page.png" alt="Preview of Yakhyokhuja Valikhujaev's personal website" width="800">
+  <img src="assets/images/landing-page-light.png" alt="Landing page — light mode" width="49%">
+  <img src="assets/images/landing-page-dark.png" alt="Landing page — dark mode" width="49%">
 </p>
 
 [![License](https://img.shields.io/github/license/yakhyo/yakhyo.github.io)](LICENSE)
@@ -11,7 +12,9 @@ This is the source code for [yakhyo.github.io](https://yakhyo.github.io), my per
 
 ## Design
 
-The site is light-only and mostly monochrome, with a terminal-flavored identity: the `~/yakhyo` wordmark, `/blog /about /resume` nav paths, and a `$ whoami` hero prompt, all set in IBM Plex Mono. Body copy uses Hanken Grotesk; the landing nameplate uses Oswald.
+The site is mostly monochrome, with a terminal-flavored identity: the `~/yakhyo` wordmark, `/blog /about /resume` nav paths, and a `$ whoami` hero prompt, all set in IBM Plex Mono. Body copy uses Hanken Grotesk; the landing nameplate uses Oswald.
+
+Light and dark themes ship as CSS custom properties (`_sass/_theme.scss`). The active theme follows the OS preference by default; the header toggle sets an explicit choice persisted in `localStorage`, applied before first paint by an inline script in `head.html`. Theme-aware widgets (giscus comments, Mermaid diagrams) re-theme via a `themechange` event from `site.js`.
 
 Styling rules live in two places every change should respect:
 
@@ -50,7 +53,7 @@ _pages/        Standalone pages such as About, Blog, and Resume
 _layouts/      Jekyll layouts
 _includes/     Shared partials (header, icons, timeline, ...)
 _data/         Timeline data (experience/education entries)
-_sass/         Shared styles: tokens, mixins, base, blog, timeline, syntax
+_sass/         Shared styles: tokens, theme, mixins, base, blog, timeline, syntax
 assets/        Compiled CSS entrypoints, per-page styles, JS, images, resume PDF
 _config.yml    Site configuration (nav pages, landing titles, profiles)
 ```
@@ -68,13 +71,16 @@ bundle update <gem>      # update the lockfile for that gem
 
 ## Writing
 
-Blog posts live in `_posts/<year>/` and use this URL format:
+Blog posts live in `_posts/<year>/` as `YYYY-MM-DD-slug.md` and use this URL format:
 
 ```text
 /blog/:year/:month/:title/
 ```
 
-Start from [_drafts/post-template.md](_drafts/post-template.md) when adding a new post.
+Frontmatter conventions:
+
+- Required: `layout: post`, `title`, `date`, `description` (SEO meta + blog-index excerpt), and a single kebab-case `categories` slug.
+- Optional: `tags` (kebab-case, become keywords/JSON-LD), `image` (1200×630 cover for social previews), `modified_date` (surfaces "Updated" on the post), `comments: false` (suppress giscus), `toc_depth: 2` (limit the TOC rail to h2s).
 
 ## License
 

@@ -1,6 +1,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Theme: apply a saved light/dark choice before first paint (no flash).
+       With no saved choice, the attribute stays unset and CSS follows the OS
+       via prefers-color-scheme. Keep this inline & synchronous, above the CSS. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <!-- Chrome tint = $bg-surface (the nav/header + overscroll canvas color, see
+       html { background } in _base.scss), NOT $bg-page — the browser bar sits
+       flush on the nav, so tinting it with the page color shows a subtle band. -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161619" media="(prefers-color-scheme: dark)">
   {%- if page.noindex -%}
   <meta name="robots" content="noindex,nofollow">
   {%- endif -%}

@@ -2,26 +2,265 @@
 // Design tokens — one source of truth for every color and shadow used in more
 // than one place. Values used only once should stay inline at their use site
 // (a "token used once" is just a renamed constant).
+//
+// Two-layer system so the site can theme (light / dark) at runtime:
+//   1. Private `$_*` literals below hold the actual hex per theme.
+//   2. Public `$*` tokens (used everywhere in the partials) resolve to CSS
+//      custom properties — e.g. `$text-primary` → `var(--text-primary)`.
+//   3. The `theme-light` / `theme-dark` mixins emit those custom properties;
+//      `_theme.scss` includes them on `:root` (+ `[data-theme]` / media query).
+// Because the public tokens are `var()`, every existing rule adapts to the
+// active theme with no edits, and landing.scss / resume.scss (which import this
+// file but not _theme) pick up the same variables the main stylesheet defines.
 // =============================================================================
 
-// Brand
-$brand-primary:        #1e90ff;   // accents, borders, focus rings, active states (3:1 UI — not for body text)
-$brand-primary-hover:  #0066cc;   // darker shade for hover/active (5.6:1)
-$brand-link:           #1877cc;   // in-prose text links — WCAG AA on white (4.6:1)
+// -----------------------------------------------------------------------------
+// LIGHT palette (private literals) — the original hand-tuned values.
+// -----------------------------------------------------------------------------
+// Monochrome accent — the "brand" is ink, not a hue. These map to the text/ink
+// scale so accents, borders, focus rings, active states and links stay grayscale.
+// (Syntax highlighting below is the one intentional exception: color = meaning.)
+$_brand-primary:        #1a1a1a;   // accents, borders, focus rings, active states (= ink)
+$_brand-primary-hover:  #000;      // deepen to pure black on hover/active
+$_brand-link:           #1a1a1a;   // in-prose links — ink; underline carries the affordance
 
-// Text — four shades, lightest to darkest
-$text-primary:    #1a1a1a;        // body copy, headings
-$text-secondary:  #555;           // post excerpts, secondary labels
-$text-muted:      #595959;        // meta lines, dates, captions, timeline support
-$text-faint:      #6f6f6f;        // placeholders, empty states, year headings — WCAG AA (4.8:1 on white & $bg-soft)
+$_text-primary:    #1a1a1a;        // body copy, headings
+$_text-secondary:  #555;           // post excerpts, secondary labels
+$_text-muted:      #595959;        // meta lines, dates, captions
+$_text-faint:      #6f6f6f;        // placeholders, empty states, year headings (4.8:1)
 
-// Backgrounds & borders
-$bg-soft:        #fafafa;         // post excerpt rows, TOC, timeline cards
-$bg-tag:         #f0f0f0;         // chips, timeline borders
-$border-light:   #e8e8e8;         // dividers, input borders
+$_bg-page:       #fdfdfd;          // page background (matches Minima's default)
+$_bg-surface:    #ffffff;          // cards, header, inputs, markers — the "paper"
+$_bg-soft:       #fafafa;          // post excerpt rows, TOC, timeline cards
+$_bg-tag:        #f0f0f0;          // chips, timeline borders, inline code
+$_bg-subtle:     #f5f7fa;          // announcement banner
+$_border-light:  #e8e8e8;          // dividers, input borders
 
-// Semantic
-$color-success:  #10b981;         // "Copied!" state, timeline education accent
+$_chrome-muted:  #5b5e66;          // nav links & back-links at rest (~6.5:1 on white)
+$_ink-hover:     #000;             // monochrome hover ink (buttons, nav, icons)
+$_color-success: #10b981;          // "Copied!" state, education accent
+
+$_btn-solid-bg:  #1a1a1a;          // filled buttons / inverted tooltip background
+$_btn-solid-fg:  #ffffff;          // text on the filled button
+$_surface-overlay: rgba(255, 255, 255, 0.9);  // floating capsule/copy-btn backdrops
+$_logo-bg:       #ffffff;          // white pad behind company logos
+
+// Code panel (One Light).
+$_code-bg:      #eef;
+$_code-fg:      #383a42;
+$_code-comment: #8c8fa1;
+$_code-keyword: #a626a4;
+$_code-string:  #50a14f;
+$_code-number:  #986801;
+$_code-func:    #4078f2;
+$_code-class:   #c18401;
+$_code-tag:     #e45649;
+$_code-cyan:    #0184bc;
+$_code-scrollbar: rgba(0, 0, 0, 0.2);
+
+// Timeline rail / marker pulse (need alpha, so precomputed per theme).
+$_timeline-rail-top:    rgba(26, 26, 26, 0.6);
+$_timeline-rail-bottom: rgba(100, 116, 139, 0.55);
+$_marker-pulse:         rgba(26, 26, 26, 0.35);
+$_timeline-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);   // soft card lift on hover
+
+// Shadows.
+$_shadow-sm: 0 2px 8px rgba($_brand-primary, 0.1);
+$_shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+
+// -----------------------------------------------------------------------------
+// DARK palette (private literals) — near-black terminal surfaces, light ink.
+// Contrast checked for WCAG AA against $_dark-bg-page (#0d0d0f).
+// -----------------------------------------------------------------------------
+$_dark-brand-primary:        #ededed;   // monochrome accent = light ink on dark
+$_dark-brand-primary-hover:  #fff;      // brighten to pure white on hover/active
+$_dark-brand-link:           #ededed;   // in-prose links — ink; underline carries the affordance
+
+$_dark-text-primary:    #ededed;
+$_dark-text-secondary:  #b6b6bb;
+$_dark-text-muted:      #9a9aa1;
+$_dark-text-faint:      #8b8c93;   // nav slash, placeholders, year headings — nudged up from #7f7f86 so the slash isn't disproportionately dim next to the brighter nav labels (stays below $_dark-text-muted)
+
+$_dark-bg-page:       #0d0d0f;
+$_dark-bg-surface:    #161619;
+$_dark-bg-soft:       #1a1a1e;
+$_dark-bg-tag:        #26262b;
+$_dark-bg-subtle:     #17171a;
+$_dark-border-light:  #3a3b42;   // lifted from #2b2b31 so token-bordered surfaces keep a visible edge in dark
+
+$_dark-chrome-muted:  #b0b1b7;   // nav links/back-link/typewriter — clearly readable on dark, still muted vs the #ededed wordmark (was #8b8d94, too dim)
+$_dark-ink-hover:     #fff;
+$_dark-color-success: #34d399;
+
+$_dark-btn-solid-bg:  #ededed;   // light button on dark page
+$_dark-btn-solid-fg:  #0d0d0f;
+$_dark-surface-overlay: rgba(22, 22, 25, 0.9);
+$_dark-logo-bg:       #e8e8ea;   // keep logos on a light pad so they stay legible
+
+// Code panel (One Dark).
+$_dark-code-bg:      #17181d;
+$_dark-code-fg:      #c8ccd4;
+$_dark-code-comment: #6b7280;
+$_dark-code-keyword: #c678dd;
+$_dark-code-string:  #98c379;
+$_dark-code-number:  #d19a66;
+$_dark-code-func:    #61afef;
+$_dark-code-class:   #e5c07b;
+$_dark-code-tag:     #e06c75;
+$_dark-code-cyan:    #56b6c2;
+$_dark-code-scrollbar: rgba(255, 255, 255, 0.22);
+
+$_dark-timeline-rail-top:    rgba(237, 237, 237, 0.5);
+$_dark-timeline-rail-bottom: rgba(100, 116, 139, 0.4);
+$_dark-marker-pulse:         rgba(237, 237, 237, 0.3);
+$_dark-timeline-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);   // black reads as a halo on the near-black page
+
+$_dark-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+$_dark-shadow-lg: 0 6px 16px 0 rgba(0, 0, 0, 0.6);
+
+// -----------------------------------------------------------------------------
+// Theme mixins — emit every custom property. Included by _theme.scss.
+// -----------------------------------------------------------------------------
+@mixin theme-light {
+  color-scheme: light;
+
+  --brand-primary:        #{$_brand-primary};
+  --brand-primary-hover:  #{$_brand-primary-hover};
+  --brand-link:           #{$_brand-link};
+
+  --text-primary:    #{$_text-primary};
+  --text-secondary:  #{$_text-secondary};
+  --text-muted:      #{$_text-muted};
+  --text-faint:      #{$_text-faint};
+
+  --bg-page:      #{$_bg-page};
+  --bg-surface:   #{$_bg-surface};
+  --bg-soft:      #{$_bg-soft};
+  --bg-tag:       #{$_bg-tag};
+  --bg-subtle:    #{$_bg-subtle};
+  --border-light: #{$_border-light};
+
+  --chrome-muted:  #{$_chrome-muted};
+  --ink-hover:     #{$_ink-hover};
+  --color-success: #{$_color-success};
+
+  --btn-solid-bg:    #{$_btn-solid-bg};
+  --btn-solid-fg:    #{$_btn-solid-fg};
+  --surface-overlay: #{$_surface-overlay};
+  --logo-bg:         #{$_logo-bg};
+
+  --code-bg:        #{$_code-bg};
+  --code-fg:        #{$_code-fg};
+  --code-comment:   #{$_code-comment};
+  --code-keyword:   #{$_code-keyword};
+  --code-string:    #{$_code-string};
+  --code-number:    #{$_code-number};
+  --code-func:      #{$_code-func};
+  --code-class:     #{$_code-class};
+  --code-tag:       #{$_code-tag};
+  --code-cyan:      #{$_code-cyan};
+  --code-scrollbar: #{$_code-scrollbar};
+
+  --timeline-rail-top:    #{$_timeline-rail-top};
+  --timeline-rail-bottom: #{$_timeline-rail-bottom};
+  --marker-pulse:         #{$_marker-pulse};
+  --timeline-hover-shadow: #{$_timeline-hover-shadow};
+
+  --shadow-sm: #{$_shadow-sm};
+  --shadow-lg: #{$_shadow-lg};
+}
+
+@mixin theme-dark {
+  color-scheme: dark;
+
+  --brand-primary:        #{$_dark-brand-primary};
+  --brand-primary-hover:  #{$_dark-brand-primary-hover};
+  --brand-link:           #{$_dark-brand-link};
+
+  --text-primary:    #{$_dark-text-primary};
+  --text-secondary:  #{$_dark-text-secondary};
+  --text-muted:      #{$_dark-text-muted};
+  --text-faint:      #{$_dark-text-faint};
+
+  --bg-page:      #{$_dark-bg-page};
+  --bg-surface:   #{$_dark-bg-surface};
+  --bg-soft:      #{$_dark-bg-soft};
+  --bg-tag:       #{$_dark-bg-tag};
+  --bg-subtle:    #{$_dark-bg-subtle};
+  --border-light: #{$_dark-border-light};
+
+  --chrome-muted:  #{$_dark-chrome-muted};
+  --ink-hover:     #{$_dark-ink-hover};
+  --color-success: #{$_dark-color-success};
+
+  --btn-solid-bg:    #{$_dark-btn-solid-bg};
+  --btn-solid-fg:    #{$_dark-btn-solid-fg};
+  --surface-overlay: #{$_dark-surface-overlay};
+  --logo-bg:         #{$_dark-logo-bg};
+
+  --code-bg:        #{$_dark-code-bg};
+  --code-fg:        #{$_dark-code-fg};
+  --code-comment:   #{$_dark-code-comment};
+  --code-keyword:   #{$_dark-code-keyword};
+  --code-string:    #{$_dark-code-string};
+  --code-number:    #{$_dark-code-number};
+  --code-func:      #{$_dark-code-func};
+  --code-class:     #{$_dark-code-class};
+  --code-tag:       #{$_dark-code-tag};
+  --code-cyan:      #{$_dark-code-cyan};
+  --code-scrollbar: #{$_dark-code-scrollbar};
+
+  --timeline-rail-top:    #{$_dark-timeline-rail-top};
+  --timeline-rail-bottom: #{$_dark-timeline-rail-bottom};
+  --marker-pulse:         #{$_dark-marker-pulse};
+  --timeline-hover-shadow: #{$_dark-timeline-hover-shadow};
+
+  --shadow-sm: #{$_dark-shadow-sm};
+  --shadow-lg: #{$_dark-shadow-lg};
+}
+
+// -----------------------------------------------------------------------------
+// PUBLIC tokens — resolve to the custom properties above. Use these in rules.
+// -----------------------------------------------------------------------------
+$brand-primary:        var(--brand-primary);
+$brand-primary-hover:  var(--brand-primary-hover);
+$brand-link:           var(--brand-link);
+
+$text-primary:    var(--text-primary);
+$text-secondary:  var(--text-secondary);
+$text-muted:      var(--text-muted);
+$text-faint:      var(--text-faint);
+
+$bg-page:      var(--bg-page);
+$bg-surface:   var(--bg-surface);
+$bg-soft:      var(--bg-soft);
+$bg-tag:       var(--bg-tag);
+$bg-subtle:    var(--bg-subtle);
+$border-light: var(--border-light);
+
+$chrome-muted:  var(--chrome-muted);
+$ink-hover:     var(--ink-hover);
+$color-success: var(--color-success);
+
+$btn-solid-bg:    var(--btn-solid-bg);
+$btn-solid-fg:    var(--btn-solid-fg);
+$surface-overlay: var(--surface-overlay);
+$logo-bg:         var(--logo-bg);
+
+$code-bg:        var(--code-bg);
+$code-fg:        var(--code-fg);
+$code-comment:   var(--code-comment);
+$code-keyword:   var(--code-keyword);
+$code-string:    var(--code-string);
+$code-number:    var(--code-number);
+$code-func:      var(--code-func);
+$code-class:     var(--code-class);
+$code-tag:       var(--code-tag);
+$code-cyan:      var(--code-cyan);
+$code-scrollbar: var(--code-scrollbar);
+
+$shadow-sm: var(--shadow-sm);
+$shadow-lg: var(--shadow-lg);
 
 // Typography — mono is the site default (see _base.scss).
 // Sans (Hanken Grotesk) is used for blog post body copy; serif is reserved for
@@ -36,18 +275,12 @@ $font-serif: 'Charter', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', 
 $font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 $font-mono-ui: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 
-// Site chrome (nav + text links) — muted mono treatment, distinct from prose.
-$chrome-muted:  #5b5e66;          // nav links & back-links at rest (~6.5:1 on white)
-
-// Hover ink for the monochrome components (nav, buttons, arrow links, icons,
-// outlines): they rest on $chrome-muted/$text-primary and sharpen to this.
-$ink-hover: #000;
-
-// Corner radii — three steps + pill. Circles use 50% inline (universal idiom).
-$radius-sharp: 2px;     // cards & large surfaces — the pixel-frame look
-$radius-soft:  4px;     // small UI: inline code, tooltips, copy badges
-$radius-md:    4px;     // buttons, inputs, images, logos, post-nav, code blocks
-$radius-pill:  999px;   // chips, tags — adapts to element height
+// Corner radius — ONE unified value for every rectangular surface: tags,
+// buttons, inputs, cards, code, images, logos, boxes. (Previously a 2px/4px/
+// pill scale; the tags' full pill clashed with the otherwise-square terminal
+// chrome, so it was collapsed to a single step.) Genuine circles use 50% inline
+// (universal idiom); the landing scroll capsule keeps its own bespoke shape.
+$radius: 4px;
 
 // Font weights. Use medium by default for emphasis; reserve semibold for
 // chips, table headers, and other tight UI labels where 500 reads too soft.
@@ -70,7 +303,3 @@ $space-xs:   0.5rem;      // 8px  — inline gaps, meta-item gap
 $space-sm:   1rem;        // 16px — paragraph gap, between rows
 $space-md:   2rem;        // 32px — between cards / blocks
 $space-lg:   4rem;        // 64px — section breaks
-
-// Shadows — small (subtle hover) and large (lifted card / CTA hover).
-$shadow-sm: 0 2px 8px rgba($brand-primary, 0.1);
-$shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);

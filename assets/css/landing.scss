@@ -161,7 +161,7 @@
     gap: 0.4em;
     margin: 10px 10px 10px 0;
     padding: 10px 20px;
-    border-radius: $radius-md;
+    border-radius: $radius;
     text-decoration: none;
     font-size: 1.2em;
     font-weight: $weight-semibold;
@@ -176,10 +176,10 @@
     // no lift — the arrow is the only motion.
     @include arrow-nudge(3px, 0);
 
-    background-color: $text-primary;
-    border: 1px solid $text-primary;
+    background-color: $btn-solid-bg;
+    border: 1px solid $btn-solid-bg;
     box-shadow: $shadow-lg;
-    color: white !important;
+    color: $btn-solid-fg !important;
 
     .icon {
         width: 0.9em;
@@ -227,7 +227,7 @@ body.landing-page-body footer {
     height: 34px;
     padding-top: 6px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    background: $surface-overlay;
     border: 1px solid $text-primary;
     cursor: pointer;
     transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.2s ease;
@@ -294,7 +294,7 @@ h2.timeline-section-title {
     font-size: 1.375em;
     font-weight: $weight-semibold;
     margin-bottom: 28px;
-    color: #000;
+    color: $text-primary;
 }
 
 @media (max-width: 768px) and (min-width: 481px) {

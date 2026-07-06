@@ -3,7 +3,7 @@
 @import "tokens";
 
 // =============================================================================
-// Resume page — header, skills 2-column layout, print stylesheet.
+// Resume page — header, print stylesheet.
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -34,13 +34,6 @@
   line-height: 1.5;
 }
 
-.resume-updated {
-  margin: 0;
-  font-size: 0.8rem;
-  color: $text-muted;
-  font-style: italic;
-}
-
 .resume-header-actions {
   display: flex;
   flex-direction: column;
@@ -64,31 +57,6 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Skills Summary — two-column layout (category | items).
-// -----------------------------------------------------------------------------
-.resume-skills {
-  margin: 1rem 0 2rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 14rem 1fr;
-  column-gap: 1.5rem;
-  row-gap: 0.6rem;
-
-  dt {
-    margin: 0;
-    font-weight: $weight-semibold;
-    color: $text-primary;
-    line-height: 1.6;
-  }
-
-  dd {
-    margin: 0;
-    color: $text-secondary;
-    line-height: 1.6;
-  }
-}
-
 @media (max-width: 600px) {
   .resume-header {
     flex-direction: column;
@@ -99,13 +67,6 @@
   .resume-header-actions {
     align-items: flex-start;
     width: 100%;
-  }
-
-  .resume-skills {
-    grid-template-columns: 1fr;
-    row-gap: 0.25rem;
-
-    dt { margin-top: 0.5rem; }
   }
 }
 

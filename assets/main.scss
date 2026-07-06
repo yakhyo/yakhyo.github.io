@@ -14,8 +14,11 @@ $content-width: 820px;
 @import "minima";
 
 // Design tokens (colors, shadows) and shared mixins. Must come before any
-// partial that uses them.
+// partial that uses them. `theme` emits the light/dark custom properties the
+// tokens resolve to — main.scss is the only place it's imported so :root ships
+// once (landing.scss / resume.scss reuse the same variables via `tokens`).
 @import "tokens";
+@import "theme";
 @import "mixins";
 
 // Component partials.
