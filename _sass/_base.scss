@@ -7,29 +7,35 @@
 // sticky .site-header (~57px) — without this the target lands behind the nav.
 html {
   scroll-padding-top: 5rem;
+  // Explicit canvas color. Also load-bearing for the overscroll strip below:
+  // with html transparent, body's background would propagate to the canvas and
+  // paint UNDER the strip, leaving it visible across the whole page at rest.
+  // An opaque html background keeps body's background on body's own box, which
+  // then covers the strip.
+  background: $bg-page;
 }
 
 // Two-tone overscroll. Rubber-banding at the TOP pulls the page (and the
-// sticky nav) down and reveals the region above it — left as the bare canvas
-// ($bg-page), the nav looks like it's floating on a darker surface. Content
-// above the document origin is clipped by the root scroller, so an absolutely
-// positioned strip never paints there; position:fixed does work because
-// iOS/macOS elastic scrolling translates the layout viewport — and fixed
-// elements with it — during the bounce. Park a $bg-surface strip one screen
-// above the viewport: invisible at rest, dragged down into the revealed gap
-// mid-bounce, so the nav reads as continuous chrome. The BOTTOM bounce is
-// untouched and keeps showing the canvas ($bg-page via body), matching the
-// footer.
+// sticky nav) down; the revealed gap shows the bare canvas ($bg-page) and the
+// nav looks like it's floating on a darker surface. Fill the gap with a fixed
+// $bg-surface strip so the nav reads as continuous chrome. Browsers disagree
+// on whether position:fixed translates with the elastic bounce (iOS Safari
+// drags the layout viewport; desktop compositors keep fixed glued while only
+// the content slides), so the strip spans BOTH positions: from one screen
+// above the viewport down to mid-screen (z-index -1, hidden behind body's
+// opaque background at rest).
+//   - glued:   the below-the-fold half shows through the top gap.
+//   - dragged: the above-viewport half slides down into the top gap.
+// The BOTTOM bounce reveals at the viewport's bottom edge — far below the
+// strip's mid-screen end in either behavior — so the footer end keeps showing
+// the $bg-page canvas.
 body::before {
   content: '';
   position: fixed;
   top: -100vh;
   left: 0;
   right: 0;
-  // Spill ~40px into the viewport (hidden behind the opaque banner/header) so
-  // the layer is never fully offscreen — WebKit may skip rasterizing a fully
-  // offscreen fixed layer, which would flash empty mid-bounce.
-  height: calc(100vh + 40px);
+  height: 150vh;                // -100vh .. +50vh of the viewport
   background: $bg-surface;
   pointer-events: none;
   z-index: -1;                  // behind all content; above the canvas
