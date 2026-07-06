@@ -9,6 +9,24 @@ html {
   scroll-padding-top: 5rem;
 }
 
+// Two-tone overscroll. Rubber-banding at the TOP pulls the sticky nav down and
+// reveals the canvas behind it — left as $bg-page, the nav looks like it's
+// floating on a darker surface. So park a $bg-surface strip just above the
+// document top (only ever visible mid-bounce) to make the nav read as
+// continuous. The BOTTOM bounce still shows the canvas ($bg-page via body),
+// matching the footer, which sits on the page color. One canvas color can't
+// serve both ends; this strip gives each end its own.
+body::before {
+  content: '';
+  position: absolute;           // anchored to the document, so it bounces with it
+  top: -100vh;                  // taller than any rubber-band pull distance
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: $bg-surface;
+  pointer-events: none;
+}
+
 // -----------------------------------------------------------------------------
 // Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
 // Icons inherit color from currentColor and size from font-size.
@@ -419,14 +437,7 @@ pre, code {
 // -----------------------------------------------------------------------------
 // Buttons — used for CTAs across pages (contact, resume download, etc.).
 // .btn is the outlined default; .btn-primary is the solid filled variant.
-// A .btn-row wrapper provides horizontal flex layout that wraps on mobile.
 // -----------------------------------------------------------------------------
-.btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -459,18 +470,6 @@ pre, code {
     background: $ink-hover;
     border-color: $ink-hover;
     color: $btn-solid-fg;
-  }
-}
-
-// On narrow phones, stretch buttons full-width and stack them.
-@media (max-width: 480px) {
-  .btn-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
-    justify-content: center;
   }
 }
 

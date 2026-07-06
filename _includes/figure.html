@@ -1,4 +1,0 @@
-<figure class="media-figure">
-  <img src="{{ include.src }}" alt="{{ include.alt | default: '' }}"{% if include.width %} width="{{ include.width }}"{% endif %}{% if include.height %} height="{{ include.height }}"{% endif %} loading="lazy" decoding="async">
-  {%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption>{%- endif -%}
-</figure>

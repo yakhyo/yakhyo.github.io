@@ -172,7 +172,9 @@
       meta.setAttribute('data-dynamic', '');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', theme === 'dark' ? '#0d0d0f' : '#fdfdfd');
+    // $bg-surface per theme — matches the nav bar and the overscroll canvas
+    // (html background), so the browser chrome reads as one piece with the nav.
+    meta.setAttribute('content', theme === 'dark' ? '#161619' : '#ffffff');
   }
 
   function applyTheme(theme) {

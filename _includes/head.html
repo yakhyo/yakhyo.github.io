@@ -13,8 +13,11 @@
       } catch (e) {}
     })();
   </script>
-  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)">
+  <!-- Chrome tint = $bg-surface (the nav/header + overscroll canvas color, see
+       html { background } in _base.scss), NOT $bg-page — the browser bar sits
+       flush on the nav, so tinting it with the page color shows a subtle band. -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161619" media="(prefers-color-scheme: dark)">
   {%- if page.noindex -%}
   <meta name="robots" content="noindex,nofollow">
   {%- endif -%}
