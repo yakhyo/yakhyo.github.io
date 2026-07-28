@@ -2,20 +2,21 @@
 layout: post
 title: "UniFace: A Unified Face Analysis Library for Python"
 date: 2025-11-11 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-08-01 12:00:00 +0900
 comments: true
+published: true
 categories: computer-vision
 tags: [face-analysis, uniface, onnx, production, open-source]
-description: "UniFace is a Python library for face detection, recognition, landmarks, parsing, tracking, gaze, head pose, privacy, and vector search."
+description: "UniFace is a Python library for face analysis on ONNX Runtime: six detectors, five recognition models, 468-point mesh, parsing, attributes, and quality scoring."
 ---
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yakhyo/uniface/main/.github/logos/uniface_rounded_q80.webp" alt="UniFace logo" style="max-width: 100%;" />
 </p>
 
-**UniFace** is a Python library for face analysis. It provides APIs for face detection, recognition, landmarks, parsing, tracking, attributes, gaze estimation, head pose, anti-spoofing, anonymization, and vector search.
+**UniFace** is a Python library for face analysis. It provides APIs for face detection, recognition, landmarks, face mesh, parsing, portrait matting, tracking, attributes, image quality scoring, gaze estimation, head pose, anti-spoofing, anonymization, and vector search.
 
-The library is built around a common set of conventions. Detectors return `Face` objects, recognition models work with the same landmark format, and higher-level APIs such as `FaceAnalyzer` combine common steps when you do not need to wire each module manually.
+The library is built around a common set of conventions. Detectors return `Face` objects, recognition models use the same landmark format, and higher-level APIs such as `FaceAnalyzer` combine common steps when you do not need to wire each module manually.
 
 ## Installation
 
@@ -87,7 +88,7 @@ import cv2
 from uniface import AgeGender, FaceAnalyzer
 
 image = cv2.imread("photo.jpg")
-analyzer = FaceAnalyzer(attributes=[AgeGender()])
+analyzer = FaceAnalyzer(predictors=[AgeGender()])
 faces = analyzer.analyze(image)
 
 for face in faces:
@@ -100,18 +101,43 @@ See the full documentation at [yakhyo.github.io/uniface](https://yakhyo.github.i
 
 | Area | Models and features |
 |------|---------------------|
-| Detection | RetinaFace, SCRFD, YOLOv5-Face, YOLOv8-Face |
+| Detection | RetinaFace, SCRFD, CenterFace, YOLOv5-Face, YOLOv8-Face, and BlazeFace |
 | Recognition | AdaFace, ArcFace, EdgeFace, MobileFace, SphereFace |
-| Landmarks | 5-point detector landmarks, plus 106 / 98 / 68-point models |
+| Landmarks | 5-point detector landmarks, 106 / 98 / 68-point models, 468-point 3D Face Mesh, and BlazeFace's 6 MediaPipe keypoints |
 | Tracking | BYTETracker-based persistent IDs for video |
 | Parsing | BiSeNet semantic face parsing and XSeg masking |
 | Matting | MODNet portrait matting for background removal |
-| Attributes | Age, gender, race, and emotion |
+| Attributes | Age, gender, race, emotion, eye openness, glasses, sunglasses, and mask |
+| Quality | eDifFIQA image quality scoring in four sizes, from 6.6 MB to 250 MB |
 | Gaze | MobileGaze for gaze direction estimation |
 | Head pose | Pitch, yaw, and roll estimation |
 | Anti-spoofing | MiniFASNet |
 | Privacy | Pixelate, gaussian, blackout, elliptical, and median anonymization |
 | Search | Optional FAISS-backed vector store |
+
+A few of those modules in action. Face Mesh fits 468 dense 3D points per frame, which holds up under expression changes:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile.gif" width="70%" loading="lazy" alt="Animated 468-point face mesh tracking a woman's face as her expression changes from neutral to smiling">
+</div>
+
+Face parsing labels each region separately:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demos/parsing.jpg" width="90%" loading="lazy" alt="Face parsing shown as a pair: the original portrait beside a version where skin, hair, eyebrows, eyes, nose, lips, neck and clothing are each shaded a different colour">
+</div>
+
+Portrait matting returns an alpha matte rather than a mask, so hair keeps its soft edge when you composite:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demos/matting.jpg" width="90%" loading="lazy" alt="Portrait matting in three panels: the original photo, the alpha matte as a white silhouette on black with individual hair strands visible, and the subject composited onto a green background">
+</div>
+
+Face attributes run once per detected face, so a group photo returns an independent result for each person. Only the man on the left reads `Glasses True`:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/group.jpg" width="80%" loading="lazy" alt="Three people photographed together, each face in a white box with its own labels for eyes, mask, glasses and sunglasses, and only the man on the left reading glasses true">
+</div>
 
 ## Notebooks and Demo
 
@@ -132,6 +158,8 @@ The examples can be opened directly in Google Colab:
 | Head Pose Estimation | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/11_head_pose_estimation.ipynb) | Pitch, yaw, and roll |
 | Face Recognition | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/12_face_recognition.ipynb) | Recognition without `FaceAnalyzer` |
 | Portrait Matting | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/13_portrait_matting.ipynb) | Background removal and compositing |
+| Face Attributes | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/14_face_attributes.ipynb) | Eye, glasses, sunglasses, and mask attributes |
+| Face Mesh | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/15_face_mesh.ipynb) | Dense 468-point face landmarks |
 
 There is also a live Hugging Face demo at [huggingface.co/spaces/yakhyo/uniface](https://huggingface.co/spaces/yakhyo/uniface).
 
@@ -145,7 +173,9 @@ The library supports macOS, Linux, and Windows, including CPU inference, Apple S
 
 Several UniFace modules started as standalone projects. These posts go deeper on the individual models the library bundles:
 
-- [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}) — the detection backbone family, with WIDER FACE benchmarks.
-- [Face Parsing with BiSeNet and ResNet Backbones]({% link _posts/2024/2024-11-29-face-parsing-bisenet.md %}) — the semantic segmentation module for per-region masks.
-- [MobileGaze: Lightweight Gaze Estimation with MobileOne]({% link _posts/2024/2024-09-18-gaze-estimation.md %}) — the gaze direction module.
-- [Real-Time Head Pose Estimation with MobileNet and ResNet]({% link _posts/2024/2024-09-17-head-pose-estimation.md %}) — the pitch/yaw/roll head pose module.
+- [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}). The detection backbone family, with WIDER FACE benchmarks.
+- [Face Parsing with BiSeNet and ResNet Backbones]({% link _posts/2024/2024-11-29-face-parsing-bisenet.md %}). The semantic segmentation module for per-region masks.
+- [MobileGaze: Lightweight Gaze Estimation with MobileOne]({% link _posts/2024/2024-09-18-gaze-estimation.md %}). The gaze direction module.
+- [Real-Time Head Pose Estimation with MobileNet and ResNet]({% link _posts/2024/2024-09-17-head-pose-estimation.md %}). The pitch/yaw/roll head pose module.
+- [FaceAttribNet: Eye, Glasses, and Mask Detection in ONNX]({% link _posts/2026/2026-07-28-face-attribute-detection-faceattribnet.md %}). The multi-label model behind the eye, glasses, and mask outputs.
+- [MediaPipe Face Mesh in ONNX: 468 Dense 3D Landmarks]({% link _posts/2026/2026-07-28-mediapipe-face-mesh-onnx-468-landmarks.md %}). The dense landmark model and BlazeFace detector port.
