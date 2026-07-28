@@ -2,7 +2,7 @@
 layout: post
 title: "MobileGaze: Lightweight Gaze Estimation with MobileOne"
 date: 2024-09-18 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [gaze-estimation, mobile, classification, regression, edge-deployment]
@@ -10,7 +10,7 @@ description: "MobileGaze estimates gaze direction with ResNet, MobileNet, and Mo
 image: "https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif"
 ---
 
-MobileGaze estimates gaze direction from a detected face. The project builds on [L2CS-Net](https://github.com/Ahmednull/L2CS-Net), adds more mobile-friendly backbones, and provides PyTorch and ONNX weights for inference. See the project on [github.com/yakhyo/gaze-estimation](https://github.com/yakhyo/gaze-estimation).
+MobileGaze estimates gaze direction from a detected face. It builds on [L2CS-Net](https://github.com/Ahmednull/L2CS-Net), adds more mobile-friendly backbones, and provides PyTorch and ONNX weights for inference. The implementation is available at [github.com/yakhyo/gaze-estimation](https://github.com/yakhyo/gaze-estimation).
 
 ![MobileGaze demo](https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif)
 
@@ -20,7 +20,7 @@ MobileGaze estimates gaze direction from a detected face. The project builds on 
 > - Every published model ships with both PyTorch and ONNX weights, so you can train in one format and deploy in the other.
 {: .takeaways}
 
-The inference pipeline first detects the face, then predicts gaze direction from the face crop. In the repository, face detection is handled through [UniFace]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}).
+The inference pipeline first detects the face, then predicts gaze direction from the crop. In this repository, detection is handled through [UniFace]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}).
 
 ## Model Families
 
@@ -42,7 +42,7 @@ Gaze estimation is reported with MAE in degrees. Lower values mean the predicted
 
 ## Reported Results
 
-The short version: ResNet-34 gives the lowest reported error, and MobileOne S0 is the best accuracy-per-megabyte option in the table.
+ResNet-34 gives the lowest reported error, while MobileOne S0 is the strongest accuracy-per-megabyte option in the table.
 
 | Model | Size | Epochs | MAE |
 |-------|------|--------|-----|
@@ -65,7 +65,7 @@ The full pipeline is:
 3. Predict gaze pitch and yaw.
 4. Draw or consume the gaze direction in the application.
 
-This structure is useful for attention tracking, human-computer interaction, driver monitoring, and accessibility experiments.
+This structure is useful for attention tracking, human-computer interaction, driver monitoring, and accessibility prototypes.
 
 ## PyTorch and ONNX
 

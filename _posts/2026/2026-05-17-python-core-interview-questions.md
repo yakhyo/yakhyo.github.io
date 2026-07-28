@@ -2,7 +2,7 @@
 layout: post
 title: "Python Core Interview Questions and Answers: Clear, Practical Explanations"
 date: 2026-05-17 12:00:00 +0900
-modified_date: 2026-05-19 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: python
 tags: [python, interview-prep, async, generators, concurrency]
@@ -12,9 +12,9 @@ custom_js: mermaid
 toc_depth: 2
 ---
 
-Python interview questions have a strange way of sounding easy right up until you answer them out loud. You may know what a list is, what the GIL does, or why `async` exists, but an interview answer needs more than a keyword. It has to be clear, accurate, and practical.
+Python interview questions often sound simple until you have to answer them clearly. You may know what a list is, what the GIL does, or why `async` exists, but a strong interview answer needs more than a keyword. It has to be accurate, practical, and easy to explain.
 
-This guide focuses on that middle ground: explanations that are correct enough to stand up to follow-up questions, but still natural enough that you could actually say them in a conversation.
+This guide focuses on that middle ground: explanations that are correct enough to stand up to follow-up questions, but still natural enough to say in a real conversation.
 
 If you want a simple answering pattern, use this:
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Tiny-Face: Ultra-Lightweight Face Detection for Edge Devices"
 date: 2024-11-09 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, tiny-face, mobile, edge-deployment]
@@ -10,7 +10,7 @@ description: "Tiny-Face compares SlimFace, RFB, and compact RetinaFace variants 
 image: "https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg"
 ---
 
-Tiny-Face is a compact face detection project focused on mobile and edge environments. It compares three small detector variants: **SlimFace**, **RFB**, and a compact **RetinaFace** model. See the project on [github.com/yakhyo/tiny-face-pytorch](https://github.com/yakhyo/tiny-face-pytorch).
+Tiny-Face is a compact face detection project focused on mobile and edge environments. It compares three small detector variants: **SlimFace**, **RFB**, and a compact **RetinaFace** model. The implementation is available at [github.com/yakhyo/tiny-face-pytorch](https://github.com/yakhyo/tiny-face-pytorch).
 
 {% include video.html src="https://github.com/user-attachments/assets/faf65b91-db76-4538-beca-87fc65566e51" %}
 
@@ -74,7 +74,7 @@ This example shows the recall tradeoff clearly. Smaller models are useful on con
 
 The repository includes WIDER FACE training and evaluation code, pretrained PyTorch weights, ONNX weights, and inference code for the three detector variants.
 
-It is useful when model size is a first-order constraint and a larger detector is too expensive for the target device.
+It is useful when model size is a primary constraint and a larger detector is too expensive for the target device.
 
 ## FAQ
 
@@ -88,7 +88,7 @@ All three are under 2 MB and under half a million parameters. SlimFace is 0.343M
 They can. In the crowded selfie test the compact RetinaFace detects 459 faces, RFB 430, and SlimFace 384. That recall gap is the practical tradeoff of shrinking the model.
 
 **When should I use Tiny-Face instead of a full RetinaFace?**
-Use Tiny-Face when model size is a first-order constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on normal hardware, the full RetinaFace detector is the better fit.
+Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit.
 
 ## Related
 
@@ -129,7 +129,7 @@ Use Tiny-Face when model size is a first-order constraint and a standard MobileN
       "name": "When should I use Tiny-Face instead of a full RetinaFace?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use Tiny-Face when model size is a first-order constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on normal hardware, the full RetinaFace detector is the better fit."
+        "text": "Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit."
       }
     }
   ]

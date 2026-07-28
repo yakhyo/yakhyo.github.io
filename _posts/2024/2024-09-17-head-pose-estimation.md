@@ -2,24 +2,24 @@
 layout: post
 title: "Real-Time Head Pose Estimation with MobileNet and ResNet"
 date: 2024-09-17 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [head-pose-estimation, mobilenet, resnet, scrfd, edge-deployment]
 description: "Head pose estimation with ResNet and MobileNet backbones, SCRFD face detection, PyTorch and ONNX weights, and pitch/yaw/roll output for real-time video."
 ---
 
-This project estimates head orientation from images, videos, or webcam input. For each detected face, the model predicts three Euler angles: **yaw**, **pitch**, and **roll**. See the project on [github.com/yakhyo/head-pose-estimation](https://github.com/yakhyo/head-pose-estimation).
+This project estimates head orientation from images, videos, or webcam input. For each detected face, the model predicts three Euler angles: **yaw**, **pitch**, and **roll**. The implementation is available at [github.com/yakhyo/head-pose-estimation](https://github.com/yakhyo/head-pose-estimation).
 
 {% include video.html src="https://github.com/user-attachments/assets/50f010cf-6fcf-46b0-87cc-53065cba3fe7" %}
 
 > **Key takeaways**
-> - The model predicts yaw, pitch, and roll for each detected face, using SCRFD for detection first.
+> - The model predicts yaw, pitch, and roll for each detected face, with SCRFD handling detection first.
 > - ResNet-50 has the best reported accuracy (4.02 MAE on AFLW2000); MobileNet V3 small is the lightest at 6 MB.
 > - Every backbone ships with both PyTorch and ONNX weights, trained on 300W-LP and evaluated on AFLW2000.
 {: .takeaways}
 
-The implementation builds on [6DRepNet](https://github.com/thohemp/6DRepNet) and extends it with more pretrained backbones, updated weights, SCRFD-based face detection, ONNX export, ONNX Runtime inference, and distributed training support.
+The implementation builds on [6DRepNet](https://github.com/thohemp/6DRepNet) and extends it with additional pretrained backbones, updated weights, SCRFD-based face detection, ONNX export, ONNX Runtime inference, and distributed training support.
 
 ## What the Model Predicts
 
@@ -31,7 +31,7 @@ Head pose is represented with three angles:
 | Pitch | up-down head rotation |
 | Roll | sideways head tilt |
 
-The output is useful when a system needs a coarse estimate of attention or orientation. Common examples include driver monitoring, classroom attention analysis, video meeting tools, AR/VR interaction, and accessibility interfaces.
+The output is useful when an application needs a coarse estimate of attention or orientation. Common examples include driver monitoring, classroom attention analysis, video meeting tools, AR/VR interaction, and accessibility interfaces.
 
 ## Model Families
 
@@ -50,7 +50,7 @@ The README provides both PyTorch and ONNX weights for each of these models.
 
 ## Evaluation on AFLW2000
 
-The short version: ResNet-50 gives the lowest reported error, and MobileNet V3 small is the smallest model at the cost of accuracy. Lower MAE is better.
+ResNet-50 gives the lowest reported error, while MobileNet V3 small is the smallest model at the cost of accuracy. Lower MAE is better.
 
 | Model | Size | Yaw | Pitch | Roll | MAE |
 |-------|------|-----|-------|------|-----|
@@ -61,7 +61,7 @@ The short version: ResNet-50 gives the lowest reported error, and MobileNet V3 s
 | MobileNet V3 small | 6 MB | 8.6926 | 7.7089 | 6.0035 | 7.4683 |
 | MobileNet V3 large | 17 MB | 5.6068 | 6.6022 | 4.9959 | 5.7350 |
 
-ResNet-50 gives the best reported MAE. MobileNet V2 is much smaller, but its error is higher. That is the central tradeoff in this repository: accuracy versus runtime and model size.
+ResNet-50 gives the best reported MAE. MobileNet V2 is much smaller, but its error is higher. That is the central tradeoff: accuracy versus runtime and model size.
 
 ## Training and Data
 

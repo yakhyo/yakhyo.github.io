@@ -2,7 +2,7 @@
 layout: post
 title: "Face Parsing with BiSeNet and ResNet Backbones"
 date: 2024-11-29 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [semantic-segmentation, bisenet, face-parsing, real-time]
@@ -10,7 +10,7 @@ description: "Face parsing with BiSeNet, ResNet18 and ResNet34 backbones, CelebA
 image: "https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg"
 ---
 
-Face parsing segments a face into semantic regions such as skin, hair, eyes, eyebrows, nose, mouth, and background. This repository implements BiSeNet for face parsing with ResNet18 and ResNet34 backbones. See the project on [github.com/yakhyo/face-parsing](https://github.com/yakhyo/face-parsing).
+Face parsing segments a face into semantic regions such as skin, hair, eyes, eyebrows, nose, mouth, and background. This implementation uses BiSeNet with ResNet18 and ResNet34 backbones. The project is available at [github.com/yakhyo/face-parsing](https://github.com/yakhyo/face-parsing).
 
 ![Face parsing slideshow](https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/slideshow.gif)
 
@@ -20,7 +20,7 @@ Face parsing segments a face into semantic regions such as skin, hair, eyes, eye
 > - Both backbones ship with PyTorch and ONNX weights, and inference accepts a single image or a whole folder.
 {: .takeaways}
 
-The model is trained for facial component segmentation, not general scene segmentation. That makes it useful for virtual makeup, AR filters, face editing, matting workflows, and feature-level face analysis.
+The model is trained for facial component segmentation rather than general scene segmentation. That makes it useful for virtual makeup, AR filters, face editing, matting workflows, and feature-level face analysis.
 
 ## Example Results
 
@@ -88,7 +88,7 @@ For application code, this model family is also available through [UniFace]({% l
 ## FAQ
 
 **How is face parsing different from face detection or landmarks?**
-Detection gives a bounding box and landmarks give a handful of sparse points. Face parsing gives a dense semantic mask that labels every pixel as skin, hair, eyes, eyebrows, nose, mouth, or background, which is what makes it useful for editing and makeup.
+Detection gives a bounding box, and landmarks give a small set of sparse points. Face parsing gives a dense semantic mask that labels every pixel as skin, hair, eyes, eyebrows, nose, mouth, or background, which is what makes it useful for editing and makeup.
 
 **Which backbone should I choose, ResNet18 or ResNet34?**
 ResNet34 (~82 MB, ~21.3M parameters) is the higher-capacity option, while ResNet18 (~43 MB, ~11.2M parameters) is roughly half the size for lighter deployment. Both are trained on the same data, so the choice is an accuracy-versus-size tradeoff.
@@ -114,7 +114,7 @@ Yes. The repository provides ONNX weights and ONNX inference for both backbones,
       "name": "How is face parsing different from face detection or landmarks?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Detection gives a bounding box and landmarks give a handful of sparse points. Face parsing gives a dense semantic mask that labels every pixel as skin, hair, eyes, eyebrows, nose, mouth, or background, which is what makes it useful for editing and makeup."
+        "text": "Detection gives a bounding box, and landmarks give a small set of sparse points. Face parsing gives a dense semantic mask that labels every pixel as skin, hair, eyes, eyebrows, nose, mouth, or background, which is what makes it useful for editing and makeup."
       }
     },
     {

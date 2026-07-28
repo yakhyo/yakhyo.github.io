@@ -2,7 +2,7 @@
 layout: post
 title: "RetinaFace: Single-Stage Face Detection in PyTorch"
 date: 2024-10-28 12:00:00 +0900
-modified_date: 2026-07-03 12:00:00 +0900
+modified_date: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, retinaface, single-stage, production]
@@ -10,7 +10,7 @@ description: "A RetinaFace implementation with MobileNet and ResNet backbones, W
 image: "https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_test.jpg"
 ---
 
-RetinaFace is a single-stage face detector that predicts face bounding boxes and 5-point landmarks. This implementation adds multiple backbones, WIDER FACE evaluation, webcam inference, PyTorch weights, and ONNX weights. See the project on [github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch).
+RetinaFace is a single-stage face detector that predicts face bounding boxes and 5-point landmarks in one pass. This implementation adds multiple backbones, WIDER FACE evaluation, webcam inference, PyTorch weights, and ONNX weights. The project is available at [github.com/yakhyo/retinaface-pytorch](https://github.com/yakhyo/retinaface-pytorch).
 
 {% include video.html src="https://github.com/user-attachments/assets/ad279fea-33fb-43f1-884f-282e6d54c809" %}
 
@@ -78,7 +78,7 @@ The repository also includes a large selfie example using MobileNetV2:
 
 ![RetinaFace large selfie result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_large_selfi_632people.jpg)
 
-The README notes that the MobileNetV2 model finds 632 faces in this image.
+The MobileNetV2 model detects 632 faces in this image.
 
 ## PyTorch and ONNX
 
