@@ -2,7 +2,7 @@
 layout: post
 title: "UniFace: A Unified Face Analysis Library for Python"
 date: 2025-11-11 12:00:00 +0900
-modified_date: 2026-08-01 12:00:00 +0900
+modified_date: 2026-08-16 12:00:00 +0900
 comments: true
 published: true
 categories: computer-vision
@@ -115,28 +115,108 @@ See the full documentation at [yakhyo.github.io/uniface](https://yakhyo.github.i
 | Privacy | Pixelate, gaussian, blackout, elliptical, and median anonymization |
 | Search | Optional FAISS-backed vector store |
 
-A few of those modules in action. Face Mesh fits 468 dense 3D points per frame, which holds up under expression changes:
+## What It Looks Like
+
+Every figure below is rendered from the photographs in the repository by the script that builds the demo set, so the numbers printed on them are measured rather than quoted from a paper. The [demo set README](https://github.com/yakhyo/uniface/blob/main/assets/demo/README.md) records which source feeds which figure and why each model was chosen.
+
+### Detection and Landmarks
+
+Small faces are the hard case. This is the 1927 Solvay Conference photograph, and SCRFD-10G finds 29 faces in it at 37 to 46 pixels wide:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/detection_alt.jpg" width="90%" loading="lazy" alt="Black and white group photograph of 29 physicists on the steps of a building, each face marked with a small green box and five green keypoints. Caption reads: Face Detection, SCRFD-10G, box plus 5 keypoints, 29 faces">
+</div>
+
+Landmark models run on top of a detection. The same portrait at 106, 98, and 68 points:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/landmarks.jpg" width="95%" loading="lazy" alt="Three copies of the same smiling woman's portrait side by side, each overlaid with a different landmark set: 106 cyan points from 2d106det, 98 purple points from PIPNet WFLW, and 68 green points from PIPNet 300W">
+</div>
+
+Face Mesh goes further and fits 468 dense 3D points per frame, which holds up under expression changes:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile.gif" width="70%" loading="lazy" alt="Animated 468-point face mesh tracking a woman's face as her expression changes from neutral to smiling">
 </div>
 
-Face parsing labels each region separately:
+### Parsing, Segmentation, and Matting
+
+Three different ways to cut a face out of a photograph, and they are not interchangeable. Parsing gives you per-region labels, with 13 of BiSeNet's 19 classes present here:
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demos/parsing.jpg" width="90%" loading="lazy" alt="Face parsing shown as a pair: the original portrait beside a version where skin, hair, eyebrows, eyes, nose, lips, neck and clothing are each shaded a different colour">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/parsing.jpg" width="90%" loading="lazy" alt="Face parsing shown as a pair: the original portrait beside a version where skin, hair, eyebrows, eyes, nose, lips, neck and clothing are each shaded a different colour">
 </div>
 
-Portrait matting returns an alpha matte rather than a mask, so hair keeps its soft edge when you composite:
+XSeg returns one binary mask instead, which is what you want when the next step is a cut-out rather than a per-region edit:
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demos/matting.jpg" width="90%" loading="lazy" alt="Portrait matting in three panels: the original photo, the alpha matte as a white silhouette on black with individual hair strands visible, and the subject composited onto a green background">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/segmentation.jpg" width="95%" loading="lazy" alt="Face segmentation in three panels: a woman with curly hair, the same photo with her face region filled solid green as the XSeg mask, and the face cut out onto a transparency checkerboard">
+</div>
+
+Matting returns an alpha matte rather than a mask, so hair keeps its soft edge when you composite:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/matting.jpg" width="90%" loading="lazy" alt="Portrait matting in three panels: the original photo, the alpha matte as a white silhouette on black with individual hair strands visible, and the subject composited onto a green background">
+</div>
+
+### Head Pose and Gaze
+
+Head pose returns pitch, yaw, and roll, drawn here as a projected cube. The model prints pitch and roll only below 60 degrees of yaw, because past that it reports tens of degrees of tilt on a level head:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/headpose.jpg" width="95%" loading="lazy" alt="Three portraits each overlaid with a red, green and blue wireframe cube showing head orientation, labelled yaw minus 77 degrees, yaw plus 8 degrees with pitch minus 9 and roll plus 3, and yaw plus 40 degrees with pitch plus 4 and roll plus 2">
+</div>
+
+Gaze is a separate estimate and it does not follow the head. The middle subject below faces the camera but is still looking 20 degrees to her left:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/gaze.jpg" width="95%" loading="lazy" alt="Three portraits each with a red arrow drawn from between the eyes showing gaze direction, labelled gaze yaw minus 31 degrees, minus 20 degrees, and plus 19 degrees">
+</div>
+
+### Attributes
+
+FairFace buckets age rather than predicting a number, and returns sex and race alongside it:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/demography.jpg" width="95%" loading="lazy" alt="Four portraits in a row, a young boy, a teenage girl, a smiling middle-aged woman and an older man in a flat cap, each labelled with a predicted age bucket of 3 to 9, 20 to 29, 40 to 49 and 60 to 69, and a sex of male, female, female and male">
+</div>
+
+Emotion covers the eight AffectNet classes:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/emotion.jpg" width="95%" loading="lazy" alt="Eight portraits in a two-row grid, each labelled with a predicted emotion and probability: happy 0.99, surprise 0.93, angry 0.92, disgust 0.75, fear 0.93, sad 0.76, contempt 0.98 and neutral 0.76">
 </div>
 
 Face attributes run once per detected face, so a group photo returns an independent result for each person. Only the man on the left reads `Glasses True`:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/group.jpg" width="80%" loading="lazy" alt="Three people photographed together, each face in a white box with its own labels for eyes, mask, glasses and sunglasses, and only the man on the left reading glasses true">
+</div>
+
+### Recognition, Quality, and Privacy
+
+AdaFace holds an identity across decades. Einstein matches himself at +0.583 over 26 years and Bohr at +0.689 over 25, while both of the man-against-man negatives land near zero, well under the 0.40 threshold:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/verification_alt.jpg" width="95%" loading="lazy" alt="Eight archival portraits arranged as four comparison pairs. Einstein in 1921 against 1947 scores plus 0.583 and Bohr in 1910 against 1935 scores plus 0.689, both labelled match; Einstein against Bohr scores plus 0.001 and Einstein against Curie scores minus 0.031, both labelled no match">
+</div>
+
+Quality scoring gives you one number per face, which is what you filter on before enrolling someone. Seven faces in this frame span 0.398 to 0.749, and the low scorers are the ones turned away from the camera:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/quality.jpg" width="95%" loading="lazy" alt="A group of seven people against a dark wall, each face marked with a corner box coloured amber or green, above a strip of four cropped faces scored 0.398, 0.525, 0.675 and 0.749, with the lowest scores on the faces turned away from the camera">
+</div>
+
+Anti-spoofing judges the presentation, not the face. A live capture reads `Real` at 1.00, and a print and a screen replay of that same capture read `Fake` at 0.66 and 0.99:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/spoofing.jpg" width="95%" loading="lazy" alt="Three frames of the same woman: a live webcam capture boxed in green and labelled Real 1.00, a printed photograph of her boxed in red and labelled Fake 0.66, and the photo replayed on a tablet screen boxed in red and labelled Fake 0.99">
+</div>
+
+Anonymization ships several methods, so you can match whichever one your compliance requirement actually asks for:
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/anonymization.jpg" width="95%" loading="lazy" alt="The same photograph of five colleagues repeated four times, with every face obscured by a different method: pixelate, gaussian blur, elliptical blur, and a solid black box">
 </div>
 
 ## Notebooks and Demo

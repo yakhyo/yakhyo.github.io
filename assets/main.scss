@@ -26,3 +26,4 @@ $content-width: 820px;
 @import "blog";       // blog index + single-post layout, code blocks, share row
 @import "syntax";     // light code panels + Rouge token colors (overrides Minima)
 @import "timeline";   // experience timeline on the landing page
+@import "projects";   // curated open-source project list on /projects

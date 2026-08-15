@@ -1,0 +1,164 @@
+// =============================================================================
+// /projects — curated open-source project list.
+//
+// Everything here resolves through the design tokens in _tokens.scss, so both
+// themes come for free. Two shapes: one featured project with a screenshot, and
+// a responsive grid of the rest.
+// =============================================================================
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2.5rem;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid $border-light;
+  border-radius: 12px;
+  background: $bg-soft;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.project:hover {
+  border-color: $text-faint;
+  box-shadow: $shadow-sm;
+  transform: translateY(-2px);
+}
+
+// Featured: wide banner on top, body below. Deliberately NOT a side-by-side
+// column — the artwork is roughly 2:1, and a narrow column would crop it down
+// to whatever happens to sit in the middle.
+.project--featured {
+  flex-direction: column;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+// Inset rather than bled to the card edge: the logo carries its own rounded
+// corners in the alpha channel, so running it full-bleed would double up two
+// different corner radii. No background tint for the same reason — the
+// transparent corners should show the card, not a second surface.
+.project__shot {
+  display: block;
+  padding: 1.1rem 1.1rem 0;
+  line-height: 0;
+}
+
+// Shown whole rather than cropped: it is a logo, not a screenshot, so there is
+// no detail worth zooming into. Scoped to beat `.post-content img`.
+.post-content .project__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project--featured .project__body {
+  padding: 1.25rem;
+}
+
+.project__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.15rem;
+}
+
+// Scoped under .post-content: the page layout wraps this include in it, and
+// `.post-content h2` would otherwise win on specificity and render these at
+// article-heading size.
+.post-content .project__name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: normal;
+  color: $text-primary;
+}
+
+.post-content .project--featured .project__name {
+  font-size: 1.3rem;
+}
+
+// Live shields.io badge — height is pinned so a slow or blocked request can't
+// reflow the card once it lands.
+.project__stars {
+  flex-shrink: 0;
+  height: 20px;
+  width: auto;
+  border-radius: 3px;
+}
+
+.post-content .project__tagline {
+  margin: 0.35rem 0 0.6rem;
+  font-size: 0.85rem;
+  color: $text-muted;
+}
+
+.post-content .project__desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: $text-secondary;
+  flex-grow: 1;
+}
+
+.post-content .project__desc p {
+  margin: 0;
+}
+
+.project__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: $text-primary;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.project__links a:hover {
+  border-bottom-color: $text-primary;
+}
+
+.project__links svg {
+  width: 12px;
+  height: 12px;
+}
+
+@media (min-width: 760px) {
+  .project--featured .project__body {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project {
+    transition: none;
+  }
+
+  .project:hover {
+    transform: none;
+  }
+}

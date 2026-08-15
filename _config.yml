@@ -44,6 +44,7 @@ plugins:
 
 header_pages:
   - _pages/blog.md
+  - _pages/projects.md
   - _pages/about.md
   - _pages/resume.md
 

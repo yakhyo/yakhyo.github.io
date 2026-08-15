@@ -1,0 +1,40 @@
+# Curated open-source projects for /projects.
+#
+# Deliberately a short, hand-picked list rather than a mirror of GitHub — a
+# stale project page reads worse than no project page. Star counts are NOT
+# stored here: the page renders a live shields.io badge from `repo`, so the
+# numbers stay honest without anyone editing this file.
+#
+# `post_slug` is matched against site.posts, so a renamed post surfaces as a
+# missing link at build time rather than a silent 404.
+#
+# Optional per-project keys: post_slug, docs, demo, image + image_alt, and
+# `stars: false` to hide the badge on a repo too new for the count to say much.
+
+featured:
+  name: "UniFace"
+  repo: "yakhyo/uniface"
+  tagline: "A unified face analysis library for Python"
+  description: |
+    Detection, recognition, landmarks including FaceMesh (MediaPipe), parsing, matting,
+    tracking, and attributes spanning age, emotion, gaze, head pose, and anti-spoofing.
+    Every model returns the same `Face` object, so one stage feeds straight into the next.
+  post_slug: "uniface-all-in-one-face-analysis"
+  docs: "https://yakhyo.github.io/uniface/"
+  demo: "https://huggingface.co/spaces/yakhyo/uniface"
+  image: "https://raw.githubusercontent.com/yakhyo/uniface/main/.github/logos/uniface_rounded_q80.webp"
+  image_alt: "UniFace logo: an illustrated face inside a detection bracket, beside the wordmark uniface and the command pip install uniface"
+
+projects:
+  - name: "Face Parsing"
+    repo: "yakhyo/face-parsing"
+    tagline: "Real-time facial semantic segmentation with BiSeNet"
+    description: "Per-region face masks across 19 classes, with ResNet-18 and ResNet-34 backbones. Training code, evaluation, and ONNX export included."
+    post_slug: "face-parsing-bisenet"
+
+  - name: "Gaze Estimation"
+    repo: "yakhyo/gaze-estimation"
+    tagline: "Lightweight gaze direction with MobileOne"
+    description: "Pitch and yaw gaze estimation trained on Gaze360, with ResNet, MobileNet and MobileOne backbones for edge deployment."
+    post_slug: "gaze-estimation"
+

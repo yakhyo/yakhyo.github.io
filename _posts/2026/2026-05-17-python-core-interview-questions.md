@@ -2,13 +2,13 @@
 layout: post
 title: "Python Core Interview Questions and Answers: Clear, Practical Explanations"
 date: 2026-05-17 12:00:00 +0900
-modified_date: 2026-07-28 12:00:00 +0900
+modified_date: 2026-08-16 12:00:00 +0900
 comments: true
 categories: python
 tags: [python, interview-prep, async, generators, concurrency]
 description: "Practical Python interview answers for core topics like data structures, object identity, memory management, the GIL, generators, decorators, and async FastAPI behavior."
-custom_css: mermaid
-custom_js: mermaid
+custom_css: diagram
+custom_js: diagram
 toc_depth: 2
 ---
 
@@ -29,29 +29,67 @@ Each question starts with a one-line **short answer** for quick review, then exp
 
 Most of these questions fall into three buckets: Python objects, runtime behavior, and concurrency.
 
-<div class="mermaid">
-flowchart TD
-    A["Python Core Interview Prep"] --> B["Data Structures and Identity"]
-    A --> C["Runtime and Execution"]
-    A --> D["Concurrency and Async"]
-    B --> B1["list, tuple, set, dict"]
-    B --> B2["is vs =="]
-    C --> C1["memory management"]
-    C --> C2["iterators and generators"]
-    C --> C3["decorators"]
-    C --> C4["context managers"]
-    D --> D1["GIL"]
-    D --> D2["async and await"]
-    D --> D3["blocking inside async endpoints"]
+<div class="diagram">
+<svg class="dg" viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-map-title dg-map-desc">
+  <title id="dg-map-title">Map of the Python core interview topics covered in this guide</title>
+  <desc id="dg-map-desc">Python core interview prep splits into three branches. Data structures and identity covers list, tuple, set and dict, and is versus double equals. Runtime and execution covers memory management, iterators and generators, decorators, and context managers. Concurrency and async covers the GIL, async and await, and blocking inside async endpoints.</desc>
+  <defs>
+    <marker id="dg-arrow-map" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path class="dg-arrowhead" d="M0,0 L8,4 L0,8 z" />
+    </marker>
+  </defs>
 
-    classDef hub fill:#1e90ff,stroke:#0066cc,color:#ffffff;
-    classDef g1 fill:#e8f2ff,stroke:#1e90ff,color:#0b3d91;
-    classDef g2 fill:#efe9ff,stroke:#7c3aed,color:#4c1d95;
-    classDef g3 fill:#e6f7f1,stroke:#10b981,color:#065f46;
-    class A hub;
-    class B,B1,B2 g1;
-    class C,C1,C2,C3,C4 g2;
-    class D,D1,D2,D3 g3;
+  <!-- hub -->
+  <rect class="dg-node dg-hub" x="260" y="14" width="260" height="44" />
+  <text class="dg-t-hub" x="390" y="41" text-anchor="middle" font-size="14" font-weight="600">Python Core Interview Prep</text>
+
+  <!-- hub to the three branch headers -->
+  <path class="dg-edge" d="M390,58 V82 H133 V100" marker-end="url(#dg-arrow-map)" />
+  <path class="dg-edge" d="M390,58 V100" marker-end="url(#dg-arrow-map)" />
+  <path class="dg-edge" d="M390,58 V82 H647 V100" marker-end="url(#dg-arrow-map)" />
+
+  <!-- branch 1: data structures and identity -->
+  <rect class="dg-node dg-blue" x="16" y="104" width="234" height="46" />
+  <text class="dg-t-blue" x="133" y="132" text-anchor="middle" font-size="13" font-weight="600">Data Structures and Identity</text>
+  <path class="dg-edge" d="M28,150 V250" />
+  <path class="dg-edge" d="M28,204 H40" />
+  <path class="dg-edge" d="M28,250 H40" />
+  <rect class="dg-node dg-blue" x="40" y="186" width="210" height="36" />
+  <text class="dg-t-blue" x="52" y="209" font-size="12">list, tuple, set, dict</text>
+  <rect class="dg-node dg-blue" x="40" y="232" width="210" height="36" />
+  <text class="dg-t-blue" x="52" y="255" font-size="12">is vs ==</text>
+
+  <!-- branch 2: runtime and execution -->
+  <rect class="dg-node dg-purple" x="273" y="104" width="234" height="46" />
+  <text class="dg-t-purple" x="390" y="132" text-anchor="middle" font-size="13" font-weight="600">Runtime and Execution</text>
+  <path class="dg-edge" d="M285,150 V342" />
+  <path class="dg-edge" d="M285,204 H297" />
+  <path class="dg-edge" d="M285,250 H297" />
+  <path class="dg-edge" d="M285,296 H297" />
+  <path class="dg-edge" d="M285,342 H297" />
+  <rect class="dg-node dg-purple" x="297" y="186" width="210" height="36" />
+  <text class="dg-t-purple" x="309" y="209" font-size="12">memory management</text>
+  <rect class="dg-node dg-purple" x="297" y="232" width="210" height="36" />
+  <text class="dg-t-purple" x="309" y="255" font-size="12">iterators and generators</text>
+  <rect class="dg-node dg-purple" x="297" y="278" width="210" height="36" />
+  <text class="dg-t-purple" x="309" y="301" font-size="12">decorators</text>
+  <rect class="dg-node dg-purple" x="297" y="324" width="210" height="36" />
+  <text class="dg-t-purple" x="309" y="347" font-size="12">context managers</text>
+
+  <!-- branch 3: concurrency and async -->
+  <rect class="dg-node dg-teal" x="530" y="104" width="234" height="46" />
+  <text class="dg-t-teal" x="647" y="132" text-anchor="middle" font-size="13" font-weight="600">Concurrency and Async</text>
+  <path class="dg-edge" d="M542,150 V296" />
+  <path class="dg-edge" d="M542,204 H554" />
+  <path class="dg-edge" d="M542,250 H554" />
+  <path class="dg-edge" d="M542,296 H554" />
+  <rect class="dg-node dg-teal" x="554" y="186" width="210" height="36" />
+  <text class="dg-t-teal" x="566" y="209" font-size="12">GIL</text>
+  <rect class="dg-node dg-teal" x="554" y="232" width="210" height="36" />
+  <text class="dg-t-teal" x="566" y="255" font-size="12">async and await</text>
+  <rect class="dg-node dg-teal" x="554" y="278" width="210" height="36" />
+  <text class="dg-t-teal" x="566" y="301" font-size="12">blocking inside async endpoints</text>
+</svg>
 </div>
 
 ## 1. What Is the Difference Between a List, Tuple, Set, and Dictionary in Python?
@@ -262,19 +300,38 @@ Now `a` points to `b`, and `b` points back to `a`.
 
 If the rest of the program stops referring to both objects, the pair can still keep each other alive. That is why CPython also has a cyclic garbage collector.
 
-<div class="mermaid">
-flowchart LR
-    A["Object A"] --> B["Object B"]
-    B --> A
-    C["No outside references remain"] --> D["Reference counts do not reach zero"]
-    D --> E["Garbage collector detects unreachable cycle"]
+<div class="diagram">
+<svg class="dg" viewBox="0 0 780 198" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-cycle-title dg-cycle-desc">
+  <title id="dg-cycle-title">How a reference cycle survives reference counting</title>
+  <desc id="dg-cycle-desc">Object A holds a reference to object B and object B holds one back to object A. Below that, a three-step chain: no outside references remain, so reference counts do not reach zero, so the garbage collector is what detects the unreachable cycle.</desc>
+  <defs>
+    <marker id="dg-arrow-cycle" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path class="dg-arrowhead" d="M0,0 L8,4 L0,8 z" />
+    </marker>
+  </defs>
 
-    classDef bad fill:#fdeaea,stroke:#ef4444,color:#991b1b;
-    classDef step fill:#fff3e0,stroke:#f59e0b,color:#92400e;
-    classDef good fill:#e6f7f1,stroke:#10b981,color:#065f46;
-    class A,B bad;
-    class C,D step;
-    class E good;
+  <!-- the cycle itself: two objects pointing at each other -->
+  <rect class="dg-node dg-bad" x="200" y="20" width="140" height="48" />
+  <text class="dg-t-bad" x="270" y="49" text-anchor="middle" font-size="13" font-weight="600">Object A</text>
+  <rect class="dg-node dg-bad" x="440" y="20" width="140" height="48" />
+  <text class="dg-t-bad" x="510" y="49" text-anchor="middle" font-size="13" font-weight="600">Object B</text>
+  <path class="dg-edge" d="M340,34 Q390,4 440,34" marker-end="url(#dg-arrow-cycle)" />
+  <path class="dg-edge" d="M440,54 Q390,84 340,54" marker-end="url(#dg-arrow-cycle)" />
+
+  <!-- what that means for cleanup -->
+  <rect class="dg-node dg-decision" x="16" y="122" width="236" height="58" />
+  <text class="dg-t-decision" x="134" y="156" text-anchor="middle" font-size="13">No outside references remain</text>
+  <path class="dg-edge" d="M252,151 H272" marker-end="url(#dg-arrow-cycle)" />
+
+  <rect class="dg-node dg-decision" x="272" y="122" width="236" height="58" />
+  <text class="dg-t-decision" x="390" y="147" text-anchor="middle" font-size="13">Reference counts do not</text>
+  <text class="dg-t-decision" x="390" y="165" text-anchor="middle" font-size="13">reach zero</text>
+  <path class="dg-edge" d="M508,151 H528" marker-end="url(#dg-arrow-cycle)" />
+
+  <rect class="dg-node dg-good" x="528" y="122" width="236" height="58" />
+  <text class="dg-t-good" x="646" y="147" text-anchor="middle" font-size="13">Garbage collector detects</text>
+  <text class="dg-t-good" x="646" y="165" text-anchor="middle" font-size="13">unreachable cycle</text>
+</svg>
 </div>
 
 ### Why This Matters in Real Projects
@@ -352,22 +409,46 @@ For CPU-heavy work, the better answers are usually:
 - vectorized libraries such as NumPy
 - worker systems or external services
 
-<div class="mermaid">
-flowchart TD
-    A["What kind of work is this?"] --> B{"Mostly waiting on I/O?"}
-    B -->|Yes| C["Threads or async are often a good fit"]
-    B -->|No| D{"Mostly CPU-bound Python code?"}
-    D -->|Yes| E["Prefer multiprocessing, native code, or external workers"]
-    D -->|No| F["Choose based on library support and architecture"]
+<div class="diagram">
+<svg class="dg" viewBox="0 0 780 356" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-conc-title dg-conc-desc">
+  <title id="dg-conc-title">Choosing between threads, async, and multiprocessing</title>
+  <desc id="dg-conc-desc">Start by asking what kind of work it is. If it is mostly waiting on input and output, threads or async are often a good fit. If not, ask whether it is mostly CPU-bound Python code: if yes, prefer multiprocessing, native code, or external workers; if no, choose based on library support and architecture.</desc>
+  <defs>
+    <marker id="dg-arrow-conc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path class="dg-arrowhead" d="M0,0 L8,4 L0,8 z" />
+    </marker>
+  </defs>
 
-    classDef start fill:#e8f2ff,stroke:#1e90ff,color:#0b3d91;
-    classDef decision fill:#fff3e0,stroke:#f59e0b,color:#92400e;
-    classDef good fill:#e6f7f1,stroke:#10b981,color:#065f46;
-    classDef neutral fill:#f1f5f9,stroke:#64748b,color:#1f2937;
-    class A start;
-    class B,D decision;
-    class C,E good;
-    class F neutral;
+  <rect class="dg-node dg-blue" x="16" y="16" width="270" height="44" />
+  <text class="dg-t-blue" x="151" y="43" text-anchor="middle" font-size="13" font-weight="600">What kind of work is this?</text>
+  <path class="dg-edge" d="M151,60 V96" marker-end="url(#dg-arrow-conc)" />
+
+  <!-- first decision: I/O-bound? -->
+  <rect class="dg-node dg-decision" x="16" y="96" width="270" height="50" />
+  <text class="dg-t-decision" x="151" y="126" text-anchor="middle" font-size="13" font-weight="600">Mostly waiting on I/O?</text>
+
+  <path class="dg-edge" d="M286,121 H366" marker-end="url(#dg-arrow-conc)" />
+  <text class="dg-edge-label" x="326" y="114" text-anchor="middle">Yes</text>
+  <rect class="dg-node dg-good" x="366" y="96" width="398" height="50" />
+  <text class="dg-t-good" x="565" y="126" text-anchor="middle" font-size="13">Threads or async are often a good fit</text>
+
+  <path class="dg-edge" d="M151,146 V192" marker-end="url(#dg-arrow-conc)" />
+  <text class="dg-edge-label" x="163" y="173">No</text>
+
+  <!-- second decision: CPU-bound? -->
+  <rect class="dg-node dg-decision" x="16" y="192" width="270" height="50" />
+  <text class="dg-t-decision" x="151" y="222" text-anchor="middle" font-size="13" font-weight="600">Mostly CPU-bound Python code?</text>
+
+  <path class="dg-edge" d="M286,217 H366" marker-end="url(#dg-arrow-conc)" />
+  <text class="dg-edge-label" x="326" y="210" text-anchor="middle">Yes</text>
+  <rect class="dg-node dg-good" x="366" y="192" width="398" height="50" />
+  <text class="dg-t-good" x="565" y="222" text-anchor="middle" font-size="13">Prefer multiprocessing, native code, or external workers</text>
+
+  <path class="dg-edge" d="M151,242 V313 H366" marker-end="url(#dg-arrow-conc)" />
+  <text class="dg-edge-label" x="163" y="285">No</text>
+  <rect class="dg-node dg-neutral" x="366" y="288" width="398" height="50" />
+  <text class="dg-t-neutral" x="565" y="318" text-anchor="middle" font-size="13">Choose based on library support and architecture</text>
+</svg>
 </div>
 
 ### Important Nuance
@@ -866,23 +947,50 @@ Typical cases:
 - email delivery
 - third-party API retry pipelines
 
-<div class="mermaid">
-flowchart LR
-    A["Incoming request"] --> B{"Blocking call inside async endpoint?"}
-    B -->|Yes| C["Event loop stalls"]
-    C --> D["Higher latency"]
-    C --> E["Lower concurrency"]
-    B -->|No| F["await non-blocking operation"]
-    F --> G["Other requests keep making progress"]
+<div class="diagram">
+<svg class="dg" viewBox="0 0 780 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-async-title dg-async-desc">
+  <title id="dg-async-title">What a blocking call inside an async endpoint costs</title>
+  <desc id="dg-async-desc">A request arrives at an async endpoint. If it makes a blocking call, the event loop stalls, which means higher latency and lower concurrency. If it awaits a non-blocking operation instead, other requests keep making progress.</desc>
+  <defs>
+    <marker id="dg-arrow-async" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path class="dg-arrowhead" d="M0,0 L8,4 L0,8 z" />
+    </marker>
+  </defs>
 
-    classDef start fill:#e8f2ff,stroke:#1e90ff,color:#0b3d91;
-    classDef decision fill:#fff3e0,stroke:#f59e0b,color:#92400e;
-    classDef bad fill:#fdeaea,stroke:#ef4444,color:#991b1b;
-    classDef good fill:#e6f7f1,stroke:#10b981,color:#065f46;
-    class A start;
-    class B decision;
-    class C,D,E bad;
-    class F,G good;
+  <rect class="dg-node dg-blue" x="16" y="148" width="130" height="48" />
+  <text class="dg-t-blue" x="81" y="177" text-anchor="middle" font-size="12.5" font-weight="600">Incoming request</text>
+  <path class="dg-edge" d="M146,172 H182" marker-end="url(#dg-arrow-async)" />
+
+  <rect class="dg-node dg-decision" x="182" y="140" width="180" height="64" />
+  <text class="dg-t-decision" x="272" y="167" text-anchor="middle" font-size="12.5" font-weight="600">Blocking call inside</text>
+  <text class="dg-t-decision" x="272" y="185" text-anchor="middle" font-size="12.5" font-weight="600">async endpoint?</text>
+
+  <!-- yes: the loop stalls -->
+  <path class="dg-edge" d="M362,160 H381 V78 H400" marker-end="url(#dg-arrow-async)" />
+  <text class="dg-edge-label" x="389" y="120">Yes</text>
+  <rect class="dg-node dg-bad" x="400" y="56" width="156" height="44" />
+  <text class="dg-t-bad" x="478" y="83" text-anchor="middle" font-size="12.5">Event loop stalls</text>
+
+  <path class="dg-edge" d="M556,78 H576 V52 H596" marker-end="url(#dg-arrow-async)" />
+  <rect class="dg-node dg-bad" x="596" y="32" width="168" height="40" />
+  <text class="dg-t-bad" x="680" y="57" text-anchor="middle" font-size="12.5">Higher latency</text>
+
+  <path class="dg-edge" d="M556,78 H576 V106 H596" marker-end="url(#dg-arrow-async)" />
+  <rect class="dg-node dg-bad" x="596" y="86" width="168" height="40" />
+  <text class="dg-t-bad" x="680" y="111" text-anchor="middle" font-size="12.5">Lower concurrency</text>
+
+  <!-- no: the loop stays free -->
+  <path class="dg-edge" d="M362,184 H381 V273 H400" marker-end="url(#dg-arrow-async)" />
+  <text class="dg-edge-label" x="389" y="232">No</text>
+  <rect class="dg-node dg-good" x="400" y="244" width="156" height="58" />
+  <text class="dg-t-good" x="478" y="269" text-anchor="middle" font-size="12.5">await non-blocking</text>
+  <text class="dg-t-good" x="478" y="287" text-anchor="middle" font-size="12.5">operation</text>
+
+  <path class="dg-edge" d="M556,273 H596" marker-end="url(#dg-arrow-async)" />
+  <rect class="dg-node dg-good" x="596" y="244" width="168" height="58" />
+  <text class="dg-t-good" x="680" y="269" text-anchor="middle" font-size="12.5">Other requests keep</text>
+  <text class="dg-t-good" x="680" y="287" text-anchor="middle" font-size="12.5">making progress</text>
+</svg>
 </div>
 
 ### How I Would Say It in an Interview

@@ -134,7 +134,7 @@
   // 5. Theme toggle — light / dark. The effective theme is either an explicit
   // choice on <html data-theme> (persisted to localStorage) or, absent that,
   // the OS preference. Toggling flips to the opposite of what's showing, saves
-  // it, and notifies theme-aware widgets (giscus comments, mermaid diagrams).
+  // it, and notifies theme-aware widgets (giscus comments).
   // ---------------------------------------------------------------------------
   function prefersDark() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -182,7 +182,7 @@
     try { localStorage.setItem('theme', theme); } catch (_) { /* ignore */ }
     updateThemeColor(theme);
     syncGiscusTheme(theme);
-    // Let non-CSS widgets (mermaid) re-render for the new theme.
+    // Let any non-CSS widget re-render for the new theme.
     window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
     trackEvent('theme-toggle', { event_label: theme });
   }
@@ -211,7 +211,7 @@
 
     // Follow live OS theme flips while the reader has no explicit choice: CSS
     // updates via the media query, but the chrome color and non-CSS widgets
-    // (mermaid, giscus) need a nudge.
+    // (giscus) need a nudge.
     if (window.matchMedia) {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       const onOsChange = function () {
