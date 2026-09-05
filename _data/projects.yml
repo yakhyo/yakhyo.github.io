@@ -38,3 +38,26 @@ projects:
     description: "Pitch and yaw gaze estimation trained on Gaze360, with ResNet, MobileNet and MobileOne backbones for edge deployment."
     post_slug: "gaze-estimation"
 
+  - name: "Head Pose Estimation"
+    repo: "yakhyo/head-pose-estimation"
+    tagline: "Yaw, pitch and roll from a single face crop"
+    description: "Head orientation with ResNet and MobileNet backbones, trained on 300W-LP and evaluated on AFLW2000. PyTorch training and ONNX Runtime inference."
+    post_slug: "head-pose-estimation"
+
+  - name: "RetinaFace"
+    repo: "yakhyo/retinaface-pytorch"
+    tagline: "Single-stage face detection with five landmarks"
+    description: "RetinaFace in PyTorch with MobileNet and ResNet backbones: training, WIDER FACE evaluation, ONNX export and pretrained weights."
+    post_slug: "high-performance-retinaface-detector"
+
+  - name: "Face Anti-Spoofing"
+    repo: "yakhyo/face-anti-spoofing"
+    tagline: "Live face or a picture of one, in under a millisecond"
+    description: "Minimal PyTorch and ONNX Runtime inference for Silent-Face-Anti-Spoofing (MiniFASNet). Catches prints, screen replays and paper masks from a single face box."
+    post_slug: "face-anti-spoofing-minifasnet"
+
+  - name: "Face Recognition"
+    repo: "yakhyo/face-recognition"
+    tagline: "MobileFace and SphereFace, PyTorch to ONNX Runtime"
+    description: "Recognition models trained on MS1MV2 with MobileNet and Sphere backbones, exported to ONNX. Two of the five families UniFace ships."
+    post_slug: "face-recognition-adaface-arcface-edgeface"

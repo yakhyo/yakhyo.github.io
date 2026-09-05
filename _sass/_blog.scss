@@ -285,7 +285,7 @@
     font-family: $font-sans;
     letter-spacing: -0.02em;
   }
-  h2 { font-size: $text-xl;   font-weight: $weight-medium; line-height: 1.3;  margin-top: 2.75rem; margin-bottom: 0.75rem; }
+  h2 { font-size: $text-xl;   font-weight: $weight-semibold; line-height: 1.3;  margin-top: 2.75rem; margin-bottom: 0.75rem; }
   h3 { font-size: $text-lg;   font-weight: $weight-medium; line-height: 1.35; margin-top: 2.25rem; margin-bottom: 0.5rem; }
   h4 { font-size: $text-base; font-weight: $weight-medium; line-height: 1.4;  margin-top: 1.75rem; margin-bottom: 0.5rem; }
   h5, h6 { font-size: $text-base; font-weight: $weight-medium; }
@@ -373,6 +373,48 @@
   blockquote.callout > p:first-child > strong:first-child {
     display: block;
     margin-bottom: 0.3rem;
+  }
+
+  // FAQ items: one callout per question so the question and its answer never
+  // run together. Authored as `> **Question?**`, a blank quote line, then the
+  // answer, tagged `{: .faq}`. Same frame as takeaways, plus Q / A markers in
+  // the left gutter so a skimming reader can tell which line is which.
+  blockquote.faq {
+    position: relative;
+    margin: 1.25em 0;
+    padding: 0.95rem 1.2rem 0.95rem 3rem;
+    border: 1px solid $border-light;
+    border-left: 3px solid $brand-primary;
+    border-radius: $radius;
+    background: $bg-soft;
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-style: normal;
+    color: $text-primary;
+    line-height: 1.65;
+
+    > p {
+      position: relative;
+      margin: 0 0 0.55rem;
+    }
+    > p:last-child { margin-bottom: 0; }
+
+    > p::before {
+      position: absolute;
+      left: -1.9rem;
+      top: 0.2em;
+      font-family: $font-mono;
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.08em;
+      color: $text-faint;
+    }
+    > p:first-child::before { content: "Q"; color: $brand-primary; }
+    > p:nth-child(2)::before { content: "A"; }
+
+    // The question is bold in the source; keep one weight, not a double one.
+    > p:first-child { font-weight: $weight-semibold; }
+    > p:first-child > strong { font-weight: inherit; }
   }
 
   // Render <hr> as a centered "·  ·  ·" instead of a full-width line.

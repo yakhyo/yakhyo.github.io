@@ -2,12 +2,17 @@
 layout: post
 title: "UniFace: A Unified Face Analysis Library for Python"
 date: 2025-11-11 12:00:00 +0900
-modified_date: 2026-08-16 12:00:00 +0900
+last_modified_at: 2026-08-16 12:00:00 +0900
 comments: true
 published: true
 categories: computer-vision
 tags: [face-analysis, uniface, onnx, production, open-source]
 description: "UniFace is a Python library for face analysis on ONNX Runtime: six detectors, five recognition models, 468-point mesh, parsing, attributes, and quality scoring."
+image:
+  path: https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/detection_alt.jpg
+  width: 1500
+  height: 1086
+  alt: "Black and white group photograph of 29 physicists on the steps of a building, each face marked with a green box and five keypoints by SCRFD-10G"
 ---
 
 <p align="center">
@@ -141,7 +146,7 @@ Face Mesh goes further and fits 468 dense 3D points per frame, which holds up un
 
 ### Parsing, Segmentation, and Matting
 
-Three different ways to cut a face out of a photograph, and they are not interchangeable. Parsing gives you per-region labels, with 13 of BiSeNet's 19 classes present here:
+Three different ways to cut a face out of a photograph, each with its own output format. Parsing gives you per-region labels, with 13 of BiSeNet's 19 classes present here:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/parsing.jpg" width="90%" loading="lazy" alt="Face parsing shown as a pair: the original portrait beside a version where skin, hair, eyebrows, eyes, nose, lips, neck and clothing are each shaded a different colour">
@@ -207,13 +212,13 @@ Quality scoring gives you one number per face, which is what you filter on befor
 <img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/quality.jpg" width="95%" loading="lazy" alt="A group of seven people against a dark wall, each face marked with a corner box coloured amber or green, above a strip of four cropped faces scored 0.398, 0.525, 0.675 and 0.749, with the lowest scores on the faces turned away from the camera">
 </div>
 
-Anti-spoofing judges the presentation, not the face. A live capture reads `Real` at 1.00, and a print and a screen replay of that same capture read `Fake` at 0.66 and 0.99:
+Anti-spoofing judges how a face was presented to the camera. A live capture reads `Real` at 1.00, and a print and a screen replay of that same capture read `Fake` at 0.66 and 0.99:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/spoofing.jpg" width="95%" loading="lazy" alt="Three frames of the same woman: a live webcam capture boxed in green and labelled Real 1.00, a printed photograph of her boxed in red and labelled Fake 0.66, and the photo replayed on a tablet screen boxed in red and labelled Fake 0.99">
 </div>
 
-Anonymization ships several methods, so you can match whichever one your compliance requirement actually asks for:
+Anonymization ships several methods, so you can match whichever one your compliance requirement asks for:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/yakhyo/uniface/main/assets/demo/anonymization.jpg" width="95%" loading="lazy" alt="The same photograph of five colleagues repeated four times, with every face obscured by a different method: pixelate, gaussian blur, elliptical blur, and a solid black box">
@@ -223,23 +228,23 @@ Anonymization ships several methods, so you can match whichever one your complia
 
 The examples can be opened directly in Google Colab:
 
-| Notebook | Colab | Focus |
-|----------|-------|-------|
-| Face Detection | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/01_face_detection.ipynb) | Detection and 5-point landmarks |
-| Face Alignment | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/02_face_alignment.ipynb) | Alignment for recognition |
-| Face Verification | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/03_face_verification.ipynb) | Similarity-based identity matching |
-| Face Search | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/04_face_search.ipynb) | Searching for a person in group photos |
-| Face Analyzer | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/05_face_analyzer.ipynb) | Detection, recognition, and attributes |
-| Face Parsing | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/06_face_parsing.ipynb) | Semantic face segmentation |
-| Face Anonymization | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/07_face_anonymization.ipynb) | Face blurring and anonymization |
-| Gaze Estimation | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/08_gaze_estimation.ipynb) | Gaze direction prediction |
-| Face Segmentation | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/09_face_segmentation.ipynb) | XSeg-based masking |
-| Face Vector Store | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/10_face_vector_store.ipynb) | FAISS-backed embedding search |
-| Head Pose Estimation | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/11_head_pose_estimation.ipynb) | Pitch, yaw, and roll |
-| Face Recognition | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/12_face_recognition.ipynb) | Recognition without `FaceAnalyzer` |
-| Portrait Matting | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/13_portrait_matting.ipynb) | Background removal and compositing |
-| Face Attributes | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/14_face_attributes.ipynb) | Eye, glasses, sunglasses, and mask attributes |
-| Face Mesh | [Open](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/15_face_mesh.ipynb) | Dense 468-point face landmarks |
+| Notebook | Colab | Kaggle | Focus |
+|----------|-------|--------|-------|
+| Face Detection | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/01_face_detection.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-detection-with-uniface) | Detection and 5-point landmarks |
+| Face Alignment | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/02_face_alignment.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-detection-and-alignment-with-uniface) | Alignment for recognition |
+| Face Verification | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/03_face_verification.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-verification-one-to-one-face-comparison) | Similarity-based identity matching |
+| Face Search | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/04_face_search.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-search-one-to-many-face-matching) | Searching for a person in group photos |
+| Face Analyzer | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/05_face_analyzer.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-analysis-with-uniface) | Detection, recognition, and attributes |
+| Face Parsing | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/06_face_parsing.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-parsing-with-uniface) | Semantic face segmentation |
+| Face Anonymization | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/07_face_anonymization.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-anonymization-with-uniface) | Face blurring and anonymization |
+| Gaze Estimation | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/08_gaze_estimation.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/gaze-estimation-with-uniface) | Gaze direction prediction |
+| Face Segmentation | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/09_face_segmentation.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/xseg-face-segmentation) | XSeg-based masking |
+| Face Vector Store | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/10_face_vector_store.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-vector-store-with-faiss) | FAISS-backed embedding search |
+| Head Pose Estimation | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/11_head_pose_estimation.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/head-pose-estimation-with-uniface) | Pitch, yaw, and roll |
+| Face Recognition | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/12_face_recognition.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-recognition-retinaface-align-arcface) | Recognition without `FaceAnalyzer` |
+| Portrait Matting | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/13_portrait_matting.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/portrait-matting-with-modnet) | Background removal and compositing |
+| Face Attributes | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/14_face_attributes.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-attribute-detection-with-uniface) | Eye, glasses, sunglasses, and mask attributes |
+| Face Mesh | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/15_face_mesh.ipynb) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/dense-face-mesh-with-uniface) | Dense 468-point face landmarks |
 
 There is also a live Hugging Face demo at [huggingface.co/spaces/yakhyo/uniface](https://huggingface.co/spaces/yakhyo/uniface).
 
@@ -257,5 +262,7 @@ Several UniFace modules started as standalone projects. These posts go deeper on
 - [Face Parsing with BiSeNet and ResNet Backbones]({% link _posts/2024/2024-11-29-face-parsing-bisenet.md %}). The semantic segmentation module for per-region masks.
 - [MobileGaze: Lightweight Gaze Estimation with MobileOne]({% link _posts/2024/2024-09-18-gaze-estimation.md %}). The gaze direction module.
 - [Real-Time Head Pose Estimation with MobileNet and ResNet]({% link _posts/2024/2024-09-17-head-pose-estimation.md %}). The pitch/yaw/roll head pose module.
-- [FaceAttribNet: Eye, Glasses, and Mask Detection in ONNX]({% link _posts/2026/2026-07-28-face-attribute-detection-faceattribnet.md %}). The multi-label model behind the eye, glasses, and mask outputs.
-- [MediaPipe Face Mesh in ONNX: 468 Dense 3D Landmarks]({% link _posts/2026/2026-07-28-mediapipe-face-mesh-onnx-468-landmarks.md %}). The dense landmark model and BlazeFace detector port.
+- [Eye, Glasses, and Mask Detection: FaceAttribNet in UniFace]({% link _posts/2026/2026-07-28-face-attribute-detection-faceattribnet.md %}). The multi-label model behind the eye, glasses, and mask outputs.
+- [Running MediaPipe Face Mesh in UniFace, Pixel for Pixel]({% link _posts/2026/2026-07-28-mediapipe-face-mesh-onnx-468-landmarks.md %}). The dense landmark model and BlazeFace detector port.
+- [How to Choose a Face Recognition Model in UniFace]({% link _posts/2026/2026-09-06-face-recognition-adaface-arcface-edgeface.md %}). Five recognition families measured on the same portraits, with per-model thresholds.
+- [Will a Photo Fool Your Face Login? Anti-Spoofing in UniFace]({% link _posts/2026/2026-09-06-face-anti-spoofing-minifasnet.md %}). MiniFASNet on a live capture, a print, a screen replay and old photographs, with the voting pattern that makes it hold up.

@@ -33,7 +33,13 @@ social:
     - https://scholar.google.com/citations?user=I66QbJIAAAAJ
     - https://twitter.com/y_valikhujaev
 
+# jekyll-seo-tag reads this for twitter:site / twitter:creator and the card type.
+twitter:
+  username: y_valikhujaev
+  card: summary_large_image
+
 lang: en
+locale: en_US
 timezone: Asia/Seoul
 
 theme: minima
@@ -71,7 +77,7 @@ resume:
 # Typewriter titles cycled on the landing page.
 landing_titles:
   - "AI/ML Software Engineer"
-  - "ML Researcher"
+  - "ML Research Engineer"
 
 # Fallback OG/Twitter image for posts that don't define their own `image:`.
 defaults:

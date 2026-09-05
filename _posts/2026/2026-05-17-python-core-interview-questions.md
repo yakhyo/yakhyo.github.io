@@ -2,11 +2,11 @@
 layout: post
 title: "Python Core Interview Questions and Answers: Clear, Practical Explanations"
 date: 2026-05-17 12:00:00 +0900
-modified_date: 2026-08-16 12:00:00 +0900
+last_modified_at: 2026-08-16 12:00:00 +0900
 comments: true
 categories: python
 tags: [python, interview-prep, async, generators, concurrency]
-description: "Practical Python interview answers for core topics like data structures, object identity, memory management, the GIL, generators, decorators, and async FastAPI behavior."
+description: "Practical Python interview answers on data structures, object identity, memory management, the GIL, generators, decorators, and async FastAPI behavior."
 custom_css: diagram
 custom_js: diagram
 toc_depth: 2
@@ -229,7 +229,7 @@ b = 10
 print(a is b)  # Often True in CPython
 ```
 
-But that is an implementation detail. It is useful to know, and dangerous to depend on.
+But that is an implementation detail. It is useful to know about, and you should not write code that depends on it.
 
 ### Best Practice
 
@@ -278,7 +278,7 @@ del y
 print(sys.getrefcount(x))  # 2
 ```
 
-The count is one higher than most people expect because passing `x` into `getrefcount()` creates a temporary reference. Mentioning that detail is a nice signal that you have actually used the tool.
+The count is one higher than most people expect because passing `x` into `getrefcount()` creates a temporary reference. Mentioning that detail is a nice signal that you have used the tool yourself.
 
 ### What Is Garbage Collection?
 
@@ -362,7 +362,7 @@ The lock exists because CPython's interpreter state and object model are not ful
 
 Historically, it made CPython's memory management and object model simpler and safer, especially around shared state and reference counting.
 
-That does not mean it is good for every workload. It means it is a tradeoff.
+The GIL is a tradeoff, and some workloads pay more for it than others.
 
 ### How Does It Affect Multithreading?
 
@@ -383,7 +383,7 @@ threads = [threading.Thread(target=cpu_task) for _ in range(2)]
 for t in threads: t.start()
 for t in threads: t.join()
 print(f"two threads: {time.perf_counter() - start:.2f}s")
-# Roughly the same as running cpu_task() twice in a row — the threads
+# Roughly the same as running cpu_task() twice in a row. The threads
 # spend their time contending for the GIL, not running in parallel.
 ```
 
@@ -464,7 +464,7 @@ A better answer is:
 > **Short answer:** An iterator is an object with `__next__()` that yields items one at a time and raises `StopIteration` when exhausted; an iterable is anything that can hand you a fresh iterator via `iter()`.
 {: .callout}
 
-An iterator represents a stream of data. Repeated calls to `__next__()` return the next item, and when there is nothing left, the iterator raises `StopIteration`.
+An iterator gives you a stream of data. Repeated calls to `__next__()` return the next item, and when there is nothing left, the iterator raises `StopIteration`.
 
 An iterator also implements `__iter__()`, which returns the iterator itself.
 
@@ -474,7 +474,7 @@ nums = iter([1, 2, 3])
 print(next(nums))  # 1
 print(next(nums))  # 2
 print(next(nums))  # 3
-print(next(nums))  # raises StopIteration — the stream is exhausted
+print(next(nums))  # raises StopIteration, the stream is exhausted
 ```
 
 ### Writing Your Own Iterator
@@ -508,7 +508,7 @@ A `for` loop calls `iter()` once, then calls `next()` repeatedly until `StopIter
 This distinction matters.
 
 - An iterable is something you can loop over.
-- An iterator is the object that actually produces the next value.
+- An iterator is the object that produces the next value.
 
 ```python
 items = [1, 2, 3]  # iterable
@@ -637,7 +637,7 @@ def log_calls(func):
 def add(a, b):
     return a + b
 
-print(add.__name__)  # 'add' — preserved because of @wraps
+print(add.__name__)  # 'add', preserved because of @wraps
 ```
 
 ### What Does `functools.wraps` Do?
@@ -660,7 +660,7 @@ def log_calls(func):
 def add(a, b):
     return a + b
 
-print(add.__name__)  # 'wrapper' — the original identity is lost
+print(add.__name__)  # 'wrapper', the original identity is lost
 ```
 
 ### How I Would Say It in an Interview
@@ -728,14 +728,14 @@ The `try/finally` is the important part. Putting teardown in `finally` is what g
 
 ### How I Would Say It in an Interview
 
-> A context manager defines `__enter__` and `__exit__` so a `with` block can guarantee cleanup — closing a file, releasing a lock, rolling back a transaction — even when the block raises. I can write one as a class, or more concisely as a generator decorated with `contextlib.contextmanager`, where the code after `yield` in a `finally` block is the teardown.
+> A context manager defines `__enter__` and `__exit__` so a `with` block can guarantee cleanup (closing a file, releasing a lock, rolling back a transaction) even when the block raises. I can write one as a class, or more concisely as a generator decorated with `contextlib.contextmanager`, where the code after `yield` in a `finally` block is the teardown.
 
 ## 9. Can a Context Manager Be Used as a Decorator?
 
-> **Short answer:** Yes — `contextlib`'s `@contextmanager` and `ContextDecorator` make a context manager usable as `@cm()`, so its setup/teardown brackets an entire function call instead of just a `with` block.
+> **Short answer:** Yes. `contextlib`'s `@contextmanager` and `ContextDecorator` make a context manager usable as `@cm()`, so the same setup and teardown can wrap a whole function call as well as a `with` block.
 {: .callout}
 
-This is a natural follow-up because it connects the decorator and context manager ideas. Sometimes you want the same enter/exit behavior to wrap a whole function, not just a block inside it.
+This is a natural follow-up because it connects the decorator and context manager ideas. Sometimes you want the same enter/exit behavior to wrap a whole function call rather than a single block inside it.
 
 ### The Generator Form Already Works
 
@@ -757,7 +757,7 @@ def timer():
 def process():
     sum(range(1_000_000))
 
-process()                # took 0.0xx s — enter/exit wraps the whole call
+process()                # took 0.0xx s, enter/exit wraps the whole call
 ```
 
 Each call enters a fresh context, so the same decorator is safe to reuse across many invocations.
@@ -787,18 +787,18 @@ with timed():            # still works as a normal context manager too
     sum(range(1_000_000))
 ```
 
-One caveat matters: the decorator form cannot bind the `__enter__` return value because there is no `as` target. Use it when you care about the setup/teardown side effect, not when the function body needs a resource from the context manager.
+One caveat matters: the decorator form cannot bind the `__enter__` return value because there is no `as` target. Use it when you care about the setup and teardown side effect. When the function body needs the resource the context manager binds, reach for the `with` form.
 
 ### How I Would Say It in an Interview
 
-> Yes. If I build a context manager with `contextlib.contextmanager` or by subclassing `ContextDecorator`, the same object works as both a `with` block and a `@decorator`. I reach for the decorator form when the enter/exit logic should wrap an entire function — like timing or logging — and I don't need the value the context manager would normally bind with `as`.
+> Yes. If I build a context manager with `contextlib.contextmanager` or by subclassing `ContextDecorator`, the same object works as both a `with` block and a `@decorator`. I reach for the decorator form when the enter/exit logic should wrap an entire function, like timing or logging, and I don't need the value the context manager would normally bind with `as`.
 
 ## 10. Explain `async` and `await`
 
-> **Short answer:** `async def` defines a coroutine and `await` suspends it until the awaited operation is ready, letting the event loop run other coroutines meanwhile — great for I/O-bound concurrency, not a CPU-bound speedup.
+> **Short answer:** `async def` defines a coroutine and `await` suspends it until the awaited operation is ready, letting the event loop run other coroutines meanwhile. It is a concurrency tool for I/O-bound work, and it does not make CPU-bound code faster.
 {: .callout}
 
-Start with this: `async` is about concurrency, especially I/O-bound concurrency.
+`async` is about concurrency, especially I/O-bound concurrency.
 
 - `async def` defines a coroutine.
 - `await` pauses that coroutine until the awaited operation is ready.
@@ -816,7 +816,7 @@ async def fetch_data():
 
 The event loop is the scheduler. It runs asynchronous tasks and callbacks, performs network I/O, and decides when suspended coroutines should resume.
 
-Here is the payoff: three one-second waits finish in about one second, not three, because the loop overlaps the waiting time:
+Three one-second waits finish in about one second, not three, because the loop overlaps the waiting time:
 
 ```python
 import asyncio, time
@@ -829,7 +829,7 @@ async def main():
     start = time.perf_counter()
     results = await asyncio.gather(task("a", 1), task("b", 1), task("c", 1))
     print(results, f"{time.perf_counter() - start:.2f}s")
-    # ['a', 'b', 'c'] ~1.00s — concurrent, not 3s
+    # ['a', 'b', 'c'] ~1.00s (concurrent, not 3s)
 
 asyncio.run(main())
 ```

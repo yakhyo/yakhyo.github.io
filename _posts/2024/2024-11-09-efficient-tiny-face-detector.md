@@ -2,12 +2,25 @@
 layout: post
 title: "Tiny-Face: Ultra-Lightweight Face Detection for Edge Devices"
 date: 2024-11-09 12:00:00 +0900
-modified_date: 2026-07-28 12:00:00 +0900
+last_modified_at: 2026-07-28 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [face-detection, tiny-face, mobile, edge-deployment]
 description: "Tiny-Face compares SlimFace, RFB, and compact RetinaFace variants for small face detection models with WIDER FACE results and PyTorch/ONNX weights."
-image: "https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg"
+image:
+  path: https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg
+  width: 2048
+  height: 1150
+  alt: "World's Largest Selfie crowd photo with hundreds of faces detected, each marked by a red box, five landmarks and a confidence score"
+faq:
+  - q: "Which variant should I choose?"
+    a: "The compact RetinaFace is the most accurate of the three (87.69% easy on the multi-scale WIDER FACE split) at 1.8 MB. SlimFace (1.4 MB) and RFB (1.5 MB) are smaller still, and worth choosing when the model-size budget is even tighter than 2 MB."
+  - q: "How small are these models really?"
+    a: "All three are under 2 MB and under half a million parameters. SlimFace is 0.343M parameters, RFB is 0.359M, and the compact RetinaFace is 0.426M, so they fit comfortably on constrained edge devices."
+  - q: "Do the small models miss faces in crowded scenes?"
+    a: "They can. In the crowded selfie test the compact RetinaFace detects 459 faces, RFB 430, and SlimFace 384. That recall gap is the practical tradeoff of shrinking the model."
+  - q: "When should I use Tiny-Face instead of a full RetinaFace?"
+    a: "Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit."
 ---
 
 Tiny-Face is a compact face detection project focused on mobile and edge environments. It compares three small detector variants: **SlimFace**, **RFB**, and a compact **RetinaFace** model. The implementation is available at [github.com/yakhyo/tiny-face-pytorch](https://github.com/yakhyo/tiny-face-pytorch).
@@ -36,7 +49,7 @@ All three published models have PyTorch and ONNX weights in the repository relea
 
 ## WIDER FACE Results
 
-Across both evaluation modes, the compact RetinaFace variant is the strongest of the three, while SlimFace and RFB trade accuracy for an even smaller footprint.
+In both evaluation modes the compact RetinaFace variant comes out ahead of SlimFace and RFB, which give up accuracy in exchange for an even smaller footprint.
 
 ### Multi-scale Image Size
 
@@ -54,7 +67,7 @@ Across both evaluation modes, the compact RetinaFace variant is the strongest of
 | RFB | 87.09% | 84.61% | 69.22% |
 | RetinaFace | 90.26% | 87.48% | 72.85% |
 
-The compact RetinaFace variant is the strongest model in both tables. SlimFace and RFB are smaller alternatives for stricter model-size constraints.
+The compact RetinaFace variant leads both tables, and SlimFace and RFB remain the alternatives when the model-size constraint is stricter.
 
 ## Large Selfie Test
 
@@ -68,7 +81,7 @@ The README includes a crowded selfie example and reports how many faces each mod
 
 ![Tiny-Face large selfie result](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg)
 
-This example shows the recall tradeoff clearly. Smaller models are useful on constrained devices, but crowded images make missed detections more likely.
+The recall tradeoff is visible here. Smaller models are useful on constrained devices, but crowded images make missed detections more likely.
 
 ## What the Repository Contains
 
@@ -78,60 +91,27 @@ It is useful when model size is a primary constraint and a larger detector is to
 
 ## FAQ
 
-**Which variant should I choose?**
-The compact RetinaFace is the most accurate of the three (87.69% easy on the multi-scale WIDER FACE split) at 1.8 MB. SlimFace (1.4 MB) and RFB (1.5 MB) are smaller still, and worth choosing when the model-size budget is even tighter than 2 MB.
+> **Which variant should I choose?**
+>
+> The compact RetinaFace is the most accurate of the three (87.69% easy on the multi-scale WIDER FACE split) at 1.8 MB. SlimFace (1.4 MB) and RFB (1.5 MB) are smaller still, and worth choosing when the model-size budget is even tighter than 2 MB.
+{: .faq}
 
-**How small are these models really?**
-All three are under 2 MB and under half a million parameters. SlimFace is 0.343M parameters, RFB is 0.359M, and the compact RetinaFace is 0.426M, so they fit comfortably on constrained edge devices.
+> **How small are these models really?**
+>
+> All three are under 2 MB and under half a million parameters. SlimFace is 0.343M parameters, RFB is 0.359M, and the compact RetinaFace is 0.426M, so they fit comfortably on constrained edge devices.
+{: .faq}
 
-**Do the small models miss faces in crowded scenes?**
-They can. In the crowded selfie test the compact RetinaFace detects 459 faces, RFB 430, and SlimFace 384. That recall gap is the practical tradeoff of shrinking the model.
+> **Do the small models miss faces in crowded scenes?**
+>
+> They can. In the crowded selfie test the compact RetinaFace detects 459 faces, RFB 430, and SlimFace 384. That recall gap is the practical tradeoff of shrinking the model.
+{: .faq}
 
-**When should I use Tiny-Face instead of a full RetinaFace?**
-Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit.
+> **When should I use Tiny-Face instead of a full RetinaFace?**
+>
+> Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit.
+{: .faq}
 
 ## Related
 
 - [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}) — the full-size detector these compact variants are distilled down from.
 - [UniFace: A Unified Face Analysis Library for Python]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) — when you need a complete face pipeline rather than a standalone tiny detector.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Which Tiny-Face variant should I choose?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The compact RetinaFace is the most accurate of the three at 87.69% easy on the multi-scale WIDER FACE split, at 1.8 MB. SlimFace at 1.4 MB and RFB at 1.5 MB are smaller still, worth choosing when the model-size budget is even tighter than 2 MB."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How small are the Tiny-Face models?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "All three are under 2 MB and under half a million parameters. SlimFace is 0.343M parameters, RFB is 0.359M, and the compact RetinaFace is 0.426M, so they fit comfortably on constrained edge devices."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do the small models miss faces in crowded scenes?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "They can. In the crowded selfie test the compact RetinaFace detects 459 faces, RFB 430, and SlimFace 384. That recall gap is the practical tradeoff of shrinking the model."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When should I use Tiny-Face instead of a full RetinaFace?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use Tiny-Face when model size is a primary constraint and a standard MobileNet or ResNet RetinaFace is too expensive for the target device. For higher accuracy on less constrained hardware, the full RetinaFace detector is the better fit."
-      }
-    }
-  ]
-}
-</script>

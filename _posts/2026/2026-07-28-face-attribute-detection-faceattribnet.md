@@ -1,19 +1,30 @@
 ---
 layout: post
-title: "FaceAttribNet: Eye, Glasses, and Mask Detection in ONNX"
+title: "Eye, Glasses, and Mask Detection: FaceAttribNet in UniFace"
 date: 2026-07-28 12:00:00 +0900
-modified_date: 2026-07-28 12:00:00 +0900
+last_modified_at: 2026-07-28 12:00:00 +0900
 comments: true
 published: true
 categories: computer-vision
 tags: [face-attributes, faceattribnet, onnx, uniface, multi-label]
-description: "FaceAttribNet predicts eye openness, eyeglasses, sunglasses, and mask attributes from a 128x128 face crop using five independent binary heads."
-image: "https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/banner.png"
+description: "FaceAttribNet in UniFace predicts eye openness, eyeglasses, sunglasses, and mask attributes from a 128x128 face crop using five independent binary heads."
+image:
+  path: https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/banner.png
+  width: 1600
+  height: 1067
+  alt: "Woman wearing a surgical mask with FaceAttribNet predictions beside her: eye openness true, mask true, eyeglasses false, sunglasses false"
+faq:
+  - q: "Why can’t I use argmax on the five outputs?"
+    a: "Each of the five outputs comes from its own binary head with its own sigmoid, and no softmax ties them together. The values do not sum to 1, and several can be high at once, since a face can wear both sunglasses and a mask. argmax reports one attribute and discards the rest. Threshold each value separately instead."
+  - q: "Do I need a separate face detector?"
+    a: "Yes. FaceAttribNet consumes a 128×128 face crop, which something upstream has to produce. Inside UniFace, pair it with RetinaFace, SCRFD, or any other detector. The standalone scripts run detection and cropping for you, so they accept whole images."
+  - q: "Can I ship a commercial product with these weights?"
+    a: "Yes. They are BSD-3-Clause, copyright Qualcomm Technologies, Inc., which permits commercial use. Keep the copyright notice and license text with any redistribution, and do not use Qualcomm’s name to endorse your product. Not every UniFace model is this permissive: the YOLOv5-Face and YOLOv8-Face weights are GPL-3.0."
 ---
 
-FaceAttribNet predicts five face attributes from a single 128×128 crop: whether each eye is open, and whether the person is wearing eyeglasses, sunglasses, or a mask. Qualcomm published the original implementation as [Facial-Attribute-Detection](https://github.com/qualcomm/ai-hub-models/tree/main/src/qai_hub_models/models/face_attrib_net). There is no accompanying paper, but the released 10.84M-parameter checkpoint is compact and useful in practical face-analysis pipelines.
+FaceAttribNet predicts five face attributes from a single 128×128 crop: whether each eye is open, and whether the person is wearing eyeglasses, sunglasses, or a mask. Qualcomm published the original implementation as Facial-Attribute-Detection in its AI Hub Models collection. There is no accompanying paper, but the released 10.84M-parameter checkpoint is compact and useful in practical face-analysis pipelines.
 
-I ported the model to ONNX Runtime in [github.com/yakhyo/face-attribute](https://github.com/yakhyo/face-attribute), and it now ships with UniFace v4.0.0.
+Qualcomm's checkpoint is used as released. [github.com/yakhyo/face-attribute](https://github.com/yakhyo/face-attribute) wraps it with an ONNX export and ONNX Runtime inference, and the model now ships with UniFace v4.0.0.
 
 <img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/banner.png" width="1200" height="675" alt="FaceAttribNet annotating a masked face with per-attribute True/False chips" style="max-width: 100%; height: auto;">
 
@@ -25,7 +36,7 @@ I ported the model to ONNX Runtime in [github.com/yakhyo/face-attribute](https:/
 
 ## The Multi-Label Trap
 
-This is the most important implementation detail. The output can look like a five-class classifier at first glance, which makes `argmax` tempting. That would be the wrong interpretation.
+The output can look like a five-class classifier at first glance, which makes `argmax` tempting. That would be the wrong interpretation.
 
 Each value comes from its own binary classifier head with its own sigmoid. They answer five separate yes/no questions about the same crop:
 
@@ -79,7 +90,7 @@ Test photos are free-license images from [Pexels](https://www.pexels.com).
 | Training data | Proprietary (Qualcomm) |
 | Weights license | BSD-3-Clause, © Qualcomm Technologies, Inc. |
 
-The standalone repository keeps Qualcomm's `.pt` checkpoint unmodified and adds an ONNX re-export at opset 17 with a dynamic batch dimension. I verified the export against the PyTorch reference on real images; the maximum output difference was 1.2e-07, which is within float32 noise.
+The standalone repository keeps Qualcomm's `.pt` checkpoint unmodified and adds an ONNX re-export at opset 17 with a dynamic batch dimension. The export script checks its output against the PyTorch reference as it runs, and the two agree to float32 noise.
 
 ## Using It in UniFace
 
@@ -108,17 +119,19 @@ For a full pipeline, pass it to `FaceAnalyzer` alongside any other attribute mod
 ```python
 from uniface import AgeGender, FaceAnalyzer, FaceAttribNet, RetinaFace
 
-analyzer = FaceAnalyzer(RetinaFace(), predictors=[AgeGender(), FaceAttribNet()])
+analyzer = FaceAnalyzer(detector=RetinaFace(), predictors=[AgeGender(), FaceAttribNet()])
 
 for face in analyzer.analyze(image):
     print(face.bbox, face.sex, face.age, face.eyeglasses, face.mask)
 ```
 
-The [Face Attributes notebook](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/14_face_attributes.ipynb) runs it in Colab, and the [UniFace overview]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) covers the surrounding library.
+The Face Attributes notebook runs it end to end, and the [UniFace overview]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) covers the surrounding library.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yakhyo/uniface/blob/main/examples/14_face_attributes.ipynb) [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/yakhyokhuja/face-attribute-detection-with-uniface)
 
 ## Preprocessing
 
-Resize the crop to 128×128 with an aspect-preserving centered letterbox, convert to RGB, scale to `[0, 1]`. That is the whole recipe.
+Preprocessing is short: resize the crop to 128×128 with an aspect-preserving centered letterbox, convert to RGB, and scale to `[0, 1]`.
 
 Mean/std normalization is already part of the model graph. Applying it again in your own preprocessing will not usually cause an obvious failure: outputs stay inside `[0, 1]` and still look like plausible probabilities. The symptom is more subtle: thresholds that work on one image stop transferring reliably to the next.
 
@@ -138,50 +151,23 @@ Five binary flags are a small signal set, but they are useful early in a pipelin
 
 ## FAQ
 
-**Why can't I use `argmax` on the five outputs?**
-They are five independent binary heads, not one 5-way softmax. The values do not sum to 1, and several can be high at once, since a face can wear both sunglasses and a mask. `argmax` reports one attribute and discards the rest. Threshold each value separately instead.
+> **Why can't I use `argmax` on the five outputs?**
+>
+> Each of the five outputs comes from its own binary head with its own sigmoid, and no softmax ties them together. The values do not sum to 1, and several can be high at once, since a face can wear both sunglasses and a mask. `argmax` reports one attribute and discards the rest. Threshold each value separately instead.
+{: .faq}
 
-**Do I need a separate face detector?**
-Yes. FaceAttribNet consumes a 128×128 face crop, not a full image. Inside UniFace, pair it with RetinaFace, SCRFD, or any other detector. The standalone scripts run detection and cropping for you, so they accept whole images.
+> **Do I need a separate face detector?**
+>
+> Yes. FaceAttribNet consumes a 128×128 face crop, which something upstream has to produce. Inside UniFace, pair it with RetinaFace, SCRFD, or any other detector. The standalone scripts run detection and cropping for you, so they accept whole images.
+{: .faq}
 
-**Can I ship a commercial product with these weights?**
-Yes. They are BSD-3-Clause, copyright Qualcomm Technologies, Inc., which permits commercial use. Keep the copyright notice and license text with any redistribution, and do not use Qualcomm's name to endorse your product. Not every UniFace model is this permissive: the YOLOv5-Face and YOLOv8-Face weights are GPL-3.0.
+> **Can I ship a commercial product with these weights?**
+>
+> Yes. They are BSD-3-Clause, copyright Qualcomm Technologies, Inc., which permits commercial use. Keep the copyright notice and license text with any redistribution, and do not use Qualcomm's name to endorse your product. Not every UniFace model is this permissive: the YOLOv5-Face and YOLOv8-Face weights are GPL-3.0.
+{: .faq}
 
 ## Related
 
 - [UniFace: A Unified Face Analysis Library for Python]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) — the library this model ships in, alongside detection, recognition, and parsing.
 - [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}) — the detection step that produces the crops this model consumes.
 - [Face Parsing with BiSeNet and ResNet Backbones]({% link _posts/2024/2024-11-29-face-parsing-bisenet.md %}) — dense per-pixel face regions, for when a binary occlusion flag is not enough.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Why can't I use argmax on FaceAttribNet's five outputs?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "They are five independent binary heads, not one 5-way softmax. The values do not sum to 1, and several can be high at once, since a face can wear both sunglasses and a mask. Argmax reports one attribute and discards the rest. Threshold each value separately instead."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does FaceAttribNet need a separate face detector?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. FaceAttribNet consumes a 128x128 face crop, not a full image. Inside UniFace, pair it with RetinaFace, SCRFD, or any other detector. The standalone scripts run detection and cropping for you, so they accept whole images."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I ship a commercial product with the FaceAttribNet weights?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. They are BSD-3-Clause, copyright Qualcomm Technologies, Inc., which permits commercial use. Keep the copyright notice and license text with any redistribution, and do not use Qualcomm's name to endorse your product. Not every UniFace model is this permissive: the YOLOv5-Face and YOLOv8-Face weights are GPL-3.0."
-      }
-    }
-  ]
-}
-</script>
