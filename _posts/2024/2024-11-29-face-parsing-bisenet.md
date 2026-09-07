@@ -122,5 +122,6 @@ For application code, this model family is also available through [UniFace]({% l
 
 ## Related
 
+- [Comparing BiSeNet and XSeg for Face Parsing]({% link _posts/2026/2026-09-07-bisenet-vs-xseg-face-parsing.md %}) — this parser measured against XSeg, including which backbone to pick and how small a face can get.
 - [RetinaFace: Single-Stage Face Detection in PyTorch]({% link _posts/2024/2024-10-28-high-performance-retinaface-detector.md %}) — the detection step that usually runs before parsing crops a face.
 - [UniFace: A Unified Face Analysis Library for Python]({% link _posts/2025/2025-11-11-uniface-all-in-one-face-analysis.md %}) — bundles this BiSeNet parser with detection, recognition, and matting.
