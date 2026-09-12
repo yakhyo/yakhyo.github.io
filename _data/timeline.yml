@@ -1,5 +1,17 @@
-- date: "2025.08"
+- date: "2026.09"
   date_end: "Present"
+  title: "PhD in Computer Science and Engineering"
+  company: "Sungkyunkwan University"
+  description: |
+    Doctoral research at the **Information Research Laboratory (InfoLab)**, College of Computing and Informatics, advised by **Prof. Tamer Abuhmed**.
+
+    **Focus:** Trustworthy and explainable AI, adversarial machine learning, and biomedical AI.
+  category: "education"
+  link: "https://infolab-skku.github.io/"
+  logo: "assets/images/logos/skku.png"
+
+- date: "2025.08"
+  date_end: "2026.08"
   title: "MLOps Engineer"
   company: "Thaki Cloud Co. Ltd"
   description: |

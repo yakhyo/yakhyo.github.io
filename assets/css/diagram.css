@@ -1,0 +1,455 @@
+/* Inline SVG diagrams.
+
+   The diagrams are authored by hand in the post source rather than generated at
+   runtime, so this file only has to do two things: give the figure a frame that
+   matches the site chrome, and expose a palette the SVG shapes reference by
+   class. Theme switching is pure CSS — nothing re-renders on toggle.
+
+   Same three-state theming as the rest of the site:
+     1. :root                              → light
+     2. :root[data-theme="dark"]           → user chose dark (persisted)
+     3. @media (prefers-color-scheme:dark) → follow the OS, unless forced light
+   Every color is declared on bare :root first; the dark blocks only re-point
+   the custom properties, so each rule below has one source of truth. */
+
+:root {
+  --diagram-control-size: 1.9rem;
+  --diagram-control-icon-size: 0.85rem;
+  --diagram-control-size-mobile: 1.75rem;
+  --diagram-lightbox-close-size: 2.35rem;
+  --diagram-lightbox-close-size-mobile: 2.15rem;
+
+  /* Frame */
+  --dg-frame-border: rgba(17, 24, 39, 0.12);
+  --dg-frame-bg: linear-gradient(180deg, rgba(249, 250, 251, 0.96), rgba(255, 255, 255, 0.98));
+  --dg-frame-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  --dg-frame-border-hover: rgba(17, 24, 39, 0.24);
+  --dg-frame-shadow-hover: 0 16px 34px rgba(15, 23, 42, 0.09);
+
+  --dg-ctrl-border: rgba(17, 24, 39, 0.08);
+  --dg-ctrl-bg: rgba(255, 255, 255, 0.82);
+  --dg-ctrl-bg-hover: rgba(255, 255, 255, 0.96);
+  --dg-ctrl-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  --dg-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+  --dg-panel-bg: linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(255, 255, 255, 1));
+  --dg-panel-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+
+  --dg-close-bg: rgba(255, 255, 255, 0.9);
+  --dg-close-bg-hover: rgba(255, 255, 255, 1);
+  --dg-close-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  --dg-close-shadow-hover: 0 14px 34px rgba(15, 23, 42, 0.16);
+  --dg-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+
+  /* Edges */
+  --dg-line: #94a3b8;
+  --dg-edge-label: #5b5e66;
+
+  /* Node roles. Colour carries meaning here (decision / good / bad), the one
+     place the otherwise-monochrome site spends hue, same exception the syntax
+     theme takes. */
+  --dg-hub-bg: #1f2937;
+  --dg-hub-border: #111827;
+  --dg-hub-ink: #ffffff;
+
+  --dg-neutral-bg: #f5f7fa;
+  --dg-neutral-border: #94a3b8;
+  --dg-neutral-ink: #1f2937;
+
+  --dg-blue-bg: #e8f2ff;
+  --dg-blue-border: #3b82f6;
+  --dg-blue-ink: #1e3a8a;
+
+  --dg-purple-bg: #f1e9ff;
+  --dg-purple-border: #8b5cf6;
+  --dg-purple-ink: #4c1d95;
+
+  --dg-teal-bg: #e3f7ef;
+  --dg-teal-border: #10b981;
+  --dg-teal-ink: #065f46;
+
+  --dg-decision-bg: #fff4e0;
+  --dg-decision-border: #f59e0b;
+  --dg-decision-ink: #92400e;
+
+  --dg-good-bg: #e6f7f1;
+  --dg-good-border: #10b981;
+  --dg-good-ink: #065f46;
+
+  --dg-bad-bg: #fdeaea;
+  --dg-bad-border: #ef4444;
+  --dg-bad-ink: #991b1b;
+}
+
+/* ---------------------------------------------------------------------------
+   Frame
+   --------------------------------------------------------------------------- */
+
+.post-content .diagram {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--dg-frame-border);
+  border-radius: 16px;
+  background: var(--dg-frame-bg);
+  box-shadow: var(--dg-frame-shadow);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.post-content .diagram__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Scale to the column, but stop shrinking before the labels stop being
+   readable — below that the viewport scrolls and the lightbox takes over. */
+.post-content .diagram svg {
+  display: block;
+  width: 100%;
+  min-width: 600px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.post-content .diagram::after {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: var(--diagram-control-size);
+  height: var(--diagram-control-size);
+  border: 1px solid var(--dg-ctrl-border);
+  border-radius: 999px;
+  background-color: var(--dg-ctrl-bg);
+  background-image: var(--dg-expand-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--diagram-control-icon-size) var(--diagram-control-icon-size);
+  box-shadow: var(--dg-ctrl-shadow);
+  opacity: 0.72;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.post-content .diagram:hover,
+.post-content .diagram:focus-visible {
+  border-color: var(--dg-frame-border-hover);
+  box-shadow: var(--dg-frame-shadow-hover);
+}
+
+.post-content .diagram:hover::after,
+.post-content .diagram:focus-visible::after {
+  opacity: 1;
+  transform: scale(1.04);
+  background-color: var(--dg-ctrl-bg-hover);
+}
+
+.post-content .diagram:focus-visible {
+  outline: 3px solid var(--dg-neutral-border);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   SVG internals — shapes carry a role class, this maps roles to the palette.
+   --------------------------------------------------------------------------- */
+
+.dg text {
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.dg .dg-node { stroke-width: 1.5; rx: 8; }
+
+.dg .dg-hub      { fill: var(--dg-hub-bg);      stroke: var(--dg-hub-border); }
+.dg .dg-neutral  { fill: var(--dg-neutral-bg);  stroke: var(--dg-neutral-border); }
+.dg .dg-blue     { fill: var(--dg-blue-bg);     stroke: var(--dg-blue-border); }
+.dg .dg-purple   { fill: var(--dg-purple-bg);   stroke: var(--dg-purple-border); }
+.dg .dg-teal     { fill: var(--dg-teal-bg);     stroke: var(--dg-teal-border); }
+.dg .dg-decision { fill: var(--dg-decision-bg); stroke: var(--dg-decision-border); }
+.dg .dg-good     { fill: var(--dg-good-bg);     stroke: var(--dg-good-border); }
+.dg .dg-bad      { fill: var(--dg-bad-bg);      stroke: var(--dg-bad-border); }
+
+.dg .dg-t-hub      { fill: var(--dg-hub-ink); }
+.dg .dg-t-neutral  { fill: var(--dg-neutral-ink); }
+.dg .dg-t-blue     { fill: var(--dg-blue-ink); }
+.dg .dg-t-purple   { fill: var(--dg-purple-ink); }
+.dg .dg-t-teal     { fill: var(--dg-teal-ink); }
+.dg .dg-t-decision { fill: var(--dg-decision-ink); }
+.dg .dg-t-good     { fill: var(--dg-good-ink); }
+.dg .dg-t-bad      { fill: var(--dg-bad-ink); }
+
+.dg .dg-edge {
+  fill: none;
+  stroke: var(--dg-line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dg .dg-arrowhead { fill: var(--dg-line); }
+
+.dg .dg-edge-label {
+  fill: var(--dg-edge-label);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+   Lightbox
+   --------------------------------------------------------------------------- */
+
+body.diagram-lightbox-open { overflow: hidden; }
+
+.diagram-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.diagram-lightbox__panel {
+  width: min(1200px, 100%);
+  max-height: min(90vh, 980px);
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: 22px;
+  background: var(--dg-panel-bg);
+  box-shadow: var(--dg-panel-shadow);
+}
+
+.diagram-lightbox__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 1;
+  width: var(--diagram-lightbox-close-size);
+  height: var(--diagram-lightbox-close-size);
+  border: 1px solid var(--dg-ctrl-border);
+  border-radius: 999px;
+  background: var(--dg-close-bg);
+  box-shadow: var(--dg-close-shadow);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.diagram-lightbox__close::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--diagram-control-icon-size);
+  height: var(--diagram-control-icon-size);
+  background-image: var(--dg-close-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.diagram-lightbox__close:hover,
+.diagram-lightbox__close:focus-visible {
+  background: var(--dg-close-bg-hover);
+  box-shadow: var(--dg-close-shadow-hover);
+  transform: scale(1.04);
+}
+
+.diagram-lightbox__content {
+  overflow: auto;
+  max-height: calc(90vh - 2rem);
+  border-radius: 16px;
+}
+
+.diagram-lightbox__stage {
+  width: fit-content;
+  min-width: 100%;
+  margin: 0 auto;
+}
+
+.diagram-lightbox__content svg {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark mode — re-point the custom properties only.
+   --------------------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+  --dg-frame-border: rgba(255, 255, 255, 0.12);
+  --dg-frame-bg: linear-gradient(180deg, #16171b, #111214);
+  --dg-frame-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  --dg-frame-border-hover: rgba(255, 255, 255, 0.28);
+  --dg-frame-shadow-hover: 0 16px 34px rgba(0, 0, 0, 0.6);
+
+  --dg-ctrl-border: rgba(255, 255, 255, 0.12);
+  --dg-ctrl-bg: rgba(22, 22, 25, 0.85);
+  --dg-ctrl-bg-hover: rgba(30, 30, 34, 0.96);
+  --dg-ctrl-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  --dg-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+  --dg-panel-bg: linear-gradient(180deg, #16171b, #111214);
+  --dg-panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+
+  --dg-close-bg: rgba(22, 22, 25, 0.9);
+  --dg-close-bg-hover: rgba(34, 34, 38, 1);
+  --dg-close-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  --dg-close-shadow-hover: 0 14px 34px rgba(0, 0, 0, 0.6);
+  --dg-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+
+  --dg-line: #8b8d94;
+  --dg-edge-label: #b0b1b7;
+
+  --dg-hub-bg: #ededed;
+  --dg-hub-border: #ffffff;
+  --dg-hub-ink: #0d0d0f;
+
+  --dg-neutral-bg: #23242b;
+  --dg-neutral-border: #6b7280;
+  --dg-neutral-ink: #e5e7eb;
+
+  --dg-blue-bg: #14243d;
+  --dg-blue-border: #60a5fa;
+  --dg-blue-ink: #bfdbfe;
+
+  --dg-purple-bg: #241a3d;
+  --dg-purple-border: #a78bfa;
+  --dg-purple-ink: #ddd6fe;
+
+  --dg-teal-bg: #102b23;
+  --dg-teal-border: #34d399;
+  --dg-teal-ink: #a7f3d0;
+
+  --dg-decision-bg: #33240d;
+  --dg-decision-border: #fbbf24;
+  --dg-decision-ink: #fde68a;
+
+  --dg-good-bg: #102b23;
+  --dg-good-border: #34d399;
+  --dg-good-ink: #a7f3d0;
+
+  --dg-bad-bg: #3a1618;
+  --dg-bad-border: #f87171;
+  --dg-bad-ink: #fecaca;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --dg-frame-border: rgba(255, 255, 255, 0.12);
+    --dg-frame-bg: linear-gradient(180deg, #16171b, #111214);
+    --dg-frame-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    --dg-frame-border-hover: rgba(255, 255, 255, 0.28);
+    --dg-frame-shadow-hover: 0 16px 34px rgba(0, 0, 0, 0.6);
+
+    --dg-ctrl-border: rgba(255, 255, 255, 0.12);
+    --dg-ctrl-bg: rgba(22, 22, 25, 0.85);
+    --dg-ctrl-bg-hover: rgba(30, 30, 34, 0.96);
+    --dg-ctrl-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    --dg-expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M9 21H3v-6'/%3E%3Cpath d='M21 3l-7 7'/%3E%3Cpath d='M3 21l7-7'/%3E%3C/svg%3E");
+
+    --dg-panel-bg: linear-gradient(180deg, #16171b, #111214);
+    --dg-panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+
+    --dg-close-bg: rgba(22, 22, 25, 0.9);
+    --dg-close-bg-hover: rgba(34, 34, 38, 1);
+    --dg-close-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    --dg-close-shadow-hover: 0 14px 34px rgba(0, 0, 0, 0.6);
+    --dg-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ededed' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+
+    --dg-line: #8b8d94;
+    --dg-edge-label: #b0b1b7;
+
+    --dg-hub-bg: #ededed;
+    --dg-hub-border: #ffffff;
+    --dg-hub-ink: #0d0d0f;
+
+    --dg-neutral-bg: #23242b;
+    --dg-neutral-border: #6b7280;
+    --dg-neutral-ink: #e5e7eb;
+
+    --dg-blue-bg: #14243d;
+    --dg-blue-border: #60a5fa;
+    --dg-blue-ink: #bfdbfe;
+
+    --dg-purple-bg: #241a3d;
+    --dg-purple-border: #a78bfa;
+    --dg-purple-ink: #ddd6fe;
+
+    --dg-teal-bg: #102b23;
+    --dg-teal-border: #34d399;
+    --dg-teal-ink: #a7f3d0;
+
+    --dg-decision-bg: #33240d;
+    --dg-decision-border: #fbbf24;
+    --dg-decision-ink: #fde68a;
+
+    --dg-good-bg: #102b23;
+    --dg-good-border: #34d399;
+    --dg-good-ink: #a7f3d0;
+
+    --dg-bad-bg: #3a1618;
+    --dg-bad-border: #f87171;
+    --dg-bad-ink: #fecaca;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --diagram-control-size: var(--diagram-control-size-mobile);
+    --diagram-lightbox-close-size: var(--diagram-lightbox-close-size-mobile);
+  }
+
+  .post-content .diagram {
+    margin: 1.25rem -0.25rem;
+    padding: 0.85rem;
+    border-radius: 14px;
+  }
+
+  .post-content .diagram::after {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .diagram-lightbox { padding: 1rem; }
+
+  .diagram-lightbox__panel {
+    max-height: 92vh;
+    padding: 0.85rem;
+    border-radius: 18px;
+  }
+
+  .diagram-lightbox__close {
+    top: 0.7rem;
+    right: 0.7rem;
+  }
+
+  .diagram-lightbox__content { max-height: calc(92vh - 1.7rem); }
+
+  .diagram-lightbox__stage { min-width: max-content; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-content .diagram,
+  .post-content .diagram::after,
+  .diagram-lightbox__close {
+    transition: none;
+  }
+}

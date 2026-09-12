@@ -1,0 +1,64 @@
+{%- comment -%}
+  Curated project list, driven by _data/projects.yml.
+
+  Star counts come from a live shields.io badge rather than the data file, so the
+  page never claims a stale number. `post_slug` resolves against site.posts, so a
+  renamed post drops the link instead of shipping a 404.
+{%- endcomment -%}
+
+{%- assign f = site.data.projects.featured -%}
+{%- if f -%}
+{%- assign f_post = site.posts | where: "slug", f.post_slug | first -%}
+<article class="project project--featured">
+  {%- if f.image -%}
+  <a class="project__shot" href="https://github.com/{{ f.repo }}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+    <img src="{{ f.image }}" alt="{{ f.image_alt }}" loading="lazy" decoding="async">
+  </a>
+  {%- endif -%}
+
+  <div class="project__body">
+    <div class="project__head">
+      <h2 class="project__name">{{ f.name }}</h2>
+      <img class="project__stars"
+           src="https://img.shields.io/github/stars/{{ f.repo }}?style=flat&label=%E2%98%85&color=555555&labelColor=555555"
+           alt="GitHub stars for {{ f.name }}" loading="lazy" decoding="async" width="70" height="20">
+    </div>
+    <p class="project__tagline">{{ f.tagline }}</p>
+    <div class="project__desc">{{ f.description | markdownify }}</div>
+
+    <div class="project__links">
+      <a href="https://github.com/{{ f.repo }}" target="_blank" rel="noopener noreferrer">GitHub{% include icon.html name="arrow-up-right" %}</a>
+      {%- if f.docs -%}<a href="{{ f.docs }}" target="_blank" rel="noopener noreferrer">Docs{% include icon.html name="arrow-up-right" %}</a>{%- endif -%}
+      {%- if f.demo -%}<a href="{{ f.demo }}" target="_blank" rel="noopener noreferrer">Live demo{% include icon.html name="arrow-up-right" %}</a>{%- endif -%}
+      {%- if f_post -%}<a href="{{ f_post.url | relative_url }}">Read the write-up{% include icon.html name="arrow-right" %}</a>{%- endif -%}
+    </div>
+  </div>
+</article>
+{%- endif -%}
+
+{%- if site.data.projects.projects -%}
+<div class="project-grid">
+  {%- for p in site.data.projects.projects -%}
+  {%- assign p_post = site.posts | where: "slug", p.post_slug | first -%}
+  <article class="project">
+    <div class="project__head">
+      <h2 class="project__name">{{ p.name }}</h2>
+      {%- comment -%} `stars: false` hides the badge on a repo that is too new for
+      the count to say anything useful. Drop the flag to show it. {%- endcomment -%}
+      {%- unless p.stars == false -%}
+      <img class="project__stars"
+           src="https://img.shields.io/github/stars/{{ p.repo }}?style=flat&label=%E2%98%85&color=555555&labelColor=555555"
+           alt="GitHub stars for {{ p.name }}" loading="lazy" decoding="async" width="70" height="20">
+      {%- endunless -%}
+    </div>
+    <p class="project__tagline">{{ p.tagline }}</p>
+    <p class="project__desc">{{ p.description }}</p>
+
+    <div class="project__links">
+      <a href="https://github.com/{{ p.repo }}" target="_blank" rel="noopener noreferrer">GitHub{% include icon.html name="arrow-up-right" %}</a>
+      {%- if p_post -%}<a href="{{ p_post.url | relative_url }}">Write-up{% include icon.html name="arrow-right" %}</a>{%- endif -%}
+    </div>
+  </article>
+  {%- endfor -%}
+</div>
+{%- endif -%}

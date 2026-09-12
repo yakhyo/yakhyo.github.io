@@ -13,7 +13,7 @@ Over the years I've worked across computer vision, conversational AI, multimodal
 
 The parts I gravitate toward are model development and the engineering that decides whether it ships: architectures and training workflows, evaluation, inference optimization, and the systems around them. In practice that spans computer vision, LLMs, RAG, and VLMs — backed by solid software engineering across cloud and on-prem environments.
 
-Some of that work is open source — most visibly [UniFace](https://github.com/yakhyo/uniface), a unified face-analysis library for Python that has grown past 700 stars on GitHub, alongside a family of smaller computer-vision libraries for face parsing, detection, and gaze estimation.
+Some of that work is open source — most visibly [UniFace](https://github.com/yakhyo/uniface), a unified face-analysis library for Python, alongside a family of smaller computer-vision libraries for face parsing, detection, and gaze estimation. There's more on the [projects page]({{ site.baseurl }}/projects/).
 
 I use this site to write about ML engineering, infrastructure, and applied AI. I also run a [YouTube channel]({{ site.profiles.youtube }}) where I publish programming tutorials, with a special interest in making technical content more accessible for Uzbek-speaking learners.
 

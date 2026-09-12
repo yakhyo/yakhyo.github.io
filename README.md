@@ -80,8 +80,8 @@ Blog posts live in `_posts/<year>/` as `YYYY-MM-DD-slug.md` and use this URL for
 Frontmatter conventions:
 
 - Required: `layout: post`, `title`, `date`, `description` (SEO meta + blog-index excerpt), and a single kebab-case `categories` slug.
-- Optional: `tags` (kebab-case, become keywords/JSON-LD), `image` (1200×630 cover for social previews), `modified_date` (surfaces "Updated" on the post), `comments: false` (suppress giscus), `toc_depth: 2` (limit the TOC rail to h2s).
+- Optional: `tags` (kebab-case, become keywords/JSON-LD), `image` (1200×630 cover for social previews), `last_modified_at` (surfaces "Updated" on the post and feeds dateModified / sitemap lastmod), `comments: false` (suppress giscus), `toc_depth: 2` (limit the TOC rail to h2s).
 
 ## License
 
-Code is released under the [MIT License](LICENSE). Blog content belongs to Yakhyokhuja Valikhujaev.
+Code is released under the [MIT License](LICENSE).

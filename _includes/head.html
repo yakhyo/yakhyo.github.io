@@ -21,7 +21,9 @@
   {%- if page.noindex -%}
   <meta name="robots" content="noindex,nofollow">
   {%- endif -%}
-  {%- seo -%}
+  {%- capture seo_html -%}{%- seo -%}{%- endcapture -%}
+  {{ seo_html | split: '<script type="application/ld+json">' | first }}
+  {%- include schema.html -%}
 
   <!-- Google Fonts — loaded via <link> for faster parallel fetch -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>

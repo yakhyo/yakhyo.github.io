@@ -1,0 +1,165 @@
+{%- comment -%}
+  JSON-LD structured data, one <script> per page using the @graph pattern.
+
+  Always:      WebSite, Person (site owner; publisher + author of every post)
+  Posts only:  BlogPosting, ImageObject (cover), BreadcrumbList, FAQPage
+  Other pages: BreadcrumbList (Home > page)
+
+  Person facts come from _config.yml (author, profiles, landing_titles) and
+  _data/timeline.yml (current affiliation + alumniOf), so the resume and the
+  schema never drift apart.
+
+  FAQPage reads a `faq:` list from post front matter:
+    faq:
+      - q: "Question text?"
+        a: "Answer text."
+  Keep the visible "## FAQ" section in the post body in sync with this list;
+  Google requires FAQ markup to match on-page text.
+
+  Wire it in from _includes/head.html AFTER the {% seo %} tag. jekyll-seo-tag
+  emits its own minimal BlogPosting JSON-LD; strip that so there is one graph:
+    {%- capture seo_html -%}{%- seo -%}{%- endcapture -%}
+    {{ seo_html | split: '<script type="application/ld+json">' | first }}
+    {%- include schema.html -%}
+{%- endcomment -%}
+{%- assign site_url = site.url | append: site.baseurl -%}
+{%- assign site_id = site_url | append: '/#website' -%}
+{%- assign person_id = site_url | append: '/#person' -%}
+{%- assign page_url = page.url | absolute_url -%}
+{%- assign is_post = false -%}
+{%- if page.layout == 'post' -%}{%- assign is_post = true -%}{%- endif -%}
+
+{%- comment -%} Cover image: object form (path/width/height/alt) or bare string. {%- endcomment -%}
+{%- assign img_url = nil -%}
+{%- if page.image.path -%}
+  {%- assign img_raw = page.image.path -%}
+  {%- assign img_w = page.image.width -%}
+  {%- assign img_h = page.image.height -%}
+  {%- assign img_alt = page.image.alt -%}
+{%- elsif page.image -%}
+  {%- assign img_raw = page.image -%}
+{%- endif -%}
+{%- if img_raw -%}
+  {%- if img_raw contains '://' -%}{%- assign img_url = img_raw -%}{%- else -%}{%- assign img_url = img_raw | absolute_url -%}{%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Affiliation + alumniOf derived from the resume timeline. {%- endcomment -%}
+{%- assign current = site.data.timeline | where: 'date_end', 'Present' | first -%}
+{%- assign schools = site.data.timeline | where_exp: 's', "s.category == 'education' and s.date_end != 'Present'" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ site_id }}",
+      "url": "{{ site_url }}/",
+      "name": {{ site.title | jsonify }},
+      "description": {{ site.description | strip_newlines | strip | jsonify }},
+      "inLanguage": "en",
+      "publisher": { "@id": "{{ person_id }}" }
+    },
+    {
+      "@type": "Person",
+      "@id": "{{ person_id }}",
+      "name": {{ site.author.name | jsonify }},
+      "url": "{{ site_url }}/",
+      "jobTitle": {{ site.author.job_title | default: site.landing_titles.first | jsonify }},
+      "email": "mailto:{{ site.email }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ '/assets/images/avatar.webp' | absolute_url }}",
+        "width": 1165,
+        "height": 1165,
+        "caption": {{ site.author.name | jsonify }}
+      },
+      {%- if current %}
+      "affiliation": {
+        "@type": "Organization",
+        "name": {{ current.company | jsonify }},
+        "url": {{ current.link | jsonify }}
+      },
+      {%- endif %}
+      "alumniOf": [
+        {%- for s in schools %}
+        { "@type": "CollegeOrUniversity", "name": {{ s.company | jsonify }}, "url": {{ s.link | jsonify }} }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor %}
+      ],
+      "sameAs": [
+        {%- for p in site.profiles %}
+        {{ p[1] | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor %}
+      ]
+    }
+    {%- if is_post %},
+    {
+      "@type": "BlogPosting",
+      "@id": "{{ page_url }}#article",
+      "headline": {{ page.title | jsonify }},
+      "description": {{ page.description | jsonify }},
+      "url": "{{ page_url }}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ page_url }}" },
+      "isPartOf": { "@id": "{{ site_id }}" },
+      "inLanguage": "en",
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      "author": { "@id": "{{ person_id }}" },
+      "publisher": { "@id": "{{ person_id }}" },
+      {%- if img_url %}
+      "image": { "@id": "{{ page_url }}#primaryimage" },
+      {%- endif %}
+      "wordCount": {{ page.content | strip_html | number_of_words }},
+      "keywords": {{ page.tags | join: ', ' | jsonify }},
+      "articleSection": {{ page.categories | first | jsonify }},
+      "articleBody": {{ page.excerpt | strip_html | strip_newlines | strip | truncate: 200 | jsonify }}
+    }
+    {%- if img_url %},
+    {
+      "@type": "ImageObject",
+      "@id": "{{ page_url }}#primaryimage",
+      "url": "{{ img_url }}",
+      "contentUrl": "{{ img_url }}",
+      {%- if img_w and img_h %}
+      "width": {{ img_w }},
+      "height": {{ img_h }},
+      {%- endif %}
+      "caption": {{ img_alt | default: page.title | jsonify }}
+    }
+    {%- endif %},
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ page_url }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "{{ '/blog/' | absolute_url }}" },
+        { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": "{{ page_url }}" }
+      ]
+    }
+    {%- if page.faq and page.faq.size > 1 %},
+    {
+      "@type": "FAQPage",
+      "@id": "{{ page_url }}#faq",
+      "mainEntity": [
+        {%- for qa in page.faq %}
+        {
+          "@type": "Question",
+          "name": {{ qa.q | jsonify }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ qa.a | jsonify }} }
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor %}
+      ]
+    }
+    {%- endif -%}
+    {%- elsif page.url != '/' and page.title %},
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ page_url }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": {{ page.title | jsonify }}, "item": "{{ page_url }}" }
+      ]
+    }
+    {%- endif %}
+  ]
+}
+</script>

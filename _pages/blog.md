@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Blog
-subtitle: "Personal opinions and useful information on the things worth figuring out."
+subtitle: "Practical notes on machine learning, computer vision, Python, and the details worth understanding."
 permalink: /blog/
 description: "Technical writing on machine-learning engineering, computer vision, LLMs, and MLOps — practical lessons from shipping ML systems in production."
 custom_js: blog-filter
