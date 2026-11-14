@@ -13,7 +13,6 @@ description: "Resume of Yakhyokhuja Valikhujaev — AI/ML Software Engineer; LLM
     <p class="resume-role">AI/ML Software Engineer</p>
     <div class="resume-social" aria-label="Profiles">
       <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{% include icon.html name="github" %}</a>
-      <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{% include icon.html name="linkedin" %}</a>
       <a href="{{ site.profiles.scholar }}" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">{% include icon.html name="google-scholar" %}</a>
       <a href="{{ site.profiles.stackoverflow }}" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">{% include icon.html name="stack-overflow" %}</a>
       <a href="{{ site.profiles.leetcode }}" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">{% include icon.html name="code" %}</a>
@@ -84,7 +83,7 @@ AI/ML Software Engineer with 6+ years of experience building production ML syste
 
 ## Research Experience
 
-### Research Assistant
+### Graduate Research Assistant
 
 **AI and SC Lab** &#124; **Sep 2018 - Nov 2020** &#124; **Seongnam, South Korea**
 

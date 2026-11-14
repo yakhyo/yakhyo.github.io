@@ -29,7 +29,7 @@ image:
         <div class="social-links">
             <a href="{{ site.profiles.scholar }}" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar Profile" title="Google Scholar">{% include icon.html name="google-scholar" %}</a>
             <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" title="GitHub">{% include icon.html name="github" %}</a>
-            <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" title="LinkedIn">{% include icon.html name="linkedin" %}</a>
+            <a href="mailto:{{ site.email }}" aria-label="Email" title="Email">{% include icon.html name="mail" %}</a>
             <a href="{{ site.profiles.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel" title="YouTube">{% include icon.html name="youtube" %}</a>
             <a href="{{ site.profiles.telegram }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram Contact" title="Telegram">{% include icon.html name="telegram" %}</a>
         </div>

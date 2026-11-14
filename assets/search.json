@@ -1,0 +1,19 @@
+---
+layout: null
+sitemap: false
+---
+{%- comment -%} Search index for assets/js/search.js. Section markers: "§§<h2 id>">Heading¶¶body". {%- endcomment -%}
+[
+{%- for post in site.posts -%}
+{%- assign body = post.content | replace: '</h2>', '¶¶' | replace: '<h2 id="', '§§' | strip_html | normalize_whitespace -%}
+{"t":{{ post.title | jsonify }},"u":{{ post.url | relative_url | jsonify }},"m":{{ post.date | date: "%b %-d, %Y" | jsonify }},"s":{{ post.description | jsonify }},"c":{{ body | jsonify }}},
+{%- endfor -%}
+{%- for p in site.data.projects.projects -%}
+{%- assign summary = p.tagline | append: '. ' | append: p.description -%}
+{"t":{{ p.name | jsonify }},"u":{{ '/projects/' | relative_url | jsonify }},"m":"Project","s":{{ summary | jsonify }}},
+{%- endfor -%}
+{%- for path in site.header_pages -%}
+{%- assign pg = site.pages | where: "path", path | first -%}
+{"t":{{ pg.title | jsonify }},"u":{{ pg.url | relative_url | jsonify }},"m":"Page","s":{{ pg.description | jsonify }}}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]

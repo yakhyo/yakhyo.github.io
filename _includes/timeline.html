@@ -15,8 +15,8 @@
             {% endif %}
           {% endif %}
         </div>
-        <div class="timeline-content">
-          <div class="timeline-header">
+        <details class="timeline-content"{% if entry.date_end == "Present" %} open{% endif %}>
+          <summary class="timeline-header">
             {% if entry.logo %}
               <img src="{{ site.baseurl }}/{{ entry.logo }}"
                    alt="{{ entry.company }} logo"
@@ -30,18 +30,22 @@
                 <p class="timeline-company">{{ entry.company }}</p>
               {% endif %}
             </div>
+            {% if entry.category %}
+              <span class="timeline-category">{{ entry.category }}</span>
+            {% endif %}
+            <span class="timeline-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="timeline-body">
+            <div class="timeline-description">{{ entry.description | markdownify }}</div>
+            {% if entry.link %}
+              {% assign link_domain = entry.link | remove: "https://" | remove: "http://" | remove: "www." | split: "/" | first %}
+              <a href="{{ entry.link }}" class="timeline-link"
+                 {% if entry.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                {{ link_domain }}{% include icon.html name="arrow-up-right" %}
+              </a>
+            {% endif %}
           </div>
-          <div class="timeline-description">{{ entry.description | markdownify }}</div>
-          {% if entry.category %}
-            <span class="timeline-category">{{ entry.category }}</span>
-          {% endif %}
-          {% if entry.link %}
-            <a href="{{ entry.link }}" class="timeline-link"
-               {% if entry.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              View{% include icon.html name="arrow-up-right" %}
-            </a>
-          {% endif %}
-        </div>
+        </details>
       </div>
     {% endfor %}
   {% else %}

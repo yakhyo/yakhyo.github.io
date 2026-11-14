@@ -1,49 +1,32 @@
-// =============================================================================
-// Design tokens — one source of truth for every color and shadow used in more
-// than one place. Values used only once should stay inline at their use site
-// (a "token used once" is just a renamed constant).
-//
-// Two-layer system so the site can theme (light / dark) at runtime:
-//   1. Private `$_*` literals below hold the actual hex per theme.
-//   2. Public `$*` tokens (used everywhere in the partials) resolve to CSS
-//      custom properties — e.g. `$text-primary` → `var(--text-primary)`.
-//   3. The `theme-light` / `theme-dark` mixins emit those custom properties;
-//      `_theme.scss` includes them on `:root` (+ `[data-theme]` / media query).
-// Because the public tokens are `var()`, every existing rule adapts to the
-// active theme with no edits, and landing.scss / resume.scss (which import this
-// file but not _theme) pick up the same variables the main stylesheet defines.
-// =============================================================================
+// Design tokens: values used in more than one place (one-off values stay inline).
+// Private `$_*` literals hold per-theme values; the theme mixins emit them as custom properties and
+// public `$*` tokens resolve to var(). landing.scss and resume.scss import this but not _theme.
 
-// -----------------------------------------------------------------------------
-// LIGHT palette (private literals) — the original hand-tuned values.
-// -----------------------------------------------------------------------------
-// Monochrome accent — the "brand" is ink, not a hue. These map to the text/ink
-// scale so accents, borders, focus rings, active states and links stay grayscale.
-// (Syntax highlighting below is the one intentional exception: color = meaning.)
-$_brand-primary:        #1a1a1a;   // accents, borders, focus rings, active states (= ink)
-$_brand-primary-hover:  #000;      // deepen to pure black on hover/active
-$_brand-link:           #1a1a1a;   // in-prose links — ink; underline carries the affordance
+// --- Light palette (private) ---
+// Monochrome accent: the brand is ink, not a hue. Syntax colors are the one exception.
+$_brand-primary:        #1a1a1a;
+$_brand-primary-hover:  #000;
+$_brand-link:           #1a1a1a;   // in-prose links: ink, the underline carries the affordance
 
-$_text-primary:    #1a1a1a;        // body copy, headings
+$_text-primary:    #1a1a1a;
 $_text-secondary:  #555;           // post excerpts, secondary labels
 $_text-muted:      #595959;        // meta lines, dates, captions
 $_text-faint:      #6f6f6f;        // placeholders, empty states, year headings (4.8:1)
 
-$_bg-page:       #fdfdfd;          // page background (matches Minima's default)
-$_bg-surface:    #ffffff;          // cards, header, inputs, markers — the "paper"
+$_bg-page:       #fdfdfd;          // matches Minima's default
+$_bg-surface:    #ffffff;          // cards, header, inputs, markers: the "paper"
 $_bg-soft:       #fafafa;          // post excerpt rows, TOC, timeline cards
 $_bg-tag:        #f0f0f0;          // chips, timeline borders, inline code
-$_bg-subtle:     #f5f7fa;          // announcement banner
-$_border-light:  #e8e8e8;          // dividers, input borders
+$_border-light:  #e8e8e8;
 
 $_chrome-muted:  #5b5e66;          // nav links & back-links at rest (~6.5:1 on white)
-$_ink-hover:     #000;             // monochrome hover ink (buttons, nav, icons)
-$_color-success: #10b981;          // "Copied!" state, education accent
+$_ink-hover:     #000;
+$_color-success: #10b981;          // "Copied!" state
 
-$_btn-solid-bg:  #1a1a1a;          // filled buttons / inverted tooltip background
-$_btn-solid-fg:  #ffffff;          // text on the filled button
+$_btn-solid-bg:  #1a1a1a;          // filled buttons, inverted tooltip background
+$_btn-solid-fg:  #ffffff;
 $_surface-overlay: rgba(255, 255, 255, 0.9);  // floating capsule/copy-btn backdrops
-$_logo-bg:       #ffffff;          // white pad behind company logos
+$_logo-bg:       #ffffff;          // pad behind company logos
 
 // Code panel (One Light).
 $_code-bg:      #eef;
@@ -62,37 +45,33 @@ $_code-scrollbar: rgba(0, 0, 0, 0.2);
 $_timeline-rail-top:    rgba(26, 26, 26, 0.6);
 $_timeline-rail-bottom: rgba(100, 116, 139, 0.55);
 $_marker-pulse:         rgba(26, 26, 26, 0.35);
-$_timeline-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);   // soft card lift on hover
+$_timeline-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 
-// Shadows.
 $_shadow-sm: 0 2px 8px rgba($_brand-primary, 0.1);
 $_shadow-lg: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
 
-// -----------------------------------------------------------------------------
-// DARK palette (private literals) — near-black terminal surfaces, light ink.
+// --- Dark palette (private) ---
 // Contrast checked for WCAG AA against $_dark-bg-page (#0d0d0f).
-// -----------------------------------------------------------------------------
-$_dark-brand-primary:        #ededed;   // monochrome accent = light ink on dark
-$_dark-brand-primary-hover:  #fff;      // brighten to pure white on hover/active
-$_dark-brand-link:           #ededed;   // in-prose links — ink; underline carries the affordance
+$_dark-brand-primary:        #ededed;
+$_dark-brand-primary-hover:  #fff;
+$_dark-brand-link:           #ededed;
 
 $_dark-text-primary:    #ededed;
 $_dark-text-secondary:  #b6b6bb;
 $_dark-text-muted:      #9a9aa1;
-$_dark-text-faint:      #8b8c93;   // nav slash, placeholders, year headings — nudged up from #7f7f86 so the slash isn't disproportionately dim next to the brighter nav labels (stays below $_dark-text-muted)
+$_dark-text-faint:      #8b8c93;   // keep below $_dark-text-muted, but bright enough that the nav slash isn't lost
 
 $_dark-bg-page:       #0d0d0f;
 $_dark-bg-surface:    #161619;
 $_dark-bg-soft:       #1a1a1e;
 $_dark-bg-tag:        #26262b;
-$_dark-bg-subtle:     #17171a;
-$_dark-border-light:  #3a3b42;   // lifted from #2b2b31 so token-bordered surfaces keep a visible edge in dark
+$_dark-border-light:  #3a3b42;   // bright enough that bordered surfaces keep a visible edge
 
-$_dark-chrome-muted:  #b0b1b7;   // nav links/back-link/typewriter — clearly readable on dark, still muted vs the #ededed wordmark (was #8b8d94, too dim)
+$_dark-chrome-muted:  #b0b1b7;   // readable on dark, still muted next to the #ededed wordmark
 $_dark-ink-hover:     #fff;
 $_dark-color-success: #34d399;
 
-$_dark-btn-solid-bg:  #ededed;   // light button on dark page
+$_dark-btn-solid-bg:  #ededed;
 $_dark-btn-solid-fg:  #0d0d0f;
 $_dark-surface-overlay: rgba(22, 22, 25, 0.9);
 $_dark-logo-bg:       #e8e8ea;   // keep logos on a light pad so they stay legible
@@ -118,9 +97,7 @@ $_dark-timeline-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);   // black reads as
 $_dark-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
 $_dark-shadow-lg: 0 6px 16px 0 rgba(0, 0, 0, 0.6);
 
-// -----------------------------------------------------------------------------
-// Theme mixins — emit every custom property. Included by _theme.scss.
-// -----------------------------------------------------------------------------
+// --- Theme mixins: emit every custom property (included by _theme.scss) ---
 @mixin theme-light {
   color-scheme: light;
 
@@ -137,7 +114,6 @@ $_dark-shadow-lg: 0 6px 16px 0 rgba(0, 0, 0, 0.6);
   --bg-surface:   #{$_bg-surface};
   --bg-soft:      #{$_bg-soft};
   --bg-tag:       #{$_bg-tag};
-  --bg-subtle:    #{$_bg-subtle};
   --border-light: #{$_border-light};
 
   --chrome-muted:  #{$_chrome-muted};
@@ -186,7 +162,6 @@ $_dark-shadow-lg: 0 6px 16px 0 rgba(0, 0, 0, 0.6);
   --bg-surface:   #{$_dark-bg-surface};
   --bg-soft:      #{$_dark-bg-soft};
   --bg-tag:       #{$_dark-bg-tag};
-  --bg-subtle:    #{$_dark-bg-subtle};
   --border-light: #{$_dark-border-light};
 
   --chrome-muted:  #{$_dark-chrome-muted};
@@ -219,9 +194,7 @@ $_dark-shadow-lg: 0 6px 16px 0 rgba(0, 0, 0, 0.6);
   --shadow-lg: #{$_dark-shadow-lg};
 }
 
-// -----------------------------------------------------------------------------
-// PUBLIC tokens — resolve to the custom properties above. Use these in rules.
-// -----------------------------------------------------------------------------
+// --- Public tokens: resolve to the custom properties above; use these in rules ---
 $brand-primary:        var(--brand-primary);
 $brand-primary-hover:  var(--brand-primary-hover);
 $brand-link:           var(--brand-link);
@@ -235,7 +208,6 @@ $bg-page:      var(--bg-page);
 $bg-surface:   var(--bg-surface);
 $bg-soft:      var(--bg-soft);
 $bg-tag:       var(--bg-tag);
-$bg-subtle:    var(--bg-subtle);
 $border-light: var(--border-light);
 
 $chrome-muted:  var(--chrome-muted);
@@ -262,44 +234,34 @@ $code-scrollbar: var(--code-scrollbar);
 $shadow-sm: var(--shadow-sm);
 $shadow-lg: var(--shadow-lg);
 
-// Typography — mono is the site default (see _base.scss).
-// Sans (Hanken Grotesk) is used for blog post body copy; serif is reserved for
-// blockquotes inside posts so they pick up an editorial voice.
-// $font-mono-ui is the branded mono for site chrome (nav, wordmark, social
-// text links) — IBM Plex Mono loaded from Google Fonts; code surfaces keep
-// the system stack in $font-mono.
-// Hanken Grotesk: closest free match to Anthropic Sans (code.claude.com docs)
-// — warm grotesque, generous x-height, soft terminals.
+// --- Typography ---
+// Sans (Hanken Grotesk, closest free match to Anthropic Sans) is the body default; serif is only
+// for post blockquotes; $font-mono-ui (IBM Plex Mono) is for chrome; code keeps the system mono.
 $font-sans:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 $font-serif: 'Charter', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', Times, serif;
 $font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 $font-mono-ui: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 
-// Corner radius — ONE unified value for every rectangular surface: tags,
-// buttons, inputs, cards, code, images, logos, boxes. (Previously a 2px/4px/
-// pill scale; the tags' full pill clashed with the otherwise-square terminal
-// chrome, so it was collapsed to a single step.) Genuine circles use 50% inline
-// (universal idiom); the landing scroll capsule keeps its own bespoke shape.
+// One radius for every rectangular surface. True circles use 50% inline; the landing scroll
+// capsule keeps its own shape.
 $radius: 4px;
 
-// Font weights. Use medium by default for emphasis; reserve semibold for
-// chips, table headers, and other tight UI labels where 500 reads too soft.
+// Medium for emphasis; semibold for tight UI labels (chips, table headers) where 500 reads too soft.
 $weight-regular:  400;
 $weight-medium:   500;
 $weight-semibold: 600;
 
-// Font sizes — these steps cover everything from chip text to page titles.
-// Hand-tuned one-off sizes (e.g. an oddly-sized button) stay inline.
-$text-xs:     0.75rem;    // 12px — tiny chips, tooltips
-$text-chrome: 0.8125rem;  // 13px — mono UI chrome: nav links, back-links, timeline meta
-$text-sm:     0.875rem;   // 14px — meta lines, captions, post-meta
-$text-base:   1rem;       // 16px — body default
-$text-lg:     1.25rem;    // 20px — list titles, h4
-$text-xl:     1.625rem;   // 26px — h2
-$text-2xl:    2rem;       // 32px — page titles (.page-heading); article titles size up from here
+// Type scale; one-off sizes stay inline.
+$text-xs:     0.75rem;    // 12px: tiny chips, tooltips
+$text-chrome: 0.8125rem;  // 13px: mono UI chrome (nav links, back-links, timeline meta)
+$text-sm:     0.875rem;   // 14px: meta lines, captions, post-meta
+$text-base:   1rem;       // 16px: body default
+$text-lg:     1.25rem;    // 20px: list titles, h4
+$text-xl:     1.625rem;   // 26px: h2
+$text-2xl:    2rem;       // 32px: page titles (.page-heading); article titles size up from here
 
-// Spacing — four steps cover the common rhythms. One-off paddings stay inline.
-$space-xs:   0.5rem;      // 8px  — inline gaps, meta-item gap
-$space-sm:   1rem;        // 16px — paragraph gap, between rows
-$space-md:   2rem;        // 32px — between cards / blocks
-$space-lg:   4rem;        // 64px — section breaks
+// Spacing scale; one-off paddings stay inline.
+$space-xs:   0.5rem;      // 8px: inline gaps, meta-item gap
+$space-sm:   1rem;        // 16px: paragraph gap, between rows
+$space-md:   2rem;        // 32px: between cards / blocks
+$space-lg:   4rem;        // 64px: section breaks

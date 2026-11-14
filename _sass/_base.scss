@@ -1,34 +1,15 @@
-// =============================================================================
-// Base — global chrome + utilities: icons, accessibility, typography,
-// site nav, header, footer, announcement banner, 404 page.
-// =============================================================================
+// Base: global chrome and utilities (icons, accessibility, typography, nav, footer, buttons, 404).
 
-// Anchor jumps (TOC clicks, copy-link, kramdown header anchors) must clear the
-// sticky .site-header (~57px) — without this the target lands behind the nav.
+// Anchor jumps must clear the sticky .site-header (~57px), or the target lands behind the nav.
 html {
   scroll-padding-top: 5rem;
-  // Explicit canvas color. Also load-bearing for the overscroll strip below:
-  // with html transparent, body's background would propagate to the canvas and
-  // paint UNDER the strip, leaving it visible across the whole page at rest.
-  // An opaque html background keeps body's background on body's own box, which
-  // then covers the strip.
+  // Must stay opaque: a transparent html lets body's background spread to the canvas and
+  // paint under the overscroll strip below, leaving it visible at rest.
   background: $bg-page;
 }
 
-// Two-tone overscroll. Rubber-banding at the TOP pulls the page (and the
-// sticky nav) down; the revealed gap shows the bare canvas ($bg-page) and the
-// nav looks like it's floating on a darker surface. Fill the gap with a fixed
-// $bg-surface strip so the nav reads as continuous chrome. Browsers disagree
-// on whether position:fixed translates with the elastic bounce (iOS Safari
-// drags the layout viewport; desktop compositors keep fixed glued while only
-// the content slides), so the strip spans BOTH positions: from one screen
-// above the viewport down to mid-screen (z-index -1, hidden behind body's
-// opaque background at rest).
-//   - glued:   the below-the-fold half shows through the top gap.
-//   - dragged: the above-viewport half slides down into the top gap.
-// The BOTTOM bounce reveals at the viewport's bottom edge — far below the
-// strip's mid-screen end in either behavior — so the footer end keeps showing
-// the $bg-page canvas.
+// Top-overscroll fill so the sticky nav doesn't float over bare canvas. It spans one screen above
+// to mid-screen because browsers disagree on whether fixed elements move with the bounce.
 body::before {
   content: '';
   position: fixed;
@@ -38,7 +19,7 @@ body::before {
   height: 150vh;                // -100vh .. +50vh of the viewport
   background: $bg-surface;
   pointer-events: none;
-  z-index: -1;                  // behind all content; above the canvas
+  z-index: -1;                  // hidden behind body's opaque background at rest
 }
 
 // Don't let the strip print as a gray band on paper.
@@ -46,10 +27,7 @@ body::before {
   body::before { display: none; }
 }
 
-// -----------------------------------------------------------------------------
-// Inline-SVG icons (see _includes/icon.html). Replaces Font Awesome.
-// Icons inherit color from currentColor and size from font-size.
-// -----------------------------------------------------------------------------
+// --- Icons: inline SVG from _includes/icon.html, colored by currentColor ---
 .icon {
   display: inline-block;
   vertical-align: -0.125em;     // baseline-align with surrounding text
@@ -59,26 +37,19 @@ body::before {
   transition: filter 0.2s ease;
 }
 
-// Social icons: monochrome — $text-primary at rest, $ink-hover on hover,
-// the same subtle sharpening as the read-the-blog button (deliberate owner
-// preference over a louder hover cue). Color shift only, no motion.
-// Meta icons (calendar/clock/etc.) are untouched — they stay at currentColor
-// so they tone-match surrounding text.
+// Social icons only; meta icons (calendar, clock) keep currentColor to match their text.
 .social-links, .footer-social {
   .icon { color: $text-primary; transition: color 0.2s ease; }
 
   a:hover .icon { color: $ink-hover; }
 }
 
-// -----------------------------------------------------------------------------
-// Accessibility utilities
-// -----------------------------------------------------------------------------
-// Keyboard-only focus indicator. Mouse clicks won't trigger this in browsers
-// that support :focus-visible; tab-based navigation will.
+// --- Accessibility ---
+// Keyboard-only focus ring; mouse clicks don't trigger :focus-visible.
 :focus-visible {
   outline: 2px solid $brand-primary;
   outline-offset: 2px;
-  border-radius: $radius;       // match the unified surface radius
+  border-radius: $radius;
 }
 
 // Visually hide while keeping accessible to screen readers.
@@ -94,8 +65,7 @@ body::before {
   border: 0;
 }
 
-// Skip link (WCAG 2.4.1): off-screen until a keyboard user tabs to it, then it
-// drops in above the sticky header so they can jump past the nav to the content.
+// Skip link (WCAG 2.4.1): off-screen until focused, then drops in above the sticky header.
 .skip-link {
   position: absolute;
   left: 0.5rem;
@@ -103,9 +73,7 @@ body::before {
   z-index: 200;                 // above the sticky header (z-index 100)
   padding: 0.5rem 1rem;
   background: $brand-primary;
-  // Pair the foreground with the button-fill token so it inverts with the
-  // background: white-on-ink in light, ink-on-light in dark. A hardcoded
-  // `white` was invisible in dark ($brand-primary flips to near-white).
+  // Paired with $brand-primary so it inverts in dark mode; plain white would vanish there.
   color: $btn-solid-fg;
   border-radius: $radius;
   font-size: $text-sm;
@@ -119,8 +87,7 @@ body::before {
 // The <main> skip target shouldn't paint a focus ring when jumped to.
 #main-content:focus { outline: none; }
 
-// Honor a reduced-motion preference site-wide: neutralize non-essential
-// animation and transitions. State still changes — just instantly.
+// Honor prefers-reduced-motion site-wide: state still changes, just instantly.
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -132,17 +99,14 @@ body::before {
   }
 }
 
-// -----------------------------------------------------------------------------
-// Typography — Hanken Grotesk for prose, system mono stack for code (matches GitHub's
-// Primer look: SFMono on macOS, Consolas on Windows, etc.).
-// -----------------------------------------------------------------------------
+// --- Typography ---
 body {
   font-family: $font-sans;
-  font-size: $text-base;       // 16px — denser, technical-doc feel
+  font-size: $text-base;
   line-height: 1.55;
   letter-spacing: 0;
   color: $text-primary;
-  background: $bg-page;        // themed page surface (light default / dark override)
+  background: $bg-page;        // must be opaque: it hides the overscroll strip
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -154,31 +118,27 @@ h1, h2, h3, h4, h5, h6 {
 // Override Minima's defaults so every code surface uses the system mono stack.
 code, pre, kbd, samp { font-family: $font-mono; }
 
-// <strong>/<b> default to 700 in the browser. Drop to $weight-medium so inline
-// emphasis matches heading weight and never out-bolds a heading.
+// Medium instead of the browser's 700, so inline emphasis never out-bolds a heading.
 strong, b { font-weight: $weight-medium; }
 
 .post-title {
   font-size: 2.125rem;
-  font-weight: $weight-semibold;             // mono renders heavy; 600 reads confident, not shouty
+  font-weight: $weight-semibold;
   line-height: 1.25;
   letter-spacing: -0.01em;      // tighten slightly at large sizes
   margin-bottom: 0.5rem;
 
-  // Mono titles wrap aggressively on phones — drop the size below 480px.
+  // Long titles wrap aggressively on phones.
   @media (max-width: 480px) {
     font-size: 1.625rem;
     line-height: 1.2;
   }
 }
 
-// -----------------------------------------------------------------------------
-// Site header / nav
-// -----------------------------------------------------------------------------
+// --- Site header / nav ---
 .site-header {
   border-top: none;             // drop Minima's default top border
-  // Minima's bottom border is a hardcoded light gray (#e8e8e8) — harsh on the
-  // dark header. Re-point it at the themed border token.
+  // Minima hardcodes #e8e8e8 here, which is harsh on the dark header.
   border-bottom: 1px solid $border-light;
   position: sticky;
   top: 0;
@@ -186,7 +146,7 @@ strong, b { font-weight: $weight-medium; }
   background: $bg-surface;
 }
 
-// Wordmark: ~/yakhyo in branded mono — the terminal identity in the chrome.
+// Wordmark: ~/yakhyo in the chrome mono.
 .site-title {
   font-family: $font-mono-ui;
   font-size: 1rem;
@@ -201,20 +161,13 @@ strong, b { font-weight: $weight-medium; }
   }
 }
 
-// In dark mode the wordmark's heavier 600 mono reads a touch flatter than the
-// crisp lighter-weight nav links beside it, so at $text-primary (#ededed) it
-// looks *dimmer* than the nav despite being brighter numerically. Take it to
-// pure white ($ink-hover → #fff in dark) so it clearly anchors the chrome as
-// the brightest element. Light mode keeps $text-primary from the rule above.
+// In dark mode the 600-weight mono wordmark looks dimmer than the nav at #ededed, so use pure white.
 :root[data-theme="dark"] .site-title { color: $ink-hover; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .site-title { color: $ink-hover; }
 }
 
-// Nav links: small muted mono, lowercased, each prefixed with a dim "/" so
-// they read as paths under the ~/yakhyo wordmark (the slash is an aria-hidden
-// span in header.html). On hover the slash and label sharpen to black while an
-// underline draws in from the left; both stay dark on the active page.
+// Nav links read as paths under the wordmark; the dim "/" is an aria-hidden span in header.html.
 .site-nav .page-link {
   position: relative;
   font-family: $font-mono-ui;
@@ -256,11 +209,7 @@ strong, b { font-weight: $weight-medium; }
   }
 }
 
-// -----------------------------------------------------------------------------
-// Theme toggle — monochrome icon button in the header chrome. Floated right so
-// it sits at the far edge, left of the nav. Rests on $chrome-muted, sharpens to
-// $ink-hover — the same interaction language as the nav links.
-// -----------------------------------------------------------------------------
+// --- Theme toggle ---
 .theme-toggle {
   float: right;
   display: inline-flex;
@@ -286,8 +235,7 @@ strong, b { font-weight: $weight-medium; }
   // Default (light): show the moon ("switch to dark").
   .theme-icon-light { display: block; }
 
-  // Below 600px Minima turns .site-nav into an absolutely-positioned hamburger
-  // pinned to the right; clear it so the toggle sits to its left, not under it.
+  // Below 600px Minima pins the hamburger nav to the right; keep the toggle clear of it.
   @media screen and (max-width: 600px) {
     margin-right: 2.75rem;
   }
@@ -307,19 +255,11 @@ strong, b { font-weight: $weight-medium; }
   }
 }
 
-// -----------------------------------------------------------------------------
-// Minima base overrides — a few of Minima's stock defaults ship hardcoded light
-// colors that don't adapt to the theme. Re-point them at tokens so dark mode is
-// complete outside our own components. (These load after `@import "minima"`, so
-// they win on source order.)
-// -----------------------------------------------------------------------------
+// --- Minima overrides ---
+// Minima hardcodes light colors in a few defaults; these load after it, so they win on source order.
 
-// Tables: text color, header fill, and cell borders. Used on the resume and any
-// content table; .post-content refines cell spacing/borders on top. Minima ships
-// two hardcoded-light defaults that break in dark mode: a lightened cell text
-// color (#3f3f3f — invisible on dark) and a zebra stripe (tr:nth-child(even) —
-// a muddy checkerboard). Re-point the text at the themed token and neutralize
-// the stripe so rows are separated by borders alone.
+// Minima's #3f3f3f cell text and even-row zebra stripe break in dark mode, so rows are separated
+// by borders alone. .post-content refines cell spacing on top.
 table {
   color: $text-primary;
 
@@ -331,24 +271,39 @@ table {
   tr:nth-child(even) { background-color: transparent; }
 }
 
-// Global inline code / <pre> (Minima paints these #eef with an #e8e8e8 border).
-// .post-content code surfaces override this again via _blog / _syntax.
+// Minima paints these #eef with an #e8e8e8 border; .post-content overrides again in _blog/_syntax.
 pre, code {
   background-color: $bg-tag;
   border-color: $border-light;
 }
 
-// Mobile nav dropdown panel (opens below 600px) — Minima hardcodes it white.
+// Mobile nav dropdown (below 600px): Minima hardcodes it white.
 @media screen and (max-width: 600px) {
   .site-nav {
     background-color: $bg-surface;
     border-color: $border-light;
   }
+
+  // Minima hides the checkbox with display: none, which also removes it from
+  // the tab order. Hide it visually instead so the keyboard can open the menu.
+  .site-nav .nav-trigger {
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .site-nav .nav-trigger:focus-visible + label {
+    outline: 2px solid $brand-primary;
+    outline-offset: -2px;
+    border-radius: 5px;
+  }
 }
 
-// -----------------------------------------------------------------------------
-// Site footer
-// -----------------------------------------------------------------------------
+// --- Site footer ---
 .site-footer {
   border-top: 1px solid $border-light;
   padding: 1.25rem 0;
@@ -399,64 +354,7 @@ pre, code {
   .footer-social { justify-content: center; }
 }
 
-// -----------------------------------------------------------------------------
-// Announcement banner — site-wide notification strip at the very top.
-// Kept low-saturation so it doesn't compete with the landing page name.
-// -----------------------------------------------------------------------------
-.announcement-banner {
-  background: $bg-subtle;
-  color: $text-secondary;
-  border-bottom: 1px solid $border-light;
-  padding: 0.5rem 1rem;
-  text-align: center;
-  position: relative;
-}
-
-.announcement-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.announcement-text {
-  font-size: 0.85rem;
-
-  a {
-    color: $brand-primary;
-    text-decoration: underline;
-    font-weight: $weight-semibold;
-
-    &:hover { color: $brand-primary-hover; }
-  }
-}
-
-.announcement-close {
-  background: transparent;
-  border: none;
-  color: $text-muted;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  line-height: 1;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-
-  &:hover { opacity: 1; }
-}
-
-@media (max-width: 600px) {
-  .announcement-banner { padding: 0.6rem 0.75rem; }
-  .announcement-text { font-size: 0.8rem; }
-  .announcement-close { font-size: 1rem; }
-}
-
-// -----------------------------------------------------------------------------
-// Buttons — used for CTAs across pages (contact, resume download, etc.).
-// .btn is the outlined default; .btn-primary is the solid filled variant.
-// -----------------------------------------------------------------------------
+// --- Buttons: .btn is outlined, .btn-primary is solid ---
 .btn {
   display: inline-flex;
   align-items: center;
@@ -472,7 +370,7 @@ pre, code {
   transition: all 0.25s ease;
   cursor: pointer;
 
-  // No lift on hover — color shift only.
+  // No lift on hover: color shift only.
   &:hover {
     border-color: $brand-primary-hover;
     color: $brand-primary-hover;
@@ -492,9 +390,7 @@ pre, code {
   }
 }
 
-// -----------------------------------------------------------------------------
-// 404 page
-// -----------------------------------------------------------------------------
+// --- 404 page ---
 .error-page {
   margin: 10px auto;
   max-width: 600px;

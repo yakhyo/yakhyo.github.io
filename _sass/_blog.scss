@@ -1,16 +1,9 @@
-// =============================================================================
-// Blog — index page (search/filter/post cards) + single-post styles
-// (content typography, code blocks, share row, prev/next nav).
-// =============================================================================
+// Blog: index page and single-post styles
 
-// =====================================================================
 // 1. Blog index page
-// =====================================================================
-// Page titles sit one step above .post-content h2 ($text-xl / 26px) on the
-// global type scale, so every page reads h1 > h2 > h3 > body with the same
-// sizes site-wide. Article titles (.post-title) stay the largest at every
-// width, so the mobile steps here track just below .post-title's own steps
-// (1.875rem ≤600px, 1.625rem ≤480px).
+
+// Page titles: one step above .post-content h2, and below the article title
+// (.post-header .post-title: 2.25rem, 1.875rem at ≤600px) at every width.
 .page-heading {
   margin: 0 0 0.25rem;
   font-size: $text-2xl;
@@ -21,9 +14,9 @@
   @media (max-width: 480px) { font-size: 1.5rem; }
 }
 
-// Blog index header: small bold heading + one-line tagline.
 .blog-header {
-  margin: $space-xs 0 $space-sm;
+  // No top margin, so the heading lines up with the Projects and About titles.
+  margin: 0 0 $space-sm;
 }
 
 .blog-intro {
@@ -32,48 +25,6 @@
   font-weight: $weight-regular;
   line-height: 1.5;
   color: $text-muted;
-}
-
-// Search + year filter row
-.search-filter-wrapper {
-  display: flex;
-  gap: 0.75rem;
-  margin: 1.25rem 0 1rem;
-}
-
-.search-container {
-  position: relative;
-  flex: 1;
-
-  #search-input {
-    width: 100%;
-    padding: 0.5rem 0.875rem 0.5rem 2.25rem;
-    font-size: 0.9rem;
-    border: 1px solid $border-light;
-    border-radius: $radius;
-    outline: none;
-    transition: all 0.3s ease;
-    background: $bg-soft;
-    box-sizing: border-box;
-
-    &:focus {
-      border-color: $brand-primary;
-      background: $bg-surface;
-      box-shadow: $shadow-sm;
-    }
-
-    &::placeholder { color: $text-faint; }
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $text-faint;
-    font-size: 0.9rem;
-    pointer-events: none;
-  }
 }
 
 .post-year-group { margin-top: $space-md; }
@@ -92,33 +43,28 @@
   background: $bg-page;
   border-bottom: 1px solid $border-light;
 
-  // On phones the year sticky-strip steals vertical space and the index is
-  // short enough not to need it. Let it scroll with the page.
+  // Not sticky on phones: the strip costs too much vertical space there.
   @media (max-width: 600px) {
     position: static;
   }
 }
 
-// Post list (cards on the blog index). The whole row is a click target: the
-// title's <a> uses ::before to span the parent .post-item.
+// The whole row is a click target: the title link's ::before spans .post-item.
 .post-list {
   list-style: none;
   margin-left: 0;
 
   .post-item {
     position: relative;
-    // Bleed the tint 0.75rem past the text on each side so the hover zone has
-    // breathing room while the text stays aligned with the year heading. 0.75rem
-    // stays inside the 15px wrapper gutter, so no horizontal overflow on mobile.
+    // Bleed the tint 0.75rem past the text; that stays inside the 15px mobile
+    // wrapper gutter, so no horizontal overflow.
     margin: 0.25rem -0.75rem;
     padding: 0.875rem 0.75rem;
     border-radius: $radius;
     transition: opacity 0.3s ease, background-color 0.15s ease;
 
-    // The whole row is one click target, so the whole row responds. Hover is
-    // gated behind (hover: hover) so a tap on touch doesn't leave the row stuck
-    // in its hover state; :active is the press feedback on mobile, and
-    // :has(:focus-visible) covers keyboard. All three share one soft tint.
+    // (hover: hover) keeps a tap from leaving the row stuck in hover on touch;
+    // :active and :has(:focus-visible) give touch and keyboard the same tint.
     @media (hover: hover) {
       &:hover {
         background: $bg-soft;
@@ -148,7 +94,6 @@
       text-decoration: none;
       transition: color 0.15s ease;
 
-      // Expand the click target to the full .post-item.
       &::before {
         content: "";
         position: absolute;
@@ -156,7 +101,7 @@
         border-radius: $radius;
       }
 
-      // Keyboard focus gets a visible ring tracing the whole row (WCAG AA).
+      // Ring goes on ::before so it traces the whole row.
       &:focus-visible {
         outline: none;
 
@@ -199,33 +144,7 @@
   font-size: 0.9375rem;
 }
 
-.no-posts {
-  text-align: center;
-  padding: 3rem 0;
-  color: $text-faint;
-  font-size: 1.1rem;
-}
-
-// Blog-index responsive
-@media (max-width: 768px) {
-  .search-filter-wrapper {
-    flex-direction: column;
-    margin: 1.5rem 0 1rem;
-    gap: 0.75rem;
-  }
-
-  .search-container {
-    #search-input {
-      font-size: 0.95rem;
-      padding: 0.65rem 1rem 0.65rem 2.5rem;
-    }
-    .search-icon { font-size: 0.9rem; left: 0.9rem; }
-  }
-}
-
-// =====================================================================
 // 2. Single post page
-// =====================================================================
 
 .post {
   max-width: 100%;
@@ -244,9 +163,6 @@
   }
 }
 
-// "← back to blog" link above the post title — terminal-voiced mono, muted at
-// rest, sharpening on hover while the arrow nudges left along its axis (same
-// directional language as the other arrow buttons).
 .back-to-blog {
   @include arrow-nudge(-3px, 0);
 
@@ -265,8 +181,7 @@
     height: 0.9em;
   }
 
-  // Keep the back-link muted after it's been visited (Minima's `a:visited`
-  // blue outranks this class rule otherwise).
+  // Minima's `a:visited` blue outranks this class rule; keep it muted.
   &:visited { color: $chrome-muted; }
 
   &:hover {
@@ -299,7 +214,7 @@
     padding: 0.1em 0.35em;
     border-radius: $radius;
   }
-  // Code inside <pre> is styled by Minima's rouge block — don't double-pad it.
+  // Code inside <pre> is styled by Minima's rouge block; don't double-pad it.
   pre code { background: none; padding: 0; font-size: 0.95em; }
 
   ul, ol {
@@ -311,7 +226,7 @@
     li > ul, li > ol { margin-top: 0.4em; margin-bottom: 0.4em; }
   }
 
-  // Blockquote is the only serif element in the post — keep it that way; adding more serif accents dilutes the contrast.
+  // Blockquote is the post's only serif element; keep it that way.
   blockquote {
     margin: 1.75em 0;
     padding: 0.25em 0 0.25em 1.25rem;
@@ -324,12 +239,8 @@
     p:last-child { margin-bottom: 0; }
   }
 
-  // Labeled callout boxes — "Key takeaways" summaries and the "Short answer"
-  // capsules in Q&A posts. Distinct from the serif pull-quote above: these are
-  // structured callouts, not quotations, so they drop the serif/italic editorial
-  // voice for the sans body font inside a pixel-frame box, with a mono uppercase
-  // eyebrow for the bold label (the site's mono identity). Genuine unlabeled
-  // quotes keep the serif blockquote style.
+  // Labeled callouts (`{: .takeaways}`, `{: .callout}`) are framed sans boxes;
+  // unlabeled quotes keep the serif style above.
   blockquote.takeaways,
   blockquote.callout {
     margin: 1.75em 0;
@@ -368,17 +279,14 @@
     }
   }
 
-  // In "Short answer" capsules the label shares a paragraph with the answer,
-  // so promote it to its own line; takeaways labels already sit alone.
+  // A .callout label shares a paragraph with the answer, so give it its own line.
   blockquote.callout > p:first-child > strong:first-child {
     display: block;
     margin-bottom: 0.3rem;
   }
 
-  // FAQ items: one callout per question so the question and its answer never
-  // run together. Authored as `> **Question?**`, a blank quote line, then the
-  // answer, tagged `{: .faq}`. Same frame as takeaways, plus Q / A markers in
-  // the left gutter so a skimming reader can tell which line is which.
+  // FAQ item, authored as `> **Question?**`, a blank `>` line, the answer, then
+  // `{: .faq}`. The Q / A markers sit in the left padding.
   blockquote.faq {
     position: relative;
     margin: 1.25em 0;
@@ -412,7 +320,7 @@
     > p:first-child::before { content: "Q"; color: $brand-primary; }
     > p:nth-child(2)::before { content: "A"; }
 
-    // The question is bold in the source; keep one weight, not a double one.
+    // The question is already bold in the source; don't double the weight.
     > p:first-child { font-weight: $weight-semibold; }
     > p:first-child > strong { font-weight: inherit; }
   }
@@ -431,18 +339,15 @@
     }
   }
 
-  // Prose links only: scoped to text containers so UI components rendered
-  // inside content (buttons, back-links, timeline links, social icon rows)
-  // never inherit the underline and don't need per-component
-  // specificity escapes. :where() keeps specificity at .post-content a level.
+  // Prose links only, so UI components inside content don't inherit the
+  // underline. :where() keeps specificity at the .post-content a level.
   :where(p, li, td, dd) a {
-    color: $brand-link;              // ink — the underline (not a hue) marks it as a link
+    color: $brand-link;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
 
-    // Minima's `a:visited` is blue (0,1,1) — without this pin a clicked prose
-    // link would turn blue and break the monochrome palette. Keep it ink.
+    // Minima's `a:visited` (0,1,1) would turn clicked links blue; keep them ink.
     &:visited { color: $brand-link; }
 
     &:hover {
@@ -470,7 +375,7 @@
     aspect-ratio: 16 / 9;
   }
 
-  // Inline image grids — collapse whitespace so %-width images fit.
+  // Inline image grids: collapse whitespace so %-width images fit.
   div[align] { font-size: 0; }
 
   .media-figure {
@@ -488,9 +393,7 @@
     }
   }
 
-  // Tables — always fill the content width so multi-column comparison tables
-  // line up consistently across a post. Without this, browsers size tables to
-  // their content and adjacent tables end up at different widths.
+  // Full width so adjacent tables line up instead of each sizing to its content.
   table {
     width: 100%;
     border-collapse: collapse;
@@ -505,9 +408,6 @@
       vertical-align: top;
     }
 
-    // Header stands off the body with a fill one step up from the page ($bg-tag)
-    // plus a firmer bottom rule, so it reads as a header in both themes without
-    // relying on zebra striping.
     th {
       font-weight: $weight-semibold;
       color: $text-primary;
@@ -515,15 +415,13 @@
       border-bottom: 1px solid $text-faint;
     }
 
-    // Mobile: drop to `display: block` + horizontal scroll so wide tables
-    // don't force the whole page wider than the viewport. Desktop keeps
-    // the normal table layout so columns share width evenly.
+    // Scroll wide tables on mobile instead of widening the page.
     @media (max-width: 600px) {
       display: block;
       overflow-x: auto;
     }
   }
-  // Code blocks: copy button reveals on hover, fades back out.
+  // Code blocks: site.js injects the .copy-btn.
   pre {
     position: relative;
     border: 1px solid $border-light;
@@ -563,13 +461,12 @@
 }
 
 
-// Bottom-of-post action row: now holds only the "Edit on GitHub" link
-// (share moved to the top of the post, under the meta line).
+// Bottom-of-post row holding the "Edit on GitHub" link.
 .post-footer-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;   // lone "Edit on GitHub" link sits at the right edge
+  justify-content: flex-end;
   gap: $space-sm;
   margin: $space-md 0 0;
   padding: 1.25rem 0 0;
@@ -582,8 +479,6 @@
   gap: 0.6rem;
 }
 
-// Top-of-post share row: sits under the meta line and is divided from the
-// article body so it reads as part of the header, not the content.
 .post-share-top {
   display: flex;          // override .post-share inline-flex so the divider spans the column
   flex-wrap: wrap;
@@ -598,14 +493,12 @@
   font-size: $text-sm;
 }
 
-// Wide screens: float the same share element as a sticky vertical rail in the
-// left gutter, vertically centred. Below this width there isn't enough gutter
-// beside the 820px content column, so it stays the inline row under the meta.
+// Wide screens: the share row becomes a fixed rail in the left gutter.
 @media (min-width: 1100px) {
   .post-share-top {
     position: fixed;
     top: 50%;
-    // 410px = $content-width (820px) / 2; then clear the gutter + rail width.
+    // 410px = $content-width (820px) / 2, then clear the gap + rail width.
     left: calc(50% - 410px - 3.75rem);
     transform: translateY(-50%);
     flex-direction: column;
@@ -616,31 +509,26 @@
   }
 
   .post-share-top .post-share-label {
-    display: none;   // icons only in rail mode — vertical text reads poorly
+    display: none;
   }
 }
 
-// "On this page" TOC. Hidden by default (and on narrower screens there's no
-// gutter beside the 820px column); shown only when the right gutter is wide
-// enough to hold it without crowding the content.
+// "On this page" TOC rail, shown only where the right gutter can hold it.
 .post-toc {
   display: none;
 }
 
-// Shown only when the right gutter is wide enough for the panel without
-// crowding the 820px content column.
 @media (min-width: 1280px) {
   .post-toc {
     display: block;
     position: fixed;
     top: 6.5rem;
-    // 410px = $content-width (820px) / 2 (the content column's right edge).
-    // Negative nudge keeps the 200px panel + its scrollbar inside a real
-    // 1280px window (page scrollbar eats ~15px of usable width).
+    // 410px = $content-width (820px) / 2. The -4px keeps the panel inside a real
+    // 1280px window once the page scrollbar (~15px) takes its share.
     left: calc(50% + 410px - 4px);
     width: 200px;
     max-height: calc(100vh - 9rem);
-    overflow-y: auto;        // long headings wrap; only the list scrolls vertically
+    overflow-y: auto;
     padding-left: 0.9rem;
     border-left: 1px solid $border-light;
   }
@@ -681,9 +569,7 @@
     padding-left: 0.9rem;
     transition: color 0.15s ease, border-color 0.15s ease;
 
-    // Anchor links mark themselves visited on click; keep the rail muted so it
-    // doesn't get stuck on Minima's visited-blue (:hover / .is-active below
-    // still win and turn it brand-blue).
+    // Anchor links count as visited once clicked; keep them off Minima's blue.
     &:visited { color: $text-muted; }
 
     &:hover {
@@ -749,7 +635,6 @@
 
 .copy-link-btn.copied::after { opacity: 1; }
 
-// Quiet "Edit on GitHub" text link, right side of the footer row.
 .post-edit-link {
   display: inline-flex;
   align-items: center;
@@ -761,11 +646,10 @@
 
   &:hover {
     color: $brand-primary;
-    .icon-github { color: $brand-primary; }   // brand-primary on hover instead of GitHub black
+    .icon-github { color: $brand-primary; }
   }
 }
 
-// Previous / next post navigation
 .post-nav {
   display: flex;
   justify-content: space-between;
@@ -834,11 +718,8 @@
   transition: width 80ms linear;
 }
 
-// -----------------------------------------------------------------------------
-// Mobile "On this page" — collapsible disclosure built by toc.js, shown only
-// below the desktop-rail breakpoint (the fixed .post-toc rail needs ≥1280px).
-// -----------------------------------------------------------------------------
-.post-toc-mobile { display: none; }   // hidden by default; revealed below 1280px
+// Mobile "On this page": <details> built by toc.js, used below the 1280px rail.
+.post-toc-mobile { display: none; }
 
 @media (max-width: 1279px) {
   .post-toc-mobile {
@@ -863,7 +744,7 @@
 
       &::-webkit-details-marker { display: none; }
       &::after {
-        content: "\25BE";               // ▾ — rotates when open
+        content: "\25BE";               // ▾, flipped when open
         font-size: 0.9rem;
         transition: transform 0.2s ease;
       }
@@ -889,10 +770,7 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Back-to-top button — injected by site.js on post pages, fades in after the
-// reader scrolls down. Sits clear of the left share rail and right TOC rail.
-// -----------------------------------------------------------------------------
+// Back-to-top button: site.js injects it on post pages and toggles .is-visible.
 .back-to-top {
   position: fixed;
   right: 1.25rem;
@@ -915,7 +793,6 @@
   transform: translateY(8px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
-  // Arrow nudges up on hover — same directional language as the other buttons.
   @include arrow-nudge(0, -2px);
 
   svg {

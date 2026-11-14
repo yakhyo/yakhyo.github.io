@@ -1,0 +1,181 @@
+// Blog search: the search bar on the blog index and the results dialog built by assets/js/search.js.
+
+// A search-box-shaped button above the post list. Hidden until search.js confirms it can run.
+.search-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 2.5rem;
+  margin: 1.25rem 0 1rem;
+  padding: 0 0.6rem 0 0.875rem;
+  background: $bg-soft;
+  border: 1px solid $border-light;
+  border-radius: 6px;
+  color: $text-faint;
+  font-family: $font-sans;
+  font-size: $text-sm;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+
+  &[hidden] { display: none; }
+  &:hover { color: $ink-hover; border-color: $chrome-muted; }
+  .icon { flex: none; width: 16px; height: 16px; }
+
+  // No keyboard on phones, so no shortcut hint.
+  @media screen and (max-width: 600px) {
+    .search-toggle-key { display: none; }
+  }
+}
+
+.search-toggle-label {
+  flex: 1;
+  text-align: left;
+}
+
+.search-dialog {
+  width: min(900px, calc(100vw - 2rem));
+  // Opens as a short bar and grows with the results, up to this height.
+  max-height: calc(100vh - 8rem);
+  margin: 4rem auto 0;
+  padding: 0;
+  border: 1px solid $border-light;
+  border-radius: 8px;
+  background: $bg-surface;
+  color: $text-primary;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+
+  &::backdrop { background: rgba(0, 0, 0, 0.5); }
+}
+
+.search-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 8rem);
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem 0.75rem 0.25rem 1rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: $text-primary;
+  font-family: $font-sans;
+  font-size: 1.05rem;
+  appearance: none;
+
+  &::placeholder { color: $text-faint; }
+  &::-webkit-search-cancel-button { display: none; }
+}
+
+.search-close,
+.search-toggle-key,
+.search-foot kbd {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid $border-light;
+  border-radius: $radius;
+  background: $bg-soft;
+  color: $text-muted;
+  font-family: $font-mono-ui;
+  font-size: $text-xs;
+  line-height: 1.5;
+}
+
+.search-close { cursor: pointer; }
+.search-close:hover { color: $ink-hover; }
+
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem;
+  border-bottom: 1px solid $border-light;
+
+  // Nothing typed yet: only the input and the key hints show.
+  &:empty { display: none; }
+}
+
+.search-empty {
+  margin: 0;
+  padding: 1.5rem 0.5rem;
+  color: $text-muted;
+  font-size: $text-sm;
+  text-align: center;
+}
+
+.search-group + .search-group {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid $border-light;
+}
+
+.search-hit {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius;
+  color: $text-primary;
+  text-decoration: none;
+
+  &:hover { text-decoration: none; }
+  &:visited { color: $text-primary; }
+  &.is-active { background: $bg-tag; }
+
+  mark {
+    background: transparent;
+    color: inherit;
+    font-weight: $weight-semibold;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.search-hit-section { margin-left: 0.75rem; }
+
+.search-hit-title {
+  font-size: $text-base;
+  font-weight: $weight-medium;
+}
+
+.search-hit-meta {
+  margin-left: 0.5rem;
+  color: $text-faint;
+  font-family: $font-mono-ui;
+  font-size: $text-xs;
+  white-space: nowrap;
+}
+
+.search-hit-heading {
+  display: block;
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+}
+
+.search-hit-text {
+  display: block;
+  color: $text-muted;
+  font-size: $text-sm;
+  line-height: 1.45;
+}
+
+.search-foot {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  color: $text-faint;
+  font-size: $text-xs;
+
+  // Key hints mean nothing on touch screens.
+  @media (hover: none) { display: none; }
+}

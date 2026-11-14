@@ -22,8 +22,9 @@ $content-width: 820px;
 @import "mixins";
 
 // Component partials.
-@import "base";       // typography, icons, utilities, nav, footer, announcement, 404
+@import "base";       // typography, icons, utilities, nav, footer, 404
 @import "blog";       // blog index + single-post layout, code blocks, share row
 @import "syntax";     // light code panels + Rouge token colors (overrides Minima)
 @import "timeline";   // experience timeline on the landing page
 @import "projects";   // curated open-source project list on /projects
+@import "search";     // blog search bar and results dialog

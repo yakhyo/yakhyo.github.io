@@ -1,4 +1,4 @@
-# Site Configuration — restart the server after editing this file.
+# `jekyll serve` does not reload this file; restart it after editing.
 
 title: Yakhyokhuja Valikhujaev
 email: yakhyo9696@gmail.com
@@ -8,14 +8,14 @@ description: >-
 baseurl: ""
 url: "https://yakhyo.github.io"
 
+# `twitter` gives non-post pages a valid twitter:creator (posts use _data/authors.yml).
 author:
   name: Yakhyokhuja Valikhujaev
+  twitter: y_valikhujaev
 
-# Single source of truth for every social / professional link — update a URL
-# here once and it flows into the footer, landing page, about, and resume.
+# Single source for profile links: footer, landing, about, resume, and the JSON-LD sameAs list.
 profiles:
   github:        https://github.com/yakhyo
-  linkedin:      https://linkedin.com/in/y-valikhujaev
   scholar:       https://scholar.google.com/citations?user=I66QbJIAAAAJ
   stackoverflow: https://stackoverflow.com/users/14815986/yakhyo
   leetcode:      https://leetcode.com/y_valikhujaev
@@ -23,17 +23,7 @@ profiles:
   telegram:      https://t.me/valikhujaev
   twitter:       https://twitter.com/y_valikhujaev
 
-# jekyll-seo-tag consumes this exact shape — keep it separate from `profiles`;
-# the plugin expects `social.name` and `social.links`.
-social:
-  name: Yakhyokhuja Valikhujaev
-  links:
-    - https://github.com/yakhyo
-    - https://linkedin.com/in/y-valikhujaev
-    - https://scholar.google.com/citations?user=I66QbJIAAAAJ
-    - https://twitter.com/y_valikhujaev
-
-# jekyll-seo-tag reads this for twitter:site / twitter:creator and the card type.
+# jekyll-seo-tag reads this for twitter:site and the card type.
 twitter:
   username: y_valikhujaev
   card: summary_large_image
@@ -52,7 +42,6 @@ header_pages:
   - _pages/blog.md
   - _pages/projects.md
   - _pages/about.md
-  - _pages/resume.md
 
 include:
   - _pages
@@ -74,7 +63,7 @@ show_excerpts: true
 resume:
   pdf: yakhyo_20251110.pdf
 
-# Typewriter titles cycled on the landing page.
+# Typewriter titles on the landing page; the first is also the JSON-LD jobTitle.
 landing_titles:
   - "AI/ML Software Engineer"
   - "ML Research Engineer"
@@ -117,10 +106,5 @@ exclude:
   - Gemfile.lock
   - node_modules/
   - vendor/
-
-announcement:
-  enabled: true
-  text: "Support our work — give"
-  link: "https://github.com/yakhyo/uniface"
-  link_text: "UniFace"
-  post_text: "a ⭐ on GitHub and help us reach more developers!"
+  - README.md
+  - LICENSE

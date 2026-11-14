@@ -1,16 +1,5 @@
-/* Inline SVG diagrams.
-
-   The diagrams are authored by hand in the post source rather than generated at
-   runtime, so this file only has to do two things: give the figure a frame that
-   matches the site chrome, and expose a palette the SVG shapes reference by
-   class. Theme switching is pure CSS — nothing re-renders on toggle.
-
-   Same three-state theming as the rest of the site:
-     1. :root                              → light
-     2. :root[data-theme="dark"]           → user chose dark (persisted)
-     3. @media (prefers-color-scheme:dark) → follow the OS, unless forced light
-   Every color is declared on bare :root first; the dark blocks only re-point
-   the custom properties, so each rule below has one source of truth. */
+/* Hand-authored inline SVG diagrams: frame, role palette and lightbox.
+   Colors live on :root; the two dark blocks below only re-point them. */
 
 :root {
   --diagram-control-size: 1.9rem;
@@ -45,9 +34,8 @@
   --dg-line: #94a3b8;
   --dg-edge-label: #5b5e66;
 
-  /* Node roles. Colour carries meaning here (decision / good / bad), the one
-     place the otherwise-monochrome site spends hue, same exception the syntax
-     theme takes. */
+  /* Node roles. Hue carries meaning here, the site's one exception to
+     monochrome besides syntax highlighting. */
   --dg-hub-bg: #1f2937;
   --dg-hub-border: #111827;
   --dg-hub-ink: #ffffff;
@@ -81,9 +69,7 @@
   --dg-bad-ink: #991b1b;
 }
 
-/* ---------------------------------------------------------------------------
-   Frame
-   --------------------------------------------------------------------------- */
+/* Frame */
 
 .post-content .diagram {
   position: relative;
@@ -106,8 +92,7 @@
   scrollbar-gutter: stable both-edges;
 }
 
-/* Scale to the column, but stop shrinking before the labels stop being
-   readable — below that the viewport scrolls and the lightbox takes over. */
+/* Don't shrink below 600px or labels get unreadable; narrower columns scroll. */
 .post-content .diagram svg {
   display: block;
   width: 100%;
@@ -157,9 +142,7 @@
   outline-offset: 3px;
 }
 
-/* ---------------------------------------------------------------------------
-   SVG internals — shapes carry a role class, this maps roles to the palette.
-   --------------------------------------------------------------------------- */
+/* SVG internals: role classes mapped to the palette */
 
 .dg text {
   font-family: inherit;
@@ -202,9 +185,7 @@
   font-weight: 600;
 }
 
-/* ---------------------------------------------------------------------------
-   Lightbox
-   --------------------------------------------------------------------------- */
+/* Lightbox */
 
 body.diagram-lightbox-open { overflow: hidden; }
 
@@ -289,9 +270,7 @@ body.diagram-lightbox-open { overflow: hidden; }
   margin: 0 auto;
 }
 
-/* ---------------------------------------------------------------------------
-   Dark mode — re-point the custom properties only.
-   --------------------------------------------------------------------------- */
+/* Dark mode: explicit choice, then the OS preference unless forced light */
 
 :root[data-theme="dark"] {
   --dg-frame-border: rgba(255, 255, 255, 0.12);

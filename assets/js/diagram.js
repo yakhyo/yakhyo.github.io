@@ -1,8 +1,5 @@
-/* Click-to-expand for inline SVG diagrams.
-
-   The diagrams are static SVG in the post source and take their colours from CSS
-   custom properties, so there is nothing to render and nothing to redraw when the
-   theme changes. All this file adds is the lightbox. */
+// Click-to-expand lightbox for inline SVG diagrams.
+// They theme via CSS custom properties, so nothing needs redrawing on a theme change.
 
 document.addEventListener("DOMContentLoaded", () => {
   const diagrams = document.querySelectorAll(".diagram");
@@ -23,8 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     activeOverlay.remove();
     activeOverlay = null;
 
-    // Send focus back where it came from, so keyboard users are not dropped at
-    // the top of the document after closing.
+    // Return focus so keyboard users are not dropped at the top of the document.
     if (lastFocused) {
       lastFocused.focus();
       lastFocused = null;
@@ -61,8 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const stage = document.createElement("div");
     stage.className = "diagram-lightbox__stage";
 
-    // Clone rather than move, so the original stays in the page. The clone keeps
-    // its class hooks, so it themes exactly like the original.
+    // Clone rather than move, so the original stays in the page; its class hooks keep it themed.
     const clone = svg.cloneNode(true);
     clone.removeAttribute("id");
     stage.appendChild(clone);

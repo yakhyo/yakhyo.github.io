@@ -29,7 +29,7 @@ That changed when I started studying geometric explanations of linear algebra. V
 ## Why Geometric Intuition Matters
 
 <div align="center">
-  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MagnitudeAndDirection.svg" alt="Geometric perspective of a vector as magnitude and direction">
+  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MagnitudeAndDirection.svg" width="640" height="360" alt="Geometric perspective of a vector as magnitude and direction">
   <p><em>Geometric perspective: a vector as magnitude and direction.</em></p>
 </div>
 
@@ -45,7 +45,7 @@ That perspective makes it easier to understand why algorithms work, what a model
 ## The Mathematician's Perspective
 
 <div align="center">
-  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MathematiciansPerspective.svg" alt="Mathematician's perspective of a vector as coordinates">
+  <img src="https://storage.googleapis.com/3blue1brown-website-bucket/lessons/2016/vectors/figures/introduction/MathematiciansPerspective.svg" width="720" height="405" alt="Mathematician's perspective of a vector as coordinates">
   <p><em>Mathematician's perspective: a vector as coordinates.</em></p>
 </div>
 

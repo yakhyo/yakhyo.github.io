@@ -1,26 +1,7 @@
 {%- comment -%}
-  JSON-LD structured data, one <script> per page using the @graph pattern.
-
-  Always:      WebSite, Person (site owner; publisher + author of every post)
-  Posts only:  BlogPosting, ImageObject (cover), BreadcrumbList, FAQPage
-  Other pages: BreadcrumbList (Home > page)
-
-  Person facts come from _config.yml (author, profiles, landing_titles) and
-  _data/timeline.yml (current affiliation + alumniOf), so the resume and the
-  schema never drift apart.
-
-  FAQPage reads a `faq:` list from post front matter:
-    faq:
-      - q: "Question text?"
-        a: "Answer text."
-  Keep the visible "## FAQ" section in the post body in sync with this list;
-  Google requires FAQ markup to match on-page text.
-
-  Wire it in from _includes/head.html AFTER the {% seo %} tag. jekyll-seo-tag
-  emits its own minimal BlogPosting JSON-LD; strip that so there is one graph:
-    {%- capture seo_html -%}{%- seo -%}{%- endcapture -%}
-    {{ seo_html | split: '<script type="application/ld+json">' | first }}
-    {%- include schema.html -%}
+  The page's only JSON-LD graph: head.html strips jekyll-seo-tag's own. Person reads _config.yml and
+  _data/timeline.yml, so it tracks the resume. FAQPage reads `faq: [{q, a}]` from front matter; keep
+  the post's visible FAQ section in sync, since Google requires the markup to match on-page text.
 {%- endcomment -%}
 {%- assign site_url = site.url | append: site.baseurl -%}
 {%- assign site_id = site_url | append: '/#website' -%}
@@ -43,7 +24,6 @@
   {%- if img_raw contains '://' -%}{%- assign img_url = img_raw -%}{%- else -%}{%- assign img_url = img_raw | absolute_url -%}{%- endif -%}
 {%- endif -%}
 
-{%- comment -%} Affiliation + alumniOf derived from the resume timeline. {%- endcomment -%}
 {%- assign current = site.data.timeline | where: 'date_end', 'Present' | first -%}
 {%- assign schools = site.data.timeline | where_exp: 's', "s.category == 'education' and s.date_end != 'Present'" -%}
 <script type="application/ld+json">
@@ -69,8 +49,8 @@
       "image": {
         "@type": "ImageObject",
         "url": "{{ '/assets/images/avatar.webp' | absolute_url }}",
-        "width": 1165,
-        "height": 1165,
+        "width": 800,
+        "height": 800,
         "caption": {{ site.author.name | jsonify }}
       },
       {%- if current %}
@@ -82,7 +62,7 @@
       {%- endif %}
       "alumniOf": [
         {%- for s in schools %}
-        { "@type": "CollegeOrUniversity", "name": {{ s.company | jsonify }}, "url": {{ s.link | jsonify }} }{%- unless forloop.last -%},{%- endunless -%}
+        { "@type": "CollegeOrUniversity", "name": {{ s.company | jsonify }}{% if s.link %}, "url": {{ s.link | jsonify }}{% endif %} }{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor %}
       ],
       "sameAs": [

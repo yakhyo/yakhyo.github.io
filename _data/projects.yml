@@ -1,31 +1,18 @@
-# Curated open-source projects for /projects.
-#
-# Deliberately a short, hand-picked list rather than a mirror of GitHub — a
-# stale project page reads worse than no project page. Star counts are NOT
-# stored here: the page renders a live shields.io badge from `repo`, so the
-# numbers stay honest without anyone editing this file.
-#
-# `post_slug` is matched against site.posts, so a renamed post surfaces as a
-# missing link at build time rather than a silent 404.
-#
-# Optional per-project keys: post_slug, docs, demo, image + image_alt, and
-# `stars: false` to hide the badge on a repo too new for the count to say much.
-
-featured:
-  name: "UniFace"
-  repo: "yakhyo/uniface"
-  tagline: "A unified face analysis library for Python"
-  description: |
-    Detection, recognition, landmarks including FaceMesh (MediaPipe), parsing, matting,
-    tracking, and attributes spanning age, emotion, gaze, head pose, and anti-spoofing.
-    Every model returns the same `Face` object, so one stage feeds straight into the next.
-  post_slug: "uniface-all-in-one-face-analysis"
-  docs: "https://yakhyo.github.io/uniface/"
-  demo: "https://huggingface.co/spaces/yakhyo/uniface"
-  image: "https://raw.githubusercontent.com/yakhyo/uniface/main/.github/logos/uniface_rounded_q80.webp"
-  image_alt: "UniFace logo: an illustrated face inside a detection bracket, beside the wordmark uniface and the command pip install uniface"
+# /projects cards. Star and download counts are live shields.io badges, so none are stored here.
+# Optional keys: post_slug (the Write-up link is dropped if no post matches, never a 404), docs,
+# demo, pypi (downloads badge counts PyPI installs instead of GitHub release downloads),
+# stars: false and downloads: false (hide a badge, e.g. on a repo too new for the count to mean much).
 
 projects:
+  - name: "UniFace"
+    repo: "yakhyo/uniface"
+    tagline: "A unified face analysis library for Python"
+    description: "Detection, recognition, tracking, landmarks, parsing, gaze, attributes and anti-spoofing through one API."
+    post_slug: "uniface-all-in-one-face-analysis"
+    docs: "https://yakhyo.github.io/uniface/"
+    demo: "https://huggingface.co/spaces/yakhyo/uniface"
+    pypi: "uniface"
+
   - name: "Face Parsing"
     repo: "yakhyo/face-parsing"
     tagline: "Real-time facial semantic segmentation with BiSeNet"
@@ -38,6 +25,11 @@ projects:
     description: "Pitch and yaw gaze estimation trained on Gaze360, with ResNet, MobileNet and MobileOne backbones for edge deployment."
     post_slug: "gaze-estimation"
 
+  - name: "Face Re-Identification"
+    repo: "yakhyo/face-reidentification"
+    tagline: "Face search and matching with ArcFace and FAISS"
+    description: "Real-time face search on video: SCRFD detection, ArcFace embeddings, and a FAISS index of the faces you enroll."
+
   - name: "Head Pose Estimation"
     repo: "yakhyo/head-pose-estimation"
     tagline: "Yaw, pitch and roll from a single face crop"
@@ -49,15 +41,3 @@ projects:
     tagline: "Single-stage face detection with five landmarks"
     description: "RetinaFace in PyTorch with MobileNet and ResNet backbones: training, WIDER FACE evaluation, ONNX export and pretrained weights."
     post_slug: "high-performance-retinaface-detector"
-
-  - name: "Face Anti-Spoofing"
-    repo: "yakhyo/face-anti-spoofing"
-    tagline: "Live face or a picture of one, in under a millisecond"
-    description: "Minimal PyTorch and ONNX Runtime inference for Silent-Face-Anti-Spoofing (MiniFASNet). Catches prints, screen replays and paper masks from a single face box."
-    post_slug: "face-anti-spoofing-minifasnet"
-
-  - name: "Face Recognition"
-    repo: "yakhyo/face-recognition"
-    tagline: "MobileFace and SphereFace, PyTorch to ONNX Runtime"
-    description: "Recognition models trained on MS1MV2 with MobileNet and Sphere backbones, exported to ONNX. Two of the five families UniFace ships."
-    post_slug: "face-recognition-adaface-arcface-edgeface"
