@@ -10,8 +10,8 @@ image:
   alt: Open-source computer vision projects by Yakhyokhuja Valikhujaev
 ---
 
-Open-source work, mostly computer vision and mostly faces. The pattern across all of it is the same: take a model that works in a paper or a closed SDK, reimplement it cleanly, verify it against the original, and ship it as something you can `pip install` and run on CPU.
+A selection of my personal projects and open-source work.
 
 {% include projects.html %}
 
-More on [GitHub](https://github.com/yakhyo), including smaller tools, tutorials, and dataset utilities.
+You can find more of my work on [github.com/yakhyo](https://github.com/yakhyo).

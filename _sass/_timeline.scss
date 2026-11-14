@@ -7,9 +7,9 @@
 
 .timeline-entry {
   --marker-left: 82px;
-  --marker-top: 10px;
+  --marker-top: 26px;
   --marker-size: 14px;
-  --entry-gap: 2.5rem;
+  --entry-gap: 1rem;
   --rail-gap: 5px;                 // breathing room between the rail and each dot
 
   display: flex;
@@ -18,7 +18,7 @@
   position: relative;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .timeline-entry.visible {
@@ -29,9 +29,7 @@
 .timeline-entry:not(:last-child)::after {
   content: '';
   position: absolute;
-  // Centre the 1px rail on the dot (dot is border-box, so it renders exactly
-  // --marker-size wide → centre = marker-left + size/2), minus half the rail
-  // width. A --rail-gap above and below keeps the rail from touching the dots.
+  // Spans from this dot to the next entry's dot, stopping --rail-gap short of each.
   left: calc(var(--marker-left) + var(--marker-size) / 2 - 0.5px);
   top: calc(var(--marker-top) + var(--marker-size) + var(--rail-gap));
   bottom: calc(var(--rail-gap) - var(--entry-gap) - var(--marker-top));
@@ -43,9 +41,6 @@
   );
 }
 
-// Hollow dot with a dark ring — uniform across categories (the WORK/RESEARCH/
-// EDUCATION chip already carries the category colour, so the marker doesn't
-// need to repeat it).
 .timeline-marker {
   position: absolute;
   left: var(--marker-left);
@@ -60,8 +55,6 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-// Current entry: filled dark dot that pulses an expanding ring so the live
-// item reads as "now".
 .timeline-entry[data-current="true"] .timeline-marker {
   background: $text-primary;
   animation: pulse-marker 2.5s ease-in-out infinite;
@@ -82,7 +75,7 @@
   font-size: 0.75rem;
   color: $text-muted;
   font-weight: $weight-medium;
-  padding-top: 2px;
+  padding-top: 16px;
   display: flex;
   flex-direction: column-reverse;
   line-height: 1.6;
@@ -100,9 +93,9 @@
   flex: 1;
   margin-left: 2.5rem;
   background: $bg-soft;
-  border-radius: $radius;        // small, consistent with buttons/inputs/images site-wide
-  padding: 1.25rem 1.5rem;
+  border-radius: $radius;
   border: 1px solid $bg-tag;
+  interpolate-size: allow-keywords;   // lets ::details-content animate to auto height
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -111,11 +104,52 @@
   transform: translateY(-2px);
 }
 
+// The <summary>: role, company and category stay visible; the description opens on click.
 .timeline-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: inherit;
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker { display: none; }
+
+  &:focus-visible {
+    outline: 2px solid $text-primary;
+    outline-offset: 2px;
+  }
+}
+
+.timeline-chevron {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.2rem 0.25rem 0;
+  border-right: 1.5px solid $text-muted;
+  border-bottom: 1.5px solid $text-muted;
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.timeline-content[open] .timeline-chevron {
+  margin-top: 0.2rem;
+  transform: rotate(-135deg);
+}
+
+.timeline-content::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
+}
+
+.timeline-content[open]::details-content {
+  block-size: auto;
+}
+
+.timeline-body {
+  padding: 0 1.25rem 1.1rem;
 }
 
 .timeline-logo {
@@ -152,15 +186,39 @@
 }
 
 .timeline-description {
-  margin: 0 0 0.75rem 0;
+  margin: 0;
   font-size: $text-chrome;
   line-height: 1.7;
   color: $text-secondary;
+
+  // Same gap as the takeaways box; the .post-content prose gap (1.25em) is too wide for a card.
+  p { margin: 0 0 0.6rem; }
+  p:last-child { margin-bottom: 0; }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul li {
+    position: relative;
+    margin: 0 0 0.3rem;
+    padding-left: 0.9rem;
+
+    &:last-child { margin-bottom: 0; }
+
+    // Hanging dash at the card's text edge, so it lines up with the View link.
+    &::before {
+      content: '\2013';
+      position: absolute;
+      left: 0;
+      color: $text-muted;
+    }
+  }
 }
 
-// One neutral treatment for all categories — the WORK/RESEARCH/EDUCATION label
-// carries the distinction. Keeps the timeline monochrome, in line with the
-// site's terminal identity (no per-category color).
+// Deliberately one neutral chip for every category; the label carries the distinction.
 .timeline-category {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -169,27 +227,28 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: $radius;
-  margin-right: 0.5rem;
+  flex-shrink: 0;
   background: $bg-tag;
   color: $text-muted;
 }
 
-// No underline — the corner arrow nudges along its own diagonal instead.
 .timeline-link {
   @include arrow-nudge(2px, -2px);
 
-  display: inline-flex;
+  // Block-level, so the link sits on its own line box and not on the parent's taller one.
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 0.25em;
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   font-size: $text-chrome;
+  line-height: 1.7;
   color: $text-primary;
   text-decoration: none;
   font-weight: $weight-medium;
   transition: color 0.2s ease;
 
-  // Minima's `a:visited` (0,1,1) outranks this class (0,1,0), so a clicked
-  // company link would flip to Minima's visited-blue. Pin it back to ink.
+  // Minima's `a:visited` (0,1,1) outranks this class; keep visited links ink.
   &:visited { color: $text-primary; }
 
   .icon {
@@ -218,7 +277,6 @@
 
   .timeline-entry {
     --marker-left: 67px;
-    --entry-gap: 2rem;
   }
 
   .timeline-date {
@@ -228,7 +286,10 @@
 
   .timeline-content {
     margin-left: 1.875rem;
-    padding: 1rem 1.25rem;
+  }
+
+  .timeline-category {
+    display: none;
   }
 
   .timeline-logo {
@@ -251,15 +312,16 @@
 
 @media (max-width: 480px) {
   .timeline-entry {
-    --marker-left: 7px;
+    --marker-left: 3px;
+    --marker-top: 4px;
     --marker-size: 12px;
-    --entry-gap: 1.5rem;
     flex-direction: column;
-    padding-left: 2.25rem;
+    padding-left: 1.5rem;            // narrow rail: the card needs the width for two-line titles
   }
 
   .timeline-date {
     min-width: auto;
+    padding-top: 0;
     margin-bottom: 0.5rem;
     font-size: 0.6875rem;
     flex-direction: row;
@@ -268,15 +330,28 @@
 
   .timeline-content {
     margin-left: 0;
-    padding: 1rem;
+    align-self: stretch;           // a collapsed card would otherwise shrink to its header
   }
 
   .timeline-header {
-    gap: 0.625rem;
+    gap: 0.5rem;
+    padding: 0.875rem;
+  }
+
+  .timeline-header .timeline-title {
+    font-size: 0.9375rem;
+  }
+
+  .timeline-body {
+    padding: 0 0.875rem 0.875rem;
+  }
+
+  .timeline-category {
+    display: none;
   }
 
   .timeline-logo {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2rem;
+    height: 2rem;
   }
 }

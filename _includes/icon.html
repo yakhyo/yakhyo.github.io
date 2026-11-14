@@ -1,10 +1,6 @@
 {%- comment -%}
-  Inline SVG icon partial (replaces Font Awesome).
-  Usage: {% include icon.html name="github" class="footer-icon" %}
-  Brand paths: simple-icons (CC0). UI icons: lucide (ISC). All 24×24 viewBox.
-  Sizing is handled by CSS (.icon { width: 1em; height: 1em }), not attributes,
-  because kramdown strips unit suffixes from inline-HTML attributes in markdown.
-  To add an icon: paste its path into a new {% when %} branch.
+  Sources: simple-icons (CC0) brands, Material Icons (Apache-2.0) mail, lucide (ISC) UI glyphs.
+  Size comes from CSS (.icon), not attributes: kramdown strips unit suffixes from inline-HTML attributes.
 {%- endcomment -%}
 {%- assign icon_class = 'icon icon-' | append: include.name -%}
 {%- if include.class -%}{%- assign icon_class = icon_class | append: ' ' | append: include.class -%}{%- endif -%}
@@ -31,6 +27,9 @@
 
 {%- when 'google-scholar' or 'googlescholar' -%}
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="{{ icon_class }}" aria-hidden="true"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+
+{%- when 'mail' or 'email' -%}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="{{ icon_class }}" aria-hidden="true"><path d="M21.6 2.4H2.4c-1.32 0-2.388 1.08-2.388 2.4L0 19.2c0 1.32 1.08 2.4 2.4 2.4h19.2c1.32 0 2.4-1.08 2.4-2.4V4.8c0-1.32-1.08-2.4-2.4-2.4zm0 4.8l-9.6 6-9.6-6V4.8l9.6 6 9.6-6v2.4z"/></svg>
 
 {%- comment -%} ─── UI glyphs (stroked, lucide) ─── {%- endcomment -%}
 {%- when 'arrow-left' -%}

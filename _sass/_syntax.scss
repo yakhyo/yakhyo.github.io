@@ -1,13 +1,8 @@
-// =============================================================================
-// Syntax highlighting — light code panels (One Light palette) matching the
-// site's theme. One Light in light mode, One Dark under dark mode — both wired
-// through the $code-* tokens (defined in _tokens.scss so they can flip at
-// runtime), plus roomier padding and a thin scrollbar. Scoped to .post-content;
-// inline code chips keep their style from _blog.scss.
-// =============================================================================
+// Syntax highlighting for .post-content: One Light / One Dark via the $code-* tokens.
+// Inline code chips are styled in _blog.scss.
 
 .post-content {
-  // Minima paints the background on both the wrapper and the <pre> — cover both.
+  // Minima paints the background on both the wrapper and the <pre>, so cover both.
   .highlighter-rouge .highlight,
   .highlight,
   pre {

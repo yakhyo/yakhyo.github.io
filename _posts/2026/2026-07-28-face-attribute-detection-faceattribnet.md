@@ -57,24 +57,24 @@ Tinted sunglasses make this concrete. In one test image, the model reported `sun
 Attributes above a 0.5 threshold, predicted per face.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/sunglasses.jpg" width="49%" loading="lazy" alt="FaceAttribNet detecting sunglasses at probability 1.000">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/sunglasses_tinted.jpg" width="49%" loading="lazy" alt="Tinted sunglasses detected at 0.993 while both eyes still read as open">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/sunglasses.jpg" width="49%" style="aspect-ratio: 892 / 1375" loading="lazy" alt="FaceAttribNet detecting sunglasses at probability 1.000">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/sunglasses_tinted.jpg" width="49%" style="aspect-ratio: 949 / 1474" loading="lazy" alt="Tinted sunglasses detected at 0.993 while both eyes still read as open">
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/mask.jpg" width="49%" loading="lazy" alt="FaceAttribNet detecting a face mask at probability 1.000">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/eyeglasses.jpg" width="49%" loading="lazy" alt="FaceAttribNet detecting eyeglasses at probability 0.999">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/mask.jpg" width="49%" style="aspect-ratio: 862 / 1067" loading="lazy" alt="FaceAttribNet detecting a face mask at probability 1.000">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/eyeglasses.jpg" width="49%" style="aspect-ratio: 1600 / 2134" loading="lazy" alt="FaceAttribNet detecting eyeglasses at probability 0.999">
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/closed_eyes.jpg" width="49%" loading="lazy" alt="Closed eyes scoring below 0.16 on both eye-openness heads">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/mask_man.jpg" width="49%" loading="lazy" alt="Face mask detected at 1.000 on a second subject">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/closed_eyes.jpg" width="49%" style="aspect-ratio: 1254 / 1158" loading="lazy" alt="Closed eyes scoring below 0.16 on both eye-openness heads">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/mask_man.jpg" width="49%" style="aspect-ratio: 1600 / 1067" loading="lazy" alt="Face mask detected at 1.000 on a second subject">
 </div>
 
 Inference runs per face, so a group photo yields one independent result per detection. Only the person on the left triggers `eyeglasses`, at 0.893:
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/group.jpg" width="80%" loading="lazy" alt="Group photo where only the left person triggers the eyeglasses attribute at 0.893">
+<img src="https://raw.githubusercontent.com/yakhyo/face-attribute/main/assets/results/group.jpg" width="80%" style="aspect-ratio: 943 / 932" loading="lazy" alt="Group photo where only the left person triggers the eyeglasses attribute at 0.893">
 </div>
 
 Test photos are free-license images from [Pexels](https://www.pexels.com).

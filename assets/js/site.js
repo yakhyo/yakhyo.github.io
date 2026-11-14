@@ -1,14 +1,10 @@
-// Site-wide enhancements: code-block copy buttons, share copy-link buttons,
-// and a generic analytics-event tracker.
+// Site-wide: code copy buttons, share copy-link, analytics events, reading progress, theme toggle, back-to-top.
 (function () {
   'use strict';
 
-  // ---------------------------------------------------------------------------
   // Shared helpers
-  // ---------------------------------------------------------------------------
 
-  // Copy `text` to the clipboard using the modern API where available,
-  // falling back to a hidden <textarea> + execCommand for older browsers.
+  // Falls back to a hidden textarea + execCommand where the Clipboard API is missing (non-HTTPS, old browsers).
   function copyToClipboard(text, onOk, onFail) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(onOk).catch(onFail);
@@ -21,21 +17,19 @@
     ta.style.left = '-9999px';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); onOk(); } catch (_) { onFail(); }
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (_) { /* ignore */ }
     document.body.removeChild(ta);
+    if (ok) onOk(); else onFail();
   }
 
-  // Fire a Google Analytics event when gtag is loaded. No-op otherwise.
   function trackEvent(name, params) {
     if (typeof window.gtag === 'function') {
       try { window.gtag('event', name, params || {}); } catch (_) { /* ignore */ }
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // 1. Copy icon button on every <pre> code block in post content.
-  // Lucide "files" icon → check icon on success; blue tint on success state.
-  // ---------------------------------------------------------------------------
+  // Copy button on every code block
   const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H10a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 3H6a2 2 0 0 0-2 2v10"/></svg>';
   const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 
@@ -68,19 +62,17 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 2. Copy-link buttons in the post share row.
-  // ---------------------------------------------------------------------------
+  // Copy-link buttons in the post share row
   function bindCopyLinkButtons() {
     document.querySelectorAll('.copy-link-btn').forEach(function (btn) {
-      // Capture the original aria-label once at bind time so rapid clicks
-      // (which transiently set it to "Link copied") can't poison the restore.
+      // Captured once so a click mid-flash can't restore the transient label.
       const originalLabel = btn.getAttribute('aria-label');
       btn.addEventListener('click', function () {
         if (btn.classList.contains('copied')) return;   // already mid-flash
         const url = btn.getAttribute('data-copy-url') || window.location.href;
         const flash = function (ok) {
-          btn.classList.add('copied');
+          // .copied shows the "Copied!" tooltip, so only add it on success.
+          if (ok) btn.classList.add('copied');
           btn.setAttribute('aria-label', ok ? 'Link copied' : 'Copy failed');
           setTimeout(function () {
             btn.classList.remove('copied');
@@ -93,9 +85,7 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 3. Generic analytics tracker driven by `data-track-event` attributes.
-  // ---------------------------------------------------------------------------
+  // Analytics events from data-track-event attributes
   function bindTrackedLinks() {
     document.querySelectorAll('[data-track-event]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -109,9 +99,7 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 4. Reading-progress bar (post pages only — element absent elsewhere).
-  // ---------------------------------------------------------------------------
+  // Reading-progress bar (post layout only)
   function bindReadingProgress() {
     const bar = document.querySelector('.reading-progress-bar');
     if (!bar) return;
@@ -130,12 +118,7 @@
     update();
   }
 
-  // ---------------------------------------------------------------------------
-  // 5. Theme toggle — light / dark. The effective theme is either an explicit
-  // choice on <html data-theme> (persisted to localStorage) or, absent that,
-  // the OS preference. Toggling flips to the opposite of what's showing, saves
-  // it, and notifies theme-aware widgets (giscus comments).
-  // ---------------------------------------------------------------------------
+  // Theme toggle: an explicit choice lives on <html data-theme> + localStorage, else the OS preference applies
   function prefersDark() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
@@ -146,7 +129,6 @@
     return prefersDark() ? 'dark' : 'light';
   }
 
-  // Point giscus (if present) at the matching theme via its postMessage API.
   function syncGiscusTheme(theme) {
     const frame = document.querySelector('iframe.giscus-frame');
     if (!frame || !frame.contentWindow) return;
@@ -156,11 +138,8 @@
     );
   }
 
-  // The static theme-color metas in head.html are keyed on prefers-color-scheme,
-  // so they follow the OS. Once JS is running, manage a single meta that tracks
-  // the *active* theme instead, so an explicit choice that differs from the OS
-  // still tints the browser chrome to match the page. (No-JS readers keep the
-  // static metas as a fallback.)
+  // The static theme-color metas in head.html follow the OS; swap them for one meta that
+  // tracks the active theme, so an explicit choice also tints the browser chrome.
   function updateThemeColor(theme) {
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       if (!m.hasAttribute('data-dynamic')) m.remove();
@@ -172,8 +151,7 @@
       meta.setAttribute('data-dynamic', '');
       document.head.appendChild(meta);
     }
-    // $bg-surface per theme — matches the nav bar and the overscroll canvas
-    // (html background), so the browser chrome reads as one piece with the nav.
+    // $bg-surface per theme, so the browser chrome matches the nav bar.
     meta.setAttribute('content', theme === 'dark' ? '#161619' : '#ffffff');
   }
 
@@ -182,8 +160,6 @@
     try { localStorage.setItem('theme', theme); } catch (_) { /* ignore */ }
     updateThemeColor(theme);
     syncGiscusTheme(theme);
-    // Let any non-CSS widget re-render for the new theme.
-    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
     trackEvent('theme-toggle', { event_label: theme });
   }
 
@@ -195,23 +171,17 @@
       });
     }
 
-    // Match the browser chrome to the active theme on load — covers a saved
-    // choice that differs from the OS (the static metas alone follow the OS).
     updateThemeColor(effectiveTheme());
 
-    // giscus loads lazily and injects its iframe *after* this runs, so we can't
-    // gate on `.giscus` existing yet. Listen for giscus's own ready message and
-    // push the current theme whenever it speaks — this themes the comments on
-    // first render (e.g. for a dark-mode reader) with no manual toggle needed.
+    // giscus injects its iframe lazily, after this runs, and starts in the config theme;
+    // re-send the active theme whenever it posts a message.
     window.addEventListener('message', function (e) {
       if (e.origin === 'https://giscus.app' && e.data && e.data.giscus) {
         syncGiscusTheme(effectiveTheme());
       }
     });
 
-    // Follow live OS theme flips while the reader has no explicit choice: CSS
-    // updates via the media query, but the chrome color and non-CSS widgets
-    // (giscus) need a nudge.
+    // With no explicit choice, CSS follows OS flips by itself; the chrome tint and giscus need a push.
     if (window.matchMedia) {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       const onOsChange = function () {
@@ -219,22 +189,17 @@
         const theme = mq.matches ? 'dark' : 'light';
         updateThemeColor(theme);
         syncGiscusTheme(theme);
-        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
       };
       if (mq.addEventListener) mq.addEventListener('change', onOsChange);
       else if (mq.addListener) mq.addListener(onOsChange); // Safari < 14
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // 6. Back-to-top button (post pages only). Appears once the reader is well
-  // down a long article — the desktop TOC rail is hidden on small screens, so
-  // this is the quickest way back up on mobile.
-  // ---------------------------------------------------------------------------
+  // Back-to-top button (any article.post page: posts and the page layout)
   const ICON_ARROW_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
 
   function bindBackToTop() {
-    if (!document.querySelector('article.post')) return;   // post pages only
+    if (!document.querySelector('article.post')) return;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'back-to-top';

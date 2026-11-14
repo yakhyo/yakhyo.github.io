@@ -1,6 +1,4 @@
-// Post page: build a right-rail "On this page" table of contents from the
-// rendered h2/h3 and highlight the section currently in view (MkDocs-style
-// scrollspy). Vanilla, no deps — matches site.js / blog-filter.js conventions.
+// Post page: "On this page" TOC (right rail + mobile disclosure) built from the rendered headings, with scrollspy.
 (function () {
   'use strict';
 
@@ -16,15 +14,12 @@
     var content = document.querySelector('.post-content');
     if (!nav || !content) return;
 
-    // Depth is set per-post via `toc_depth` frontmatter (default 3 = h2+h3).
-    // Long Q&A posts set it to 2 so the rail lists only top-level questions
-    // instead of drowning them in subsection headings.
+    // Per-post `toc_depth` front matter: 3 (default) = h2+h3, 2 = h2 only.
     var tocDepth = parseInt(nav.getAttribute('data-toc-depth'), 10);
     if (!(tocDepth >= 2)) tocDepth = 3;
     var headings = Array.prototype.slice.call(
       content.querySelectorAll(tocDepth >= 3 ? 'h2, h3' : 'h2')
     );
-    // A TOC with one (or zero) entries is noise — drop the rail entirely.
     if (headings.length < 2) {
       if (nav.parentNode) nav.parentNode.removeChild(nav);
       return;
@@ -36,7 +31,7 @@
     var linkFor = {};
 
     headings.forEach(function (h) {
-      // kramdown auto_ids usually sets these already; guard for safety.
+      // kramdown auto_ids normally sets these.
       if (!h.id) {
         h.id = slugify(h.textContent) ||
           ('section-' + Math.random().toString(36).slice(2, 7));
@@ -71,9 +66,7 @@
     nav.appendChild(list);
     nav.hidden = false;
 
-    // Mobile disclosure: the same list, collapsible, inserted at the top of the
-    // article. The fixed right-rail nav above is hidden below 1280px, so this is
-    // the only in-page navigation small screens get.
+    // Collapsible copy at the top of the article for screens below 1280px, where the rail is hidden.
     var details = document.createElement('details');
     details.className = 'post-toc-mobile';
     var summary = document.createElement('summary');
@@ -83,9 +76,8 @@
     details.appendChild(list.cloneNode(true));
     content.insertBefore(details, content.firstChild);
 
-    // Scrollspy: the current section is the last heading whose top has
-    // scrolled past a line near the top of the viewport. A throttled scroll
-    // handler (rather than IntersectionObserver) keeps this deterministic.
+    // Scrollspy: active = last heading above ACTIVATE_OFFSET. A scroll handler, not
+    // IntersectionObserver, so the result never depends on which entries happened to fire.
     var activeLink = null;
     function setActive(a) {
       if (!a || a === activeLink) return;

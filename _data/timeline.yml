@@ -5,9 +5,9 @@
   description: |
     Doctoral research at the **Information Research Laboratory (InfoLab)**, College of Computing and Informatics, advised by **Prof. Tamer Abuhmed**.
 
-    **Focus:** Trustworthy and explainable AI, adversarial machine learning, and biomedical AI.
+    **Focus:** Facial privacy protection, adversarial machine learning, and identity protection against face recognition and generative AI misuse.
   category: "education"
-  link: "https://infolab-skku.github.io/"
+  link: "https://infolab.skku.edu/"
   logo: "assets/images/logos/skku.png"
 
 - date: "2025.08"
@@ -15,11 +15,9 @@
   title: "MLOps Engineer"
   company: "Thaki Cloud Co. Ltd"
   description: |
-    Designing and maintaining **Kubernetes clusters** for private cloud platform supporting distributed model training and inference.
-
-    Building systems for resource discovery, policy enforcement, and workload scheduling using **Kubeflow**, **Kueue**, **Kai Scheduling**, and **Kyverno**.
-
-    Managing ML pipelines with **Helm** and **ArgoCD** for continuous delivery across staging and production environments.
+    - Designing and maintaining **Kubernetes clusters** for private cloud platform supporting distributed model training and inference.
+    - Building systems for resource discovery, policy enforcement, and workload scheduling using **Kubeflow**, **Kueue**, **Kai Scheduling**, and **Kyverno**.
+    - Managing ML pipelines with **Helm** and **ArgoCD** for continuous delivery across staging and production environments.
   category: "work"
   link: "https://www.thakicloud.com/"
   logo: "assets/images/logos/thakicloud.png"
@@ -29,11 +27,11 @@
   title: "AI/ML Research Engineer"
   company: "Aria Studios Co. Ltd"
   description: |
-    Fine-tuned **Qwen-2.5-7B/3B** models using **LoRA** and **DPO** for Korean language. Fine-tuned **GPT-3.5-turbo** on conversational data.
-
-    Built **voice-to-voice AI assistants** using **LiveKit**, **Whisper**, and **MCP servers** for real-time task execution.
-
-    Deployed **vLLM** APIs and **FLUX (Stable Diffusion)** models. Developed **Phi-3-Vision** VLM systems and DeepFake technologies.
+    - Fine-tuned **Qwen-2.5** models (7B and 3B) for Korean virtual characters using **LoRA** and **DPO**.
+    - Developed real-time voice-to-voice assistants with **LiveKit** and **Whisper**, integrating **MCP servers** for task execution and **Phi-3-Vision** for visual understanding.
+    - Added semantic search over virtual characters using embeddings indexed in **FAISS** and **Pinecone**.
+    - Built inference APIs for self-hosted LLMs (**vLLM**) and **Stable Diffusion** models, using **LangChain** to convert user requests into structured inputs for image and music generation.
+    - Fine-tuned **FLUX** with **LoRA** to generate movie characters with a consistent appearance across scenes.
   category: "work"
   link: "https://showaria.com/"
   logo: "assets/images/logos/aria_studios.png"
@@ -43,11 +41,10 @@
   title: "ML Engineer"
   company: "Pyler Co. Ltd"
   description: |
-    Built video and image content moderation pipelines achieving **10-20% improvement** in accuracy.
-
-    Implemented **real-time object detection** and **multi-label classification** systems for brand safety.
-
-    Leveraged **CLIP embeddings**, **PCA**, **KMeans**, and **DBSCAN** for dataset clustering. Built end-to-end pipelines on **Kubeflow** with **active learning**.
+    - Built video and image content moderation pipelines for brand safety.
+    - Developed **real-time object detection** and **multi-label classification** models to identify unsafe content.
+    - Clustered datasets using **CLIP embeddings**, **PCA**, **KMeans**, and **DBSCAN** to support data curation and annotation.
+    - Trained and evaluated models on **Kubeflow Pipelines**, applying **active learning** to prioritise samples for annotation.
   category: "work"
   link: "https://www.pyler.tech/"
   logo: "assets/images/logos/pyler.png"
@@ -57,25 +54,13 @@
   title: "AI Research Engineer"
   company: "D-Meta Co. Ltd"
   description: |
-    Developed OCR pipeline using **Spatial Transformer Networks (STN)** achieving **90%+ accuracy** for industrial scene text.
-
-    Built **ANPR** system with **real-time RTSP stream** inference improving performance by **~15%**.
-
-    Deployed **car damage detection** on **Android devices** using TorchScript. Applied **Pix2Pix GAN** for shadow removal.
+    - Developed OCR pipeline using **Spatial Transformer Networks (STN)** achieving **90%+ accuracy** for industrial scene text.
+    - Built **ANPR** system with **real-time RTSP stream** inference improving performance by **~15%**.
+    - Deployed **car damage detection** on **Android devices** using TorchScript.
+    - Applied **Pix2Pix GAN** for shadow removal.
   category: "work"
   link: "https://www.d-meta.ai/"
   logo: "assets/images/logos/dmeta.png"
-
-- date: "2018.09"
-  date_end: "2020.11"
-  title: "Research Assistant"
-  company: "AI and SC Lab, Gachon University"
-  description: |
-    Researched computer vision-based **fire and smoke detection** using **dilated CNNs**, achieving **1.5× faster inference** speed.
-
-    Optimized models for **edge devices** (Raspberry Pi 2) using hyper-parameter tuning and quantization.
-  category: "research"
-  logo: "assets/images/logos/gachon.png"
 
 - date: "2018.09"
   date_end: "2021.02"
@@ -84,7 +69,7 @@
   description: |
     Master's degree in Computer Engineering, advised by Prof. Young Im Cho. **CGPA: 4.0/4.5**
 
-    **Focus:** Computer Vision, Image Processing, Algorithms, and Machine Learning.
+    **Graduate Research Assistant** at the **AI and SC Lab**, working on computer vision and lightweight models for edge devices.
   category: "education"
   logo: "assets/images/logos/gachon.png"
 
@@ -94,7 +79,5 @@
   company: "Tashkent University of Information Technologies"
   description: |
     Bachelor's degree in Computer Engineering. **CGPA: 85/100 (3.72/4.0)**
-
-    **Focus:** IoT, Probabilities, Discrete Mathematics, and Calculus.
   category: "education"
   logo: "assets/images/logos/tuit.png"

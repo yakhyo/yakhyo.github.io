@@ -2,13 +2,13 @@
 layout: post
 title: "Face Parsing with BiSeNet and ResNet Backbones"
 date: 2024-11-29 12:00:00 +0900
-last_modified_at: 2026-07-28 12:00:00 +0900
+last_modified_at: 2026-11-14 12:00:00 +0900
 comments: true
 categories: computer-vision
 tags: [semantic-segmentation, bisenet, face-parsing, real-time]
 description: "Face parsing with BiSeNet, ResNet18 and ResNet34 backbones, CelebAMask-HQ training, PyTorch inference, and ONNX export."
 image:
-  path: https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg
+  path: https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet34/1.jpg
   width: 1024
   height: 1024
   alt: "Close-up portrait of a blonde woman with a face parsing overlay coloring skin, hair, eyes, brows, nose, lips, ears and neck separately"
@@ -25,7 +25,7 @@ faq:
 
 Face parsing segments a face into semantic regions such as skin, hair, eyes, eyebrows, nose, mouth, and background. This implementation uses BiSeNet with ResNet18 and ResNet34 backbones. The project is available at [github.com/yakhyo/face-parsing](https://github.com/yakhyo/face-parsing).
 
-![Face parsing slideshow](https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/slideshow.gif)
+![Face parsing slideshow](https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/slideshow.gif){: width="800" height="450"}
 
 > **Key takeaways**
 > - Face parsing produces a dense semantic mask, not just a bounding box or sparse landmarks.
@@ -40,28 +40,28 @@ The model is trained for facial component segmentation rather than general scene
 ### Input Images
 
 <div align="center">
-<img src="https://yakhyo.github.io/face-parsing/assets/images/1.jpg" width="24%" alt="Original face image sample 1">
-<img src="https://yakhyo.github.io/face-parsing/assets/images/1112.jpg" width="24%" alt="Original face image sample 2">
-<img src="https://yakhyo.github.io/face-parsing/assets/images/1309.jpg" width="24%" alt="Original face image sample 3">
-<img src="https://yakhyo.github.io/face-parsing/assets/images/1321.jpg" width="24%" alt="Original face image sample 4">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/images/1.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="Original face image sample 1">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/images/1112.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="Original face image sample 2">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/images/1309.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="Original face image sample 3">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/images/1321.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="Original face image sample 4">
 </div>
 
 ### ResNet34 Results
 
 <div align="center">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1.jpg" width="24%" alt="ResNet34 face parsing result for sample 1">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1112.jpg" width="24%" alt="ResNet34 face parsing result for sample 2">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1309.jpg" width="24%" alt="ResNet34 face parsing result for sample 3">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet34/1321.jpg" width="24%" alt="ResNet34 face parsing result for sample 4">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet34/1.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet34 face parsing result for sample 1">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet34/1112.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet34 face parsing result for sample 2">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet34/1309.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet34 face parsing result for sample 3">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet34/1321.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet34 face parsing result for sample 4">
 </div>
 
 ### ResNet18 Results
 
 <div align="center">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1.jpg" width="24%" alt="ResNet18 face parsing result for sample 1">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1112.jpg" width="24%" alt="ResNet18 face parsing result for sample 2">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1309.jpg" width="24%" alt="ResNet18 face parsing result for sample 3">
-<img src="https://yakhyo.github.io/face-parsing/assets/results/resnet18/1321.jpg" width="24%" alt="ResNet18 face parsing result for sample 4">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet18/1.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet18 face parsing result for sample 1">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet18/1112.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet18 face parsing result for sample 2">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet18/1309.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet18 face parsing result for sample 3">
+<img src="https://raw.githubusercontent.com/yakhyo/face-parsing/main/assets/results/resnet18/1321.jpg" width="24%" style="aspect-ratio: 1024 / 1024" alt="ResNet18 face parsing result for sample 4">
 </div>
 
 ## Models

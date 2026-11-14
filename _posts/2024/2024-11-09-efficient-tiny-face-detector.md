@@ -27,7 +27,7 @@ Tiny-Face is a compact face detection project focused on mobile and edge environ
 
 {% include video.html src="https://github.com/user-attachments/assets/faf65b91-db76-4538-beca-87fc65566e51" %}
 
-![Tiny-Face RetinaFace sample](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/test_retina.jpg)
+![Tiny-Face RetinaFace sample](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/test_retina.jpg){: width="1024" height="624"}
 
 > **Key takeaways**
 > - All three detector variants are under 2 MB: SlimFace (1.4 MB), RFB (1.5 MB), and a compact RetinaFace (1.8 MB).
@@ -79,7 +79,7 @@ The README includes a crowded selfie example and reports how many faces each mod
 | RFB | 430 |
 | SlimFace | 384 |
 
-![Tiny-Face large selfie result](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg)
+![Tiny-Face large selfie result](https://raw.githubusercontent.com/yakhyo/tiny-face-pytorch/main/assets/largeselfi_retina.jpg){: width="2048" height="1150"}
 
 The recall tradeoff is visible here. Smaller models are useful on constrained devices, but crowded images make missed detections more likely.
 

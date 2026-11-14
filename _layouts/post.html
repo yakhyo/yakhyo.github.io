@@ -25,10 +25,7 @@ layout: default
         <span>Updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: date_format }}</time></span>
       </span>
       {%- endif -%}
-      {%- comment -%}
-        Author preserved in JSON-LD below for SEO/structured data, but hidden
-        from the visible meta line — this is a single-author site.
-      {%- endcomment -%}
+      {%- comment -%} Kept for microdata and h-card parsers, but sr-only: single-author site. {%- endcomment -%}
       {%- if page.author -%}
       {% for author in page.author %}
       <span class="sr-only" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -40,7 +37,7 @@ layout: default
 
     {%- assign post_url = page.url | absolute_url -%}
     {%- assign share_text = page.title | uri_escape -%}
-    <div class="post-share post-share-top" aria-label="Share this post">
+    <div class="post-share post-share-top" role="group" aria-label="Share this post">
       <span class="post-share-label">Share</span>
       <a class="post-share-btn"
          href="https://twitter.com/intent/tweet?text={{ share_text }}&amp;url={{ post_url | uri_escape }}"
@@ -65,9 +62,7 @@ layout: default
 
   </header>
 
-  {%- comment -%} Right-rail "On this page" TOC — populated client-side by toc.js
-    from the rendered headings, MkDocs-style. Removed if the post has < 2 headings.
-    `toc_depth` (default 3 = h2+h3) lets long Q&A posts drop to h2-only. {%- endcomment -%}
+  {%- comment -%} Filled by toc.js, which removes it below 2 headings. `toc_depth: 2` limits it to h2 (default 3). {%- endcomment -%}
   <nav class="post-toc" aria-label="On this page" data-toc-depth="{{ page.toc_depth | default: 3 }}" hidden></nav>
 
   <div class="post-content e-content" itemprop="articleBody">

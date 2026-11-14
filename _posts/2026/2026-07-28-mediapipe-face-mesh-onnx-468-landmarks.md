@@ -48,8 +48,8 @@ The same clip rendered by this port and by original MediaPipe:
 <table>
 <tr><td align="center"><b>This port</b></td><td align="center"><b>Original MediaPipe</b></td></tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile.gif" width="100%" loading="lazy" alt="468-point face mesh tracking a smiling face, rendered by the ONNX port"></td>
-<td><img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile_mp.gif" width="100%" loading="lazy" alt="The same clip rendered by original MediaPipe face mesh for comparison"></td>
+<td><img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile.gif" width="100%" style="aspect-ratio: 400 / 400" loading="lazy" alt="468-point face mesh tracking a smiling face, rendered by the ONNX port"></td>
+<td><img src="https://raw.githubusercontent.com/yakhyo/mediapipe-face-mesh-onnx/main/assets/results/woman_smile_mp.gif" width="100%" style="aspect-ratio: 400 / 400" loading="lazy" alt="The same clip rendered by original MediaPipe face mesh for comparison"></td>
 </tr>
 </table>
 </div>

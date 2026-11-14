@@ -2,37 +2,25 @@
 ---
 @import "tokens";
 @import "mixins";
-// NOTE: no component imports here — main.css (loaded on every page) already
-// ships the timeline styles; importing them again doubled the CSS on '/'.
+// No component imports: main.css (on every page) already ships the timeline styles.
 
 .landing-page {
     text-align: left;
-    // Hero owns the first viewport so the timeline below sits below the fold at
-    // rest. 100dvh handles iOS Safari's dynamic URL bar correctly.
+    // Hero fills the first viewport (dvh tracks iOS Safari's dynamic URL bar).
     min-height: 100dvh;
     box-sizing: border-box;
-    // Position the hero high in the viewport (dead-centre sat too low): split
-    // the free vertical space ~20% above / 80% below with flexible spacers
-    // (::before / ::after), so the hero lands in the top fifth on any monitor
-    // height without hardcoded offsets. On short viewports where the hero is
-    // taller than 100dvh, min-height lets the box grow and the page scrolls —
-    // content is never clipped. The padding is just a minimum gap for when the
-    // hero nearly fills the screen and there's no free space to split.
+    // The ::before / ::after spacers split the free height 1:8 to keep the hero
+    // high; the padding is the minimum gap when there is no free height left.
     display: flex;
     flex-direction: column;
-    // Asymmetric: small top gap keeps the hero high; the larger bottom value is
-    // just a minimum floor for when the hero nearly fills a short screen.
     padding: $space-sm 0 clamp($space-md, 6vw, 3.125rem);
     margin-left: 0;
 }
 
-.landing-page::before { content: ""; flex: 1 0 0; }   // small share of free space, above the hero
-.landing-page::after  { content: ""; flex: 8 0 0; }   // larger share of free space, below the hero
+.landing-page::before { content: ""; flex: 1 0 0; }
+.landing-page::after  { content: ""; flex: 8 0 0; }
 
-// Entrance: each hero element rises + fades in, staggered ~80ms apart so the
-// hero assembles top-to-bottom. Every element finishes in <0.5s; the whole
-// cascade is done well under a second. Subtle on purpose — it should read as
-// "alive", not as an animation the user has to wait through.
+// Hero entrance, staggered top to bottom.
 @keyframes heroRise {
     from {
         opacity: 0;
@@ -52,10 +40,7 @@
 .description      { animation: heroRise 0.45s ease-out 0.32s both; }
 .buttons         { animation: heroRise 0.45s ease-out 0.40s both; }
 
-// Photo + name/title + social-links share one grid container so the layout
-// can flip at mobile without changing the HTML.
-// Desktop/tablet: photo on left, info top-right, socials below info.
-// Mobile (≤480px): photo + info on row 1, socials full-width on row 2.
+// One grid for photo, info and socials, so ≤480px can rearrange them without HTML changes.
 .profile {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -67,7 +52,6 @@
     align-items: center;
 }
 
-// Flat circle — no ring, no shadow, no hover effect.
 .profile-photo {
     grid-area: photo;
     width: 180px;
@@ -81,8 +65,6 @@
     align-self: end;
 }
 
-// Terminal-prompt eyebrow above the name: "$ whoami" in the chrome mono,
-// with the big name below reading as the command's output.
 .whoami {
     font-family: $font-mono-ui;
     font-size: 0.9375rem;
@@ -91,19 +73,15 @@
 }
 
 .name {
-    // Oswald is condensed, so the long full name reads as a compact nameplate
-    // instead of a wide line; falls back to the body sans if Oswald is blocked.
-    // margin reset: this is the page's h1 (SEO/a11y), so kill UA/theme margins.
     font-family: 'Oswald', $font-sans;
     font-size: 2.5em;
     font-weight: $weight-semibold;
     letter-spacing: 0.01em;
     line-height: 1.05;
-    margin: 0;
+    margin: 0;   // page h1: reset UA/theme heading margins
 }
 
-// The typewriter line is set in the chrome mono so it reads as terminal
-// output under the "$ whoami" prompt (the blinking caret sells the effect).
+// Typed by landing.js, which adds .typewriter-static when there is nothing to type.
 .title {
     font-family: $font-mono-ui;
     font-size: 1.125em;
@@ -140,8 +118,7 @@
     margin-top: 0;
 }
 
-// Hover feedback is the icon accent shift from _base.scss — no lift or scale.
-// Native title tooltips name each service on hover.
+// Hover color comes from the shared social-icon rule in _base.scss.
 .social-links a {
     margin: 0 18px 0 0;
     font-size: 1.5em;
@@ -165,15 +142,13 @@
     text-decoration: none;
     font-size: 1.2em;
     font-weight: $weight-semibold;
-    text-transform: lowercase;    // follow the nav's lowercase mono voice
+    text-transform: lowercase;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
 .read-blog {
-    // The CTA arrow nudges right on hover to reinforce the "go" affordance;
-    // no lift — the arrow is the only motion.
     @include arrow-nudge(3px, 0);
 
     background-color: $btn-solid-bg;
@@ -198,7 +173,6 @@
     border: 1px solid $text-primary;
 }
 
-// No lift or shadow on hover — just the color shift.
 .about-me:hover {
     border-color: $ink-hover;
     color: $ink-hover !important;
@@ -208,17 +182,14 @@ body.landing-page-body footer {
     display: none;
 }
 
-// Floating "scroll down" button, fixed at the bottom-center of the viewport.
-// JS toggles `.is-hidden` based on scroll position: shown over the hero,
-// hidden once you scroll into the content, shown again when you scroll back up.
+// landing.js toggles .is-hidden once the page scrolls away from the hero.
 .scroll-down-btn {
     position: fixed;
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 50;
-    // Slim rounded-rectangle "mouse" capsule in the site's monochrome ink;
-    // the dot inside is the wheel.
+    // Mouse-shaped capsule; .scroll-dot is its wheel.
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -237,8 +208,7 @@ body.landing-page-body footer {
     border-color: $ink-hover;
 }
 
-// Hidden state (scrolled past the hero). Slides down + fades out, and drops out
-// of the tab order / hit-testing so it can't be clicked while invisible.
+// visibility + pointer-events keep the faded button out of the tab order and hit-testing.
 .scroll-down-btn.is-hidden {
     opacity: 0;
     visibility: hidden;
@@ -246,8 +216,6 @@ body.landing-page-body footer {
     pointer-events: none;
 }
 
-// The "wheel" — a small dot that glides down inside the capsule and fades,
-// the universally recognised "scroll down" cue.
 .scroll-down-btn .scroll-dot {
     width: 3px;
     height: 6px;
@@ -272,13 +240,12 @@ body.landing-page-body footer {
 
 .timeline-section {
     margin-top: 80px;
-    // Tighter top padding so the heading sits higher under the header after the
-    // scroll-down jump (it otherwise floated ~60px below the divider).
+    // Small top padding so the heading sits just under the header after the scroll-down jump.
     padding-top: 24px;
     border-top: 1px solid $border-light;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .timeline-section.visible {
@@ -286,9 +253,8 @@ body.landing-page-body footer {
     transform: translateY(0);
 }
 
-// Qualified with the tag so specificity (0,1,1) ties .post-content h2 (from
-// _blog.scss, applied because the landing layout wraps content in .post-content);
-// landing.css loads after main.css, so these values win on source order.
+// The h2 qualifier ties .post-content h2 from _blog.scss on specificity (0,1,1);
+// landing.css loads after main.css, so these win on source order.
 h2.timeline-section-title {
     text-align: left;
     font-size: 1.375em;
@@ -316,7 +282,6 @@ h2.timeline-section-title {
 }
 
 @media (max-width: 480px) {
-    // Mobile layout: photo + info on top row, socials full-width below.
     .profile {
         grid-template-areas:
             "photo info"
@@ -379,7 +344,6 @@ h2.timeline-section-title {
     }
 }
 
-// Extra-small phones (~iPhone SE width): shrink the avatar more.
 @media (max-width: 360px) {
     .profile {
         column-gap: 12px;
@@ -416,8 +380,7 @@ h2.timeline-section-title {
         opacity: 1 !important;
     }
 
-    // The button still needs its centering transform; only kill the wheel and
-    // the slide transitions (visibility toggle still works via opacity).
+    // .scroll-down-btn stays out of the list above: transform: none would break its centering.
     .scroll-down-btn .scroll-dot {
         animation: none !important;
     }

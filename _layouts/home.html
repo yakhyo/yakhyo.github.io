@@ -18,14 +18,7 @@ layout: default
 
   {%- if posts.size > 0 -%}
 
-  <!-- Search Bar -->
-  <div class="search-filter-wrapper">
-    <div class="search-container">
-      <label for="search-input" class="sr-only">Search posts</label>
-      <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off" />
-      {% include icon.html name="search" class="search-icon" %}
-    </div>
-  </div>
+  <button type="button" class="search-toggle" aria-label="Search posts" hidden>{% include icon.html name="search" %}<span class="search-toggle-label">Search posts</span><kbd class="search-toggle-key">/</kbd></button>
 
 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
   {%- assign posts_by_year = posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
@@ -57,10 +50,6 @@ layout: default
     </ul>
   </section>
   {%- endfor -%}
-
-  <div id="no-posts" class="no-posts" style="display: none;">
-    <p>No posts found for this topic.</p>
-  </div>
 
   {%- endif -%}
 

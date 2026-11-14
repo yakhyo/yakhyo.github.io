@@ -3,9 +3,7 @@ layout: default
 ---
 <article class="post">
 
-  {%- comment -%} .page-heading (not .post-title): static pages share the blog
-  index's quiet label heading; the big .post-title is reserved for article
-  titles. {%- endcomment -%}
+  {%- comment -%} .page-heading, not .post-title: pages share the blog index's quiet heading. {%- endcomment -%}
   {%- unless page.hide_page_title -%}
   <header class="post-header">
     <h1 class="page-heading">{{ page.title | escape }}</h1>

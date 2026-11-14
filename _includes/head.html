@@ -2,9 +2,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Theme: apply a saved light/dark choice before first paint (no flash).
-       With no saved choice, the attribute stays unset and CSS follows the OS
-       via prefers-color-scheme. Keep this inline & synchronous, above the CSS. -->
+  {%- comment -%} Applies a saved theme before first paint; with none, CSS follows prefers-color-scheme.
+  Keep it inline, synchronous, and above the CSS. {%- endcomment %}
   <script>
     (function () {
       try {
@@ -13,22 +12,22 @@
       } catch (e) {}
     })();
   </script>
-  <!-- Chrome tint = $bg-surface (the nav/header + overscroll canvas color, see
-       html { background } in _base.scss), NOT $bg-page — the browser bar sits
-       flush on the nav, so tinting it with the page color shows a subtle band. -->
+  {%- comment -%} $bg-surface, not $bg-page: the browser bar sits flush on the nav. site.js repeats these values. {%- endcomment %}
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#161619" media="(prefers-color-scheme: dark)">
   {%- if page.noindex -%}
   <meta name="robots" content="noindex,nofollow">
   {%- endif -%}
+  {%- comment -%} Drop the plugin's JSON-LD (schema.html emits the only graph) and its version banner comment. {%- endcomment -%}
   {%- capture seo_html -%}{%- seo -%}{%- endcapture -%}
-  {{ seo_html | split: '<script type="application/ld+json">' | first }}
+  {%- assign seo_html = seo_html | split: '<script type="application/ld+json">' | first -%}
+  {%- assign seo_banner = seo_html | split: '-->' | first | append: '-->' -%}
+  {{ seo_html | remove_first: seo_banner }}
   {%- include schema.html -%}
 
-  <!-- Google Fonts — loaded via <link> for faster parallel fetch -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Oswald:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Oswald:wght@600&display=swap">
   {%- if page.url == '/' -%}
   <link rel="preload" as="image" href="{{ "/assets/images/avatar.webp" | relative_url }}" fetchpriority="high">
   {%- endif -%}

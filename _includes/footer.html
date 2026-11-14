@@ -1,25 +1,17 @@
 <footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+  <data class="u-url" value="{{ "/" | relative_url }}"></data>
 
   <div class="wrapper">
     <div class="footer-content">
 
-      <!-- Copyright -->
       <div class="footer-copyright">
         <p>© {{ 'now' | date: "%Y" }} {{ site.author.name | escape }}</p>
       </div>
 
-      <!-- Social Links - Icons Only -->
       <div class="footer-social">
         {%- if site.profiles.github -%}
         <a href="{{ site.profiles.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           {% include icon.html name="github" %}
-        </a>
-        {%- endif -%}
-
-        {%- if site.profiles.linkedin -%}
-        <a href="{{ site.profiles.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          {% include icon.html name="linkedin" %}
         </a>
         {%- endif -%}
 

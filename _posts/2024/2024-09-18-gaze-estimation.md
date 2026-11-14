@@ -25,7 +25,7 @@ faq:
 
 MobileGaze estimates gaze direction from a detected face. It builds on L2CS-Net, adds more mobile-friendly backbones, and provides PyTorch and ONNX weights for inference. The implementation is available at [github.com/yakhyo/gaze-estimation](https://github.com/yakhyo/gaze-estimation).
 
-![MobileGaze demo](https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif)
+![MobileGaze demo](https://raw.githubusercontent.com/yakhyo/gaze-estimation/main/assets/out_gif.gif){: width="1280" height="720"}
 
 > **Key takeaways**
 > - MobileGaze predicts gaze as pitch and yaw from a cropped face, trained on Gaze360.

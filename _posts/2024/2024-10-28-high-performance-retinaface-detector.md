@@ -27,7 +27,7 @@ RetinaFace is a single-stage face detector that predicts face bounding boxes and
 
 {% include video.html src="https://github.com/user-attachments/assets/ad279fea-33fb-43f1-884f-282e6d54c809" %}
 
-![RetinaFace MobileNetV2 result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_test.jpg)
+![RetinaFace MobileNetV2 result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_test.jpg){: width="1024" height="624"}
 
 > **Key takeaways**
 > - RetinaFace is single-stage: it predicts face boxes and 5-point landmarks in one pass.
@@ -89,7 +89,7 @@ The right choice therefore depends on the task. Filtering can be useful if the d
 
 The repository also includes a large selfie example using MobileNetV2:
 
-![RetinaFace large selfie result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_large_selfi_632people.jpg)
+![RetinaFace large selfie result](https://raw.githubusercontent.com/yakhyo/retinaface-pytorch/main/assets/mv2_large_selfi_632people.jpg){: width="2048" height="1150"}
 
 The MobileNetV2 model detects 632 faces in this image.
 

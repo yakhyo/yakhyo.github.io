@@ -1,8 +1,5 @@
 {%- comment -%}
-  GA4 loader.
-  - Honors Do-Not-Track (sets the per-property disable flag).
-  - Defers the full SDK until first user interaction (scroll / click / key)
-    or 4s after load, whichever comes first. Saves ~50KB on bounce visits.
+  Honors Do-Not-Track, and defers the GA4 SDK until first interaction or 4s after load (~50KB saved on bounces).
 {%- endcomment -%}
 <script>
   (function () {

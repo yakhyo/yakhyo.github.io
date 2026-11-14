@@ -2,13 +2,9 @@
 ---
 @import "tokens";
 
-// =============================================================================
-// Resume page — header, print stylesheet.
-// =============================================================================
+// Resume page: header and print styles
 
-// -----------------------------------------------------------------------------
-// Top header: name + role + last-updated + download button + social icons
-// -----------------------------------------------------------------------------
+// Header: name, role, social icons and the download button
 .resume-header {
   display: flex;
   flex-wrap: wrap;
@@ -52,7 +48,6 @@
     transition: color 0.2s ease;
     font-size: 1.05rem;
 
-    // No lift — color shift only, like every other hover on the site.
     &:hover { color: $ink-hover; }
   }
 }
@@ -70,15 +65,10 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Print stylesheet — make /resume/ printable as a clean CV.
-// Strips chrome (header nav, footer, announcement, social icons, download
-// button), tightens type, neutralizes colors for ink savings.
-// -----------------------------------------------------------------------------
+// Print: hide site chrome and the download button, black ink, tighter type
 @media print {
   .site-header,
   .site-footer,
-  .announcement-banner,
   .resume-header-actions {
     display: none !important;
   }
@@ -95,17 +85,14 @@
     text-decoration: none;
   }
 
-  // Avoid orphan headings: don't break right after a heading.
   h1, h2, h3 {
     page-break-after: avoid;
   }
 
-  // Avoid breaking inside list items / table rows.
   li, tr {
     page-break-inside: avoid;
   }
 
-  // Tighter top margin on the resume itself (chrome is hidden).
   .resume-header {
     margin-top: 0;
     padding-bottom: 0.5rem;
@@ -116,7 +103,6 @@
     font-size: 18pt;
   }
 
-  // Don't carry over hover transforms / box-shadows in print.
   * {
     box-shadow: none !important;
     transform: none !important;
